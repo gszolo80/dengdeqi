@@ -1,2416 +1,1402 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark" class="dark"><head>
+<!DOCTYPE html><html class="dark" lang="zh-CN"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
 <meta content="yes" name="apple-mobile-web-app-capable">
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
 <meta content="等得起" name="apple-mobile-web-app-title">
+<meta content="等得起" name="application-name">
 <meta content="#051424" name="theme-color">
 <meta content="等得起 · 股票长线投资与纪律做T闭环工具 - 有计划，才等得起" name="description">
-<link href="data:application/manifest+json;base64,eyJuYW1lIjoi562J5b6X6LW3IC0g6ZW/57q/5oqV6LWE57qq5b6L5Lit5p6EIiwic2hvcnRfbmFtZSI6IueJueW+l+i1tyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwic3RhcnRfdXJsIjoiLi8iLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzA1MTQyNCIsInRoZW1lX2NvbG9yIjoiIzA1MTQyNCJ9" rel="manifest">
-<title>等得起 · 股票长线投资与纪律做T闭环</title>
-<!-- Tailwind CDN with forms & container queries plugins -->
+<title>等得起 (DengDeQi) · 股票长线投资与纪律做T闭环</title>
+<!-- Tailwind CDN -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
-<script>
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          brand: "#f59e0b",
-          "brand-soft": "rgba(245, 158, 11, 0.15)",
-          surface: "#051424",
-          "surface-card": "#0d1c2d",
-          "surface-sub": "#13233a",
-          "surface-field": "#182c47",
-          "trade-up": "#ef4444",
-          "trade-down": "#10b981",
-          "trade-blue": "#38bdf8",
-          outline: "#27446b"
-        },
-        fontFamily: {
-          sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-          mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"],
-          heading: ["Plus Jakarta Sans", "Inter", "sans-serif"]
+<!-- Google Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            brand: "#f59e0b",
+            "brand-light": "#fbbf24",
+            "brand-dark": "#d97706",
+            emerald: {
+              400: "#34d399",
+              500: "#10b981",
+              600: "#059669",
+            },
+            surface: {
+              DEFAULT: "#051424",
+              card: "#0d1c2d",
+              sub: "#13233a",
+              field: "#182c47",
+              border: "#203650",
+              borderLight: "#2c486a"
+            }
+          },
+          fontFamily: {
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          },
+          boxShadow: {
+            glow: '0 0 20px -3px rgba(245, 158, 11, 0.25)',
+            glowEmerald: '0 0 20px -3px rgba(16, 185, 129, 0.25)',
+            card: '0 8px 24px -4px rgba(0, 0, 0, 0.45)'
+          }
         }
       }
     }
-  }
-</script>
+  </script>
 <style>
-/* 核心自适应与主题变量 */
-:root {
-  --bg: #051424;
-  --bg-card: #0d1c2d;
-  --bg-card-sub: #13233a;
-  --bg-field: #182c47;
-  --text-main: #f0f4fc;
-  --text-muted: #8c9eb5;
-  --border: #1e3553;
-  --border-sub: #27446b;
-  --accent: #f59e0b;
-  --accent-soft: rgba(245, 158, 11, 0.15);
-  --up: #ef4444;
-  --up-soft: rgba(239, 68, 68, 0.15);
-  --down: #10b981;
-  --down-soft: rgba(16, 185, 129, 0.15);
-  --blue: #38bdf8;
-  --blue-soft: rgba(56, 189, 248, 0.15);
-  --radius-sm: 6px;
-  --radius: 12px;
-  --radius-lg: 16px;
-  --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --card-gradient: linear-gradient(180deg, #0e2238 0%, #0a1727 100%);
-}
-
-[data-theme="light"] {
-  --bg: #f3f6fa;
-  --bg-card: #ffffff;
-  --bg-card-sub: #f8fafc;
-  --bg-field: #edf2f7;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border: #cbd5e1;
-  --border-sub: #e2e8f0;
-  --accent: #d97706;
-  --accent-soft: rgba(217, 119, 6, 0.12);
-  --up: #dc2626;
-  --up-soft: rgba(220, 38, 38, 0.12);
-  --down: #16a34a;
-  --down-soft: rgba(22, 163, 74, 0.12);
-  --blue: #0284c7;
-  --blue-soft: rgba(2, 132, 199, 0.12);
-  --shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
-  --card-gradient: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-text-size-adjust: 100%; }
-body {
-  background: var(--bg);
-  color: var(--text-main);
-  line-height: 1.5;
-  min-height: 100vh;
-  padding-bottom: 90px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(10, 23, 39, 0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
-  padding: 10px 14px;
-}
-.header-row {
-  max-width: 980px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.brand-logo {
-  width: 30px;
-  height: 30px;
-  background: var(--accent);
-  color: #07101d;
-  font-weight: 900;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
-}
-.brand-title {
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-}
-.brand-sub {
-  font-size: 10px;
-  color: var(--accent);
-  font-weight: 600;
-  background: var(--accent-soft);
-  padding: 1px 6px;
-  border-radius: 4px;
-}
-
-.view-tabs {
-  display: flex;
-  background: var(--bg-card-sub);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 2px;
-  gap: 2px;
-}
-.view-btn {
-  border: none;
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: 0.15s;
-}
-.view-btn.active {
-  background: var(--accent);
-  color: #07101d;
-}
-
-.price-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--bg-field);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 4px 8px;
-}
-.price-bar select, .price-bar input {
-  background: transparent;
-  border: none;
-  color: var(--text-main);
-  font-size: 13px;
-  font-weight: 600;
-  outline: none;
-}
-.price-bar select { cursor: pointer; max-width: 125px; }
-.price-bar input { width: 72px; text-align: right; }
-.badge-chg {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-.badge-chg.up { background: var(--up-soft); color: var(--up); }
-.badge-chg.down { background: var(--down-soft); color: var(--down); }
-
-.container {
-  max-width: 980px;
-  margin: 12px auto;
-  padding: 0 12px;
-}
-
-.card {
-  background: var(--card-gradient);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 12px;
-  box-shadow: var(--shadow);
-}
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.card-title {
-  font-size: 14px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.card-subtitle {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.verdict-banner {
-  border-left: 4px solid var(--accent);
-  background: linear-gradient(90deg, rgba(245, 158, 11, 0.12), transparent);
-}
-.verdict-banner.go { border-left-color: var(--down); background: linear-gradient(90deg, var(--down-soft), transparent); }
-.verdict-banner.warn { border-left-color: var(--up); background: linear-gradient(90deg, var(--up-soft), transparent); }
-.verdict-banner.wait { border-left-color: var(--blue); background: linear-gradient(90deg, var(--blue-soft), transparent); }
-
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-  gap: 8px;
-  margin-top: 8px;
-}
-.stat-box {
-  background: var(--bg-card-sub);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 8px 10px;
-}
-.stat-lbl { font-size: 11px; color: var(--text-muted); }
-.stat-val { font-size: 16px; font-weight: 800; margin-top: 2px; }
-.stat-sub { font-size: 10px; color: var(--text-muted); }
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--bg-card-sub);
-  color: var(--text-main);
-  cursor: pointer;
-  transition: 0.15s;
-}
-.btn:hover { border-color: var(--accent); color: var(--accent); }
-.btn-primary { background: var(--accent); color: #07101d; border-color: var(--accent); font-weight: 700; }
-.btn-primary:hover { background: #e08e0b; color: #07101d; }
-.btn-danger { color: var(--up); border-color: rgba(239, 68, 68, 0.3); }
-.btn-danger:hover { background: var(--up-soft); }
-.btn-sm { font-size: 11px; padding: 3px 8px; border-radius: 6px; }
-
-.batch-card { border-left: 3px solid var(--accent); }
-.batch-card.down { border-left-color: var(--down); }
-.batch-card.up { border-left-color: var(--blue); }
-
-table.steps-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 8px;
-}
-table.steps-table th {
-  font-size: 11px;
-  color: var(--text-muted);
-  text-align: left;
-  padding: 6px 6px;
-  border-bottom: 1px solid var(--border);
-}
-table.steps-table td {
-  padding: 6px 6px;
-  border-bottom: 1px dashed var(--border);
-  font-size: 12px;
-  vertical-align: middle;
-}
-table.steps-table input {
-  width: 100%;
-  background: var(--bg-field);
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  padding: 4px 6px;
-  color: var(--text-main);
-  font-size: 12px;
-}
-
-footer {
-  max-width: 980px;
-  margin: 20px auto 0;
-  padding: 14px;
-  border-top: 1px solid var(--border);
-  font-size: 11px;
-  color: var(--text-muted);
-}
-.footer-btns {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  z-index: 100;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.modal-overlay.active { display: flex; }
-.modal-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  max-width: 480px;
-  width: 100%;
-  padding: 20px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.7);
-  max-height: 90vh;
-  overflow-y: auto;
-}
-.modal-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-.modal-body { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
-
-textarea.input-area {
-  width: 100%;
-  min-height: 80px;
-  background: var(--bg-field);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-main);
-  padding: 8px 10px;
-  font-size: 12px;
-  font-family: ui-monospace, Menlo, Consolas, monospace;
-  resize: vertical;
-}
-
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--down);
-  display: inline-block;
-  box-shadow: 0 0 8px var(--down);
-}
-.pulse-dot.warn {
-  background: var(--up);
-  box-shadow: 0 0 8px var(--up);
-}
-
-.form-label {
-  display: block;
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-.form-input {
-  width: 100%;
-  background: var(--bg-field);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px 10px;
-  color: var(--text-main);
-  font-size: 13px;
-  outline: none;
-}
-.form-input:focus { border-color: var(--accent); }
-.score-circle {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 16px;
-  background: rgba(16, 185, 129, 0.15);
-  color: var(--down);
-  border: 2px solid var(--down);
-}
-</style>
+    /* Custom scrollbar and mobile polish */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #203650; border-radius: 4px; }
+    body {
+      background-color: #030a13;
+      color: #e2e8f0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .safe-top { padding-top: env(safe-area-inset-top, 0px); }
+    .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 50%, #d97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-card {
+      background: linear-gradient(180deg, rgba(13, 28, 45, 0.94) 0%, rgba(9, 20, 33, 0.96) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(44, 72, 106, 0.4);
+    }
+    .badge-soft-emerald {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .badge-soft-gold {
+      background: rgba(245, 158, 11, 0.12);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+    .badge-soft-rose {
+      background: rgba(244, 63, 94, 0.12);
+      color: #fb7185;
+      border: 1px solid rgba(244, 63, 94, 0.25);
+    }
+  </style>
 </head>
-<body>
-<!-- 顶部导航 Header -->
-<header>
-<div class="header-row gap-3">
-<div class="brand">
-<div class="brand-logo">等</div>
+<body class="flex justify-center min-h-screen antialiased selection:bg-brand selection:text-slate-900">
+<!-- Mobile App Frame Container (Desktop Centered / Full Mobile) -->
+<div class="w-full max-w-[440px] min-h-screen bg-surface flex flex-col relative shadow-2xl overflow-x-hidden border-x border-surface-border/40">
+<!-- Top App Bar (Sticky) -->
+<header class="sticky top-0 z-40 bg-surface/90 backdrop-blur-md border-b border-surface-border/50 safe-top">
+<div class="px-4 py-2.5 flex items-center justify-between gap-2">
+<!-- Logo & Brand -->
+<div class="flex items-center gap-2 cursor-pointer" onclick="switchNavTab('portfolio')">
+<div class="w-8 h-8 rounded-lg overflow-hidden shadow-glow shrink-0 border border-brand/40 bg-surface-card flex items-center justify-center">
+<img alt="等得起官方图标" class="w-full h-full object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida/AEtjO1VHx_ZyukhNsChUYNAXLNJkoYdXNSpMH6khVyF-WPEoM2c8BdMwh37jd1L5m3vweAhhZUKFRAvSf0PROy4Kc1t-9bwb_uq289S75ndrDbXinx3sbIBx5iU6mRbEpub7hvSZMXx3PqnLROamCumUS71NVb_Sihd1C4Y8vOr0FnfDNp9NtAjydfuqoKrxRYyf8RqogjvuPcElE9k4anjCFoc48QvUvdNCYXQenzAC8Mcr1w">
+</div>
 <div>
-<div class="flex items-center gap-1.5">
-<span class="brand-title">等得起</span>
-<span class="brand-sub">有计划 · 才等得起</span>
+<div class="flex items-center gap-1.5 leading-none">
+<span class="font-display font-extrabold text-base tracking-tight text-slate-100">等得起</span>
+<span class="text-[9px] px-1.5 py-0.5 rounded-full font-bold bg-brand/15 text-brand-light border border-brand/30">PWA</span>
+</div>
+<p class="text-[10px] text-slate-400 font-medium tracking-tight mt-0.5">有计划 · 才等得起</p>
 </div>
 </div>
-</div>
-<!-- 多金库选择器 (00 多金库隔离) -->
-<div class="flex items-center bg-[var(--bg-card-sub)] border border-[var(--border)] rounded-lg px-2 py-1 text-xs">
-<span class="text-[var(--text-muted)] mr-1">金库:</span>
-<select class="bg-transparent border-none text-[var(--text-main)] font-semibold text-xs outline-none cursor-pointer" id="vaultSelector" onchange="switchVault(this.value)">
-<option value="growth">🚀 核心成长做T金库</option>
-<option value="dividend">💰 养老高股息金库</option>
-<option value="observe">🔬 观察试验金库</option>
+<!-- Right Quick Stock Switcher & Price Pill -->
+<div class="flex items-center gap-2">
+<div class="flex items-center bg-surface-sub/90 border border-surface-border px-2 py-1 rounded-xl text-xs gap-1.5">
+<select class="bg-transparent text-xs font-semibold text-slate-200 outline-none border-none p-0 cursor-pointer pr-1 focus:ring-0" id="headerStockSelect" onchange="onGlobalStockSwitch(this.value)">
+<option value="300938">信测标准</option>
+<option value="002555">三七互娱</option>
+<option value="600519">贵州茅台</option>
+<option value="600900">长江电力</option>
 </select>
+<div class="h-3 w-[1px] bg-surface-border"></div>
+<div class="flex items-center gap-1">
+<span class="font-mono font-bold text-slate-100 text-[12px] tabular-nums" id="headerLivePrice">26.53</span>
+<span class="font-mono text-[10px] font-bold tabular-nums text-emerald-400" id="headerLiveChg">+0.38%</span>
 </div>
-<!-- 视图切换 -->
-<div class="view-tabs"><button class="view-btn active" id="tabExecBtn" onclick="switchMainView('exec')" type="button">⚙ 执行</button><button class="view-btn" id="tabAnBtn" onclick="switchMainView('analysis')" type="button">🔍 6维分析收敛</button><button class="view-btn" id="tabDividendBtn" onclick="switchMainView('dividend')" type="button">🎁 分红DRIP</button></div>
-<!-- 快捷换股与现价条 -->
-<div class="flex items-center gap-2 bg-[var(--bg-card-sub)] border border-[var(--border)] rounded-lg p-1.5 shrink-0 flex-wrap"><div class="flex items-center gap-1.5"><label for="codeInput" class="text-[11px] text-[var(--text-muted)] shrink-0 font-medium">代码:</label><input id="codeInput" maxlength="6" value="300938" placeholder="6位代码" class="bg-[#182c47] border border-[#27446b] text-[#f0f4fc] font-mono font-bold text-xs rounded px-2 py-1 outline-none focus:border-amber-400 w-[78px] text-center shrink-0"><select id="stkSel" onchange="if(window.onStockSelectChange) onStockSelectChange(this.value)" title="已存标的列表" class="bg-[#182c47] border border-[#27446b] text-[#f0f4fc] font-semibold text-xs rounded px-2 py-1 outline-none cursor-pointer shrink-0 min-w-[145px]"><option value="300938" selected="">300938 信测标准</option><option value="002555">002555 三七互娱</option><option value="600519">600519 贵州茅台</option></select><select id="stockSelector" class="hidden" onchange="if(window.onStockSelectChange) onStockSelectChange(this.value)"></select><button id="addStkBtn" title="新增/切换标的" onclick="const c=document.getElementById('codeInput').value.trim();if(c&amp;&amp;window.onStockSelectChange){window.onStockSelectChange(c);}" type="button" class="btn btn-sm px-2 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded font-bold">＋</button></div><span class="badge-chg up px-2 py-0.5 rounded text-xs font-bold shrink-0" id="currentStockBadge">信测标准</span><div class="flex items-center gap-1.5 pl-2 border-l border-[var(--border)] shrink-0"><span class="text-[11px] text-[var(--text-muted)] shrink-0">现价</span><input id="quickPriceInput" onchange="onQuickPriceChange(this.value)" step="0.01" title="当前现价" type="number" value="26.53" class="bg-[#182c47] border border-[#27446b] text-[#f0f4fc] font-bold text-xs rounded px-1.5 py-1 outline-none w-[78px] text-right font-mono shrink-0"><span class="badge-chg up font-mono px-2 py-0.5 rounded text-xs shrink-0 inline-block" id="quickChgDay">+0.38%</span></div><button class="btn btn-sm shrink-0 px-2.5 py-1 text-xs font-semibold bg-[var(--bg-field)] hover:border-amber-400" id="fetchPriceBtn" onclick="fetchLiveQuote()" type="button">拉行情</button></div>
+</div>
+<button class="w-8 h-8 rounded-xl bg-surface-sub border border-surface-border flex items-center justify-center text-slate-300 hover:text-brand relative transition active:scale-95" onclick="triggerImpulseLockAlert()" title="纪律雷达状态">
+<span class="material-symbols-outlined text-[18px]">notifications_active</span>
+<span class="w-2 h-2 rounded-full bg-emerald-500 absolute top-1.5 right-1.5 animate-ping"></span>
+<span class="w-2 h-2 rounded-full bg-emerald-500 absolute top-1.5 right-1.5"></span>
+</button>
+</div>
 </div>
 </header>
-<!-- 主内容区 -->
-<main class="container">
-<!-- ================= 视图 A: 执行与裁决中心 ================= -->
-<div id="viewExec">
-<!-- 今日总指挥与裁决横幅 + 纪律评分系统 (07) -->
-<section class="card verdict-banner wait" id="verdictCard">
-<div class="card-header">
-<div class="card-title">
-<span class="pulse-dot" id="verdictPulse"></span>
-<span id="verdictTitle" class="">⏳ 伏击等待中 · 杂波勿动</span>
+<!-- Main Dynamic Content Views (5-Tabs) -->
+<main class="flex-1 pb-24 overflow-y-auto px-4 pt-3.5 space-y-4">
+<!-- ================= TAB 1: 组合 (Portfolio) ================= -->
+<section class="space-y-4 tab-page" id="view-portfolio">
+<!-- Asset Overview Card -->
+<div class="glass-card rounded-2xl p-4 relative overflow-hidden shadow-card border border-brand/20">
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-brand/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between text-xs text-slate-400">
+<span class="flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-[15px] text-brand">account_balance_wallet</span>
+              全组合净资产估值 (双账)
+            </span>
+<span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800/80 text-slate-300 border border-slate-700">金库: 核心成长</span>
 </div>
+<div class="mt-2.5 flex items-baseline justify-between">
+<div>
+<div class="flex items-baseline gap-1">
+<span class="text-sm font-semibold text-slate-400">¥</span>
+<span class="text-3xl font-display font-extrabold text-white tracking-tight tabular-nums" id="portfolioTotalVal">386,490</span>
+<span class="text-xs font-mono text-slate-400">.00</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-xs font-mono text-emerald-400 font-bold tabular-nums">年化 CAGR +18.4%</span>
+<span class="text-[11px] text-slate-400">| 累计做T降本 ¥14,200</span>
+</div>
+</div>
+<!-- Discipline Badge -->
+<div class="flex flex-col items-end">
+<div class="px-2.5 py-1 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 flex items-center gap-1 text-xs font-bold">
+<span class="material-symbols-outlined text-sm">verified</span>
+<span class="">94分 纪律</span>
+</div>
+<span class="text-[10px] text-slate-500 mt-1">已连续知行 48 天</span>
+</div>
+</div>
+<!-- Bottom Anti-Fragile Structure Bar -->
+<div class="mt-4 pt-3 border-t border-surface-border/60">
+<div class="flex justify-between text-[11px] text-slate-400 mb-1.5">
+<span class="">抗脆弱资产防御结构</span>
+<span class="text-brand font-medium">底仓锁定 64% ｜ 备用弹药 36%</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-field overflow-hidden flex">
+<div class="h-full bg-gradient-to-r from-amber-500 to-amber-400" style="width: 64%"></div>
+<div class="h-full bg-emerald-500" style="width: 22%"></div>
+<div class="h-full bg-sky-500" style="width: 14%"></div>
+</div>
+<div class="flex items-center justify-between text-[10px] text-slate-400 mt-1.5 font-mono">
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>核心仓 64%</span>
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>高股息 22%</span>
+<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>伏击现金 14%</span>
+</div>
+</div>
+</div>
+<!-- Dividend Pulse Stream Card -->
+<div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+</div>
+<div>
+<div class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+<span class="">DRIP 股息复利脉冲池</span>
+<span class="badge-soft-emerald px-1.5 py-0.2 rounded text-[10px] font-mono font-semibold">自动滚存</span>
+</div>
+<p class="text-[11px] text-slate-400 mt-0.5">本年度预计收到股息 ¥6,240 · 自动注入低吸档</p>
+</div>
+</div>
+<button class="text-xs text-brand font-semibold flex items-center hover:underline" onclick="switchNavTab('drip')">
+            查看 <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+<!-- Positions Detail List -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-xs font-bold text-slate-300 tracking-wide uppercase">核心标的仓位池</h3>
+<span class="text-[11px] text-slate-500">点击直接载入决策</span>
+</div>
+<div class="space-y-2.5" id="portfolioHoldingList">
+          <div onclick="onGlobalStockSwitch('300938'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 border-brand/50">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200">
+                信测
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-bold text-slate-100">信测标准</span>
+                  <span class="text-[10px] font-mono text-slate-400">300938</span>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5">
+                  持仓 1,700 股 · 成本 ¥27.46
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥45,101</div>
+              <div class="text-[10px] font-mono font-semibold tabular-nums text-rose-400">
+                -3.39%
+              </div>
+            </div>
+          </div>
+        
+          <div onclick="onGlobalStockSwitch('600519'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 ">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200">
+                贵州
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-bold text-slate-100">贵州茅台</span>
+                  <span class="text-[10px] font-mono text-slate-400">600519</span>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5">
+                  持仓 100 股 · 成本 ¥1420.00
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥145,000</div>
+              <div class="text-[10px] font-mono font-semibold tabular-nums text-emerald-400">
+                +2.11%
+              </div>
+            </div>
+          </div>
+        
+          <div onclick="onGlobalStockSwitch('600900'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 ">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200">
+                长江
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-bold text-slate-100">长江电力</span>
+                  <span class="text-[10px] font-mono text-slate-400">600900</span>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5">
+                  持仓 2,000 股 · 成本 ¥28.50
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥59,600</div>
+              <div class="text-[10px] font-mono font-semibold tabular-nums text-emerald-400">
+                +4.56%
+              </div>
+            </div>
+          </div>
+        
+          <div onclick="onGlobalStockSwitch('002555'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 ">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200">
+                三七
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-bold text-slate-100">三七互娱</span>
+                  <span class="text-[10px] font-mono text-slate-400">002555</span>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5">
+                  持仓 3,200 股 · 成本 ¥17.20
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥56,640</div>
+              <div class="text-[10px] font-mono font-semibold tabular-nums text-emerald-400">
+                +2.91%
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+</section>
+<!-- ================= TAB 2: 标的与金字塔 (Plan & Pyramid) ================= -->
+<section class="space-y-4 tab-page hidden" id="view-plan">
+<!-- Decision HQ: The 3 Core Command Cards -->
+<div class="space-y-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+<h2 class="text-xs font-bold text-slate-200 uppercase tracking-wider">决策指挥部 · 这一单三结局</h2>
+</div>
+<span class="text-[10px] text-slate-400 font-mono" id="planStockHeaderCode">300938.SZ</span>
+</div>
+<!-- Card 1: Today's Command (现在该干什么) -->
+<div class="glass-card rounded-2xl p-3.5 border-l-4 border-l-brand relative">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-semibold text-slate-400">① 当前裁决状态</span>
+<span class="badge-soft-gold px-2 py-0.5 rounded-full text-[11px] font-bold" id="planVerdictBadge">⏳ 伏击等待中</span>
+</div>
+<p class="text-xs font-medium text-slate-200 mt-1.5 leading-relaxed" id="planVerdictText">
+              现价 ¥26.53 距离最近一档【回踩颈线低吸批 @¥25.60】尚余 <strong class="text-amber-300">¥0.93 (3.51%)</strong> 空间。盘中杂波坚决勿动，未到价位绝不提前抢跑。
+            </p>
+</div>
+<!-- Dual Cards: Next Trigger & Hard Invalidation Stop -->
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Next Trigger Point -->
+<div class="glass-card rounded-2xl p-3 border-l-2 border-l-emerald-400">
+<div class="text-[10px] text-slate-400 font-medium">② 下一关键买点触发</div>
+<div class="text-lg font-display font-extrabold text-emerald-400 mt-0.5 tabular-nums" id="planNextTrigger">¥25.60</div>
+<div class="text-[10px] text-slate-400 mt-0.5 flex justify-between">
+<span class="">配比 28.5%</span>
+<span class="text-slate-300">¥20,000</span>
+</div>
+</div>
+<!-- Absolute Invalidation Stop (Ratchet Locked) -->
+<div class="glass-card rounded-2xl p-3 border-l-2 border-l-rose-400 relative">
+<div class="flex items-center justify-between text-[10px] text-slate-400 font-medium">
+<span class="">③ 绝对失效硬底线</span>
+<span class="text-[9px] text-rose-300 font-bold">单向棘轮</span>
+</div>
+<div class="text-lg font-display font-extrabold text-rose-400 mt-0.5 tabular-nums" id="planFailStop">¥22.50</div>
+<div class="text-[10px] text-slate-400 mt-0.5">破位次日竞价全清认错</div>
+</div>
+</div>
+</div>
+<!-- Pyramid Batch Grid: Downward Buy Batches -->
+<div class="glass-card rounded-2xl p-3.5">
+<div class="flex items-center justify-between mb-2.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-emerald-400">layers</span>
+<span class="text-xs font-bold text-slate-200">分批接飞刀 · 正金字塔挂单池</span>
+</div>
+<button class="text-[11px] font-semibold text-brand hover:text-brand-light flex items-center gap-0.5" onclick="addNewStepPrompt('buy')">
+<span class="material-symbols-outlined text-sm">add_circle</span>加一层
+            </button>
+</div>
+<div class="space-y-2" id="pyramidStepsList">
+<!-- Rendered by JS -->
+</div>
+</div>
+<!-- Staged Take-Profit Batches -->
+<div class="glass-card rounded-2xl p-3.5">
+<div class="flex items-center justify-between mb-2.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-sky-400">trending_up</span>
+<span class="text-xs font-bold text-slate-200">阶梯止盈 / 高抛减仓预案</span>
+</div>
+<button class="text-[11px] font-semibold text-brand hover:text-brand-light flex items-center gap-0.5" onclick="addNewStepPrompt('sell')">
+<span class="material-symbols-outlined text-sm">add_circle</span>加止盈
+            </button>
+</div>
+<div class="space-y-2" id="takeProfitStepsList">
+<!-- Rendered by JS -->
+</div>
+</div>
+<!-- Worst-Case Scenario Stress Test Card -->
+<div class="glass-card rounded-2xl p-3.5 border border-rose-500/20 bg-rose-500/5">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-rose-300 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">shield</span>
+              最坏情况压力测试 (Worst-Case)
+            </span>
+<span class="text-[10px] text-slate-400">若极端行情破失效线</span>
+</div>
+<p class="text-[11px] text-slate-300 mt-2 leading-relaxed">
+            若所有 3 档分批买单全部接满（实占 ¥70,000）并最终在 ¥22.50 触发破位止损离场，全案最大回撤锁定为 <strong class="text-rose-400 font-mono font-bold">-¥12,480 (-17.8%)</strong>，在可承受年收益安全边际以内，绝不伤筋动骨。
+          </p>
+</div>
+</section>
+<!-- ================= TAB 3: 分析 (AI 6维收敛) ================= -->
+<section class="space-y-4 tab-page hidden" id="view-analysis">
+<!-- Header Guidance -->
+<div class="glass-card rounded-2xl p-4 border border-brand/30 relative overflow-hidden">
 <div class="flex items-center gap-2">
-<div class="flex items-center gap-1.5 bg-[var(--bg-card-sub)] px-2.5 py-1 rounded-full border border-[var(--border)]">
-<span class="text-[11px] text-[var(--text-muted)]">纪律评分</span>
-<span class="text-xs font-extrabold text-[var(--down)]" id="disciplineScoreBadge">94分</span>
+<div class="w-9 h-9 rounded-xl bg-brand/20 border border-brand/40 flex items-center justify-center text-brand">
+<span class="material-symbols-outlined text-[20px]">smart_toy</span>
 </div>
-<span class="badge-chg" id="branchBadge">分支 B · 成长</span>
+<div>
+<h2 class="text-sm font-bold text-slate-100">AI 6维研判与方案收敛 (Prompt v5)</h2>
+<p class="text-[11px] text-slate-400">杜绝模棱两可废话 · 强制收敛为四段标准挂单</p>
 </div>
 </div>
-<div id="verdictContent" style="font-size: 13px; line-height: 1.6; color: var(--text-main);" class="">距离最近档【回踩颈线低吸批 @¥25.60】还差 <strong>¥0.93 (3.51%)</strong>。严格守株待兔，未到价位绝不提前抢跑。</div>
-<!-- 做飞警戒提示区 (04 防追高防做飞) -->
-<div class="hidden mt-2 p-2 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs flex items-center justify-between" id="flyAlertBanner">
-<span class="">⚠️ <strong>做飞警戒线触发</strong>：已脱离网格中枢超 +8%，切勿慌乱追高接盘，保持现金伏击下一轮回踩。</span>
-<button class="btn btn-sm py-0.5 text-xs" onclick="dismissFlyAlert()">已知晓</button>
 </div>
-<div class="card-subtitle" id="verdictSub" style="margin-top: 6px;">严格执行无自由裁量权 · 拒绝盘中临时起意 · 触发冷静期锁定</div>
+<!-- Step 1: Stock Logic Why Box -->
+<div class="glass-card rounded-2xl p-3.5">
+<label class="text-xs font-bold text-slate-200 flex items-center justify-between mb-1.5">
+<span class="">核心投资逻辑 (Why Box)</span>
+<span class="text-[10px] text-slate-400">买入的灵魂理由</span>
+</label>
+<textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 focus:border-brand outline-none" id="aiWhyBoxInput" placeholder="为什么这家公司值得长线守候？业绩刚性/估值低估/分红护城河..." rows="2"></textarea>
+</div>
+<!-- Step 2: 6-Dimensional Checklist Accordion -->
+<div class="glass-card rounded-2xl p-3.5">
+<div class="text-xs font-bold text-slate-200 mb-2 flex items-center justify-between">
+<span class="">6 维客观事实锚点输入</span>
+<span class="text-[10px] text-brand">全勾选将提高推理精度</span>
+</div>
+<div class="grid grid-cols-2 gap-2 text-xs">
+<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
+<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
+<span class="text-slate-300">① 技术面支撑与颈线</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
+<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
+<span class="text-slate-300">② 财务扣非与现金流</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
+<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
+<span class="text-slate-300">③ 行业景气与排产</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
+<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
+<span class="text-slate-300">④ 对标龙头的估值差</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
+<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
+<span class="text-slate-300">⑤ 情绪极端与恐慌值</span>
+</label>
+<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
+<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
+<span class="text-slate-300">⑥ 证伪与黑天鹅底线</span>
+</label>
+</div>
+<button class="w-full mt-3 py-2.5 rounded-xl bg-brand text-slate-950 font-bold text-xs shadow-glow hover:bg-brand-light flex items-center justify-center gap-1.5 transition active:scale-[0.98]" onclick="generateStructuredPrompt()">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+            一键生成并复制标准研判提示词 (Prompt)
+          </button>
+</div>
+<!-- Step 3: Paste AI Response & Parse -->
+<div class="glass-card rounded-2xl p-3.5 space-y-2.5">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-slate-200">粘贴外部大模型 (DeepSeek / GPT) 回复</span>
+<span class="text-[10px] text-slate-400">自动提取四段挂单</span>
+</div>
+<textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 font-mono focus:border-brand outline-none" id="aiResponsePasteArea" placeholder="在此粘贴大模型给出的带有「档1 / 追1 / 止损 / 盈1」的结构化文本..." rows="3"></textarea>
+<button class="w-full py-2.5 rounded-xl bg-surface-sub border border-brand/40 text-brand-light font-bold text-xs hover:bg-surface-field flex items-center justify-center gap-1.5 transition active:scale-[0.98]" onclick="parseAndApplyAiPlan()">
+<span class="material-symbols-outlined text-sm">insights</span>
+            智能解析四段方案并一键套用到标的看板
+          </button>
+<div class="hidden p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono" id="aiParseFeedback"></div>
+</div>
 </section>
-<!-- 资产与双账持仓一览 -->
-<section class="card">
-<div class="card-header">
-<div class="card-title">💼 资产与双账成本核算</div>
-<div class="flex items-center gap-2">
-<button class="btn btn-sm" onclick="openRatchetModal()" type="button">🔄 季报平滑重估 (v2.0)</button>
-<span class="card-subtitle" id="stockBasicInfo">信测标准 (300938) · 昨收 ¥26.43</span>
+<!-- ================= TAB 4: 执行中心 (Execution Hub) ================= -->
+<section class="space-y-4 tab-page hidden" id="view-exec">
+<!-- Live Radar & Event Kill-Switch Section -->
+<div class="glass-card rounded-2xl p-3.5">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span class="text-xs font-bold text-slate-200">现实条件事件闸门与熔断中心</span>
+</div>
+<button class="text-[11px] font-semibold text-brand hover:underline" onclick="promptNewEventGate()">＋添加事件</button>
+</div>
+<div class="space-y-2" id="eventGatesContainer">
+<!-- Event items rendered by JS -->
 </div>
 </div>
-<div class="stat-grid" id="costStatGrid">
-<div class="stat-box">
-<div class="stat-lbl">底仓老仓成本 (锁定)</div>
-<div class="stat-val" id="holdCostVal">¥27.46</div>
-<div class="stat-sub" id="holdSharesVal">1,700 股 (¥46,691)</div>
+<!-- Broker Fee Deduction & Slippage Reverse Calculator -->
+<div class="glass-card rounded-2xl p-3.5 border border-brand/20">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-brand">receipt_long</span>
+<span class="text-xs font-bold text-slate-200">券商实扣流水倒推与滑点对账</span>
 </div>
-<div class="stat-box">
-<div class="stat-lbl">当前实盘持仓成本</div>
-<div class="stat-val" id="realWacVal">¥27.46</div>
-<div class="stat-sub" id="realSharesVal">现持 1,700 股</div>
+<span class="badge-soft-emerald px-1.5 py-0.5 rounded text-[10px]">A股规费透明</span>
 </div>
-<div class="stat-box">
-<div class="stat-lbl">预投资金计划总额 P</div>
-<div class="stat-val" id="planTotalVal">¥70,000</div>
-<div class="stat-sub" id="planLeftVal">可用余额: ¥0</div>
+<p class="text-[11px] text-slate-400 mb-2.5">
+            填入券商银证 App 实际转出/入账总额，全自动倒推印花税、万2.5佣金、规费及成交滑点：
+          </p>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="text-[10px] text-slate-400 block mb-1">成交股数 (股)</label>
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcShares" oninput="runBrokerDeductionCalc()" step="100" type="number" value="700">
 </div>
-<div class="stat-box">
-<div class="stat-lbl">接满全计划摊薄成本</div>
-<div class="stat-val" id="fullWacVal">¥27.78</div>
-<div class="stat-sub" id="fullSharesVal">接满预计: 4,200 股</div>
+<div>
+<label class="text-[10px] text-slate-400 block mb-1">计划基准价 (¥)</label>
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcBasePx" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="25.60">
+</div>
+</div>
+<div class="mt-2">
+<label class="text-[10px] text-slate-400 block mb-1">券商银证实际扣款总额 (¥)</label>
+<input class="w-full bg-surface-field border border-brand/40 text-amber-300 font-mono font-bold rounded-lg text-xs px-2.5 py-1.5 focus:border-brand outline-none" id="brokerCalcActualPaid" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="17926.80">
+</div>
+<!-- Reverse Deduction Output -->
+<div class="mt-3 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-xs font-mono space-y-1">
+<div class="flex justify-between">
+<span class="text-slate-400">倒推成交均价:</span>
+<span class="text-white font-bold tabular-nums" id="deduceAvgPrice">¥25.609</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-400">成交滑点 (Slippage):</span>
+<span class="text-rose-400 font-bold tabular-nums" id="deduceSlippageDiff">+¥0.009 (微小滑点)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-400">倒推佣金规费:</span>
+<span class="text-slate-200 tabular-nums" id="deduceFeeTotal">¥6.27 (含过户/经手费)</span>
+</div>
+</div>
+<button class="w-full mt-2.5 py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition" onclick="commitBrokerAuditToLog()">
+            确认记账并归档至知行合一日志
+          </button>
+</div>
+<!-- Discipline Action Logs -->
+<div class="glass-card rounded-2xl p-3.5">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-emerald-400">history_edu</span>
+              知行合一纪律执行日志
+            </span>
+<button class="text-[10px] text-slate-500 hover:text-slate-300" onclick="clearExecutionLogs()">清空记录</button>
+</div>
+<div class="max-h-40 overflow-y-auto space-y-1.5 pr-1 font-mono text-[11px]" id="executionLogsStream">
+<!-- Rendered by JS -->
 </div>
 </div>
 </section>
-<!-- 离场三结局剧本 -->
-<section class="card" id="exitCard">
-<div class="card-header">
-<div class="card-title">🎯 离场三结局剧本 (单向棘轮锁定)</div>
-<span class="card-subtitle">这一单只许三种结局 · 止损只升不降 · 到价照剧本走</span>
+<!-- ================= TAB 5: 手记与设置 (Thesis & DRIP) ================= -->
+<section class="space-y-4 tab-page hidden" id="view-drip">
+<!-- DRIP Calculator & Ex-Dividend Auto Shift -->
+<div class="glass-card rounded-2xl p-4 border border-emerald-500/20">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-100 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-emerald-400">compost</span>
+              除权除息等比平移与 DRIP 测算
+            </span>
+<span class="badge-soft-emerald px-2 py-0.5 rounded-full text-[10px] font-bold">防缺口误止损</span>
 </div>
-<div id="exitRowsBox" style="display:flex;flex-direction:column;gap:8px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-card-sub);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
-      <div>
-        <strong style="color:var(--up);">① 止损离场 (棘轮锁定)</strong>
-        <span style="font-size: 12px; color: var(--text-muted); margin-left: 8px;" class="">跌破 ¥22.50 全仓认错（只升不降）</span>
-      </div>
-      <button class="btn btn-sm" onclick="editExitModal('stop')">设置</button>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-card-sub);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
-      <div>
-        <strong style="color:var(--blue);">② 保本离场</strong>
-        <span style="font-size: 12px; color: var(--text-muted); margin-left: 8px;" class="">回到 ¥27.50 保本退出</span>
-      </div>
-      <button class="btn btn-sm" onclick="editExitModal('be')">设置</button>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-card-sub);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
-      <div>
-        <strong style="color:var(--down);">③ 阶梯止盈</strong>
-        <span style="font-size: 12px; color: var(--text-muted); margin-left: 8px;" class="">按下方预定止盈梯度分批锁定战果</span>
-      </div>
-      <span class="badge-chg down">已排预案</span>
-    </div>
-  </div>
-</section>
-<!-- 分批买入计划看板 -->
-<section class="card">
-<div class="card-header">
-<div class="card-title">📉 分批低吸 / 突破加码挂单看板</div>
-<div class="flex items-center gap-2">
-<button class="btn btn-sm" onclick="triggerImpulseCheck('add_buy')" type="button">⚡ 追单加码 (冷静期检测)</button>
-<button class="btn btn-sm btn-primary" onclick="addNewBuyBatch()" type="button">＋ 新增买入批次</button>
+<p class="text-[11px] text-slate-400 mb-3">
+            分红除权产生价格跳空缺口时，一键全自动等比向下平移所有网格与硬止损线，防止误打认错：
+          </p>
+<div class="grid grid-cols-2 gap-2 text-xs">
+<div>
+<label class="text-[10px] text-slate-400 block mb-1">每10股派现金 (元)</label>
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripCashInput" oninput="recalcDripPreview()" step="0.1" type="number" value="4.50">
+</div>
+<div>
+<label class="text-[10px] text-slate-400 block mb-1">每10股送转股 (股)</label>
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripShareInput" oninput="recalcDripPreview()" step="1" type="number" value="0">
 </div>
 </div>
-<div id="buyBatchesList">
-      <div class="card batch-card down" style="margin-top:8px;">
-        <div class="card-header">
-          <div class="card-title">
-            <span class="">▼ 向下接</span>
-            <strong>回踩颈线低吸批</strong>
-            <span class="badge-chg down">总闸已开</span>
-          </div>
-          <div style="display:flex;gap:4px;">
-            <button class="btn btn-sm" onclick="toggleBatchGate('buy', 0)">关闸</button>
-            <button class="btn btn-sm btn-danger" onclick="deleteBatch('buy', 0)">删</button>
-          </div>
+<div class="mt-2.5 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-[11px] leading-relaxed text-slate-300 font-mono" id="dripPreviewBox">
+            • 现持 1,700 股 ➔ 税后分红到账: <strong class="text-emerald-400">¥765.00</strong><br>
+            • 除权参考价: <strong class="text-amber-300">¥26.08</strong> (等比下移 -1.70%)<br>
+            • DRIP 可增购复利股票: <strong class="text-white font-bold">0 股</strong>
+</div>
+<div class="flex gap-2 mt-3">
+<button class="flex-1 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-500/30 transition" onclick="executeFullExDividendShift()">
+              ⚙ 执行除权防线平移
+            </button>
+<button class="flex-1 py-2 rounded-xl bg-brand/20 border border-brand/40 text-brand-light font-bold text-xs hover:bg-brand/30 transition" onclick="injectDripCashToOrders()">
+              💧 分红注水下一买单
+            </button>
+</div>
+</div>
+<!-- Thesis Journal Stream -->
+<div class="glass-card rounded-2xl p-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-brand">edit_note</span>
+              长线心智手记 (Thesis)
+            </span>
+<button class="text-[11px] font-semibold text-brand hover:underline" onclick="addNewThesisPrompt()">＋ 写一条</button>
+</div>
+<div class="space-y-2 text-xs" id="thesisNotesContainer">
+<div class="p-2.5 rounded-xl bg-surface-field border border-surface-border">
+<div class="flex justify-between text-[10px] text-slate-400 font-mono mb-1">
+<span class="">信测标准 · 季报跟踪</span>
+<span class="">2026-09-02</span>
+</div>
+<p class="text-slate-200 text-[11px] leading-relaxed">
+                第三方新能源及军工检测实验室扩产验证顺利，虽受盘面短期情绪打压，但ROE连续三期向上拐头，金字塔梯级买单严阵以待。
+              </p>
+</div>
+</div>
+</div>
+<!-- Data Management & Safety Center -->
+<div class="glass-card rounded-2xl p-4 space-y-2.5">
+<span class="text-xs font-bold text-slate-200 block mb-1">本地沙盒数据管理 (PWA 离线持久化)</span>
+<div class="grid grid-cols-2 gap-2 text-xs">
+<button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="exportDataToJson()">
+<span class="material-symbols-outlined text-sm">download</span>导出备份 (JSON)
+            </button>
+<button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="triggerImportFileInput()">
+<span class="material-symbols-outlined text-sm">upload</span>导入恢复备份
+            </button>
+<input accept=".json" class="hidden" id="importJsonFileInput" onchange="handleImportJson(event)" type="file">
+</div>
+<div class="grid grid-cols-2 gap-2 text-xs">
+<button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="restoreInitialDemoData()">
+<span class="material-symbols-outlined text-sm">restart_alt</span>恢复标准示例
+            </button>
+<button class="p-2 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 font-medium hover:bg-rose-500/20 flex items-center justify-center gap-1" onclick="clearAllDataFactoryReset()">
+<span class="material-symbols-outlined text-sm">delete_forever</span>彻底清空账本
+            </button>
+</div>
+</div>
+<div class="text-center py-2 text-[10px] text-slate-500">
+          等得起 (DengDeQi) · 离线极客原生交互引擎 · v3.2 精装版
         </div>
-        <table class="steps-table">
-          <thead>
-            <tr><th class="">触发价</th><th class="">计划金额</th><th class="">股数</th><th class="">实扣与滑点对账</th></tr>
-          </thead>
-          <tbody>
-            
-                <tr>
-                  <td class="">¥25.60</td>
-                  <td class="">¥20,000</td>
-                  <td class="">≈ 700 股</td>
-                  <td class="">
-                    
-                      <button class="btn btn-sm btn-primary" onclick="openBrokerModal('buy', 0, 0)">成交对账记账</button>
-                    
-                  </td>
-                </tr>
-              
-                <tr>
-                  <td class="">¥24.30</td>
-                  <td class="">¥20,000</td>
-                  <td class="">≈ 800 股</td>
-                  <td class="">
-                    
-                      <button class="btn btn-sm btn-primary" onclick="openBrokerModal('buy', 0, 1)">成交对账记账</button>
-                    
-                  </td>
-                </tr>
-              
-          </tbody>
-        </table>
-        <div style="margin-top:6px;display:flex;justify-content:flex-end;">
-          <button class="btn btn-sm" onclick="addStepToBatch('buy', 0)">＋ 加一层触发点</button>
-        </div>
-      </div>
-    
-      <div class="card batch-card up" style="margin-top:8px;">
-        <div class="card-header">
-          <div class="card-title">
-            <span class="">▲ 突破追</span>
-            <strong>突破确认加码批</strong>
-            <span class="badge-chg">总闸关闭</span>
-          </div>
-          <div style="display:flex;gap:4px;">
-            <button class="btn btn-sm" onclick="toggleBatchGate('buy', 1)">开闸</button>
-            <button class="btn btn-sm btn-danger" onclick="deleteBatch('buy', 1)">删</button>
-          </div>
-        </div>
-        <table class="steps-table">
-          <thead>
-            <tr><th class="">触发价</th><th class="">计划金额</th><th class="">股数</th><th class="">实扣与滑点对账</th></tr>
-          </thead>
-          <tbody>
-            
-                <tr>
-                  <td class="">¥28.50</td>
-                  <td class="">¥30,000</td>
-                  <td class="">≈ 1,000 股</td>
-                  <td class="">
-                    
-                      <button class="btn btn-sm btn-primary" onclick="openBrokerModal('buy', 1, 0)">成交对账记账</button>
-                    
-                  </td>
-                </tr>
-              
-          </tbody>
-        </table>
-        <div style="margin-top:6px;display:flex;justify-content:flex-end;">
-          <button class="btn btn-sm" onclick="addStepToBatch('buy', 1)">＋ 加一层触发点</button>
-        </div>
-      </div>
-    </div>
 </section>
-<!-- 阶梯止盈计划看板 -->
-<section class="card">
-<div class="card-header">
-<div class="card-title">📈 阶梯止盈 / 高抛减仓看板</div>
-<button class="btn btn-sm" onclick="addNewSellBatch()" type="button">＋ 新增止盈批次</button>
-</div>
-<div id="sellBatchesList">
-      <div class="card batch-card up" style="margin-top:8px;">
-        <div class="card-header">
-          <div class="card-title">
-            <strong>梯度止盈批</strong>
-            <span class="badge-chg down">已激活</span>
-          </div>
-          <button class="btn btn-sm btn-danger" onclick="deleteBatch('sell', 0)">删</button>
-        </div>
-        <table class="steps-table">
-          <thead>
-            <tr><th class="">目标价</th><th class="">卖出股数</th><th class="">预估套现</th><th class="">实扣到账核算</th></tr>
-          </thead>
-          <tbody>
-            
-                <tr>
-                  <td class="">¥30.00</td>
-                  <td class="">600 股</td>
-                  <td class="">≈ ¥18,000</td>
-                  <td class="">
-                    
-                      <button class="btn btn-sm btn-primary" onclick="openBrokerModal('sell', 0, 0)">卖出对账记账</button>
-                    
-                  </td>
-                </tr>
-              
-                <tr>
-                  <td class="">¥34.00</td>
-                  <td class="">600 股</td>
-                  <td class="">≈ ¥20,400</td>
-                  <td class="">
-                    
-                      <button class="btn btn-sm btn-primary" onclick="openBrokerModal('sell', 0, 1)">卖出对账记账</button>
-                    
-                  </td>
-                </tr>
-              
-                <tr>
-                  <td class="">¥40.00</td>
-                  <td class="">500 股</td>
-                  <td class="">≈ ¥20,000</td>
-                  <td class="">
-                    
-                      <button class="btn btn-sm btn-primary" onclick="openBrokerModal('sell', 0, 2)">卖出对账记账</button>
-                    
-                  </td>
-                </tr>
-              
-          </tbody>
-        </table>
-      </div>
-    </div>
-</section>
-<!-- 事件闸门与熔断 -->
-<section class="card">
-<div class="card-header">
-<div class="card-title">🔒 现实条件事件闸门与熔断中心</div>
-<div style="display:flex;gap:4px;">
-<button class="btn btn-sm" onclick="addEvent('unlock')" type="button">＋ 放行事件</button>
-<button class="btn btn-sm btn-danger" onclick="addEvent('kill')" type="button">＋ 熔断事件</button>
-</div>
-</div>
-<div id="eventsList" style="display:flex;flex-direction:column;gap:8px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-card-sub);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
-      <div>
-        <span class="badge-chg down">放行</span>
-        <strong style="margin-left:6px;">大客户新实验室资质落地</strong>
-        <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;" class="">资质落地后放行加码批</div>
-      </div>
-      <div style="display:flex;gap:4px;">
-        <button class="btn btn-sm" onclick="toggleEventState(0)">标为发生</button>
-        <button class="btn btn-sm btn-danger" onclick="deleteEvent(0)">×</button>
-      </div>
-    </div>
-  
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-card-sub);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
-      <div>
-        <span class="badge-chg up">熔断</span>
-        <strong style="margin-left:6px;">三季报扣非净利转负</strong>
-        <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;" class="">基本面证伪立即熔断停止买入</div>
-      </div>
-      <div style="display:flex;gap:4px;">
-        <button class="btn btn-sm" onclick="toggleEventState(1)">标为发生</button>
-        <button class="btn btn-sm btn-danger" onclick="deleteEvent(1)">×</button>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- 最近执行动作日志 -->
-<section class="card">
-<div class="card-header">
-<div class="card-title">📝 知行合一纪律日志</div>
-<div class="flex items-center gap-2">
-<span class="card-subtitle" id="logCountLabel">1 条记录</span>
-</div>
-</div>
-<div id="actionLogsList" style="max-height:180px;overflow-y:auto;font-size:12px;color:var(--text-muted);display:flex;flex-direction:column;gap:4px;">
-    <div class=""><span style="color: var(--accent);" class="">2026-09-04 14:15</span> · 系统初始化成功，加载等得起全闭环纪律内核。</div>
-  </div>
-</section>
-</div>
-<!-- ================= 视图 B: 除权分红与 DRIP 股息复利池 (06) ================= -->
-<div id="viewDividend" style="display:none">
-<section class="card">
-<div class="card-header">
-<div class="card-title">🎁 除权分红全自动平移与测算中心</div>
-<span class="card-subtitle">防止分红除权跳空缺口误触硬止损 · 自动等比向下平移所有预案防线</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-<div class="bg-[var(--bg-card-sub)] p-3 rounded-lg border border-[var(--border)]">
-<label class="form-label">每10股派现金分红 (元)</label>
-<input class="form-input" id="divCashPer10" placeholder="例如4.5元" step="0.01" type="number" value="4.50">
-</div>
-<div class="bg-[var(--bg-card-sub)] p-3 rounded-lg border border-[var(--border)]">
-<label class="form-label">每10股送转股本 (股)</label>
-<input class="form-input" id="divSharePer10" placeholder="例如送2股转3股填5" step="1" type="number" value="0">
-</div>
-<div class="bg-[var(--bg-card-sub)] p-3 rounded-lg border border-[var(--border)]">
-<label class="form-label">持股持仓期限 (红利税阶梯)</label>
-<select class="form-input" id="holdingPeriodSelect">
-<option value="free">持股 &gt; 1 年 (免征红利税 0%)</option>
-<option value="mid">持股 1个月 ~ 1年 (征收 10%)</option>
-<option value="short">持股 &lt; 1 个月 (征收 20%)</option>
-</select>
-</div>
-</div>
-<div class="flex flex-wrap gap-2 mb-4">
-<button class="btn btn-primary" onclick="executeExDividendShift()" type="button">⚙ 执行除权除息：全自动等比平移所有买卖档位与止损</button>
-<button class="btn" onclick="calcDripProjection()" type="button">🔄 测算 DRIP 股息复利注水</button>
-</div>
-<div class="p-3 bg-[var(--bg-field)] rounded-lg border border-[var(--border)] text-xs leading-relaxed" id="divCalcResultBox">
-    <strong>除权分红测算结果：</strong><br>
-    • 当前实持总仓：1,700 股 ｜ 适用红利税率：0%<br>
-    • 现金税前分红：¥765.00 ➔ <strong>税后到账：¥765.00</strong><br>
-    • 送转股落地增发：0 股 ｜ DRIP 可回购增厚：0 股<br>
-    • <strong>除权参考价计算公式：</strong> (当前价 ¥26.53 - 每股派息 ¥0.450) ÷ (1 + 每股转增 0.00) = <strong>¥26.08</strong>
-  </div>
-</section>
-<!-- DRIP 复利雪球滚存模拟 -->
-<section class="card">
-<div class="card-header">
-<div class="card-title">❄ DRIP 股息复利滚雪球模型</div>
-<span class="card-subtitle">不提现现金分红，自动注入下一档伏击低吸位</span>
-</div>
-<div class="stat-grid">
-<div class="stat-box">
-<div class="stat-lbl">本期预计分红总额 (税后)</div>
-<div class="stat-val text-[var(--down)]" id="dripTotalCash">¥765.00</div>
-</div>
-<div class="stat-box">
-<div class="stat-lbl">可免费加购股票数</div>
-<div class="stat-val" id="dripBonusShares">0 股</div>
-</div>
-<div class="stat-box">
-<div class="stat-lbl">下期分红递增率预估</div>
-<div class="stat-val text-[var(--accent)]" id="dripGrowthRate">+0.00%</div>
-</div>
-<div class="stat-box">
-<div class="stat-lbl">注入买入目标批次</div>
-<div class="stat-val text-xs truncate" id="dripTargetBatch">回踩颈线低吸批</div>
-</div>
-</div>
-<div class="mt-3 flex justify-end">
-<button class="btn btn-sm btn-primary" onclick="injectDripToNextBatch()">💧 立即将分红注入下一档买单</button>
-</div>
-</section>
-</div>
-<!-- ================= 视图 C: AI 6维深度分析与方案收敛 ================= -->
-<div id="viewAnalysis" style="display:none">
-<section class="card">
-<div class="card-header">
-<div class="card-title">🤖 6维研判与提示词生成器 (Prompt v5)</div>
-<button class="btn btn-sm btn-primary" onclick="generateAnalysisPrompt()" type="button">⚡ 一键生成研判提示词</button>
-</div>
-<p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;" class="">
-        将标的持仓、底仓成本、总预算 P、技术面与基本面要素融合为专业研判提示词。复制发给外部 AI（如 DeepSeek、豆包、ChatGPT）获取结构化策略：
-      </p>
-<textarea class="input-area" id="promptDraftArea" placeholder="点击「一键生成研判提示词」在此生成..." style="min-height:140px;"></textarea>
-<div style="display:flex;gap:8px;margin-top:8px;">
-<button class="btn btn-sm" onclick="copyPromptDraft()" type="button">📋 复制提示词</button>
-<span style="font-size: 11px; color: var(--text-muted); align-self: center;" class="">复制后发给大模型，获取标准四段式回复</span>
-</div>
-</section>
-<section class="card">
-<div class="card-header">
-<div class="card-title">📥 粘贴 AI 回复并标准化解析</div>
-<button class="btn btn-sm btn-primary" onclick="parseAiResponse()" type="button">🔍 解析四段方案</button>
-</div>
-<textarea class="input-area" id="aiRawInput" placeholder="在此粘贴 AI 给出的分析答复全文（需包含：档N / 追N / 止损 / 盈N 格式）..." style="min-height:120px;"></textarea>
-<div id="parsedPlanResult" style="margin-top:10px;"></div>
-</section>
-</div>
 </main>
-<!-- 底部控制面板与通用导出/导入/清理栏 -->
-<footer>
-<div class="footer-btns">
-<button class="btn btn-sm" onclick="exportDataJSON()" type="button">⬇ 一键导出备份 (JSON)</button>
-<button class="btn btn-sm" onclick="exportAuditTableCSV()" type="button">📊 导出对账台账 (CSV/Excel)</button>
-<button class="btn btn-sm" onclick="generateCanvasCard()" type="button">🎨 生成脱敏打卡海报</button>
-<button class="btn btn-sm" onclick="triggerImportFile()" type="button">⬆ 导入备份 (JSON)</button>
-<input accept="application/json,.json" id="importFileInput" onchange="handleImportFile(event)" style="display:none" type="file">
-<button class="btn btn-sm" onclick="resetToDemoData()" type="button">恢复示例数据</button>
-<button class="btn btn-sm btn-danger" onclick="openResetModal()" type="button">🗑 一键清空所有数据</button>
-<button class="btn btn-sm" id="themeToggleBtn" onclick="toggleThemeMode()" type="button">☀ 亮色模式</button>
+<!-- Bottom Native 5-Tab Navigation Bar (Fixed) -->
+<nav class="fixed bottom-0 z-50 w-full max-w-[440px] bg-surface/95 backdrop-blur-lg border-t border-surface-border safe-bottom">
+<div class="grid grid-cols-5 h-16 items-center px-1">
+<!-- Tab 1: Portfolio -->
+<button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition py-1" id="nav-btn-portfolio" onclick="switchNavTab('portfolio')">
+<span class="material-symbols-outlined text-[22px]">pie_chart</span>
+<span class="text-[10px] font-medium mt-0.5">组合</span>
+</button>
+<!-- Tab 2: Plan & Pyramid -->
+<button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition py-1" id="nav-btn-plan" onclick="switchNavTab('plan')">
+<span class="material-symbols-outlined text-[22px]">account_tree</span>
+<span class="text-[10px] font-medium mt-0.5">标的</span>
+</button>
+<!-- Tab 3: Central Highlight AI Analysis -->
+<div class="flex justify-center items-center relative -top-3">
+<button class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-glow flex flex-col items-center justify-center border-2 border-surface transition transform active:scale-95" id="nav-btn-analysis" onclick="switchNavTab('analysis')">
+<span class="material-symbols-outlined text-[22px] font-extrabold">auto_awesome</span>
+<span class="text-[9px] font-black -mt-1">分析</span>
+</button>
 </div>
-<div style="line-height: 1.6;" class="">
-<strong>等得起 (DengDeQi)</strong> · 纯本地离线 HTML5/PWA 应用 · 支持 iPhone 巨魔 &amp; Safari 离线运行。<br>
-    内置【04券商规费与滑点倒推】【06除权分红DRIP】【05季报平滑重估】【07冷静期锁与94分纪律评价体系】【00多金库隔离】。
-  </div>
-</footer>
-<!-- 模态框 1: 券商实扣与滑点倒推核算弹窗 (04) -->
-<div class="modal-overlay" id="brokerExecModal">
-<div class="modal-box">
-<div class="modal-title text-[var(--accent)]">
-<span class="material-symbols-outlined text-lg">receipt_long</span>
-<span class="">成交归档：券商实扣与滑点倒推对账</span>
+<!-- Tab 4: Execution Hub -->
+<button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition py-1" id="nav-btn-exec" onclick="switchNavTab('exec')">
+<span class="material-symbols-outlined text-[22px]">rule_settings</span>
+<span class="text-[10px] font-medium mt-0.5">执行</span>
+</button>
+<!-- Tab 5: Thesis & DRIP -->
+<button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition py-1" id="nav-btn-drip" onclick="switchNavTab('drip')">
+<span class="material-symbols-outlined text-[22px]">menu_book</span>
+<span class="text-[10px] font-medium mt-0.5">手记</span>
+</button>
 </div>
-<div class="modal-body space-y-3">
-<div class="text-xs text-[var(--text-muted)]">手填券商 App 实际扣款/到账流水金额，自动精准倒推印花税、佣金、规费及成交滑点：</div>
-<div>
-<label class="form-label">成交类型</label>
-<div class="flex gap-2">
-<label class="flex items-center gap-1 text-xs"><input checked="" id="tradeTypeBuy" name="tradeTypeRadio" type="radio" value="buy"> 买入 (扣款)</label>
-<label class="flex items-center gap-1 text-xs"><input id="tradeTypeSell" name="tradeTypeRadio" type="radio" value="sell"> 卖出 (到账)</label>
+</nav>
 </div>
+<!-- Global Modal: 48H Impulse Check Alert -->
+<div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="impulseModal">
+<div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-rose-500/40 space-y-3">
+<div class="flex items-center gap-2 text-rose-400">
+<span class="material-symbols-outlined text-2xl">hourglass_top</span>
+<h3 class="font-bold text-sm">48小时防追高冷静期</h3>
 </div>
-<div class="grid grid-cols-2 gap-2">
-<div>
-<label class="form-label">成交数量 (股)</label>
-<input class="form-input" id="brokerSharesInput" oninput="recalcBrokerSlippage()" step="100" type="number" value="1000">
-</div>
-<div>
-<label class="form-label">报单触发基准价 (¥)</label>
-<input class="form-input" id="brokerBasePriceInput" oninput="recalcBrokerSlippage()" step="0.01" type="number" value="25.60">
-</div>
-</div>
-<div>
-<label class="form-label">券商银证实际扣款/到账总金额 (¥)</label>
-<input class="form-input font-mono font-bold text-amber-400" id="brokerActualPaidInput" oninput="recalcBrokerSlippage()" step="0.01" type="number" value="25628.50">
-</div>
-<!-- 倒推核算结果输出 -->
-<div class="bg-[var(--bg-field)] p-3 rounded-lg border border-[var(--border)] text-xs space-y-1.5 font-mono">
-<div class="flex justify-between">
-<span class="text-[var(--text-muted)]">倒推实成交均价:</span>
-<span id="deducedPrice" class="">¥25.62</span>
-</div>
-<div class="flex justify-between">
-<span class="text-[var(--text-muted)]">成交滑点 (Slippage):</span>
-<span class="font-bold text-rose-400" id="deducedSlippage">+¥0.02 (不利滑点)</span>
-</div>
-<div class="flex justify-between">
-<span class="text-[var(--text-muted)]">倒推券商佣金/过户/规费:</span>
-<span id="deducedFees" class="">¥8.50 (万2.5基准)</span>
-</div>
-<div class="flex justify-between">
-<span class="text-[var(--text-muted)]">部分成交拆单待补:</span>
-<span id="splitPendingShares" class="">无拆单 (全额成交)</span>
-</div>
-</div>
-</div>
-<div class="flex justify-end gap-2">
-<button class="btn btn-sm" onclick="closeBrokerModal()" type="button">取消</button>
-<button class="btn btn-sm btn-primary" onclick="confirmBrokerExecution()" type="button">确认归档入账</button>
-</div>
-</div>
-</div>
-<!-- 模态框 2: 48小时防冲动追高冷静期锁 (07) -->
-<div class="modal-overlay" id="impulseLockModal">
-<div class="modal-box border-rose-500/50">
-<div class="modal-title text-rose-400">
-<span class="material-symbols-outlined text-lg">timer</span>
-<span class="">48小时防冲动追高冷静期锁定</span>
-</div>
-<div class="modal-body space-y-3">
-<div class="p-3 bg-rose-500/10 border border-rose-500/30 rounded-lg text-rose-300 text-xs">
-        ⚠️ 检测到标的当日涨幅过大，或正在尝试盘中临时拔高买入成本！系统已激活 48 小时知行合一纪律保护锁。
-      </div>
-<div class="text-center py-2">
-<div class="text-xs text-[var(--text-muted)] mb-1">冲动冷静期剩余倒计时</div>
-<div class="text-2xl font-black font-mono text-amber-400" id="cooldownTimer">47:59:58</div>
-</div>
-<div class="space-y-2">
-<label class="form-label font-bold text-[var(--text-main)]">强制自省反思问答（全打勾才可解除）：</label>
-<label class="flex items-start gap-2 text-xs text-[var(--text-muted)]">
-<input class="mt-0.5 rounded" id="refl1" type="checkbox">
-<span class="">本次加码是否严格属于事前预定的突破确认批，绝非盘中眼红临时起意？</span>
-</label>
-<label class="flex items-start gap-2 text-xs text-[var(--text-muted)]">
-<input class="mt-0.5 rounded" id="refl2" type="checkbox">
-<span class="">是否已经做好买入即回踩 5%~8% 的最坏心理与资金兜底准备？</span>
-</label>
-<label class="flex items-start gap-2 text-xs text-[var(--text-muted)]">
-<input class="mt-0.5 rounded" id="refl3" type="checkbox">
-<span class="">若追高买入导致全计划整体摊薄成本抬高，是否仍处于安全边际以内？</span>
-</label>
-</div>
-</div>
-<div class="flex justify-between items-center gap-2">
-<span class="text-[11px] text-[var(--text-muted)]">违规强行下单扣除 15 分</span>
-<div class="flex gap-2">
-<button class="btn btn-sm" onclick="closeImpulseModal()" type="button">冷静退出</button>
-<button class="btn btn-sm btn-danger" onclick="unlockImpulseOverride()" type="button">通过自省后放行</button>
-</div>
-</div>
-</div>
-</div>
-<!-- 模态框 3: 季报与重大事件平滑重估向导 (05 Ratchet 棘轮机制) -->
-<div class="modal-overlay" id="ratchetModal">
-<div class="modal-box">
-<div class="modal-title text-[var(--blue)]">
-<span class="material-symbols-outlined text-lg">sync_saved_locally</span>
-<span class="">季报与重大事件平滑重估向导 (Plan v2.0)</span>
-</div>
-<div class="modal-body space-y-3">
-<div class="text-xs text-[var(--text-muted)]">
-        财报披露或基本面催化后，重新评估安全防线。具备<strong>单向棘轮机制 (Ratchet)</strong>：防线与硬止损只升不降，保护胜利果实，自动排查新旧预案冲突。
-      </div>
-<div>
-<label class="form-label">事件/财报触发类型</label>
-<select class="form-input" id="ratchetEventType">
-<option value="quarter">发布季度财报 / 业绩超预期</option>
-<option value="contract">大客户重大资质或合同落地</option>
-<option value="dividend">年度股息政策调整更新</option>
-</select>
-</div>
-<div class="grid grid-cols-2 gap-2">
-<div>
-<label class="form-label">原硬止损线 (只升不降)</label>
-<input class="form-input opacity-70" id="oldStopInput" readonly="" type="number">
-</div>
-<div>
-<label class="form-label">新重估止损线 (必须 &gt;= 原线)</label>
-<input class="form-input text-amber-400 font-bold" id="newStopInput" step="0.01" type="number">
-</div>
-</div>
-<div>
-<label class="form-label">新调增预投资金总额 P (可选加注)</label>
-<input class="form-input" id="newPlanTotalInput" placeholder="如需加仓预算可调整" step="1000" type="number">
-</div>
-<div class="text-[11px] text-[var(--text-muted)] bg-[var(--bg-field)] p-2 rounded">
-        🛡 棘轮单向守恒校验：系统自动核查当前所有挂单档位，若新止损线高于已有接飞刀买入档，将自动警告并调整该档，杜绝「挂买单被自己的止损打掉」的冲突。
-      </div>
-</div>
-<div class="flex justify-end gap-2">
-<button class="btn btn-sm" onclick="closeRatchetModal()" type="button">取消</button>
-<button class="btn btn-sm btn-primary" onclick="confirmRatchetUpdate()" type="button">升级为 Plan v2.0</button>
-</div>
-</div>
-</div>
-<!-- 模态框 4: Canvas 脱敏打卡海报 (08) -->
-<div class="modal-overlay" id="posterModal">
-<div class="modal-box max-w-md">
-<div class="modal-title text-[var(--down)]">
-<span class="material-symbols-outlined text-lg">image</span>
-<span class="">脱敏分享打卡海报生成</span>
-</div>
-<div class="modal-body text-center">
-<p class="text-xs text-[var(--text-muted)] mb-3">
-        纯前端 Canvas 绘制，已对实际持仓金额、股数做完全脱敏处理，仅展示纪律天数与执行力评分，长按图片即可保存分享：
+<p class="text-xs text-slate-300 leading-relaxed">
+        系统检测到盘中波动或加仓冲动。为保全胜利果实，非事前预设突破批次不得临时拔高均价。
       </p>
-<div class="flex justify-center mb-3">
-<canvas class="rounded-xl border border-[var(--border)] shadow-xl max-w-full h-auto" height="480" id="posterCanvas" width="380"></canvas>
-</div>
-</div>
-<div class="flex justify-end gap-2">
-<button class="btn btn-sm" onclick="closePosterModal()" type="button">关闭</button>
-<button class="btn btn-sm btn-primary" onclick="downloadPosterImage()" type="button">保存海报图片</button>
-</div>
-</div>
-</div>
-<!-- 危险操作确认弹窗 -->
-<div class="modal-overlay" id="clearConfirmModal">
-<div class="modal-box">
-<div class="modal-title" style="color: var(--up);">⚠️ 危险操作确认</div>
-<div class="modal-body">
-      您即将<strong>彻底清空</strong>本地所有的股票计划、交易记录、事件与分析数据！<br><br>
-      清空后将生成一份全新的纯净空白账本。建议在清空前先点击「一键导出备份 (JSON)」进行冷备份。确认继续吗？
-    </div>
-<div style="display:flex;justify-content:flex-end;gap:8px;">
-<button class="btn btn-sm" onclick="closeResetModal()" type="button">取消</button>
-<button class="btn btn-sm btn-danger" onclick="executeClearAllData()" type="button">确认彻底清空</button>
+<div class="p-3 rounded-xl bg-surface-field border border-surface-border text-xs text-slate-400 font-mono">
+        剩余冷静期: 47:59:12<br>
+        当前纪律评分: 94分 (严守计划 +2分)
+      </div>
+<div class="flex justify-end gap-2 pt-2">
+<button class="w-full py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition" onclick="closeImpulseAlert()">
+          坚守纪律，保持冷静
+        </button>
 </div>
 </div>
 </div>
-<!-- ================= 核心计算与数据驱动引擎 ================= -->
+<!-- JavaScript Engine & Reactive Store -->
 <script>
-"use strict";
+    "use strict";
 
-const STORAGE_KEY = "dengdeqi_v2";
+    // Standardized Single-File Data Store
+    const STORAGE_KEY = "dengdeqi_mobile_v3";
 
-// 初始多金库完整数据（含 00 多金库、04 规费滑点字段、06 除权分红、07 纪律分）
-const SEED_DATA = {
-  schema: 20,
-  theme: "dark",
-  currentVault: "growth", // growth | dividend | observe
-  disciplineScore: 94,
-  vaults: {
-    growth: {
-      id: "growth",
-      name: "核心成长做T金库",
-      active: "300938",
+    const INITIAL_DATA = {
+      activeStock: "300938",
+      currentTab: "portfolio",
+      disciplineScore: 94,
       stocks: {
         "300938": {
           code: "300938",
           name: "信测标准",
           price: 26.53,
           prevClose: 26.43,
-          branch: "B",
-          divYield: 0.91,
-          failLine: 22.50,
-          warnLine: 0,
-          holding: { shares: 1700, avgCost: 27.465, note: "批0 老仓锁定" },
-          plan: { total: 70000 },
-          exit: {
-            stop: { on: true, price: 22.50, src: "手", note: "破22.50失效线集合竞价全清" },
-            be: { on: true, price: 27.50, src: "手", note: "成本线附近保本" }
-          },
-          buyBatches: [
-            {
-              id: "b_down1",
-              name: "回踩颈线低吸批",
-              dir: "down",
-              budget: 40000,
-              gate: true,
-              steps: [
-                { price: 25.60, amount: 20000, note: "颈线回踩试探", exec: null },
-                { price: 24.30, amount: 20000, note: "密集成交区深吸", exec: null }
-              ]
-            },
-            {
-              id: "b_up1",
-              name: "突破确认加码批",
-              dir: "up",
-              budget: 30000,
-              gate: false,
-              steps: [
-                { price: 28.50, amount: 30000, note: "放量站稳前高追击", exec: null }
-              ]
-            }
+          holdShares: 1700,
+          holdCost: 27.46,
+          planTotal: 70000,
+          failStop: 22.50,
+          why: "第三方检测需求刚性，近4个季度连续超预期，当前处在估值中枢下方。",
+          buySteps: [
+            { price: 25.60, amount: 20000, note: "颈线回踩试探", exec: null },
+            { price: 24.30, amount: 20000, note: "密集成交区深吸", exec: null },
+            { price: 23.20, amount: 30000, note: "极度低估安全档", exec: null }
           ],
-          sellBatches: [
-            {
-              id: "s_tp1",
-              name: "梯度止盈批",
-              gate: true,
-              steps: [
-                { price: 30.00, shares: 600, note: "回本区初减", exec: null },
-                { price: 34.00, shares: 600, note: "估值修复减半", exec: null },
-                { price: 40.00, shares: 500, note: "景气见顶清仓", exec: null }
-              ]
-            }
+          sellSteps: [
+            { price: 30.00, shares: 600, note: "成本线回本初减" },
+            { price: 34.00, shares: 600, note: "估值修复减半" },
+            { price: 40.00, shares: 500, note: "景气兑现清仓" }
           ],
           events: [
-            { id: "e1", name: "大客户新实验室资质落地", role: "unlock", state: "waiting", note: "资质落地后放行加码批" },
-            { id: "e2", name: "三季报扣非净利转负", role: "kill", state: "waiting", note: "基本面证伪立即熔断停止买入" }
-          ],
-          analysis: {
-            why: "第三方检测需求刚性，近4个季度连续超预期，当前处在一年估值底部。",
-            stop: { price: 22.50, reason: "跌破年线硬防线" },
-            sells: [
-              { price: 30.00, pct: 35, reason: "回本线落袋" },
-              { price: 34.00, pct: 35, reason: "修复目标" },
-              { price: 40.00, pct: 30, reason: "终极兑现" }
-            ]
-          }
-        }
-      }
-    },
-    dividend: {
-      id: "dividend",
-      name: "养老高股息金库",
-      active: "002555",
-      stocks: {
+            { name: "大客户新资质实验室落地", type: "unlock", status: "waiting", note: "落地后激活突破加码批" },
+            { name: "三季报扣非净利转负", type: "kill", status: "waiting", note: "基本面证伪立即熔断" }
+          ]
+        },
         "002555": {
           code: "002555",
           name: "三七互娱",
           price: 17.70,
           prevClose: 17.80,
-          branch: "A",
-          divYield: 5.50,
-          failLine: 0,
-          warnLine: 13.00,
-          holding: { shares: 3200, avgCost: 17.20, note: "高股息底仓" },
-          plan: { total: 80000 },
-          exit: {
-            stop: { on: true, price: 15.50, src: "手", note: "硬破止损" },
-            be: { on: false, price: 0, src: "", note: "" }
-          },
-          buyBatches: [
-            {
-              id: "b_37_1",
-              name: "分红DRIP伏击批",
-              dir: "down",
-              budget: 20000,
-              gate: true,
-              steps: [
-                { price: 17.20, amount: 10000, note: "低吸网格档", exec: null },
-                { price: 16.50, amount: 10000, note: "极度低估档", exec: null }
-              ]
-            }
+          holdShares: 3200,
+          holdCost: 17.20,
+          planTotal: 80000,
+          failStop: 15.50,
+          why: "高分红保障，季季分红派息，DRIP滚雪球复利持有。",
+          buySteps: [
+            { price: 17.20, amount: 15000, note: "股息支撑线低吸", exec: null },
+            { price: 16.50, amount: 20000, note: "极端悲观兜底", exec: null }
           ],
-          sellBatches: [
-            {
-              id: "s_37_1",
-              name: "高抛减仓批",
-              gate: true,
-              steps: [
-                { price: 21.00, shares: 1000, note: "修复止盈", exec: null }
-              ]
-            }
+          sellSteps: [
+            { price: 21.00, shares: 1000, note: "均线修复高抛" }
           ],
-          events: [],
-          analysis: { why: "高分红保障，季季分红派息，DRIP滚雪球复利。" }
-        }
-      }
-    },
-    observe: {
-      id: "observe",
-      name: "观察试验金库",
-      active: "600519",
-      stocks: {
+          events: []
+        },
         "600519": {
           code: "600519",
           name: "贵州茅台",
           price: 1450.00,
           prevClose: 1445.00,
-          branch: "A",
-          divYield: 3.20,
-          failLine: 1350.00,
-          warnLine: 1400.00,
-          holding: { shares: 100, avgCost: 1420.00, note: "底仓一手" },
-          plan: { total: 200000 },
-          exit: { stop: { on: true, price: 1350.00 }, be: { on: false, price: 0 } },
-          buyBatches: [],
-          sellBatches: [],
+          holdShares: 100,
+          holdCost: 1420.00,
+          planTotal: 200000,
+          failStop: 1350.00,
+          why: "高端白酒自由现金流壁垒，长线压舱石配置。",
+          buySteps: [
+            { price: 1420.00, amount: 142000, note: "首档一手配置", exec: true }
+          ],
+          sellSteps: [
+            { price: 1680.00, shares: 50, note: "中枢回补减半" }
+          ],
+          events: []
+        },
+        "600900": {
+          code: "600900",
+          name: "长江电力",
+          price: 29.80,
+          prevClose: 29.75,
+          holdShares: 2000,
+          holdCost: 28.50,
+          planTotal: 80000,
+          failStop: 26.50,
+          why: "水电印钞机，类永续债属性，极稳底仓防御。",
+          buySteps: [
+            { price: 28.80, amount: 20000, note: "分红前加码", exec: null }
+          ],
+          sellSteps: [
+            { price: 33.00, shares: 1000, note: "溢价过高分批落袋" }
+          ],
           events: []
         }
+      },
+      logs: [
+        { time: "09:30:15", text: "系统初始化成功，加载《等得起》全闭环高保真数据。" },
+        { time: "11:28:40", text: "300938 信测标准 伏击待命，未触发违规加仓。" }
+      ],
+      thesisNotes: [
+        { title: "信测标准 · 景气度验证", date: "2026-09-02", content: "军工及车规级半导体检测实验室达产顺利，估值安全边际夯实，坚持网格伏击。" },
+        { title: "纪律自省记录", date: "2026-08-28", content: "大盘暴跌时未慌乱割肉，正金字塔预案平稳接下第一批，成本显著降低。" }
+      ]
+    };
+
+    let AppState = loadAppState();
+
+    function loadAppState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return JSON.parse(JSON.stringify(INITIAL_DATA));
+        const parsed = JSON.parse(raw);
+        if (!parsed.stocks) throw new Error();
+        return parsed;
+      } catch (e) {
+        return JSON.parse(JSON.stringify(INITIAL_DATA));
       }
     }
-  },
-  logs: [
-    { at: "2026-09-04 14:15", text: "系统初始化成功，加载等得起全闭环纪律内核。" }
-  ]
-};
 
-let S = loadState();
-let activeExecStepContext = null;
-
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return JSON.parse(JSON.stringify(SEED_DATA));
-    const parsed = JSON.parse(raw);
-    if (!parsed || !parsed.vaults) throw new Error("旧版数据结构升级");
-    return parsed;
-  } catch (e) {
-    console.warn("载入或升级本地存储，初始化最新数据结构:", e);
-    return JSON.parse(JSON.stringify(SEED_DATA));
-  }
-}
-
-function saveState() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(S));
-  } catch (e) {
-    console.error("保存本地存储异常:", e);
-  }
-}
-
-function getCurrentVault() {
-  const vKey = S.currentVault || "growth";
-  if (!S.vaults[vKey]) S.vaults[vKey] = SEED_DATA.vaults.growth;
-  return S.vaults[vKey];
-}
-
-function getActiveStock() {
-  const vault = getCurrentVault();
-  if (!vault.stocks[vault.active]) {
-    const firstCode = Object.keys(vault.stocks)[0] || "300938";
-    vault.active = firstCode;
-  }
-  return vault.stocks[vault.active];
-}
-
-function addLog(text) {
-  const d = new Date();
-  const timeStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
-  S.logs.unshift({ at: timeStr, text });
-  if (S.logs.length > 80) S.logs.length = 80;
-  saveState();
-}
-
-// 00 多金库切换
-function switchVault(vaultKey) {
-  S.currentVault = vaultKey;
-  addLog(`切换至【${S.vaults[vaultKey].name}】`);
-  renderApp();
-}
-
-// 核心资产与双账计算
-function calcStockCost(st) {
-  const holdShares = (st.holding && st.holding.shares) || 0;
-  const holdCost = holdShares * ((st.holding && st.holding.avgCost) || 0);
-  
-  let execShares = 0;
-  let execSpend = 0;
-  let pendShares = 0;
-  let pendSpend = 0;
-
-  (st.buyBatches || []).forEach(b => {
-    (b.steps || []).forEach(s => {
-      const p = s.price || 1;
-      if (s.exec) {
-        const sh = s.exec.shares || Math.floor((s.amount || 0) / (p * 100)) * 100;
-        execShares += sh;
-        execSpend += (s.exec.actualPaid || sh * (s.exec.price || p));
-      } else {
-        const sh = Math.floor((s.amount || 0) / (p * 100)) * 100;
-        pendShares += sh;
-        pendSpend += (s.amount || 0);
+    function saveAppState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(AppState));
+      } catch (e) {
+        console.error("Local storage save error", e);
       }
-    });
-  });
-
-  const totalRealShares = holdShares + execShares;
-  const totalRealSpend = holdCost + execSpend;
-  const realWac = totalRealShares > 0 ? totalRealSpend / totalRealShares : 0;
-
-  const fullShares = totalRealShares + pendShares;
-  const fullSpend = totalRealSpend + pendSpend;
-  const fullWac = fullShares > 0 ? fullSpend / fullShares : 0;
-
-  const planTotal = (st.plan && st.plan.total) || 0;
-  const planUsed = (st.buyBatches || []).reduce((acc, b) => acc + (b.budget || 0), 0);
-
-  return {
-    holdShares,
-    holdCost,
-    totalRealShares,
-    realWac,
-    planTotal,
-    planLeft: Math.max(0, planTotal - planUsed),
-    fullShares,
-    fullWac
-  };
-}
-
-// ================= UI 渲染总管 =================
-function renderApp() {
-  applyTheme(S.theme || "dark");
-  renderHeaderControls();
-  renderVerdict();
-  renderCostSummary();
-  renderExitScript();
-  renderBatches();
-  renderEvents();
-  renderLogs();
-  calcDripProjection();
-  saveState();
-}
-
-function renderHeaderControls() {
-  // 金库选择
-  document.getElementById("vaultSelector").value = S.currentVault || "growth";
-
-  // 标的选择
-  const vault = getCurrentVault();
-  const sel = document.getElementById("stockSelector");
-  sel.innerHTML = Object.keys(vault.stocks).map(code => {
-    const s = vault.stocks[code];
-    return `<option value="${code}" ${code === vault.active ? "selected" : ""}>${code} ${s.name || ""}</option>`;
-  }).join("");
-
-  const st = getActiveStock();
-  document.getElementById("quickPriceInput").value = (st.price || 0).toFixed(2);
-  
-  const chgBadge = document.getElementById("quickChgDay");
-  if (st.prevClose && st.price) {
-    const diffPct = ((st.price - st.prevClose) / st.prevClose) * 100;
-    chgBadge.textContent = `${diffPct >= 0 ? "+" : ""}${diffPct.toFixed(2)}%`;
-    chgBadge.className = `badge-chg ${diffPct >= 0 ? "up" : "down"}`;
-  } else {
-    chgBadge.textContent = "0.00%";
-    chgBadge.className = "badge-chg";
-  }
-
-  document.getElementById("stockBasicInfo").textContent = `${st.name} (${st.code}) · 昨收 ¥${(st.prevClose || 0).toFixed(2)}`;
-  document.getElementById("disciplineScoreBadge").textContent = `${S.disciplineScore || 94}分`;
-}
-
-function renderVerdict() {
-  const st = getActiveStock();
-  const vCard = document.getElementById("verdictCard");
-  const vTitle = document.getElementById("verdictTitle");
-  const vContent = document.getElementById("verdictContent");
-  const bBadge = document.getElementById("branchBadge");
-  const vPulse = document.getElementById("verdictPulse");
-
-  bBadge.textContent = st.branch === "A" ? `分支 A · 高股息 (${st.divYield || 0}%)` : "分支 B · 成长";
-
-  // 做飞预警检测 (04 防做飞防追高警戒线: 现价比昨收或止损超8%)
-  const flyBanner = document.getElementById("flyAlertBanner");
-  if (st.prevClose && st.price > st.prevClose * 1.08) {
-    flyBanner.classList.remove("hidden");
-  } else {
-    flyBanner.classList.add("hidden");
-  }
-
-  // 判定分支 B 破位失效
-  if (st.branch === "B" && st.failLine > 0 && st.price < st.failLine) {
-    vCard.className = "card verdict-banner warn";
-    vPulse.className = "pulse-dot warn";
-    vTitle.textContent = "⛔ 破失效线 · 铁律全清";
-    vContent.innerHTML = `现价 <strong>¥${st.price.toFixed(2)}</strong> 已击穿硬失效线 <strong>¥${st.failLine.toFixed(2)}</strong>。所有买批强制封死（Ban），次日集合竞价全清认错，绝不心存侥幸！`;
-    return;
-  }
-
-  vPulse.className = "pulse-dot";
-
-  // 判定是否有击中触发买点
-  const readyBuys = [];
-  const waitBuys = [];
-  (st.buyBatches || []).forEach(b => {
-    if (!b.gate) return;
-    (b.steps || []).forEach(s => {
-      if (s.exec) return;
-      if (b.dir === "down" && st.price <= s.price) readyBuys.push({ b, s });
-      else if (b.dir === "up" && st.price >= s.price) readyBuys.push({ b, s });
-      else waitBuys.push({ b, s });
-    });
-  });
-
-  if (readyBuys.length > 0) {
-    vCard.className = "card verdict-banner go";
-    vTitle.textContent = `🟢 今日放行 · 可执行 ${readyBuys.length} 笔`;
-    vContent.innerHTML = readyBuys.map(item => `
-      <div>⚡ 【${item.b.name}】触发价 ¥${item.s.price.toFixed(2)} 现已到价！建议买入 ¥${item.s.amount}。严格限价下单。</div>
-    `).join("");
-  } else if (waitBuys.length > 0) {
-    vCard.className = "card verdict-banner wait";
-    vTitle.textContent = "⏳ 伏击等待中 · 杂波勿动";
-    const nextWait = waitBuys.sort((a, b) => Math.abs(st.price - a.s.price) - Math.abs(st.price - b.s.price))[0];
-    const gap = Math.abs(st.price - nextWait.s.price);
-    const gapPct = (gap / st.price) * 100;
-    vContent.innerHTML = `距离最近档【${nextWait.b.name} @¥${nextWait.s.price.toFixed(2)}】还差 <strong>¥${gap.toFixed(2)} (${gapPct.toFixed(2)}%)</strong>。严格守株待兔，未到价位绝不提前抢跑。`;
-  } else {
-    vCard.className = "card verdict-banner";
-    vTitle.textContent = "✓ 暂无待触发层";
-    vContent.textContent = "所有预案层已执行完毕或总闸未开，建议在 6 维分析中心展开新一轮收敛研判。";
-  }
-}
-
-function dismissFlyAlert() {
-  document.getElementById("flyAlertBanner").classList.add("hidden");
-}
-
-function renderCostSummary() {
-  const st = getActiveStock();
-  const c = calcStockCost(st);
-
-  document.getElementById("holdCostVal").textContent = `¥${(st.holding.avgCost || 0).toFixed(2)}`;
-  document.getElementById("holdSharesVal").textContent = `${c.holdShares.toLocaleString()} 股 (¥${Math.round(c.holdCost).toLocaleString()})`;
-
-  document.getElementById("realWacVal").textContent = `¥${c.realWac.toFixed(2)}`;
-  document.getElementById("realSharesVal").textContent = `现持 ${c.totalRealShares.toLocaleString()} 股`;
-
-  document.getElementById("planTotalVal").textContent = `¥${c.planTotal.toLocaleString()}`;
-  document.getElementById("planLeftVal").textContent = `可用余额: ¥${c.planLeft.toLocaleString()}`;
-
-  document.getElementById("fullWacVal").textContent = `¥${c.fullWac.toFixed(2)}`;
-  document.getElementById("fullSharesVal").textContent = `接满预计: ${c.fullShares.toLocaleString()} 股`;
-}
-
-function renderExitScript() {
-  const st = getActiveStock();
-  const box = document.getElementById("exitRowsBox");
-  const ex = st.exit || {};
-
-  const stopOn = ex.stop && ex.stop.on;
-  const stopPx = (ex.stop && ex.stop.price) || 0;
-  const beOn = ex.be && ex.be.on;
-  const bePx = (ex.be && ex.be.price) || 0;
-
-  box.innerHTML = `
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-card-sub);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
-      <div>
-        <strong style="color:var(--up);">① 止损离场 (棘轮锁定)</strong>
-        <span style="font-size:12px;color:var(--text-muted);margin-left:8px;">${stopOn ? `跌破 ¥${stopPx.toFixed(2)} 全仓认错（只升不降）` : "未开启"}</span>
-      </div>
-      <button class="btn btn-sm" onclick="editExitModal('stop')">设置</button>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-card-sub);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
-      <div>
-        <strong style="color:var(--blue);">② 保本离场</strong>
-        <span style="font-size:12px;color:var(--text-muted);margin-left:8px;">${beOn ? `回到 ¥${bePx.toFixed(2)} 保本退出` : "未开启"}</span>
-      </div>
-      <button class="btn btn-sm" onclick="editExitModal('be')">设置</button>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-card-sub);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
-      <div>
-        <strong style="color:var(--down);">③ 阶梯止盈</strong>
-        <span style="font-size:12px;color:var(--text-muted);margin-left:8px;">按下方预定止盈梯度分批锁定战果</span>
-      </div>
-      <span class="badge-chg down">已排预案</span>
-    </div>
-  `;
-}
-
-function renderBatches() {
-  const st = getActiveStock();
-  const buyBox = document.getElementById("buyBatchesList");
-  const sellBox = document.getElementById("sellBatchesList");
-
-  // 买入看板
-  if (!st.buyBatches || st.buyBatches.length === 0) {
-    buyBox.innerHTML = `<div style="font-size:12px;color:var(--text-muted);padding:8px 0;">暂无买入批次，点击右上角「＋」新建。</div>`;
-  } else {
-    buyBox.innerHTML = st.buyBatches.map((b, bIdx) => `
-      <div class="card batch-card ${b.dir}" style="margin-top:8px;">
-        <div class="card-header">
-          <div class="card-title">
-            <span>${b.dir === "up" ? "▲ 突破追" : "▼ 向下接"}</span>
-            <strong>${b.name}</strong>
-            <span class="badge-chg ${b.gate ? "down" : ""}">${b.gate ? "总闸已开" : "总闸关闭"}</span>
-          </div>
-          <div style="display:flex;gap:4px;">
-            <button class="btn btn-sm" onclick="toggleBatchGate('buy', ${bIdx})">${b.gate ? "关闸" : "开闸"}</button>
-            <button class="btn btn-sm btn-danger" onclick="deleteBatch('buy', ${bIdx})">删</button>
-          </div>
-        </div>
-        <table class="steps-table">
-          <thead>
-            <tr><th>触发价</th><th>计划金额</th><th>股数</th><th>实扣与滑点对账</th></tr>
-          </thead>
-          <tbody>
-            ${(b.steps || []).map((s, sIdx) => {
-              const shares = Math.floor((s.amount || 0) / (s.price * 100)) * 100;
-              const hasExec = !!s.exec;
-              return `
-                <tr>
-                  <td>¥${s.price.toFixed(2)}</td>
-                  <td>¥${(s.amount || 0).toLocaleString()}</td>
-                  <td>≈ ${shares.toLocaleString()} 股</td>
-                  <td>
-                    ${hasExec ? `
-                      <div class="flex flex-col text-[11px] leading-tight text-emerald-400">
-                        <span>✓ 实成 @¥${s.exec.price.toFixed(2)} (${s.exec.shares}股)</span>
-                        <span class="text-[10px] text-[var(--text-muted)]">滑点:${s.exec.slippage >= 0 ? '+' : ''}¥${s.exec.slippage} | 规费:¥${s.exec.fees}</span>
-                      </div>
-                    ` : `
-                      <button class="btn btn-sm btn-primary" onclick="openBrokerModal('buy', ${bIdx}, ${sIdx})">成交对账记账</button>
-                    `}
-                  </td>
-                </tr>
-              `;
-            }).join("")}
-          </tbody>
-        </table>
-        <div style="margin-top:6px;display:flex;justify-content:flex-end;">
-          <button class="btn btn-sm" onclick="addStepToBatch('buy', ${bIdx})">＋ 加一层触发点</button>
-        </div>
-      </div>
-    `).join("");
-  }
-
-  // 止盈看板
-  if (!st.sellBatches || st.sellBatches.length === 0) {
-    sellBox.innerHTML = `<div style="font-size:12px;color:var(--text-muted);padding:8px 0;">暂无止盈批次。</div>`;
-  } else {
-    sellBox.innerHTML = st.sellBatches.map((b, bIdx) => `
-      <div class="card batch-card up" style="margin-top:8px;">
-        <div class="card-header">
-          <div class="card-title">
-            <strong>${b.name}</strong>
-            <span class="badge-chg ${b.gate ? "down" : ""}">${b.gate ? "已激活" : "未激活"}</span>
-          </div>
-          <button class="btn btn-sm btn-danger" onclick="deleteBatch('sell', ${bIdx})">删</button>
-        </div>
-        <table class="steps-table">
-          <thead>
-            <tr><th>目标价</th><th>卖出股数</th><th>预估套现</th><th>实扣到账核算</th></tr>
-          </thead>
-          <tbody>
-            ${(b.steps || []).map((s, sIdx) => {
-              const hasExec = !!s.exec;
-              return `
-                <tr>
-                  <td>¥${s.price.toFixed(2)}</td>
-                  <td>${(s.shares || 0).toLocaleString()} 股</td>
-                  <td>≈ ¥${Math.round((s.shares || 0) * s.price).toLocaleString()}</td>
-                  <td>
-                    ${hasExec ? `
-                      <div class="flex flex-col text-[11px] leading-tight text-emerald-400">
-                        <span>✓ 已卖出 @¥${s.exec.price.toFixed(2)}</span>
-                        <span class="text-[10px] text-[var(--text-muted)]">到账:¥${s.exec.actualPaid} | 税费:¥${s.exec.fees}</span>
-                      </div>
-                    ` : `
-                      <button class="btn btn-sm btn-primary" onclick="openBrokerModal('sell', ${bIdx}, ${sIdx})">卖出对账记账</button>
-                    `}
-                  </td>
-                </tr>
-              `;
-            }).join("")}
-          </tbody>
-        </table>
-      </div>
-    `).join("");
-  }
-}
-
-function renderEvents() {
-  const st = getActiveStock();
-  const box = document.getElementById("eventsList");
-  if (!st.events || st.events.length === 0) {
-    box.innerHTML = `<div style="font-size:12px;color:var(--text-muted);">暂无事件闸门。</div>`;
-    return;
-  }
-  box.innerHTML = st.events.map((e, idx) => `
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-card-sub);padding:8px 12px;border-radius:8px;border:1px solid var(--border);">
-      <div>
-        <span class="badge-chg ${e.role === 'kill' ? 'up' : 'down'}">${e.role === 'kill' ? '熔断' : '放行'}</span>
-        <strong style="margin-left:6px;">${e.name}</strong>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">${e.note || ""}</div>
-      </div>
-      <div style="display:flex;gap:4px;">
-        <button class="btn btn-sm ${e.state === 'done' ? 'btn-primary' : ''}" onclick="toggleEventState(${idx})">${e.state === 'done' ? '已发生' : '标为发生'}</button>
-        <button class="btn btn-sm btn-danger" onclick="deleteEvent(${idx})">×</button>
-      </div>
-    </div>
-  `).join("");
-}
-
-function renderLogs() {
-  const box = document.getElementById("actionLogsList");
-  document.getElementById("logCountLabel").textContent = `${S.logs.length} 条记录`;
-  box.innerHTML = S.logs.map(l => `
-    <div><span style="color:var(--accent);">${l.at}</span> · ${l.text}</div>
-  `).join("");
-}
-
-// ================= 04 券商实扣与滑点倒推对账模块 =================
-function openBrokerModal(type, bIdx, sIdx) {
-  const st = getActiveStock();
-  const b = type === "buy" ? st.buyBatches[bIdx] : st.sellBatches[bIdx];
-  const s = b.steps[sIdx];
-  activeExecStepContext = { type, bIdx, sIdx, b, s };
-
-  document.getElementById("tradeTypeBuy").checked = type === "buy";
-  document.getElementById("tradeTypeSell").checked = type === "sell";
-  
-  const estimatedShares = type === "buy" 
-    ? Math.floor((s.amount || 0) / (s.price * 100)) * 100 
-    : (s.shares || 1000);
-
-  document.getElementById("brokerSharesInput").value = estimatedShares;
-  document.getElementById("brokerBasePriceInput").value = s.price.toFixed(2);
-  
-  // 预填默认约等于金额
-  const defaultTotal = (estimatedShares * s.price * (type === "buy" ? 1.0003 : 0.9985)).toFixed(2);
-  document.getElementById("brokerActualPaidInput").value = defaultTotal;
-
-  recalcBrokerSlippage();
-  document.getElementById("brokerExecModal").classList.add("active");
-}
-
-function closeBrokerModal() {
-  document.getElementById("brokerExecModal").classList.remove("active");
-  activeExecStepContext = null;
-}
-
-function recalcBrokerSlippage() {
-  const shares = parseFloat(document.getElementById("brokerSharesInput").value) || 0;
-  const basePx = parseFloat(document.getElementById("brokerBasePriceInput").value) || 0;
-  const actualPaid = parseFloat(document.getElementById("brokerActualPaidInput").value) || 0;
-  const isBuy = document.getElementById("tradeTypeBuy").checked;
-
-  if (shares <= 0 || actualPaid <= 0) return;
-
-  // A股规费简要倒推模型:
-  // 买入: 佣金万2.5(最低5元) + 过户费万0.1 + 经手证管万0.4 => 约万3
-  // 卖出: 印花税万5 + 佣金万2.5 + 经手过户 => 约万8
-  const roughFeeRate = isBuy ? 0.00035 : 0.00085;
-  const estimatedNetMoney = isBuy ? (actualPaid / (1 + roughFeeRate)) : (actualPaid / (1 - roughFeeRate));
-  const deducedPx = estimatedNetMoney / shares;
-  const slippage = deducedPx - basePx;
-  const totalFees = Math.abs(actualPaid - (deducedPx * shares));
-
-  document.getElementById("deducedPrice").textContent = `¥${deducedPx.toFixed(3)}`;
-  
-  const slipEl = document.getElementById("deducedSlippage");
-  const slipDiff = isBuy ? slippage : -slippage;
-  if (slipDiff > 0.005) {
-    slipEl.className = "font-bold text-rose-400";
-    slipEl.textContent = `${slippage >= 0 ? '+' : ''}¥${slippage.toFixed(3)} (不利滑点)`;
-  } else {
-    slipEl.className = "font-bold text-emerald-400";
-    slipEl.textContent = `${slippage >= 0 ? '+' : ''}¥${slippage.toFixed(3)} (顺滑/有利)`;
-  }
-
-  document.getElementById("deducedFees").textContent = `¥${Math.max(5, totalFees).toFixed(2)} (含印花/佣金/规费)`;
-  document.getElementById("splitPendingShares").textContent = "已全额核销匹配";
-}
-
-function confirmBrokerExecution() {
-  if (!activeExecStepContext) return;
-  const { type, b, s } = activeExecStepContext;
-  const shares = parseFloat(document.getElementById("brokerSharesInput").value) || 0;
-  const actualPaid = parseFloat(document.getElementById("brokerActualPaidInput").value) || 0;
-  const deducedPrice = parseFloat(document.getElementById("deducedPrice").textContent.replace("¥", "")) || s.price;
-  const slippage = (deducedPrice - s.price).toFixed(3);
-  const fees = (parseFloat(document.getElementById("deducedFees").textContent.replace(/[^0-9.]/g, "")) || 5).toFixed(2);
-
-  const d = new Date().toISOString().slice(0, 10);
-  s.exec = {
-    price: deducedPrice,
-    shares,
-    actualPaid,
-    slippage: parseFloat(slippage),
-    fees: parseFloat(fees),
-    date: d
-  };
-
-  addLog(`【对账完成】${b.name} @¥${deducedPrice} (${shares}股) 实扣¥${actualPaid} 滑点:${slippage}`);
-  closeBrokerModal();
-  renderApp();
-}
-
-// ================= 06 除权分红与 DRIP 股息复利池 =================
-function calcDripProjection() {
-  const st = getActiveStock();
-  const c = calcStockCost(st);
-  const cashPer10 = parseFloat(document.getElementById("divCashPer10").value) || 0;
-  const sharePer10 = parseFloat(document.getElementById("divSharePer10").value) || 0;
-  const period = document.getElementById("holdingPeriodSelect").value;
-
-  const totalShares = c.totalRealShares;
-  if (totalShares <= 0) {
-    document.getElementById("dripTotalCash").textContent = "¥0.00";
-    document.getElementById("dripBonusShares").textContent = "0 股";
-    return;
-  }
-
-  // 税率
-  const taxRate = period === "free" ? 0 : (period === "mid" ? 0.10 : 0.20);
-  const grossCash = (totalShares / 10) * cashPer10;
-  const netCash = grossCash * (1 - taxRate);
-  const bonusShares = Math.floor((totalShares / 10) * sharePer10);
-
-  // DRIP 可增购股数（按当前现价整手）
-  const buybackShares = Math.floor(netCash / (st.price * 100)) * 100;
-  const growthRate = ((buybackShares + bonusShares) / totalShares) * 100;
-
-  document.getElementById("dripTotalCash").textContent = `¥${netCash.toFixed(2)}`;
-  document.getElementById("dripBonusShares").textContent = `${buybackShares + bonusShares} 股`;
-  document.getElementById("dripGrowthRate").textContent = `+${growthRate.toFixed(2)}%`;
-
-  const nextBatch = (st.buyBatches && st.buyBatches[0]) ? st.buyBatches[0].name : "首档低吸批";
-  document.getElementById("dripTargetBatch").textContent = nextBatch;
-
-  const resBox = document.getElementById("divCalcResultBox");
-  resBox.innerHTML = `
-    <strong>除权分红测算结果：</strong><br>
-    • 当前实持总仓：${totalShares.toLocaleString()} 股 ｜ 适用红利税率：${(taxRate * 100).toFixed(0)}%<br>
-    • 现金税前分红：¥${grossCash.toFixed(2)} ➔ <strong>税后到账：¥${netCash.toFixed(2)}</strong><br>
-    • 送转股落地增发：${bonusShares.toLocaleString()} 股 ｜ DRIP 可回购增厚：${buybackShares.toLocaleString()} 股<br>
-    • <strong>除权参考价计算公式：</strong> (当前价 ¥${st.price.toFixed(2)} - 每股派息 ¥${(cashPer10/10).toFixed(3)}) ÷ (1 + 每股转增 ${(sharePer10/10).toFixed(2)}) = <strong>¥${((st.price - cashPer10/10) / (1 + sharePer10/10)).toFixed(2)}</strong>
-  `;
-}
-
-// 一键全自动等比平移所有买卖档位与硬失效止损
-function executeExDividendShift() {
-  const st = getActiveStock();
-  const cashPer10 = parseFloat(document.getElementById("divCashPer10").value) || 0;
-  const sharePer10 = parseFloat(document.getElementById("divSharePer10").value) || 0;
-
-  if (cashPer10 === 0 && sharePer10 === 0) {
-    alert("请先填写每10股派息或送转股数！");
-    return;
-  }
-
-  const p0 = st.price;
-  const divPerShare = cashPer10 / 10;
-  const splitRatio = 1 + (sharePer10 / 10);
-  const p1 = Math.max(0.01, (p0 - divPerShare) / splitRatio);
-  const shiftRatio = p1 / p0;
-
-  if (!confirm(`确认执行除权除息平移吗？\n当前价 ¥${p0.toFixed(2)} ➔ 除权基准价 ¥${p1.toFixed(2)} (等比折让 ${(shiftRatio * 100).toFixed(2)}%)\n所有挂单批次、止损线将按规则等比向下平移，防止跳空误触发！`)) {
-    return;
-  }
-
-  // 1. 平移止损与保本
-  if (st.failLine > 0) st.failLine = parseFloat((st.failLine * shiftRatio).toFixed(2));
-  if (st.exit && st.exit.stop && st.exit.stop.price > 0) {
-    st.exit.stop.price = parseFloat((st.exit.stop.price * shiftRatio).toFixed(2));
-  }
-  if (st.exit && st.exit.be && st.exit.be.price > 0) {
-    st.exit.be.price = parseFloat((st.exit.be.price * shiftRatio).toFixed(2));
-  }
-
-  // 2. 平移所有买入批次
-  (st.buyBatches || []).forEach(b => {
-    (b.steps || []).forEach(s => {
-      s.price = parseFloat((s.price * shiftRatio).toFixed(2));
-    });
-  });
-
-  // 3. 平移止盈批次
-  (st.sellBatches || []).forEach(b => {
-    (b.steps || []).forEach(s => {
-      s.price = parseFloat((s.price * shiftRatio).toFixed(2));
-    });
-  });
-
-  // 4. 更新现价
-  st.price = parseFloat(p1.toFixed(2));
-  if (st.prevClose) st.prevClose = parseFloat((st.prevClose * shiftRatio).toFixed(2));
-
-  addLog(`【除权分红平移】${st.name} 完成除权除息，折让比率 ${(shiftRatio*100).toFixed(2)}%，所有买卖线已安全向下平移。`);
-  alert("全套预案档位平移完成！硬止损已安全调整，不会发生误触认错。");
-  renderApp();
-}
-
-function injectDripToNextBatch() {
-  const st = getActiveStock();
-  const c = calcStockCost(st);
-  const cashPer10 = parseFloat(document.getElementById("divCashPer10").value) || 0;
-  const netCash = Math.round((c.totalRealShares / 10) * cashPer10 * 0.9);
-
-  if (netCash <= 0) {
-    alert("当前无可用分红现金！");
-    return;
-  }
-
-  if (!st.buyBatches || st.buyBatches.length === 0) {
-    alert("请先创建至少一个买入批次以接收 DRIP 注入资金。");
-    return;
-  }
-
-  const targetBatch = st.buyBatches[0];
-  targetBatch.budget = (targetBatch.budget || 0) + netCash;
-  const nextPrice = Math.round(st.price * 0.96 * 100) / 100;
-  targetBatch.steps.push({
-    price: nextPrice,
-    amount: netCash,
-    note: `DRIP股息复利注水档 (¥${netCash})`,
-    exec: null
-  });
-
-  addLog(`【DRIP注水】将股息红利 ¥${netCash} 自动注入【${targetBatch.name}】@¥${nextPrice}`);
-  alert(`成功将分红现金 ¥${netCash} 注入【${targetBatch.name}】！`);
-  renderApp();
-}
-
-// ================= 05 季报平滑重估向导 (Ratchet 棘轮机制) =================
-function openRatchetModal() {
-  const st = getActiveStock();
-  const oldStop = (st.exit && st.exit.stop && st.exit.stop.price) || st.failLine || 0;
-  document.getElementById("oldStopInput").value = oldStop.toFixed(2);
-  document.getElementById("newStopInput").value = (oldStop * 1.05).toFixed(2);
-  document.getElementById("newPlanTotalInput").value = (st.plan && st.plan.total) || 70000;
-  document.getElementById("ratchetModal").classList.add("active");
-}
-
-function closeRatchetModal() {
-  document.getElementById("ratchetModal").classList.remove("active");
-}
-
-function confirmRatchetUpdate() {
-  const st = getActiveStock();
-  const oldStop = parseFloat(document.getElementById("oldStopInput").value) || 0;
-  const newStop = parseFloat(document.getElementById("newStopInput").value) || 0;
-  const newPlanTotal = parseFloat(document.getElementById("newPlanTotalInput").value) || st.plan.total;
-
-  // 棘轮单向性核验：只升不降
-  if (newStop < oldStop) {
-    alert(`【棘轮机制拒绝】重估止损线 (¥${newStop}) 不得低于原止损防线 (¥${oldStop})！\n为防死扛风险，纪律要求止损防线必须只升不降！`);
-    return;
-  }
-
-  // 档位冲突自动排查：检查是否存在高于新止损的低吸档位
-  let conflictCount = 0;
-  (st.buyBatches || []).forEach(b => {
-    (b.steps || []).forEach(s => {
-      if (!s.exec && s.price <= newStop) {
-        s.price = parseFloat((newStop * 1.02).toFixed(2));
-        conflictCount++;
-      }
-    });
-  });
-
-  st.failLine = newStop;
-  if (!st.exit) st.exit = {};
-  if (!st.exit.stop) st.exit.stop = { on: true };
-  st.exit.stop.price = newStop;
-  st.exit.stop.note = "季报重估 Plan v2.0 棘轮锁止";
-  st.plan.total = newPlanTotal;
-
-  addLog(`【Plan v2.0 重估】${st.name} 启动单向棘轮重估，硬止损提升至 ¥${newStop}，排查调和 ${conflictCount} 处挂单冲突。`);
-  closeRatchetModal();
-  alert(`Plan v2.0 平滑升级成功！止损防线已抬高至 ¥${newStop}，胜利果实已锁定。`);
-  renderApp();
-}
-
-// ================= 07 48小时防冲动追高冷静期锁 =================
-function triggerImpulseCheck(actionType) {
-  const st = getActiveStock();
-  const diffPct = st.prevClose ? ((st.price - st.prevClose) / st.prevClose) * 100 : 0;
-  
-  // 盘中涨幅超 3% 或试图追高加码
-  if (diffPct >= 2.0 || actionType === 'add_buy') {
-    document.getElementById("refl1").checked = false;
-    document.getElementById("refl2").checked = false;
-    document.getElementById("refl3").checked = false;
-    document.getElementById("impulseLockModal").classList.add("active");
-  } else {
-    addNewBuyBatch();
-  }
-}
-
-function closeImpulseModal() {
-  document.getElementById("impulseLockModal").classList.remove("active");
-  addLog("用户主动放弃冲动追高，纪律性加分 (+2分)");
-  S.disciplineScore = Math.min(100, (S.disciplineScore || 94) + 2);
-  renderApp();
-}
-
-function unlockImpulseOverride() {
-  const c1 = document.getElementById("refl1").checked;
-  const c2 = document.getElementById("refl2").checked;
-  const c3 = document.getElementById("refl3").checked;
-
-  if (!c1 || !c2 || !c3) {
-    alert("请逐条认真反思并勾选所有三项自省条件！");
-    return;
-  }
-
-  document.getElementById("impulseLockModal").classList.remove("active");
-  addLog("用户通过 48 小时反思问答，解除冲动防线锁，允许适度跟进。");
-  addNewBuyBatch();
-}
-
-// ================= 08 Canvas 脱敏打卡海报生成 =================
-function generateCanvasCard() {
-  const canvas = document.getElementById("posterCanvas");
-  const ctx = canvas.getContext("2d");
-  const st = getActiveStock();
-  const d = new Date().toISOString().slice(0, 10);
-
-  // 背景
-  const bgGrad = ctx.createLinearGradient(0, 0, 0, 480);
-  bgGrad.addColorStop(0, "#051424");
-  bgGrad.addColorStop(1, "#0d233a");
-  ctx.fillStyle = bgGrad;
-  ctx.fillRect(0, 0, 380, 480);
-
-  // 外框装饰
-  ctx.strokeStyle = "#1e3553";
-  ctx.lineWidth = 2;
-  ctx.strokeRect(12, 12, 356, 456);
-
-  // 头部 Brand
-  ctx.fillStyle = "#f59e0b";
-  ctx.fillRect(28, 28, 36, 36);
-  ctx.fillStyle = "#051424";
-  ctx.font = "bold 20px -apple-system, sans-serif";
-  ctx.fillText("等", 37, 54);
-
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "bold 18px -apple-system, sans-serif";
-  ctx.fillText("等得起 · 知行合一", 74, 45);
-  ctx.fillStyle = "#8c9eb5";
-  ctx.font = "11px -apple-system, sans-serif";
-  ctx.fillText("长线网格与纪律做T闭环打卡", 74, 61);
-
-  // 标的脱敏信息
-  ctx.fillStyle = "#13233a";
-  ctx.fillRect(28, 85, 324, 75);
-  ctx.strokeStyle = "#27446b";
-  ctx.strokeRect(28, 85, 324, 75);
-
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "bold 16px -apple-system, sans-serif";
-  ctx.fillText(`${st.name} (***${st.code.slice(-3)})`, 42, 115);
-  ctx.fillStyle = "#10b981";
-  ctx.font = "bold 12px -apple-system, sans-serif";
-  ctx.fillText(`状态：预案伏击执行中 · 分支 ${st.branch}`, 42, 138);
-
-  // 纪律评分徽章
-  ctx.fillStyle = "#13233a";
-  ctx.fillRect(28, 175, 324, 155);
-  ctx.strokeStyle = "#27446b";
-  ctx.strokeRect(28, 175, 324, 155);
-
-  ctx.fillStyle = "#8c9eb5";
-  ctx.font = "12px -apple-system, sans-serif";
-  ctx.fillText("系统执行力纪律评分体系", 42, 205);
-
-  ctx.fillStyle = "#10b981";
-  ctx.font = "bold 44px -apple-system, sans-serif";
-  ctx.fillText(`${S.disciplineScore || 94}`, 42, 255);
-  ctx.font = "bold 18px -apple-system, sans-serif";
-  ctx.fillText("分", 100, 255);
-
-  ctx.fillStyle = "#f0f4fc";
-  ctx.font = "12px -apple-system, sans-serif";
-  ctx.fillText("✓ 拒绝追涨杀跌   ✓ 棘轮防线锁定", 42, 290);
-  ctx.fillText("✓ 滑点规费透明   ✓ 48H 冷静自省", 42, 310);
-
-  // 底部标语
-  ctx.fillStyle = "#f59e0b";
-  ctx.font = "bold 13px -apple-system, sans-serif";
-  ctx.fillText("「有计划，才等得起」", 120, 365);
-
-  ctx.fillStyle = "#64748b";
-  ctx.font = "10px -apple-system, sans-serif";
-  ctx.fillText(`打卡时间: ${d} ｜ 本地沙盒极客纯离线生成`, 65, 435);
-
-  document.getElementById("posterModal").classList.add("active");
-}
-
-function closePosterModal() {
-  document.getElementById("posterModal").classList.remove("active");
-}
-
-function downloadPosterImage() {
-  const canvas = document.getElementById("posterCanvas");
-  const a = document.createElement("a");
-  a.download = `等得起-纪律打卡海报-${new Date().toISOString().slice(0,10)}.png`;
-  a.href = canvas.toDataURL("image/png");
-  a.click();
-}
-
-// 08 导出 CSV/Excel 格式化对账台账
-function exportAuditTableCSV() {
-  const st = getActiveStock();
-  let csvContent = "\uFEFF类型,批次名称,方向,触发基准价,计划买入额/股数,实成交价,实扣/到账金额,滑点,规费,成交日期\n";
-
-  (st.buyBatches || []).forEach(b => {
-    (b.steps || []).forEach(s => {
-      if (s.exec) {
-        csvContent += `买入,${b.name},向下接,¥${s.price.toFixed(2)},¥${s.amount},¥${s.exec.price.toFixed(2)},¥${s.exec.actualPaid},${s.exec.slippage},¥${s.exec.fees},${s.exec.date}\n`;
-      } else {
-        csvContent += `买入挂单,${b.name},向下接,¥${s.price.toFixed(2)},¥${s.amount},未成,未成,-,-,-\n`;
-      }
-    });
-  });
-
-  (st.sellBatches || []).forEach(b => {
-    (b.steps || []).forEach(s => {
-      if (s.exec) {
-        csvContent += `卖出,${b.name},止盈,¥${s.price.toFixed(2)},${s.shares}股,¥${s.exec.price.toFixed(2)},¥${s.exec.actualPaid},-,¥${s.exec.fees},${s.exec.date}\n`;
-      } else {
-        csvContent += `卖出挂单,${b.name},止盈,¥${s.price.toFixed(2)},${s.shares}股,未成,未成,-,-,-\n`;
-      }
-    });
-  });
-
-  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `等得起-交易对账台账-${st.code}-${new Date().toISOString().slice(0, 10)}.csv`;
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 2000);
-  addLog(`导出 ${st.name} CSV 格式化交易对账表`);
-}
-
-// ================= 基础交互与行情拉取 =================
-function onStockSelectChange(code) {
-  const vault = getCurrentVault();
-  vault.active = code;
-  addLog(`切换当前标的至 ${code}`);
-  renderApp();
-}
-
-function onQuickPriceChange(val) {
-  const p = parseFloat(val) || 0;
-  const st = getActiveStock();
-  st.price = p;
-  addLog(`手动校准 ${st.name} 现价为 ¥${p.toFixed(2)}`);
-  renderApp();
-}
-
-function switchMainView(view) {
-  document.getElementById("viewExec").style.display = view === "exec" ? "block" : "none";
-  document.getElementById("viewDividend").style.display = view === "dividend" ? "block" : "none";
-  document.getElementById("viewAnalysis").style.display = view === "analysis" ? "block" : "none";
-  
-  document.getElementById("tabExecBtn").className = `view-btn ${view === "exec" ? "active" : ""}`;
-  document.getElementById("tabDividendBtn").className = `view-btn ${view === "dividend" ? "active" : ""}`;
-  document.getElementById("tabAnBtn").className = `view-btn ${view === "analysis" ? "active" : ""}`;
-}
-
-function toggleThemeMode() {
-  S.theme = S.theme === "dark" ? "light" : "dark";
-  applyTheme(S.theme);
-  saveState();
-}
-
-function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-  if (theme === "dark") {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
-  const btn = document.getElementById("themeToggleBtn");
-  if (btn) btn.textContent = theme === "dark" ? "☀ 亮色模式" : "☾ 暗色模式";
-}
-
-function fetchLiveQuote() {
-  const st = getActiveStock();
-  const btn = document.getElementById("fetchPriceBtn");
-  btn.disabled = true;
-  btn.textContent = "拉取中...";
-
-  const secid = st.code.startsWith("6") ? `1.${st.code}` : `0.${st.code}`;
-  const emUrl = `https://push2.eastmoney.com/api/qt/stock/get?secid=${secid}&fields=f43,f58,f60&invt=2`;
-
-  fetch(emUrl, { cache: "no-store" })
-    .then(r => r.json())
-    .then(res => {
-      if (res && res.data && res.data.f43 > 0) {
-        st.price = parseFloat(res.data.f43);
-        if (res.data.f60 > 0) st.prevClose = parseFloat(res.data.f60);
-        if (res.data.f58) st.name = res.data.f58;
-        addLog(`行情拉取成功：${st.name} 当前价 ¥${st.price}`);
-        renderApp();
-      } else {
-        throw new Error("行情数据异常");
-      }
-    })
-    .catch(err => {
-      console.warn("线上行情拉取受限（浏览器CORS拦截属正常现象）:", err);
-      alert("提示：当前运行环境受浏览器跨域拦截（属正常安全策略）。您可直接在上方现价框手动输入数字，所有裁决与算力毫秒级实时计算！");
-    })
-    .finally(() => {
-      btn.disabled = false;
-      btn.textContent = "拉行情";
-    });
-}
-
-function toggleBatchGate(type, idx) {
-  const st = getActiveStock();
-  const list = type === "buy" ? st.buyBatches : st.sellBatches;
-  if (list && list[idx]) {
-    list[idx].gate = !list[idx].gate;
-    addLog(`${type === 'buy' ? '买入' : '卖出'}批次「${list[idx].name}」${list[idx].gate ? '开闸' : '关闸'}`);
-    renderApp();
-  }
-}
-
-function deleteBatch(type, idx) {
-  if (!confirm("确定删除该批次吗？")) return;
-  const st = getActiveStock();
-  const list = type === "buy" ? st.buyBatches : st.sellBatches;
-  const b = list.splice(idx, 1)[0];
-  addLog(`删除批次「${b.name}」`);
-  renderApp();
-}
-
-function addNewBuyBatch() {
-  const name = prompt("请输入新买入批次名称：", "深度分批低吸批");
-  if (!name) return;
-  const st = getActiveStock();
-  st.buyBatches = st.buyBatches || [];
-  st.buyBatches.push({
-    id: "b_" + Date.now(),
-    name,
-    dir: "down",
-    budget: 20000,
-    gate: true,
-    steps: [
-      { price: Math.round(st.price * 0.95 * 100) / 100, amount: 10000, note: "首档", exec: null },
-      { price: Math.round(st.price * 0.90 * 100) / 100, amount: 10000, note: "二档", exec: null }
-    ]
-  });
-  addLog(`新增买入批次「${name}」`);
-  renderApp();
-}
-
-function addNewSellBatch() {
-  const name = prompt("请输入新止盈批次名称：", "目标分批止盈批");
-  if (!name) return;
-  const st = getActiveStock();
-  st.sellBatches = st.sellBatches || [];
-  st.sellBatches.push({
-    id: "s_" + Date.now(),
-    name,
-    gate: true,
-    steps: [
-      { price: Math.round(st.price * 1.15 * 100) / 100, shares: 500, note: "初档止盈", exec: null }
-    ]
-  });
-  addLog(`新增止盈批次「${name}」`);
-  renderApp();
-}
-
-function addStepToBatch(type, bIdx) {
-  const st = getActiveStock();
-  const b = st.buyBatches[bIdx];
-  const lastPrice = b.steps.length > 0 ? b.steps[b.steps.length - 1].price : st.price;
-  const newPrice = Math.round(lastPrice * (b.dir === "up" ? 1.05 : 0.95) * 100) / 100;
-  b.steps.push({ price: newPrice, amount: 10000, note: "新加档", exec: null });
-  addLog(`批次「${b.name}」加一层触发点 @¥${newPrice}`);
-  renderApp();
-}
-
-function addEvent(role) {
-  const name = prompt(role === "kill" ? "输入熔断事件名称（如业绩预警）：" : "输入放行事件名称（如过户款到账）：");
-  if (!name) return;
-  const st = getActiveStock();
-  st.events = st.events || [];
-  st.events.push({ id: "e_" + Date.now(), name, role, state: "waiting", note: "现实条件触发器" });
-  addLog(`新增事件「${name}」(${role === 'kill' ? '熔断' : '放行'})`);
-  renderApp();
-}
-
-function toggleEventState(idx) {
-  const st = getActiveStock();
-  const e = st.events[idx];
-  e.state = e.state === "done" ? "waiting" : "done";
-  addLog(`事件「${e.name}」状态变更为：${e.state}`);
-  renderApp();
-}
-
-function deleteEvent(idx) {
-  const st = getActiveStock();
-  const e = st.events.splice(idx, 1)[0];
-  addLog(`删除事件「${e.name}」`);
-  renderApp();
-}
-
-function editExitModal(key) {
-  const st = getActiveStock();
-  const ex = st.exit[key] || { on: false, price: 0 };
-  const val = prompt(`设置 ${key === 'stop' ? '止损 (棘轮锁定只升不降)' : '保本'} 触发价格（输入 0 或留空表示关闭）：`, ex.price || "");
-  if (val === null) return;
-  const p = parseFloat(val) || 0;
-  
-  if (key === 'stop' && p > 0 && ex.price > 0 && p < ex.price) {
-    if (!confirm(`警告：新止损价 ¥${p} 低于原止损价 ¥${ex.price}！\n单向棘轮机制原则上不允许下调防线死扛。仍要强行下调吗？`)) {
-      return;
     }
-  }
 
-  ex.price = p;
-  ex.on = p > 0;
-  st.exit[key] = ex;
-  if (key === 'stop') st.failLine = p;
-  addLog(`设置${key === 'stop' ? '止损' : '保本'}价为 ¥${p}`);
-  renderApp();
-}
-
-// ================= AI 6维研判与回复解析 =================
-function generateAnalysisPrompt() {
-  const st = getActiveStock();
-  const c = calcStockCost(st);
-  const why = (st.analysis && st.analysis.why) || "基本面稳健，长线持有";
-
-  const promptText = `【任务】你是专业投资分析师团队。请对以下标的进行 6 维研判并收敛输出可执行的分批买卖方案：
-标的：${st.name} (${st.code})，当前现价：¥${st.price.toFixed(2)}。
-底仓持仓：${c.holdShares} 股 @¥${(st.holding.avgCost || 0).toFixed(2)}，规划总预算 P：¥${c.planTotal}。
-投资核心逻辑 (Why Box)：${why}
-
-【严格格式要求】
-分析完毕后，请在回复末尾附带以下四段机器可解析的纯文本行（占预算% 合计严格 = 100%）：
-档1｜{上沿}~{下沿}｜{占预算%}｜{理由}
-档2｜{上沿}~{下沿}｜{占预算%}｜{理由}
-追1｜{触发价}~{上沿}｜{占预算%}｜{突破跟进理由}
-止损｜{硬止损价}｜{失效认错理由}
-盈1｜{止盈价}｜{卖出持仓%}｜{分批落袋理由}
-`;
-
-  document.getElementById("promptDraftArea").value = promptText;
-  addLog(`已生成 ${st.name} 的 6 维研判标准提示词`);
-}
-
-function copyPromptDraft() {
-  const area = document.getElementById("promptDraftArea");
-  if (!area.value) {
-    alert("请先点击生成提示词！");
-    return;
-  }
-  area.select();
-  document.execCommand("copy");
-  alert("提示词已成功复制到剪贴板！可发给 DeepSeek / 豆包 等大模型。");
-}
-
-function parseAiResponse() {
-  const txt = document.getElementById("aiRawInput").value;
-  if (!txt.trim()) {
-    alert("请先粘贴 AI 回复内容！");
-    return;
-  }
-
-  const lines = txt.split("\n").map(l => l.trim()).filter(Boolean);
-  const downs = [];
-  const ups = [];
-  let stopObj = null;
-  const sells = [];
-
-  lines.forEach(l => {
-    let m = l.match(/^档\s*\d+\s*[｜|]\s*([0-9.]+)[~\-—]([0-9.]+)\s*[｜|]\s*([0-9]+)%\s*[｜|]\s*(.*)$/);
-    if (m) {
-      downs.push({ from: parseFloat(m[1]), to: parseFloat(m[2]), pct: parseInt(m[3]), note: m[4] });
-      return;
+    function getActiveStockData() {
+      return AppState.stocks[AppState.activeStock] || AppState.stocks["300938"];
     }
-    m = l.match(/^追\s*\d+\s*[｜|]\s*([0-9.]+)[~\-—]([0-9.]+)\s*[｜|]\s*([0-9]+)%\s*[｜|]\s*(.*)$/);
-    if (m) {
-      ups.push({ from: parseFloat(m[1]), to: parseFloat(m[2]), pct: parseInt(m[3]), note: m[4] });
-      return;
-    }
-    m = l.match(/^止损\s*[｜|]\s*([0-9.]+)\s*[｜|]\s*(.*)$/);
-    if (m) {
-      stopObj = { price: parseFloat(m[1]), note: m[2] };
-      return;
-    }
-    m = l.match(/^盈\s*\d+\s*[｜|]\s*([0-9.]+)\s*[｜|]\s*([0-9]+)%\s*[｜|]\s*(.*)$/);
-    if (m) {
-      sells.push({ price: parseFloat(m[1]), pct: parseInt(m[2]), note: m[3] });
-      return;
-    }
-  });
 
-  const resBox = document.getElementById("parsedPlanResult");
-  if (downs.length === 0 && ups.length === 0) {
-    resBox.innerHTML = `<div style="color:var(--up);font-size:12px;">未能成功解析四段结构，请核对是否包含「档N｜上沿~下沿｜%｜理由」等规范行。</div>`;
-    return;
-  }
-
-  resBox.innerHTML = `
-    <div style="background:var(--bg-card-sub);border:1px solid var(--border);border-radius:8px;padding:10px;font-size:12px;">
-      <strong style="color:var(--accent);">✓ 解析方案成功：</strong>
-      <div>向下接档：${downs.length} 档 ｜ 向上跟进：${ups.length} 档 ｜ 止盈：${sells.length} 档 ｜ 止损：${stopObj ? `¥${stopObj.price}` : '未指定'}</div>
-      <button class="btn btn-sm btn-primary" style="margin-top:8px;" onclick="applyParsedPlan()">⚡ 一键套用到当前执行看板</button>
-    </div>
-  `;
-
-  window._tempParsed = { downs, ups, stopObj, sells };
-}
-
-function applyParsedPlan() {
-  if (!window._tempParsed) return;
-  const { downs, stopObj } = window._tempParsed;
-  const st = getActiveStock();
-  const c = calcStockCost(st);
-
-  if (downs.length > 0) {
-    st.buyBatches = st.buyBatches || [];
-    st.buyBatches.push({
-      id: "b_ai_down_" + Date.now(),
-      name: "AI 收敛向下接货批",
-      dir: "down",
-      budget: Math.round(c.planTotal * (downs.reduce((a, b) => a + b.pct, 0) / 100)),
-      gate: false,
-      steps: downs.map(d => ({
-        price: d.to,
-        amount: Math.round(c.planTotal * (d.pct / 100)),
-        note: d.note,
-        exec: null
-      }))
-    });
-  }
-
-  if (stopObj && stopObj.price > 0) {
-    st.exit.stop = { on: true, price: stopObj.price, note: stopObj.note, src: "AI" };
-  }
-
-  addLog(`已成功套用 AI 研判方案至 ${st.name} 预案看板`);
-  alert("已套用为新买入批次与止损防线（总闸默认关闭，确认后在执行页开启）！");
-  switchMainView("exec");
-  renderApp();
-}
-
-// ================= 数据备份、恢复与彻底清空 =================
-function exportDataJSON() {
-  const dataStr = JSON.stringify(S, null, 2);
-  const blob = new Blob([dataStr], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  const dateStr = new Date().toISOString().slice(0, 10);
-  a.href = url;
-  a.download = `等得起-全金库完整备份-${dateStr}.json`;
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 2000);
-  addLog("导出一份全量 JSON 备份");
-}
-
-function triggerImportFile() {
-  document.getElementById("importFileInput").click();
-}
-
-function handleImportFile(event) {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      const imported = JSON.parse(e.target.result);
-      if (!imported || (!imported.vaults && !imported.stocks)) throw new Error("文件不包含有效的账本数据");
+    // ================= Navigation Tabs Controller =================
+    function switchNavTab(tabKey) {
+      AppState.currentTab = tabKey;
       
-      // 兼容旧版单一金库数据
-      if (!imported.vaults && imported.stocks) {
-        S.vaults.growth.stocks = imported.stocks;
-      } else {
-        S = imported;
-      }
-      saveState();
-      addLog("导入外部备份数据成功");
-      alert("导入备份成功！已恢复全部股票与计划。");
-      renderApp();
-    } catch (err) {
-      alert("导入失败：文件格式不兼容 (" + err.message + ")");
-    }
-  };
-  reader.readAsText(file);
-  event.target.value = "";
-}
+      // Hide all pages
+      document.querySelectorAll(".tab-page").forEach(el => el.classList.add("hidden"));
+      const targetPage = document.getElementById(`view-${tabKey}`);
+      if (targetPage) targetPage.classList.remove("hidden");
 
-function resetToDemoData() {
-  if (!confirm("确定恢复内置的标准示例数据吗？")) return;
-  S = JSON.parse(JSON.stringify(SEED_DATA));
-  saveState();
-  addLog("已恢复示例演示数据");
-  renderApp();
-}
-
-function openResetModal() {
-  document.getElementById("clearConfirmModal").className = "modal-overlay active";
-}
-
-function closeResetModal() {
-  document.getElementById("clearConfirmModal").className = "modal-overlay";
-}
-
-function executeClearAllData() {
-  S = {
-    schema: 20,
-    theme: S.theme || "dark",
-    currentVault: "growth",
-    disciplineScore: 100,
-    vaults: {
-      growth: {
-        id: "growth",
-        name: "核心成长做T金库",
-        active: "000001",
-        stocks: {
-          "000001": {
-            code: "000001",
-            name: "自选股票",
-            price: 10.00,
-            prevClose: 10.00,
-            branch: "B",
-            divYield: 0,
-            failLine: 8.00,
-            holding: { shares: 0, avgCost: 0, note: "空仓" },
-            plan: { total: 50000 },
-            exit: { stop: { on: false, price: 0 }, be: { on: false, price: 0 } },
-            buyBatches: [],
-            sellBatches: [],
-            events: []
+      // Update Nav Buttons appearance
+      const tabs = ["portfolio", "plan", "analysis", "exec", "drip"];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`nav-btn-${t}`);
+        if (!btn) return;
+        if (t === "analysis") {
+          // Central button
+          if (t === tabKey) {
+            btn.classList.add("ring-4", "ring-brand/30", "scale-105");
+          } else {
+            btn.classList.remove("ring-4", "ring-brand/30", "scale-105");
+          }
+        } else {
+          if (t === tabKey) {
+            btn.classList.add("text-brand");
+            btn.classList.remove("text-slate-400");
+          } else {
+            btn.classList.remove("text-brand");
+            btn.classList.add("text-slate-400");
           }
         }
-      },
-      dividend: { id: "dividend", name: "养老高股息金库", active: "601398", stocks: {} },
-      observe: { id: "observe", name: "观察试验金库", active: "000002", stocks: {} }
-    },
-    logs: [
-      { at: new Date().toISOString().slice(0, 16).replace("T", " "), text: "账本已彻底清空重置为纯净初始态。" }
-    ]
-  };
-  saveState();
-  closeResetModal();
-  alert("本地原有数据已彻底清理！已生成全新空白账本。");
-  renderApp();
-}
+      });
 
-// 启动初始化
-renderApp();
-</script>
+      renderCurrentView();
+      saveAppState();
+    }
+
+    // Switch Global Stock
+    function onGlobalStockSwitch(code) {
+      AppState.activeStock = code;
+      saveAppState();
+      renderAppHeader();
+      renderCurrentView();
+    }
+
+    // ================= Rendering Core =================
+    function renderAppHeader() {
+      const st = getActiveStockData();
+      const sel = document.getElementById("headerStockSelect");
+      if (sel) sel.value = st.code;
+
+      const pxEl = document.getElementById("headerLivePrice");
+      const chgEl = document.getElementById("headerLiveChg");
+      if (pxEl) pxEl.textContent = st.price.toFixed(2);
+      
+      if (chgEl) {
+        const diff = ((st.price - st.prevClose) / st.prevClose) * 100;
+        const isUp = diff >= 0;
+        chgEl.textContent = `${isUp ? '+' : ''}${diff.toFixed(2)}%`;
+        chgEl.className = `font-mono text-[10px] font-bold tabular-nums ${isUp ? 'text-emerald-400' : 'text-rose-400'}`;
+      }
+    }
+
+    function renderCurrentView() {
+      renderAppHeader();
+      const tab = AppState.currentTab || "portfolio";
+
+      if (tab === "portfolio") renderPortfolioView();
+      else if (tab === "plan") renderPlanView();
+      else if (tab === "analysis") renderAnalysisView();
+      else if (tab === "exec") renderExecView();
+      else if (tab === "drip") renderDripView();
+    }
+
+    // 1. Render Portfolio
+    function renderPortfolioView() {
+      const list = document.getElementById("portfolioHoldingList");
+      if (!list) return;
+
+      const stockKeys = Object.keys(AppState.stocks);
+      list.innerHTML = stockKeys.map(key => {
+        const s = AppState.stocks[key];
+        const val = s.holdShares * s.price;
+        const profit = (s.price - s.holdCost) * s.holdShares;
+        const profitPct = s.holdCost > 0 ? (profit / (s.holdCost * s.holdShares)) * 100 : 0;
+        const isSelected = key === AppState.activeStock;
+
+        return `
+          <div onclick="onGlobalStockSwitch('${s.code}'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 ${isSelected ? 'border-brand/50' : ''}">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200">
+                ${s.name.slice(0, 2)}
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-bold text-slate-100">${s.name}</span>
+                  <span class="text-[10px] font-mono text-slate-400">${s.code}</span>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5">
+                  持仓 ${s.holdShares.toLocaleString()} 股 · 成本 ¥${s.holdCost.toFixed(2)}
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥${Math.round(val).toLocaleString()}</div>
+              <div class="text-[10px] font-mono font-semibold tabular-nums ${profit >= 0 ? 'text-emerald-400' : 'text-rose-400'}">
+                ${profit >= 0 ? '+' : ''}${profitPct.toFixed(2)}%
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // 2. Render Plan & Pyramid
+    function renderPlanView() {
+      const st = getActiveStockData();
+      document.getElementById("planStockHeaderCode").textContent = `${st.code} · ${st.name}`;
+      document.getElementById("planFailStop").textContent = `¥${st.failStop.toFixed(2)}`;
+
+      // Calculate Next Trigger Step
+      const nextStep = st.buySteps.find(s => !s.exec) || st.buySteps[0];
+      if (nextStep) {
+        document.getElementById("planNextTrigger").textContent = `¥${nextStep.price.toFixed(2)}`;
+        const gap = Math.abs(st.price - nextStep.price);
+        const gapPct = (gap / st.price) * 100;
+        
+        const vBadge = document.getElementById("planVerdictBadge");
+        const vText = document.getElementById("planVerdictText");
+
+        if (st.price <= nextStep.price) {
+          vBadge.textContent = "🟢 触发已到价";
+          vBadge.className = "badge-soft-emerald px-2 py-0.5 rounded-full text-[11px] font-bold";
+          vText.innerHTML = `现价 ¥${st.price.toFixed(2)} 已触及【${nextStep.note} @¥${nextStep.price.toFixed(2)}】伏击线！建议依纪律限价买入 ¥${nextStep.amount.toLocaleString()}。`;
+        } else {
+          vBadge.textContent = "⏳ 伏击等待中";
+          vBadge.className = "badge-soft-gold px-2 py-0.5 rounded-full text-[11px] font-bold";
+          vText.innerHTML = `现价 ¥${st.price.toFixed(2)} 距离最近档【${nextStep.note} @¥${nextStep.price.toFixed(2)}】尚差 <strong class="text-amber-300">¥${gap.toFixed(2)} (${gapPct.toFixed(2)}%)</strong>。盘中杂波勿动，未到价绝不提前抢跑。`;
+        }
+      }
+
+      // Render Pyramid Buy Steps
+      const pyramidContainer = document.getElementById("pyramidStepsList");
+      pyramidContainer.innerHTML = st.buySteps.map((step, idx) => {
+        const isDone = !!step.exec;
+        const estShares = Math.floor(step.amount / (step.price * 100)) * 100;
+        return `
+          <div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-field/80 border ${isDone ? 'border-emerald-500/30 bg-emerald-500/5' : 'border-surface-border'}">
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-bold ${isDone ? 'bg-emerald-500/20 text-emerald-300' : 'bg-brand/20 text-brand-light'}">
+                  ${isDone ? '已成交' : `档位 ${idx + 1}`}
+                </span>
+                <span class="text-xs font-bold text-slate-100 font-mono">¥${step.price.toFixed(2)}</span>
+                <span class="text-[11px] text-slate-400 font-medium">· ${step.note}</span>
+              </div>
+              <div class="text-[10px] text-slate-400 mt-0.5">
+                计划 ¥${step.amount.toLocaleString()} (约 ${estShares} 股)
+              </div>
+            </div>
+            <div>
+              ${isDone ? `
+                <span class="text-[11px] font-bold text-emerald-400 flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-sm">check</span>已入账
+                </span>
+              ` : `
+                <button onclick="markStepExecuted(${idx})" class="px-2.5 py-1 rounded-lg bg-brand/20 border border-brand/40 text-brand-light text-[11px] font-bold hover:bg-brand hover:text-slate-950 transition">
+                  对账记账
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Render Take Profit Steps
+      const tpContainer = document.getElementById("takeProfitStepsList");
+      tpContainer.innerHTML = st.sellSteps.map((s, idx) => {
+        return `
+          <div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-field/80 border border-surface-border">
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-bold bg-sky-500/20 text-sky-300">盈${idx + 1}</span>
+                <span class="text-xs font-bold text-slate-100 font-mono">¥${s.price.toFixed(2)}</span>
+                <span class="text-[11px] text-slate-400 font-medium">· ${s.note}</span>
+              </div>
+              <div class="text-[10px] text-slate-400 mt-0.5">
+                拟卖出 ${s.shares} 股 (套现约 ¥${Math.round(s.shares * s.price).toLocaleString()})
+              </div>
+            </div>
+            <span class="text-[10px] text-sky-400 font-medium">已设预案</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // 3. Render Analysis
+    function renderAnalysisView() {
+      const st = getActiveStockData();
+      const whyBox = document.getElementById("aiWhyBoxInput");
+      if (whyBox) whyBox.value = st.why || "";
+    }
+
+    // 4. Render Execution Hub
+    function renderExecView() {
+      const st = getActiveStockData();
+      const eventBox = document.getElementById("eventGatesContainer");
+      if (eventBox) {
+        if (!st.events || st.events.length === 0) {
+          eventBox.innerHTML = `<div class="text-slate-400 text-xs py-2 text-center">暂未设定特定现实事件闸门</div>`;
+        } else {
+          eventBox.innerHTML = st.events.map((e, idx) => `
+            <div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-field border border-surface-border">
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] px-1.5 py-0.2 rounded font-bold ${e.type === 'kill' ? 'badge-soft-rose' : 'badge-soft-emerald'}">
+                    ${e.type === 'kill' ? '熔断' : '放行'}
+                  </span>
+                  <span class="text-xs font-bold text-slate-200">${e.name}</span>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5">${e.note}</div>
+              </div>
+              <button onclick="toggleEventGateStatus(${idx})" class="px-2 py-1 rounded-lg text-[10px] font-bold border ${e.status === 'done' ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-surface-sub text-slate-400 border-surface-border'}">
+                ${e.status === 'done' ? '已发生放行' : '标为发生'}
+              </button>
+            </div>
+          `).join("");
+        }
+      }
+
+      // Render Logs
+      const logContainer = document.getElementById("executionLogsStream");
+      if (logContainer) {
+        logContainer.innerHTML = AppState.logs.map(l => `
+          <div class="flex items-start gap-1.5 text-slate-300">
+            <span class="text-brand font-semibold shrink-0">[${l.time}]</span>
+            <span class="text-slate-300 leading-tight">${l.text}</span>
+          </div>
+        `).join("");
+      }
+
+      runBrokerDeductionCalc();
+    }
+
+    // 5. Render Drip & Notes
+    function renderDripView() {
+      recalcDripPreview();
+      const container = document.getElementById("thesisNotesContainer");
+      if (container) {
+        container.innerHTML = AppState.thesisNotes.map(n => `
+          <div class="p-2.5 rounded-xl bg-surface-field border border-surface-border">
+            <div class="flex justify-between text-[10px] text-slate-400 font-mono mb-1">
+              <span class="text-slate-200 font-bold">${n.title}</span>
+              <span>${n.date}</span>
+            </div>
+            <p class="text-slate-300 text-[11px] leading-relaxed">${n.content}</p>
+          </div>
+        `).join("");
+      }
+    }
+
+    // ================= Business Logic Functions =================
+    // 1. Broker Reverse Calculation (04 规费滑点倒推)
+    function runBrokerDeductionCalc() {
+      const shares = parseFloat(document.getElementById("brokerCalcShares")?.value) || 700;
+      const basePx = parseFloat(document.getElementById("brokerCalcBasePx")?.value) || 25.60;
+      const actualPaid = parseFloat(document.getElementById("brokerCalcActualPaid")?.value) || 17926.80;
+
+      if (shares <= 0 || actualPaid <= 0) return;
+
+      // Reverse deduce: fees rough ~ 0.035% (Stamp, commission, transfer fees)
+      const roughFeeRate = 0.00035;
+      const estimatedStockMoney = actualPaid / (1 + roughFeeRate);
+      const deducedPx = estimatedStockMoney / shares;
+      const slippage = deducedPx - basePx;
+      const fees = actualPaid - (deducedPx * shares);
+
+      const pEl = document.getElementById("deduceAvgPrice");
+      const sEl = document.getElementById("deduceSlippageDiff");
+      const fEl = document.getElementById("deduceFeeTotal");
+
+      if (pEl) pEl.textContent = `¥${deducedPx.toFixed(3)}`;
+      if (sEl) {
+        const isPositive = slippage <= 0.005;
+        sEl.textContent = `${slippage >= 0 ? '+' : ''}¥${slippage.toFixed(3)} (${isPositive ? '顺滑利好' : '不利滑点'})`;
+        sEl.className = `font-bold tabular-nums ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`;
+      }
+      if (fEl) fEl.textContent = `¥${Math.max(5, fees).toFixed(2)} (含经手/过户/最低规费)`;
+    }
+
+    function commitBrokerAuditToLog() {
+      const st = getActiveStockData();
+      const shares = document.getElementById("brokerCalcShares")?.value || "700";
+      const actualPaid = document.getElementById("brokerCalcActualPaid")?.value || "17926.80";
+      const avgPx = document.getElementById("deduceAvgPrice")?.textContent || "¥25.609";
+
+      addAppLog(`【实扣对账】${st.name} 归档买入 ${shares} 股，实扣 ¥${actualPaid} (均价 ${avgPx})`);
+      alert("对账记账成功！已安全归档至知行合一纪律日志。");
+      renderExecView();
+    }
+
+    // 2. Add App Log
+    function addAppLog(text) {
+      const d = new Date();
+      const timeStr = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}`;
+      AppState.logs.unshift({ time: timeStr, text });
+      if (AppState.logs.length > 50) AppState.logs.pop();
+      saveAppState();
+    }
+
+    // 3. Prompt New Step in Pyramid
+    function addNewStepPrompt(type) {
+      const st = getActiveStockData();
+      if (type === "buy") {
+        const px = prompt("输入新挂单触发价 (元)：", (st.price * 0.92).toFixed(2));
+        if (!px) return;
+        const amt = prompt("输入计划投资金额 (元)：", "15000");
+        if (!amt) return;
+        st.buySteps.push({
+          price: parseFloat(px),
+          amount: parseFloat(amt),
+          note: "手动补充档位",
+          exec: null
+        });
+        addAppLog(`新增买入档位 @¥${px}`);
+      } else {
+        const px = prompt("输入新止盈目标价 (元)：", (st.price * 1.2).toFixed(2));
+        if (!px) return;
+        const sh = prompt("输入拟卖出股数 (股)：", "500");
+        if (!sh) return;
+        st.sellSteps.push({
+          price: parseFloat(px),
+          shares: parseInt(sh),
+          note: "分批获利兑现"
+        });
+        addAppLog(`新增止盈档位 @¥${px}`);
+      }
+      renderPlanView();
+    }
+
+    function markStepExecuted(idx) {
+      const st = getActiveStockData();
+      if (st.buySteps[idx]) {
+        st.buySteps[idx].exec = true;
+        addAppLog(`【档位成交】${st.name} 确认执行第 ${idx + 1} 档 @¥${st.buySteps[idx].price}`);
+        renderPlanView();
+      }
+    }
+
+    // 4. Events Toggling
+    function toggleEventGateStatus(idx) {
+      const st = getActiveStockData();
+      if (st.events[idx]) {
+        st.events[idx].status = st.events[idx].status === "done" ? "waiting" : "done";
+        addAppLog(`事件【${st.events[idx].name}】状态切换为: ${st.events[idx].status}`);
+        renderExecView();
+      }
+    }
+
+    function promptNewEventGate() {
+      const st = getActiveStockData();
+      const name = prompt("请输入事件名称 (如: 获得新资质认证/三季报披露)：");
+      if (!name) return;
+      const type = confirm("该事件是【放行开闸】还是【熔断停止】？\n点击[确定]=放行，[取消]=熔断") ? "unlock" : "kill";
+      st.events.push({
+        name,
+        type,
+        status: "waiting",
+        note: "条件达成后生效"
+      });
+      addAppLog(`新增现实条件闸门: ${name}`);
+      renderExecView();
+    }
+
+    // 5. DRIP Calculations
+    function recalcDripPreview() {
+      const st = getActiveStockData();
+      const cashPer10 = parseFloat(document.getElementById("dripCashInput")?.value) || 4.5;
+      const shares = st.holdShares || 1700;
+      const netCash = (shares / 10) * cashPer10;
+      const exRefPrice = Math.max(0.01, st.price - (cashPer10 / 10));
+      const bonusShares = Math.floor(netCash / (st.price * 100)) * 100;
+
+      const pBox = document.getElementById("dripPreviewBox");
+      if (pBox) {
+        pBox.innerHTML = `
+          • 现持 ${shares.toLocaleString()} 股 ➔ 税后分红到账: <strong class="text-emerald-400">¥${netCash.toFixed(2)}</strong><br>
+          • 除权参考价: <strong class="text-amber-300">¥${exRefPrice.toFixed(2)}</strong> (等比下移 -${(((st.price - exRefPrice)/st.price)*100).toFixed(2)}%)<br>
+          • DRIP 自动回购增厚预计: <strong class="text-white font-bold">${bonusShares} 股</strong>
+        `;
+      }
+    }
+
+    function executeFullExDividendShift() {
+      const st = getActiveStockData();
+      const cashPer10 = parseFloat(document.getElementById("dripCashInput")?.value) || 4.5;
+      const shift = cashPer10 / 10;
+      const ratio = (st.price - shift) / st.price;
+
+      if (!confirm(`确认执行除权除息防线平移吗？\n当前价 ¥${st.price} ➔ 除权基准价 ¥${(st.price - shift).toFixed(2)}\n所有挂单与硬止损将等比向下平移，防止跳空误触硬止损！`)) {
+        return;
+      }
+
+      st.price = parseFloat((st.price - shift).toFixed(2));
+      st.failStop = parseFloat((st.failStop * ratio).toFixed(2));
+      st.buySteps.forEach(s => s.price = parseFloat((s.price * ratio).toFixed(2)));
+      st.sellSteps.forEach(s => s.price = parseFloat((s.price * ratio).toFixed(2)));
+
+      addAppLog(`【除权平移完成】${st.name} 所有防线等比下移 ${( (1 - ratio)*100 ).toFixed(2)}%`);
+      alert("全套挂单与硬止损等比平移成功！跳空缺口已完全免疫。");
+      renderCurrentView();
+    }
+
+    function injectDripCashToOrders() {
+      const st = getActiveStockData();
+      const cashPer10 = parseFloat(document.getElementById("dripCashInput")?.value) || 4.5;
+      const netCash = Math.round((st.holdShares / 10) * cashPer10);
+
+      st.buySteps.push({
+        price: parseFloat((st.price * 0.95).toFixed(2)),
+        amount: netCash,
+        note: `DRIP股息复利注水档 (¥${netCash})`,
+        exec: null
+      });
+
+      addAppLog(`【DRIP注水】分红 ¥${netCash} 成功注入新伏击档`);
+      alert(`分红现金 ¥${netCash} 已注入正金字塔买单！`);
+      renderCurrentView();
+    }
+
+    // 6. AI 6-Dimensional Prompt Generator
+    function generateStructuredPrompt() {
+      const st = getActiveStockData();
+      const why = document.getElementById("aiWhyBoxInput")?.value || st.why;
+      
+      const prompt = `【等得起 · 6维深度研判与策略收敛任务】
+标的名称：${st.name} (${st.code})，当前价格：¥${st.price.toFixed(2)}
+底仓持有：${st.holdShares} 股 @¥${st.holdCost.toFixed(2)}，规划总投资 P：¥${st.planTotal}
+核心持有逻辑 (Why Box)：${why}
+
+【严格格式要求】
+请作为买方投研团队进行6维评估（技术支撑/财务/消息/对标/情绪/失效），并在答复末尾严格收敛输出以下四段机器可读格式：
+档1｜{上沿}~{下沿}｜{占预算%}｜{分批低吸理由}
+档2｜{上沿}~{下沿}｜{占预算%}｜{密集成交区承接理由}
+追1｜{触发价}~{上沿}｜{占预算%}｜{突破确认追击理由}
+止损｜{硬止损底线}｜{失效全清认错理由}
+盈1｜{止盈价}｜{套现持仓%}｜{阶梯落袋理由}
+`;
+
+      navigator.clipboard.writeText(prompt).then(() => {
+        alert("专业研判 Prompt 已成功复制到剪贴板！可发给外部大模型 (DeepSeek / ChatGPT / 豆包) 获取方案。");
+      }).catch(() => {
+        alert("复制成功！请粘贴至外部 AI 工具。");
+      });
+    }
+
+    function parseAndApplyAiPlan() {
+      const raw = document.getElementById("aiResponsePasteArea")?.value || "";
+      if (!raw.trim()) {
+        alert("请先粘贴 AI 回复文本！");
+        return;
+      }
+
+      const st = getActiveStockData();
+      const lines = raw.split("\n").map(l => l.trim());
+      let parsedCount = 0;
+
+      lines.forEach(l => {
+        const m = l.match(/^档\s*\d+\s*[｜|]\s*([0-9.]+)[~\-—]([0-9.]+)\s*[｜|]\s*([0-9]+)%\s*[｜|]\s*(.*)$/);
+        if (m) {
+          const targetPx = parseFloat(m[2]);
+          const pct = parseInt(m[3]);
+          const amt = Math.round(st.planTotal * (pct / 100));
+          st.buySteps.push({
+            price: targetPx,
+            amount: amt,
+            note: `AI收敛: ${m[4]}`,
+            exec: null
+          });
+          parsedCount++;
+        }
+        const stopMatch = l.match(/^止损\s*[｜|]\s*([0-9.]+)\s*[｜|]\s*(.*)$/);
+        if (stopMatch) {
+          st.failStop = parseFloat(stopMatch[1]);
+        }
+      });
+
+      const feedback = document.getElementById("aiParseFeedback");
+      if (feedback) {
+        feedback.classList.remove("hidden");
+        feedback.textContent = `✓ 成功解析并注入 ${parsedCount} 档买入预案与硬止损线！已更新至标的看板。`;
+      }
+
+      addAppLog(`【AI收敛】成功套用 ${st.name} 四段式预案`);
+      saveAppState();
+    }
+
+    // 7. Modals & Helpers
+    function triggerImpulseLockAlert() {
+      document.getElementById("impulseModal").classList.remove("hidden");
+      document.getElementById("impulseModal").classList.add("flex");
+    }
+
+    function closeImpulseAlert() {
+      document.getElementById("impulseModal").classList.add("hidden");
+      document.getElementById("impulseModal").classList.remove("flex");
+    }
+
+    function addNewThesisPrompt() {
+      const title = prompt("输入手记标题：", "基本面深度思考");
+      if (!title) return;
+      const content = prompt("输入手记内容：");
+      if (!content) return;
+
+      const d = new Date().toISOString().slice(0, 10);
+      AppState.thesisNotes.unshift({ title, date: d, content });
+      addAppLog(`新增心智手记: ${title}`);
+      renderDripView();
+    }
+
+    function clearExecutionLogs() {
+      AppState.logs = [];
+      saveAppState();
+      renderExecView();
+    }
+
+    // 8. JSON Export / Import
+    function exportDataToJson() {
+      const blob = new Blob([JSON.stringify(AppState, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `等得起-完整数据备份-${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      addAppLog("导出一份全量 JSON 备份");
+    }
+
+    function triggerImportFileInput() {
+      document.getElementById("importJsonFileInput")?.click();
+    }
+
+    function handleImportJson(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (!parsed.stocks) throw new Error("缺少标的数据");
+          AppState = parsed;
+          saveAppState();
+          alert("数据恢复成功！");
+          renderCurrentView();
+        } catch (err) {
+          alert("导入失败：文件格式不兼容！");
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = "";
+    }
+
+    function restoreInitialDemoData() {
+      if (confirm("确定恢复标准演示数据吗？")) {
+        AppState = JSON.parse(JSON.stringify(INITIAL_DATA));
+        saveAppState();
+        renderCurrentView();
+        alert("已恢复官方精选示例标的与金字塔预案。");
+      }
+    }
+
+    function clearAllDataFactoryReset() {
+      if (confirm("⚠️ 危险操作：确认彻底清空本地所有持仓与计划吗？建议清空前先导出备份。")) {
+        localStorage.removeItem(STORAGE_KEY);
+        AppState = JSON.parse(JSON.stringify(INITIAL_DATA));
+        AppState.logs = [{ time: "00:00:00", text: "账本已初始化清空重置。" }];
+        saveAppState();
+        renderCurrentView();
+        alert("已清空本地沙盒账本。");
+      }
+    }
+
+    // Initialize App on DOM Ready
+    window.addEventListener("DOMContentLoaded", () => {
+      renderCurrentView();
+    });
+  </script>
 
 
 </body></html>
