@@ -1,20 +1,24 @@
-<!DOCTYPE html><html class="dark" lang="zh-CN"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
-<meta content="yes" name="apple-mobile-web-app-capable">
-<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
-<meta content="等得起" name="apple-mobile-web-app-title">
-<meta content="等得起" name="application-name">
-<meta content="#051424" name="theme-color">
-<meta content="等得起 · 股票长线投资与纪律做T闭环工具 - 有计划，才等得起" name="description">
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="等得起" name="apple-mobile-web-app-title"/>
+<meta content="等得起" name="application-name"/>
+<meta content="#051424" name="theme-color"/>
+<meta content="等得起 · 股票长线投资与纪律做T闭环工具 - 有计划，才等得起" name="description"/>
 <title>等得起 (DengDeQi) · 股票长线投资与纪律做T闭环</title>
+<!-- Web App Manifest (Data URI Self-Contained) -->
+<link href="data:application/json;base64,eyJuYW1lIjoi562J5b6X6LW3Iiwic2hvcnRfbmFtZSI6IueFreeXu+i1tyIsImRlc2NyaXB0aW9uIjoi5pyJ6K6h5YiS77yM5omN562J5b6X6LW3Iiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwNTE0MjQiLCJ0aGVtZV9jb2xvciI6IiMwNTE0MjQifQ==" rel="manifest"/>
+<!-- Google Fonts & Robust Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
 <!-- Tailwind CDN -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Google Fonts & Icons -->
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 <script id="tailwind-config">
     tailwind.config = {
       darkMode: "class",
@@ -51,8 +55,24 @@
         }
       }
     }
-  </script>
+</script>
 <style>
+    /* Robust icon fallback declaration to prevent text bleed */
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined' !important;
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-block;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      vertical-align: middle;
+    }
     /* Custom scrollbar and mobile polish */
     ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -66,11 +86,6 @@
     .safe-top { padding-top: env(safe-area-inset-top, 0px); }
     .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
     .tabular-nums { font-variant-numeric: tabular-nums; }
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 50%, #d97706 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
     .glass-card {
       background: linear-gradient(180deg, rgba(13, 28, 45, 0.94) 0%, rgba(9, 20, 33, 0.96) 100%);
       backdrop-filter: blur(16px);
@@ -92,7 +107,12 @@
       color: #fb7185;
       border: 1px solid rgba(244, 63, 94, 0.25);
     }
-  </style>
+    .badge-soft-sky {
+      background: rgba(56, 189, 248, 0.12);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+</style>
 </head>
 <body class="flex justify-center min-h-screen antialiased selection:bg-brand selection:text-slate-900">
 <!-- Mobile App Frame Container (Desktop Centered / Full Mobile) -->
@@ -100,10 +120,13 @@
 <!-- Top App Bar (Sticky) -->
 <header class="sticky top-0 z-40 bg-surface/90 backdrop-blur-md border-b border-surface-border/50 safe-top">
 <div class="px-4 py-2.5 flex items-center justify-between gap-2">
-<!-- Logo & Brand -->
+<!-- Self-contained Inline SVG Brand Logo -->
 <div class="flex items-center gap-2 cursor-pointer" onclick="switchNavTab('portfolio')">
-<div class="w-8 h-8 rounded-lg overflow-hidden shadow-glow shrink-0 border border-brand/40 bg-surface-card flex items-center justify-center">
-<img alt="等得起官方图标" class="w-full h-full object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida/AEtjO1VHx_ZyukhNsChUYNAXLNJkoYdXNSpMH6khVyF-WPEoM2c8BdMwh37jd1L5m3vweAhhZUKFRAvSf0PROy4Kc1t-9bwb_uq289S75ndrDbXinx3sbIBx5iU6mRbEpub7hvSZMXx3PqnLROamCumUS71NVb_Sihd1C4Y8vOr0FnfDNp9NtAjydfuqoKrxRYyf8RqogjvuPcElE9k4anjCFoc48QvUvdNCYXQenzAC8Mcr1w">
+<div class="w-9 h-9 rounded-xl overflow-hidden shadow-glow shrink-0 border border-brand/40 bg-surface-card flex items-center justify-center p-0.5">
+<svg height="34" style="border-radius:9px;flex-shrink:0;" viewbox="0 0 512 512" width="34">
+<rect fill="#FFA826" height="512" rx="124" width="512"></rect>
+<text fill="#111827" font-family="-apple-system, sans-serif" font-size="288" font-weight="900" text-anchor="middle" x="256" y="348">等</text>
+</svg>
 </div>
 <div>
 <div class="flex items-center gap-1.5 leading-none">
@@ -113,7 +136,7 @@
 <p class="text-[10px] text-slate-400 font-medium tracking-tight mt-0.5">有计划 · 才等得起</p>
 </div>
 </div>
-<!-- Right Quick Stock Switcher & Price Pill -->
+<!-- Right Quick Stock Switcher & Live Price Indicator -->
 <div class="flex items-center gap-2">
 <div class="flex items-center bg-surface-sub/90 border border-surface-border px-2 py-1 rounded-xl text-xs gap-1.5">
 <select class="bg-transparent text-xs font-semibold text-slate-200 outline-none border-none p-0 cursor-pointer pr-1 focus:ring-0" id="headerStockSelect" onchange="onGlobalStockSwitch(this.value)">
@@ -136,18 +159,18 @@
 </div>
 </div>
 </header>
-<!-- Main Dynamic Content Views (5-Tabs) -->
+<!-- Main Dynamic Content Views (5 Sequential Tabs) -->
 <main class="flex-1 pb-24 overflow-y-auto px-4 pt-3.5 space-y-4">
-<!-- ================= TAB 1: 组合 (Portfolio) ================= -->
+<!-- ================= TAB 1: ① 组合 (Portfolio - 资产总览) ================= -->
 <section class="space-y-4 tab-page" id="view-portfolio">
 <!-- Asset Overview Card -->
 <div class="glass-card rounded-2xl p-4 relative overflow-hidden shadow-card border border-brand/20">
 <div class="absolute -right-8 -top-8 w-32 h-32 bg-brand/10 rounded-full blur-2xl pointer-events-none"></div>
 <div class="flex items-center justify-between text-xs text-slate-400">
 <span class="flex items-center gap-1.5 font-medium">
-<span class="material-symbols-outlined text-[15px] text-brand">account_balance_wallet</span>
-              全组合净资产估值 (双账)
-            </span>
+<span class="material-symbols-outlined text-[16px] text-brand">account_balance_wallet</span>
+全组合净资产估值 (双账)
+</span>
 <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800/80 text-slate-300 border border-slate-700">金库: 核心成长</span>
 </div>
 <div class="mt-2.5 flex items-baseline justify-between">
@@ -166,7 +189,7 @@
 <div class="flex flex-col items-end">
 <div class="px-2.5 py-1 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 flex items-center gap-1 text-xs font-bold">
 <span class="material-symbols-outlined text-sm">verified</span>
-<span class="">94分 纪律</span>
+<span>94分 纪律</span>
 </div>
 <span class="text-[10px] text-slate-500 mt-1">已连续知行 48 天</span>
 </div>
@@ -174,7 +197,7 @@
 <!-- Bottom Anti-Fragile Structure Bar -->
 <div class="mt-4 pt-3 border-t border-surface-border/60">
 <div class="flex justify-between text-[11px] text-slate-400 mb-1.5">
-<span class="">抗脆弱资产防御结构</span>
+<span>抗脆弱资产防御结构</span>
 <span class="text-brand font-medium">底仓锁定 64% ｜ 备用弹药 36%</span>
 </div>
 <div class="w-full h-2 rounded-full bg-surface-field overflow-hidden flex">
@@ -197,118 +220,28 @@
 </div>
 <div>
 <div class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-<span class="">DRIP 股息复利脉冲池</span>
+<span>DRIP 股息复利脉冲池</span>
 <span class="badge-soft-emerald px-1.5 py-0.2 rounded text-[10px] font-mono font-semibold">自动滚存</span>
 </div>
 <p class="text-[11px] text-slate-400 mt-0.5">本年度预计收到股息 ¥6,240 · 自动注入低吸档</p>
 </div>
 </div>
 <button class="text-xs text-brand font-semibold flex items-center hover:underline" onclick="switchNavTab('drip')">
-            查看 <span class="material-symbols-outlined text-sm">chevron_right</span>
+查看 <span class="material-symbols-outlined text-sm">chevron_right</span>
 </button>
 </div>
 <!-- Positions Detail List -->
 <div>
 <div class="flex items-center justify-between mb-2">
 <h3 class="text-xs font-bold text-slate-300 tracking-wide uppercase">核心标的仓位池</h3>
-<span class="text-[11px] text-slate-500">点击直接载入决策</span>
+<span class="text-[11px] text-slate-500">点击直接载入标的决策</span>
 </div>
 <div class="space-y-2.5" id="portfolioHoldingList">
-          <div onclick="onGlobalStockSwitch('300938'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 border-brand/50">
-            <div class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200">
-                信测
-              </div>
-              <div>
-                <div class="flex items-center gap-1.5">
-                  <span class="text-xs font-bold text-slate-100">信测标准</span>
-                  <span class="text-[10px] font-mono text-slate-400">300938</span>
-                </div>
-                <div class="text-[10px] text-slate-400 mt-0.5">
-                  持仓 1,700 股 · 成本 ¥27.46
-                </div>
-              </div>
-            </div>
-            <div class="text-right">
-              <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥45,101</div>
-              <div class="text-[10px] font-mono font-semibold tabular-nums text-rose-400">
-                -3.39%
-              </div>
-            </div>
-          </div>
-        
-          <div onclick="onGlobalStockSwitch('600519'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 ">
-            <div class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200">
-                贵州
-              </div>
-              <div>
-                <div class="flex items-center gap-1.5">
-                  <span class="text-xs font-bold text-slate-100">贵州茅台</span>
-                  <span class="text-[10px] font-mono text-slate-400">600519</span>
-                </div>
-                <div class="text-[10px] text-slate-400 mt-0.5">
-                  持仓 100 股 · 成本 ¥1420.00
-                </div>
-              </div>
-            </div>
-            <div class="text-right">
-              <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥145,000</div>
-              <div class="text-[10px] font-mono font-semibold tabular-nums text-emerald-400">
-                +2.11%
-              </div>
-            </div>
-          </div>
-        
-          <div onclick="onGlobalStockSwitch('600900'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 ">
-            <div class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200">
-                长江
-              </div>
-              <div>
-                <div class="flex items-center gap-1.5">
-                  <span class="text-xs font-bold text-slate-100">长江电力</span>
-                  <span class="text-[10px] font-mono text-slate-400">600900</span>
-                </div>
-                <div class="text-[10px] text-slate-400 mt-0.5">
-                  持仓 2,000 股 · 成本 ¥28.50
-                </div>
-              </div>
-            </div>
-            <div class="text-right">
-              <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥59,600</div>
-              <div class="text-[10px] font-mono font-semibold tabular-nums text-emerald-400">
-                +4.56%
-              </div>
-            </div>
-          </div>
-        
-          <div onclick="onGlobalStockSwitch('002555'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 ">
-            <div class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200">
-                三七
-              </div>
-              <div>
-                <div class="flex items-center gap-1.5">
-                  <span class="text-xs font-bold text-slate-100">三七互娱</span>
-                  <span class="text-[10px] font-mono text-slate-400">002555</span>
-                </div>
-                <div class="text-[10px] text-slate-400 mt-0.5">
-                  持仓 3,200 股 · 成本 ¥17.20
-                </div>
-              </div>
-            </div>
-            <div class="text-right">
-              <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥56,640</div>
-              <div class="text-[10px] font-mono font-semibold tabular-nums text-emerald-400">
-                +2.91%
-              </div>
-            </div>
-          </div>
-        </div>
+<!-- Dynamic rendered by JS -->
+</div>
 </div>
 </section>
-<!-- ================= TAB 2: 标的与金字塔 (Plan & Pyramid) ================= -->
+<!-- ================= TAB 2: ② 标的 (Plan - 金字塔与三结局) ================= -->
 <section class="space-y-4 tab-page hidden" id="view-plan">
 <!-- Decision HQ: The 3 Core Command Cards -->
 <div class="space-y-2.5">
@@ -326,8 +259,8 @@
 <span class="badge-soft-gold px-2 py-0.5 rounded-full text-[11px] font-bold" id="planVerdictBadge">⏳ 伏击等待中</span>
 </div>
 <p class="text-xs font-medium text-slate-200 mt-1.5 leading-relaxed" id="planVerdictText">
-              现价 ¥26.53 距离最近一档【回踩颈线低吸批 @¥25.60】尚余 <strong class="text-amber-300">¥0.93 (3.51%)</strong> 空间。盘中杂波坚决勿动，未到价位绝不提前抢跑。
-            </p>
+现价 ¥26.53 距离最近一档【回踩颈线低吸批 @¥25.60】尚余 <strong class="text-amber-300">¥0.93 (3.51%)</strong> 空间。盘中杂波坚决勿动，未到价位绝不提前抢跑。
+</p>
 </div>
 <!-- Dual Cards: Next Trigger & Hard Invalidation Stop -->
 <div class="grid grid-cols-2 gap-2.5">
@@ -336,14 +269,14 @@
 <div class="text-[10px] text-slate-400 font-medium">② 下一关键买点触发</div>
 <div class="text-lg font-display font-extrabold text-emerald-400 mt-0.5 tabular-nums" id="planNextTrigger">¥25.60</div>
 <div class="text-[10px] text-slate-400 mt-0.5 flex justify-between">
-<span class="">配比 28.5%</span>
+<span>配比 28.5%</span>
 <span class="text-slate-300">¥20,000</span>
 </div>
 </div>
 <!-- Absolute Invalidation Stop (Ratchet Locked) -->
 <div class="glass-card rounded-2xl p-3 border-l-2 border-l-rose-400 relative">
 <div class="flex items-center justify-between text-[10px] text-slate-400 font-medium">
-<span class="">③ 绝对失效硬底线</span>
+<span>③ 绝对失效硬底线</span>
 <span class="text-[9px] text-rose-300 font-bold">单向棘轮</span>
 </div>
 <div class="text-lg font-display font-extrabold text-rose-400 mt-0.5 tabular-nums" id="planFailStop">¥22.50</div>
@@ -360,7 +293,7 @@
 </div>
 <button class="text-[11px] font-semibold text-brand hover:text-brand-light flex items-center gap-0.5" onclick="addNewStepPrompt('buy')">
 <span class="material-symbols-outlined text-sm">add_circle</span>加一层
-            </button>
+</button>
 </div>
 <div class="space-y-2" id="pyramidStepsList">
 <!-- Rendered by JS -->
@@ -375,7 +308,7 @@
 </div>
 <button class="text-[11px] font-semibold text-brand hover:text-brand-light flex items-center gap-0.5" onclick="addNewStepPrompt('sell')">
 <span class="material-symbols-outlined text-sm">add_circle</span>加止盈
-            </button>
+</button>
 </div>
 <div class="space-y-2" id="takeProfitStepsList">
 <!-- Rendered by JS -->
@@ -386,89 +319,139 @@
 <div class="flex items-center justify-between">
 <span class="text-xs font-bold text-rose-300 flex items-center gap-1">
 <span class="material-symbols-outlined text-sm">shield</span>
-              最坏情况压力测试 (Worst-Case)
-            </span>
+最坏情况压力测试 (Worst-Case)
+</span>
 <span class="text-[10px] text-slate-400">若极端行情破失效线</span>
 </div>
-<p class="text-[11px] text-slate-300 mt-2 leading-relaxed">
-            若所有 3 档分批买单全部接满（实占 ¥70,000）并最终在 ¥22.50 触发破位止损离场，全案最大回撤锁定为 <strong class="text-rose-400 font-mono font-bold">-¥12,480 (-17.8%)</strong>，在可承受年收益安全边际以内，绝不伤筋动骨。
-          </p>
+<p class="text-[11px] text-slate-300 mt-2 leading-relaxed" id="planWorstCaseText">
+若所有分批买单全部接满（实占 ¥70,000）并最终在 ¥22.50 触发破位止损离场，全案最大回撤锁定为 <strong class="text-rose-400 font-mono font-bold">-¥12,480 (-17.8%)</strong>，在可承受年收益安全边际以内，绝不伤筋动骨。
+</p>
 </div>
 </section>
-<!-- ================= TAB 3: 分析 (AI 6维收敛) ================= -->
+<!-- ================= TAB 3: ③ 分析 (Analysis - 6维研判与自定义条件) ================= -->
 <section class="space-y-4 tab-page hidden" id="view-analysis">
 <!-- Header Guidance -->
-<div class="glass-card rounded-2xl p-4 border border-brand/30 relative overflow-hidden">
+<div class="glass-card rounded-2xl p-3.5 border border-brand/30 relative overflow-hidden">
+<div class="flex items-center justify-between">
 <div class="flex items-center gap-2">
 <div class="w-9 h-9 rounded-xl bg-brand/20 border border-brand/40 flex items-center justify-center text-brand">
 <span class="material-symbols-outlined text-[20px]">smart_toy</span>
 </div>
 <div>
 <h2 class="text-sm font-bold text-slate-100">AI 6维研判与方案收敛 (Prompt v5)</h2>
-<p class="text-[11px] text-slate-400">杜绝模棱两可废话 · 强制收敛为四段标准挂单</p>
+<p class="text-[10px] text-slate-400">杜绝模棱两可废话 · 强制收敛为四段标准执行挂单</p>
 </div>
 </div>
+<span class="badge-soft-gold text-[10px] px-2 py-0.5 rounded-full font-bold">全闭环</span>
 </div>
-<!-- Step 1: Stock Logic Why Box -->
-<div class="glass-card rounded-2xl p-3.5">
-<label class="text-xs font-bold text-slate-200 flex items-center justify-between mb-1.5">
-<span class="">核心投资逻辑 (Why Box)</span>
-<span class="text-[10px] text-slate-400">买入的灵魂理由</span>
-</label>
-<textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 focus:border-brand outline-none" id="aiWhyBoxInput" placeholder="为什么这家公司值得长线守候？业绩刚性/估值低估/分红护城河..." rows="2"></textarea>
 </div>
-<!-- Step 2: 6-Dimensional Checklist Accordion -->
-<div class="glass-card rounded-2xl p-3.5">
-<div class="text-xs font-bold text-slate-200 mb-2 flex items-center justify-between">
-<span class="">6 维客观事实锚点输入</span>
-<span class="text-[10px] text-brand">全勾选将提高推理精度</span>
-</div>
+<!-- Stock Target & Budget Settings Box -->
+<div class="glass-card rounded-2xl p-3.5 space-y-2.5">
 <div class="grid grid-cols-2 gap-2 text-xs">
-<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
-<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
-<span class="text-slate-300">① 技术面支撑与颈线</span>
-</label>
-<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
-<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
-<span class="text-slate-300">② 财务扣非与现金流</span>
-</label>
-<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
-<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
-<span class="text-slate-300">③ 行业景气与排产</span>
-</label>
-<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
-<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
-<span class="text-slate-300">④ 对标龙头的估值差</span>
-</label>
-<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
-<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
-<span class="text-slate-300">⑤ 情绪极端与恐慌值</span>
-</label>
-<label class="flex items-center gap-2 p-2 rounded-xl bg-surface-field border border-surface-border/80 cursor-pointer">
-<input checked="" class="rounded text-brand focus:ring-0" type="checkbox">
-<span class="text-slate-300">⑥ 证伪与黑天鹅底线</span>
-</label>
+<div>
+<label class="text-[10px] text-slate-400 block mb-1">研判标的</label>
+<div class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-bold text-slate-100 px-2.5 py-1.5" id="analysisTargetName">信测标准 (300938)</div>
 </div>
-<button class="w-full mt-3 py-2.5 rounded-xl bg-brand text-slate-950 font-bold text-xs shadow-glow hover:bg-brand-light flex items-center justify-center gap-1.5 transition active:scale-[0.98]" onclick="generateStructuredPrompt()">
+<div>
+<label class="text-[10px] text-slate-400 block mb-1">本轮规划总弹药 P (元)</label>
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-amber-300 font-bold px-2.5 py-1.5 outline-none focus:border-brand" id="analysisPlanTotalInput" onchange="updateAnalysisBudget(this.value)" step="1000" type="number"/>
+</div>
+</div>
+<div>
+<label class="text-xs font-bold text-slate-200 flex items-center justify-between mb-1.5">
+<span>核心投资逻辑 (Why Box)</span>
+<span class="text-[10px] text-slate-400">守候的灵魂理由</span>
+</label>
+<textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 focus:border-brand outline-none" id="aiWhyBoxInput" onchange="updateActiveStockWhy(this.value)" placeholder="为什么值得长线守候？业绩刚性/估值低估/分红护城河/行业拐点..." rows="2"></textarea>
+</div>
+</div>
+<!-- 6-Dimensional Checklist & Customizable Factor Cards -->
+<div class="glass-card rounded-2xl p-3.5 space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-brand">checklist</span>
+<span class="text-xs font-bold text-slate-100">研判锚点卡 (6维基础 + 自定义)</span>
+</div>
+<button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-0.5" onclick="promptAddNewFactorCard()">
+<span class="material-symbols-outlined text-sm">add_box</span>＋新建自定义条件卡
+</button>
+</div>
+<!-- Fast Keyword Tag Selector -->
+<div>
+<div class="text-[10px] text-slate-400 mb-1.5 flex items-center justify-between">
+<span>常用客观事实词条 (点击快速填入 Why Box)：</span>
+</div>
+<div class="flex flex-wrap gap-1.5" id="quickTagList">
+<button class="text-[10px] px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand" onclick="insertKeyword('【技术支撑】回踩周线颈线支撑位不破')" type="button">周线颈线</button>
+<button class="text-[10px] px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand" onclick="insertKeyword('【技术支撑】MACD日线底部金叉背离')" type="button">MACD背离</button>
+<button class="text-[10px] px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand" onclick="insertKeyword('【财务刚性】扣非净利连续3季度环比超预期增长')" type="button">扣非超预期</button>
+<button class="text-[10px] px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand" onclick="insertKeyword('【估值折价】PE分位处于历史5%极度低估安全区间')" type="button">估值5%分位</button>
+<button class="text-[10px] px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand" onclick="insertKeyword('【股东回报】大额回购并注销，股息率近5%')" type="button">回购注销</button>
+<button class="text-[10px] px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand" onclick="insertKeyword('【排产景气】核心实验室已进入大客户供应链')" type="button">大客户验证</button>
+</div>
+</div>
+<!-- Cards List Container -->
+<div class="space-y-2 text-xs" id="factorCardsContainer">
+<!-- Dynamic cards rendered by JS -->
+</div>
+<button class="w-full mt-2 py-2.5 rounded-xl bg-brand text-slate-950 font-bold text-xs shadow-glow hover:bg-brand-light flex items-center justify-center gap-1.5 transition active:scale-[0.98]" onclick="generateStructuredPrompt()">
 <span class="material-symbols-outlined text-sm">content_copy</span>
-            一键生成并复制标准研判提示词 (Prompt)
-          </button>
+一键生成并复制完整研判提示词 (Prompt v5)
+</button>
 </div>
-<!-- Step 3: Paste AI Response & Parse -->
+<!-- AI Response Paste, Parsing & Execution Application -->
 <div class="glass-card rounded-2xl p-3.5 space-y-2.5">
 <div class="flex items-center justify-between">
-<span class="text-xs font-bold text-slate-200">粘贴外部大模型 (DeepSeek / GPT) 回复</span>
-<span class="text-[10px] text-slate-400">自动提取四段挂单</span>
+<span class="text-xs font-bold text-slate-200">粘贴外部大模型 (DeepSeek / ChatGPT / 豆包) 回复</span>
+<span class="text-[10px] text-slate-400">全自动四段识别</span>
 </div>
-<textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 font-mono focus:border-brand outline-none" id="aiResponsePasteArea" placeholder="在此粘贴大模型给出的带有「档1 / 追1 / 止损 / 盈1」的结构化文本..." rows="3"></textarea>
-<button class="w-full py-2.5 rounded-xl bg-surface-sub border border-brand/40 text-brand-light font-bold text-xs hover:bg-surface-field flex items-center justify-center gap-1.5 transition active:scale-[0.98]" onclick="parseAndApplyAiPlan()">
+<textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 font-mono focus:border-brand outline-none" id="aiResponsePasteArea" placeholder="直接粘贴大模型答复。例如：
+档1｜25.80~25.60｜30%｜回踩颈线试探
+档2｜24.50~24.20｜30%｜密集成交区深吸
+追1｜27.80~28.20｜20%｜放量突破阻力加码
+止损｜22.50｜跌破大底全清认错
+盈1｜32.50｜40%｜前高颈线初减" rows="4"></textarea>
+<div class="grid grid-cols-2 gap-2">
+<button class="py-2.5 rounded-xl bg-surface-sub border border-brand/40 text-brand-light font-bold text-xs hover:bg-surface-field flex items-center justify-center gap-1 transition active:scale-[0.98]" onclick="parseAiPlanPreview()">
 <span class="material-symbols-outlined text-sm">insights</span>
-            智能解析四段方案并一键套用到标的看板
-          </button>
-<div class="hidden p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono" id="aiParseFeedback"></div>
+标准化解析方案
+</button>
+<button class="py-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-500/30 flex items-center justify-center gap-1 transition active:scale-[0.98]" onclick="applyParsedPlanToTarget()">
+<span class="material-symbols-outlined text-sm">playlist_add_check</span>
+一键套用为执行挂单
+</button>
+</div>
+<!-- Parse Results Preview Box -->
+<div class="hidden p-3 rounded-xl bg-surface-field/90 border border-surface-border text-xs font-mono space-y-1.5" id="aiParseFeedback">
+<!-- Filled by JS -->
+</div>
+</div>
+<!-- Educational / Comparison Card: Pyramid Model Standard -->
+<div class="glass-card rounded-2xl p-3.5 border border-surface-border/60">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-xs font-bold text-slate-200 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-brand">balance</span>
+纪律基准：正金字塔 vs 倒金字塔
+</span>
+<span class="text-[10px] text-slate-400">铁律对比</span>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px] mt-2">
+<div class="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-slate-300 space-y-1">
+<div class="font-bold text-emerald-400 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-sm">check_circle</span> 正金字塔 (本系统)
+</div>
+<p class="text-[10px] leading-tight text-slate-400">越跌买力越大 (20% ➔ 30% ➔ 50%)。均价急速拉低，反弹微涨即可扭亏为盈。</p>
+</div>
+<div class="p-2 rounded-xl bg-rose-500/10 border border-rose-500/20 text-slate-300 space-y-1">
+<div class="font-bold text-rose-400 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-sm">cancel</span> 倒金字塔 (散户陷阱)
+</div>
+<p class="text-[10px] leading-tight text-slate-400">稍跌就重仓补，越深套越无子弹。均价高企，稍遇风吹草动即爆仓割肉。</p>
+</div>
+</div>
 </div>
 </section>
-<!-- ================= TAB 4: 执行中心 (Execution Hub) ================= -->
+<!-- ================= TAB 4: ④ 执行 (Execution Hub - 今日裁决与交割对账) ================= -->
 <section class="space-y-4 tab-page hidden" id="view-exec">
 <!-- Live Radar & Event Kill-Switch Section -->
 <div class="glass-card rounded-2xl p-3.5">
@@ -493,21 +476,21 @@
 <span class="badge-soft-emerald px-1.5 py-0.5 rounded text-[10px]">A股规费透明</span>
 </div>
 <p class="text-[11px] text-slate-400 mb-2.5">
-            填入券商银证 App 实际转出/入账总额，全自动倒推印花税、万2.5佣金、规费及成交滑点：
-          </p>
+填入券商银证 App 实际转出/入账总额，全自动倒推印花税、万2.5佣金、规费及成交滑点：
+</p>
 <div class="grid grid-cols-2 gap-2">
 <div>
 <label class="text-[10px] text-slate-400 block mb-1">成交股数 (股)</label>
-<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcShares" oninput="runBrokerDeductionCalc()" step="100" type="number" value="700">
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcShares" oninput="runBrokerDeductionCalc()" step="100" type="number" value="700"/>
 </div>
 <div>
 <label class="text-[10px] text-slate-400 block mb-1">计划基准价 (¥)</label>
-<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcBasePx" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="25.60">
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcBasePx" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="25.60"/>
 </div>
 </div>
 <div class="mt-2">
 <label class="text-[10px] text-slate-400 block mb-1">券商银证实际扣款总额 (¥)</label>
-<input class="w-full bg-surface-field border border-brand/40 text-amber-300 font-mono font-bold rounded-lg text-xs px-2.5 py-1.5 focus:border-brand outline-none" id="brokerCalcActualPaid" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="17926.80">
+<input class="w-full bg-surface-field border border-brand/40 text-amber-300 font-mono font-bold rounded-lg text-xs px-2.5 py-1.5 focus:border-brand outline-none" id="brokerCalcActualPaid" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="17926.80"/>
 </div>
 <!-- Reverse Deduction Output -->
 <div class="mt-3 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-xs font-mono space-y-1">
@@ -525,16 +508,16 @@
 </div>
 </div>
 <button class="w-full mt-2.5 py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition" onclick="commitBrokerAuditToLog()">
-            确认记账并归档至知行合一日志
-          </button>
+确认记账并归档至知行合一日志
+</button>
 </div>
 <!-- Discipline Action Logs -->
 <div class="glass-card rounded-2xl p-3.5">
 <div class="flex items-center justify-between mb-2">
 <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
 <span class="material-symbols-outlined text-[15px] text-emerald-400">history_edu</span>
-              知行合一纪律执行日志
-            </span>
+知行合一纪律执行日志
+</span>
 <button class="text-[10px] text-slate-500 hover:text-slate-300" onclick="clearExecutionLogs()">清空记录</button>
 </div>
 <div class="max-h-40 overflow-y-auto space-y-1.5 pr-1 font-mono text-[11px]" id="executionLogsStream">
@@ -542,42 +525,40 @@
 </div>
 </div>
 </section>
-<!-- ================= TAB 5: 手记与设置 (Thesis & DRIP) ================= -->
+<!-- ================= TAB 5: ⑤ 手记 (Thesis & DRIP - 投资复盘与数据备份) ================= -->
 <section class="space-y-4 tab-page hidden" id="view-drip">
 <!-- DRIP Calculator & Ex-Dividend Auto Shift -->
 <div class="glass-card rounded-2xl p-4 border border-emerald-500/20">
 <div class="flex items-center justify-between mb-2">
 <span class="text-xs font-bold text-slate-100 flex items-center gap-1.5">
 <span class="material-symbols-outlined text-[16px] text-emerald-400">compost</span>
-              除权除息等比平移与 DRIP 测算
-            </span>
+除权除息等比平移与 DRIP 测算
+</span>
 <span class="badge-soft-emerald px-2 py-0.5 rounded-full text-[10px] font-bold">防缺口误止损</span>
 </div>
 <p class="text-[11px] text-slate-400 mb-3">
-            分红除权产生价格跳空缺口时，一键全自动等比向下平移所有网格与硬止损线，防止误打认错：
-          </p>
+分红除权产生价格跳空缺口时，一键全自动等比向下平移所有网格与硬止损线，防止误打认错：
+</p>
 <div class="grid grid-cols-2 gap-2 text-xs">
 <div>
 <label class="text-[10px] text-slate-400 block mb-1">每10股派现金 (元)</label>
-<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripCashInput" oninput="recalcDripPreview()" step="0.1" type="number" value="4.50">
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripCashInput" oninput="recalcDripPreview()" step="0.1" type="number" value="4.50"/>
 </div>
 <div>
 <label class="text-[10px] text-slate-400 block mb-1">每10股送转股 (股)</label>
-<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripShareInput" oninput="recalcDripPreview()" step="1" type="number" value="0">
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripShareInput" oninput="recalcDripPreview()" step="1" type="number" value="0"/>
 </div>
 </div>
 <div class="mt-2.5 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-[11px] leading-relaxed text-slate-300 font-mono" id="dripPreviewBox">
-            • 现持 1,700 股 ➔ 税后分红到账: <strong class="text-emerald-400">¥765.00</strong><br>
-            • 除权参考价: <strong class="text-amber-300">¥26.08</strong> (等比下移 -1.70%)<br>
-            • DRIP 可增购复利股票: <strong class="text-white font-bold">0 股</strong>
+<!-- Filled by JS -->
 </div>
 <div class="flex gap-2 mt-3">
 <button class="flex-1 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-500/30 transition" onclick="executeFullExDividendShift()">
-              ⚙ 执行除权防线平移
-            </button>
+⚙ 执行除权防线平移
+</button>
 <button class="flex-1 py-2 rounded-xl bg-brand/20 border border-brand/40 text-brand-light font-bold text-xs hover:bg-brand/30 transition" onclick="injectDripCashToOrders()">
-              💧 分红注水下一买单
-            </button>
+💧 分红注水下一买单
+</button>
 </div>
 </div>
 <!-- Thesis Journal Stream -->
@@ -585,20 +566,12 @@
 <div class="flex items-center justify-between mb-2">
 <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
 <span class="material-symbols-outlined text-[16px] text-brand">edit_note</span>
-              长线心智手记 (Thesis)
-            </span>
+长线心智手记 (Thesis)
+</span>
 <button class="text-[11px] font-semibold text-brand hover:underline" onclick="addNewThesisPrompt()">＋ 写一条</button>
 </div>
 <div class="space-y-2 text-xs" id="thesisNotesContainer">
-<div class="p-2.5 rounded-xl bg-surface-field border border-surface-border">
-<div class="flex justify-between text-[10px] text-slate-400 font-mono mb-1">
-<span class="">信测标准 · 季报跟踪</span>
-<span class="">2026-09-02</span>
-</div>
-<p class="text-slate-200 text-[11px] leading-relaxed">
-                第三方新能源及军工检测实验室扩产验证顺利，虽受盘面短期情绪打压，但ROE连续三期向上拐头，金字塔梯级买单严阵以待。
-              </p>
-</div>
+<!-- Rendered by JS -->
 </div>
 </div>
 <!-- Data Management & Safety Center -->
@@ -607,52 +580,52 @@
 <div class="grid grid-cols-2 gap-2 text-xs">
 <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="exportDataToJson()">
 <span class="material-symbols-outlined text-sm">download</span>导出备份 (JSON)
-            </button>
+</button>
 <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="triggerImportFileInput()">
 <span class="material-symbols-outlined text-sm">upload</span>导入恢复备份
-            </button>
-<input accept=".json" class="hidden" id="importJsonFileInput" onchange="handleImportJson(event)" type="file">
+</button>
+<input accept=".json" class="hidden" id="importJsonFileInput" onchange="handleImportJson(event)" type="file"/>
 </div>
 <div class="grid grid-cols-2 gap-2 text-xs">
 <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="restoreInitialDemoData()">
 <span class="material-symbols-outlined text-sm">restart_alt</span>恢复标准示例
-            </button>
+</button>
 <button class="p-2 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 font-medium hover:bg-rose-500/20 flex items-center justify-center gap-1" onclick="clearAllDataFactoryReset()">
 <span class="material-symbols-outlined text-sm">delete_forever</span>彻底清空账本
-            </button>
+</button>
 </div>
 </div>
 <div class="text-center py-2 text-[10px] text-slate-500">
-          等得起 (DengDeQi) · 离线极客原生交互引擎 · v3.2 精装版
-        </div>
+等得起 (DengDeQi) · 离线极客原生交互引擎 · v3.5 精装自持版
+</div>
 </section>
 </main>
-<!-- Bottom Native 5-Tab Navigation Bar (Fixed) -->
+<!-- Bottom Native 5-Tab Navigation Bar (Fixed - In Strict Workflow Order) -->
 <nav class="fixed bottom-0 z-50 w-full max-w-[440px] bg-surface/95 backdrop-blur-lg border-t border-surface-border safe-bottom">
 <div class="grid grid-cols-5 h-16 items-center px-1">
-<!-- Tab 1: Portfolio -->
-<button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition py-1" id="nav-btn-portfolio" onclick="switchNavTab('portfolio')">
+<!-- Tab 1: ① 组合 (Portfolio) -->
+<button class="flex flex-col items-center justify-center text-brand transition py-1" id="nav-btn-portfolio" onclick="switchNavTab('portfolio')">
 <span class="material-symbols-outlined text-[22px]">pie_chart</span>
 <span class="text-[10px] font-medium mt-0.5">组合</span>
 </button>
-<!-- Tab 2: Plan & Pyramid -->
+<!-- Tab 2: ② 标的 (Plan & Pyramid) -->
 <button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition py-1" id="nav-btn-plan" onclick="switchNavTab('plan')">
 <span class="material-symbols-outlined text-[22px]">account_tree</span>
 <span class="text-[10px] font-medium mt-0.5">标的</span>
 </button>
-<!-- Tab 3: Central Highlight AI Analysis -->
+<!-- Tab 3: ③ 分析 (Analysis - Central Highlight) -->
 <div class="flex justify-center items-center relative -top-3">
-<button class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-glow flex flex-col items-center justify-center border-2 border-surface transition transform active:scale-95" id="nav-btn-analysis" onclick="switchNavTab('analysis')">
+<button class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-glow flex flex-col items-center justify-center border-2 border-surface transition transform active:scale-95" id="nav-btn-analysis" onclick="switchNavTab('analysis')" title="6维智能分析">
 <span class="material-symbols-outlined text-[22px] font-extrabold">auto_awesome</span>
 <span class="text-[9px] font-black -mt-1">分析</span>
 </button>
 </div>
-<!-- Tab 4: Execution Hub -->
+<!-- Tab 4: ④ 执行 (Execution Hub) -->
 <button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition py-1" id="nav-btn-exec" onclick="switchNavTab('exec')">
 <span class="material-symbols-outlined text-[22px]">rule_settings</span>
 <span class="text-[10px] font-medium mt-0.5">执行</span>
 </button>
-<!-- Tab 5: Thesis & DRIP -->
+<!-- Tab 5: ⑤ 手记 (Thesis & DRIP) -->
 <button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition py-1" id="nav-btn-drip" onclick="switchNavTab('drip')">
 <span class="material-symbols-outlined text-[22px]">menu_book</span>
 <span class="text-[10px] font-medium mt-0.5">手记</span>
@@ -668,25 +641,33 @@
 <h3 class="font-bold text-sm">48小时防追高冷静期</h3>
 </div>
 <p class="text-xs text-slate-300 leading-relaxed">
-        系统检测到盘中波动或加仓冲动。为保全胜利果实，非事前预设突破批次不得临时拔高均价。
-      </p>
+系统检测到盘中波动或加仓冲动。为保全胜利果实，非事前预设突破批次不得临时拔高均价。有计划，才等得起！
+</p>
 <div class="p-3 rounded-xl bg-surface-field border border-surface-border text-xs text-slate-400 font-mono">
-        剩余冷静期: 47:59:12<br>
-        当前纪律评分: 94分 (严守计划 +2分)
-      </div>
+剩余冷静期: 47:59:12<br/>
+当前纪律评分: 94分 (严守计划 +2分)
+</div>
 <div class="flex justify-end gap-2 pt-2">
 <button class="w-full py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition" onclick="closeImpulseAlert()">
-          坚守纪律，保持冷静
-        </button>
+坚守纪律，保持冷静
+</button>
 </div>
 </div>
 </div>
-<!-- JavaScript Engine & Reactive Store -->
+<!-- Single-File Self-Contained JavaScript Engine -->
 <script>
     "use strict";
 
-    // Standardized Single-File Data Store
-    const STORAGE_KEY = "dengdeqi_mobile_v3";
+    const STORAGE_KEY = "dengdeqi_store_v3_clean";
+
+    const DEFAULT_FACTOR_CARDS = [
+      { id: "tech", title: "① 技术面支撑与颈线", enabled: true, isCustom: false, detail: "周线大级别双底颈线支撑，日线MACD底部金叉背离" },
+      { id: "fin", title: "② 财务扣非与现金流", enabled: true, isCustom: false, detail: "扣非净利润连续3期同比增长>20%，自由现金流常年为正" },
+      { id: "ind", title: "③ 行业景气与排产", enabled: true, isCustom: false, detail: "下游半导体及新能源渗透率攀升，新建实验室产能利用率超80%" },
+      { id: "val", title: "④ 对标龙头的估值差", enabled: true, isCustom: false, detail: "相较同业华测检测折价35%，PEG<0.8具有显著安全边际" },
+      { id: "sent", title: "⑤ 情绪极端与恐慌值", enabled: true, isCustom: false, detail: "近期随大盘普跌破位，两融余额缩减至历史低位，恐慌盘已出清" },
+      { id: "risk", title: "⑥ 证伪与黑天鹅底线", enabled: true, isCustom: false, detail: "核心实验室资质若被吊销或大客户爆雷，无条件执行清仓止损" }
+    ];
 
     const INITIAL_DATA = {
       activeStock: "300938",
@@ -702,7 +683,8 @@
           holdCost: 27.46,
           planTotal: 70000,
           failStop: 22.50,
-          why: "第三方检测需求刚性，近4个季度连续超预期，当前处在估值中枢下方。",
+          why: "第三方检测需求刚性，近4个季度连续超预期，当前处在估值中枢下方，坚持金字塔梯级守候。",
+          factorCards: JSON.parse(JSON.stringify(DEFAULT_FACTOR_CARDS)),
           buySteps: [
             { price: 25.60, amount: 20000, note: "颈线回踩试探", exec: null },
             { price: 24.30, amount: 20000, note: "密集成交区深吸", exec: null },
@@ -728,6 +710,7 @@
           planTotal: 80000,
           failStop: 15.50,
           why: "高分红保障，季季分红派息，DRIP滚雪球复利持有。",
+          factorCards: JSON.parse(JSON.stringify(DEFAULT_FACTOR_CARDS)),
           buySteps: [
             { price: 17.20, amount: 15000, note: "股息支撑线低吸", exec: null },
             { price: 16.50, amount: 20000, note: "极端悲观兜底", exec: null }
@@ -746,7 +729,8 @@
           holdCost: 1420.00,
           planTotal: 200000,
           failStop: 1350.00,
-          why: "高端白酒自由现金流壁垒，长线压舱石配置。",
+          why: "高端白酒自由现金流壁垒，长线压舱石配置，有计划才等得起。",
+          factorCards: JSON.parse(JSON.stringify(DEFAULT_FACTOR_CARDS)),
           buySteps: [
             { price: 1420.00, amount: 142000, note: "首档一手配置", exec: true }
           ],
@@ -765,6 +749,7 @@
           planTotal: 80000,
           failStop: 26.50,
           why: "水电印钞机，类永续债属性，极稳底仓防御。",
+          factorCards: JSON.parse(JSON.stringify(DEFAULT_FACTOR_CARDS)),
           buySteps: [
             { price: 28.80, amount: 20000, note: "分红前加码", exec: null }
           ],
@@ -775,16 +760,17 @@
         }
       },
       logs: [
-        { time: "09:30:15", text: "系统初始化成功，加载《等得起》全闭环高保真数据。" },
-        { time: "11:28:40", text: "300938 信测标准 伏击待命，未触发违规加仓。" }
+        { time: "09:30:15", text: "系统初始化成功，加载《等得起》全闭环高保真自包含环境。" },
+        { time: "11:28:40", text: "300938 信测标准 伏击待命中，未触发违规加仓。" }
       ],
       thesisNotes: [
-        { title: "信测标准 · 景气度验证", date: "2026-09-02", content: "军工及车规级半导体检测实验室达产顺利，估值安全边际夯实，坚持网格伏击。" },
+        { title: "信测标准 · 景气度验证", date: "2026-09-02", content: "军工及车规级半导体检测实验室达产顺利，估值安全边际夯实，坚持网格伏击，有计划才等得起。" },
         { title: "纪律自省记录", date: "2026-08-28", content: "大盘暴跌时未慌乱割肉，正金字塔预案平稳接下第一批，成本显著降低。" }
       ]
     };
 
     let AppState = loadAppState();
+    let tempParsedPlan = null;
 
     function loadAppState() {
       try {
@@ -792,6 +778,12 @@
         if (!raw) return JSON.parse(JSON.stringify(INITIAL_DATA));
         const parsed = JSON.parse(raw);
         if (!parsed.stocks) throw new Error();
+        // Ensure factorCards exist on stocks
+        for (const k in parsed.stocks) {
+          if (!parsed.stocks[k].factorCards) {
+            parsed.stocks[k].factorCards = JSON.parse(JSON.stringify(DEFAULT_FACTOR_CARDS));
+          }
+        }
         return parsed;
       } catch (e) {
         return JSON.parse(JSON.stringify(INITIAL_DATA));
@@ -810,26 +802,23 @@
       return AppState.stocks[AppState.activeStock] || AppState.stocks["300938"];
     }
 
-    // ================= Navigation Tabs Controller =================
+    // ================= 5-Tab Navigation Controller =================
     function switchNavTab(tabKey) {
       AppState.currentTab = tabKey;
       
-      // Hide all pages
       document.querySelectorAll(".tab-page").forEach(el => el.classList.add("hidden"));
       const targetPage = document.getElementById(`view-${tabKey}`);
       if (targetPage) targetPage.classList.remove("hidden");
 
-      // Update Nav Buttons appearance
       const tabs = ["portfolio", "plan", "analysis", "exec", "drip"];
       tabs.forEach(t => {
         const btn = document.getElementById(`nav-btn-${t}`);
         if (!btn) return;
         if (t === "analysis") {
-          // Central button
           if (t === tabKey) {
-            btn.classList.add("ring-4", "ring-brand/30", "scale-105");
+            btn.classList.add("ring-4", "ring-brand/40", "scale-105");
           } else {
-            btn.classList.remove("ring-4", "ring-brand/30", "scale-105");
+            btn.classList.remove("ring-4", "ring-brand/40", "scale-105");
           }
         } else {
           if (t === tabKey) {
@@ -846,7 +835,6 @@
       saveAppState();
     }
 
-    // Switch Global Stock
     function onGlobalStockSwitch(code) {
       AppState.activeStock = code;
       saveAppState();
@@ -889,9 +877,12 @@
       if (!list) return;
 
       const stockKeys = Object.keys(AppState.stocks);
+      let totalPortfolioVal = 0;
+
       list.innerHTML = stockKeys.map(key => {
         const s = AppState.stocks[key];
         const val = s.holdShares * s.price;
+        totalPortfolioVal += val;
         const profit = (s.price - s.holdCost) * s.holdShares;
         const profitPct = s.holdCost > 0 ? (profit / (s.holdCost * s.holdShares)) * 100 : 0;
         const isSelected = key === AppState.activeStock;
@@ -921,6 +912,9 @@
           </div>
         `;
       }).join("");
+
+      const totalValEl = document.getElementById("portfolioTotalVal");
+      if (totalValEl) totalValEl.textContent = Math.round(totalPortfolioVal).toLocaleString();
     }
 
     // 2. Render Plan & Pyramid
@@ -929,7 +923,6 @@
       document.getElementById("planStockHeaderCode").textContent = `${st.code} · ${st.name}`;
       document.getElementById("planFailStop").textContent = `¥${st.failStop.toFixed(2)}`;
 
-      // Calculate Next Trigger Step
       const nextStep = st.buySteps.find(s => !s.exec) || st.buySteps[0];
       if (nextStep) {
         document.getElementById("planNextTrigger").textContent = `¥${nextStep.price.toFixed(2)}`;
@@ -1003,13 +996,136 @@
           </div>
         `;
       }).join("");
+
+      // Calculate Worst Case Stress Test dynamically
+      const totalBuyPlanned = st.buySteps.reduce((acc, b) => acc + (b.amount || 0), 0);
+      const totalPlannedShares = st.buySteps.reduce((acc, b) => acc + Math.floor(b.amount / (b.price * 100)) * 100, 0);
+      const stopLossTotal = totalPlannedShares * st.failStop;
+      const maxDrawdown = totalBuyPlanned - stopLossTotal;
+      const maxDrawdownPct = totalBuyPlanned > 0 ? ((maxDrawdown / totalBuyPlanned) * 100).toFixed(1) : 0;
+      
+      const worstCaseEl = document.getElementById("planWorstCaseText");
+      if (worstCaseEl) {
+        worstCaseEl.innerHTML = `若所有 ${st.buySteps.length} 档分批买单全部接满（实占 ¥${totalBuyPlanned.toLocaleString()}，约 ${totalPlannedShares} 股）并最终在 ¥${st.failStop.toFixed(2)} 触发破位止损离场，全案最大回撤锁定为 <strong class="text-rose-400 font-mono font-bold">-¥${Math.max(0, Math.round(maxDrawdown)).toLocaleString()} (-${maxDrawdownPct}%)</strong>，在可承受安全边际以内，绝不伤筋动骨。`;
+      }
     }
 
-    // 3. Render Analysis
+    // 3. Render Analysis View
     function renderAnalysisView() {
       const st = getActiveStockData();
+      
+      const targetNameEl = document.getElementById("analysisTargetName");
+      if (targetNameEl) targetNameEl.textContent = `${st.name} (${st.code}) · 现价 ¥${st.price.toFixed(2)}`;
+
+      const planTotalInput = document.getElementById("analysisPlanTotalInput");
+      if (planTotalInput) planTotalInput.value = st.planTotal || 70000;
+
       const whyBox = document.getElementById("aiWhyBoxInput");
       if (whyBox) whyBox.value = st.why || "";
+
+      renderFactorCards();
+    }
+
+    function renderFactorCards() {
+      const st = getActiveStockData();
+      const container = document.getElementById("factorCardsContainer");
+      if (!container) return;
+
+      container.innerHTML = st.factorCards.map((card, idx) => `
+        <div class="p-2.5 rounded-xl bg-surface-field border border-surface-border space-y-1.5 transition">
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" ${card.enabled ? 'checked' : ''} onchange="toggleFactorCard(${idx})" class="rounded text-brand focus:ring-0">
+              <span class="font-bold text-xs ${card.enabled ? 'text-slate-100' : 'text-slate-500 line-through'}">${card.title}</span>
+            </label>
+            <div class="flex items-center gap-1">
+              ${idx > 0 ? `<button onclick="moveFactorCard(${idx}, -1)" class="text-slate-400 hover:text-brand text-xs p-0.5" title="上移"><span class="material-symbols-outlined text-[14px]">arrow_upward</span></button>` : ''}
+              ${idx < st.factorCards.length - 1 ? `<button onclick="moveFactorCard(${idx}, 1)" class="text-slate-400 hover:text-brand text-xs p-0.5" title="下移"><span class="material-symbols-outlined text-[14px]">arrow_downward</span></button>` : ''}
+              ${card.isCustom ? `<button onclick="deleteFactorCard(${idx})" class="text-rose-400 hover:text-rose-300 text-xs p-0.5 ml-1" title="删除"><span class="material-symbols-outlined text-[14px]">delete</span></button>` : ''}
+            </div>
+          </div>
+          <input type="text" value="${escapeHtml(card.detail || '')}" onchange="updateFactorDetail(${idx}, this.value)" placeholder="事实输入与数据支撑..." class="w-full bg-surface/70 border border-surface-border/70 rounded-lg text-[11px] text-slate-300 px-2 py-1 outline-none focus:border-brand">
+        </div>
+      `).join("");
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function toggleFactorCard(idx) {
+      const st = getActiveStockData();
+      if (st.factorCards[idx]) {
+        st.factorCards[idx].enabled = !st.factorCards[idx].enabled;
+        saveAppState();
+        renderFactorCards();
+      }
+    }
+
+    function updateFactorDetail(idx, val) {
+      const st = getActiveStockData();
+      if (st.factorCards[idx]) {
+        st.factorCards[idx].detail = val;
+        saveAppState();
+      }
+    }
+
+    function moveFactorCard(idx, delta) {
+      const st = getActiveStockData();
+      const targetIdx = idx + delta;
+      if (targetIdx >= 0 && targetIdx < st.factorCards.length) {
+        const item = st.factorCards.splice(idx, 1)[0];
+        st.factorCards.splice(targetIdx, 0, item);
+        saveAppState();
+        renderFactorCards();
+      }
+    }
+
+    function deleteFactorCard(idx) {
+      const st = getActiveStockData();
+      if (st.factorCards[idx] && confirm(`确认删除自定义卡片【${st.factorCards[idx].title}】吗？`)) {
+        st.factorCards.splice(idx, 1);
+        saveAppState();
+        renderFactorCards();
+      }
+    }
+
+    function promptAddNewFactorCard() {
+      const title = prompt("请输入自定义研判条件名称（例如：⑦ 机构重仓持股/回购注销进展）：");
+      if (!title) return;
+      const detail = prompt("请输入该条件的客观数据事实支撑：", "");
+      
+      const st = getActiveStockData();
+      st.factorCards.push({
+        id: `custom_${Date.now()}`,
+        title: title.trim(),
+        enabled: true,
+        isCustom: true,
+        detail: detail ? detail.trim() : ""
+      });
+
+      addAppLog(`新增自定义研判条件卡: ${title}`);
+      saveAppState();
+      renderFactorCards();
+    }
+
+    function insertKeyword(phrase) {
+      const box = document.getElementById("aiWhyBoxInput");
+      if (!box) return;
+      box.value = box.value ? `${box.value}；${phrase}` : phrase;
+      updateActiveStockWhy(box.value);
+    }
+
+    function updateActiveStockWhy(val) {
+      const st = getActiveStockData();
+      st.why = val;
+      saveAppState();
+    }
+
+    function updateAnalysisBudget(val) {
+      const st = getActiveStockData();
+      st.planTotal = parseFloat(val) || 70000;
+      saveAppState();
     }
 
     // 4. Render Execution Hub
@@ -1039,7 +1155,6 @@
         }
       }
 
-      // Render Logs
       const logContainer = document.getElementById("executionLogsStream");
       if (logContainer) {
         logContainer.innerHTML = AppState.logs.map(l => `
@@ -1071,7 +1186,6 @@
     }
 
     // ================= Business Logic Functions =================
-    // 1. Broker Reverse Calculation (04 规费滑点倒推)
     function runBrokerDeductionCalc() {
       const shares = parseFloat(document.getElementById("brokerCalcShares")?.value) || 700;
       const basePx = parseFloat(document.getElementById("brokerCalcBasePx")?.value) || 25.60;
@@ -1079,7 +1193,6 @@
 
       if (shares <= 0 || actualPaid <= 0) return;
 
-      // Reverse deduce: fees rough ~ 0.035% (Stamp, commission, transfer fees)
       const roughFeeRate = 0.00035;
       const estimatedStockMoney = actualPaid / (1 + roughFeeRate);
       const deducedPx = estimatedStockMoney / shares;
@@ -1110,7 +1223,6 @@
       renderExecView();
     }
 
-    // 2. Add App Log
     function addAppLog(text) {
       const d = new Date();
       const timeStr = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}`;
@@ -1119,7 +1231,6 @@
       saveAppState();
     }
 
-    // 3. Prompt New Step in Pyramid
     function addNewStepPrompt(type) {
       const st = getActiveStockData();
       if (type === "buy") {
@@ -1158,7 +1269,6 @@
       }
     }
 
-    // 4. Events Toggling
     function toggleEventGateStatus(idx) {
       const st = getActiveStockData();
       if (st.events[idx]) {
@@ -1183,7 +1293,6 @@
       renderExecView();
     }
 
-    // 5. DRIP Calculations
     function recalcDripPreview() {
       const st = getActiveStockData();
       const cashPer10 = parseFloat(document.getElementById("dripCashInput")?.value) || 4.5;
@@ -1239,74 +1348,165 @@
       renderCurrentView();
     }
 
-    // 6. AI 6-Dimensional Prompt Generator
+    // ================= AI Prompt v5 & Parser =================
     function generateStructuredPrompt() {
       const st = getActiveStockData();
       const why = document.getElementById("aiWhyBoxInput")?.value || st.why;
-      
-      const prompt = `【等得起 · 6维深度研判与策略收敛任务】
-标的名称：${st.name} (${st.code})，当前价格：¥${st.price.toFixed(2)}
-底仓持有：${st.holdShares} 股 @¥${st.holdCost.toFixed(2)}，规划总投资 P：¥${st.planTotal}
-核心持有逻辑 (Why Box)：${why}
+      const budget = document.getElementById("analysisPlanTotalInput")?.value || st.planTotal;
 
-【严格格式要求】
-请作为买方投研团队进行6维评估（技术支撑/财务/消息/对标/情绪/失效），并在答复末尾严格收敛输出以下四段机器可读格式：
-档1｜{上沿}~{下沿}｜{占预算%}｜{分批低吸理由}
-档2｜{上沿}~{下沿}｜{占预算%}｜{密集成交区承接理由}
-追1｜{触发价}~{上沿}｜{占预算%}｜{突破确认追击理由}
-止损｜{硬止损底线}｜{失效全清认错理由}
-盈1｜{止盈价}｜{套现持仓%}｜{阶梯落袋理由}
+      const enabledCards = st.factorCards.filter(c => c.enabled);
+      const factorsText = enabledCards.map(c => `• ${c.title}：${c.detail || '未提供具体数据'}`).join("\n");
+
+      const prompt = `【等得起 · 6维深度研判与策略收敛任务 (Prompt v5)】
+标的名称：${st.name} (${st.code})，当前价格：¥${st.price.toFixed(2)}
+底仓持有：${st.holdShares} 股 @¥${st.holdCost.toFixed(2)}，本轮规划总弹药 P：¥${budget}
+核心守候逻辑 (Why Box)：${why}
+
+【客观事实与研判锚点】
+${factorsText}
+
+【买方研判规则要求】
+请作为买方纪律资管投研团队，严格秉承「正金字塔分批建仓、杜绝倒金字塔追高、单向棘轮硬止损」铁律。在给出深度客观研判后，必须在答复末尾严格输出四段标准格式（不可擅自更改格式与分隔符｜）：
+档1｜{买入下沿价}｜{占预算%}｜{分批低吸理由}
+档2｜{买入下沿价}｜{占预算%}｜{密集成交区深吸理由}
+追1｜{突破追击价}｜{占预算%}｜{右侧放量突破追进理由}
+止损｜{硬止损底线价}｜{失效全清认错理由}
+盈1｜{第一止盈价}｜{套现股数或比例}｜{阶梯落袋理由}
+盈2｜{第二止盈价}｜{套现股数或比例}｜{估值兑现理由}
 `;
 
       navigator.clipboard.writeText(prompt).then(() => {
-        alert("专业研判 Prompt 已成功复制到剪贴板！可发给外部大模型 (DeepSeek / ChatGPT / 豆包) 获取方案。");
+        alert("专业研判 Prompt v5 已成功复制到剪贴板！\n可直接粘贴至 DeepSeek / ChatGPT / 豆包 等大模型中。");
       }).catch(() => {
-        alert("复制成功！请粘贴至外部 AI 工具。");
+        alert("已生成提示词，请手动复制！");
       });
     }
 
-    function parseAndApplyAiPlan() {
+    function parseAiPlanPreview() {
       const raw = document.getElementById("aiResponsePasteArea")?.value || "";
       if (!raw.trim()) {
-        alert("请先粘贴 AI 回复文本！");
+        alert("请先粘贴 AI 大模型的结构化答复！");
         return;
       }
 
       const st = getActiveStockData();
+      const budget = parseFloat(document.getElementById("analysisPlanTotalInput")?.value) || st.planTotal || 70000;
       const lines = raw.split("\n").map(l => l.trim());
-      let parsedCount = 0;
+
+      const buySteps = [];
+      const sellSteps = [];
+      let failStop = null;
 
       lines.forEach(l => {
-        const m = l.match(/^档\s*\d+\s*[｜|]\s*([0-9.]+)[~\-—]([0-9.]+)\s*[｜|]\s*([0-9]+)%\s*[｜|]\s*(.*)$/);
-        if (m) {
-          const targetPx = parseFloat(m[2]);
-          const pct = parseInt(m[3]);
-          const amt = Math.round(st.planTotal * (pct / 100));
-          st.buySteps.push({
-            price: targetPx,
+        // Match 档1 | 25.60 | 30% | 理由
+        const mBuy = l.match(/^(?:档|批)\s*(\d+)\s*[｜|]\s*([0-9.]+)(?:~[0-9.]+)?\s*[｜|]\s*([0-9]+)%\s*[｜|]\s*(.*)$/);
+        if (mBuy) {
+          const px = parseFloat(mBuy[2]);
+          const pct = parseInt(mBuy[3]);
+          const amt = Math.round(budget * (pct / 100));
+          buySteps.push({
+            price: px,
             amount: amt,
-            note: `AI收敛: ${m[4]}`,
+            note: `AI收敛: ${mBuy[4]}`,
             exec: null
           });
-          parsedCount++;
         }
-        const stopMatch = l.match(/^止损\s*[｜|]\s*([0-9.]+)\s*[｜|]\s*(.*)$/);
-        if (stopMatch) {
-          st.failStop = parseFloat(stopMatch[1]);
+
+        // Match 追1 | 28.00 | 20% | 理由
+        const mChase = l.match(/^追\s*(\d+)\s*[｜|]\s*([0-9.]+)(?:~[0-9.]+)?\s*[｜|]\s*([0-9]+)%\s*[｜|]\s*(.*)$/);
+        if (mChase) {
+          const px = parseFloat(mChase[2]);
+          const pct = parseInt(mChase[3]);
+          const amt = Math.round(budget * (pct / 100));
+          buySteps.push({
+            price: px,
+            amount: amt,
+            note: `突破追击: ${mChase[4]}`,
+            exec: null
+          });
+        }
+
+        // Match 止损 | 22.50 | 理由
+        const mStop = l.match(/^止损\s*[｜|]\s*([0-9.]+)\s*[｜|]\s*(.*)$/);
+        if (mStop) {
+          failStop = parseFloat(mStop[1]);
+        }
+
+        // Match 盈1 | 32.50 | 40% | 理由
+        const mSell = l.match(/^盈\s*(\d+)\s*[｜|]\s*([0-9.]+)\s*[｜|]\s*([0-9]+%|[0-9]+股)\s*[｜|]\s*(.*)$/);
+        if (mSell) {
+          const px = parseFloat(mSell[2]);
+          let shares = 500;
+          if (mSell[3].includes("%")) {
+            const pct = parseInt(mSell[3]) / 100;
+            shares = Math.round((st.holdShares * pct) / 100) * 100 || 500;
+          } else {
+            shares = parseInt(mSell[3]) || 500;
+          }
+          sellSteps.push({
+            price: px,
+            shares: shares,
+            note: `止盈: ${mSell[4]}`
+          });
         }
       });
 
       const feedback = document.getElementById("aiParseFeedback");
-      if (feedback) {
+      if (buySteps.length === 0 && !failStop && sellSteps.length === 0) {
         feedback.classList.remove("hidden");
-        feedback.textContent = `✓ 成功解析并注入 ${parsedCount} 档买入预案与硬止损线！已更新至标的看板。`;
+        feedback.className = "p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-mono";
+        feedback.innerHTML = "未能识别到标准四段格式，请确保答复中包含类似「档1｜25.60｜30%｜理由」或「止损｜22.50｜理由」。";
+        tempParsedPlan = null;
+        return;
       }
 
-      addAppLog(`【AI收敛】成功套用 ${st.name} 四段式预案`);
-      saveAppState();
+      tempParsedPlan = { buySteps, sellSteps, failStop };
+
+      feedback.classList.remove("hidden");
+      feedback.className = "p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono space-y-1";
+      feedback.innerHTML = `
+        <div class="font-bold flex items-center gap-1 text-emerald-400">
+          <span class="material-symbols-outlined text-sm">verified</span>
+          成功解析四段方案：
+        </div>
+        <div>• 识别到买入档位: <strong class="text-white">${buySteps.length} 档</strong> (总预算 ¥${buySteps.reduce((a, b) => a + b.amount, 0).toLocaleString()})</div>
+        <div>• 识别到硬失效止损: <strong class="text-rose-400 font-bold">${failStop ? '¥' + failStop.toFixed(2) : '未变动'}</strong></div>
+        <div>• 识别到阶梯止盈: <strong class="text-sky-300">${sellSteps.length} 档</strong></div>
+        <div class="text-amber-300 pt-1 text-[11px]">点击「一键套用为执行挂单」即可立即覆盖写入【${st.name}】看板！</div>
+      `;
     }
 
-    // 7. Modals & Helpers
+    function applyParsedPlanToTarget() {
+      if (!tempParsedPlan) {
+        parseAiPlanPreview();
+      }
+      if (!tempParsedPlan || (tempParsedPlan.buySteps.length === 0 && !tempParsedPlan.failStop && tempParsedPlan.sellSteps.length === 0)) {
+        alert("请先粘贴并正确解析 AI 方案！");
+        return;
+      }
+
+      const st = getActiveStockData();
+      if (!confirm(`确认将解析出的方案套用至【${st.name}】吗？\n将更新挂单买单、止损线与阶梯止盈。`)) {
+        return;
+      }
+
+      if (tempParsedPlan.buySteps.length > 0) {
+        st.buySteps = tempParsedPlan.buySteps;
+      }
+      if (tempParsedPlan.failStop) {
+        st.failStop = tempParsedPlan.failStop;
+      }
+      if (tempParsedPlan.sellSteps.length > 0) {
+        st.sellSteps = tempParsedPlan.sellSteps;
+      }
+
+      addAppLog(`【AI方案套用】已全面更新 ${st.name} 金字塔建仓与止损预案`);
+      saveAppState();
+      alert(`已成功套用至【${st.name}】！正在跳转至标的看板查看。`);
+      switchNavTab("plan");
+    }
+
+    // ================= Modals & Data Management =================
     function triggerImpulseLockAlert() {
       document.getElementById("impulseModal").classList.remove("hidden");
       document.getElementById("impulseModal").classList.add("flex");
@@ -1318,9 +1518,9 @@
     }
 
     function addNewThesisPrompt() {
-      const title = prompt("输入手记标题：", "基本面深度思考");
+      const title = prompt("输入手记标题：", "基本面与纪律知行");
       if (!title) return;
-      const content = prompt("输入手记内容：");
+      const content = prompt("输入手记内容：", "有计划，才等得起。");
       if (!content) return;
 
       const d = new Date().toISOString().slice(0, 10);
@@ -1335,13 +1535,12 @@
       renderExecView();
     }
 
-    // 8. JSON Export / Import
     function exportDataToJson() {
       const blob = new Blob([JSON.stringify(AppState, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `等得起-完整数据备份-${new Date().toISOString().slice(0,10)}.json`;
+      a.download = `等得起-全量数据备份-${new Date().toISOString().slice(0,10)}.json`;
       a.click();
       URL.revokeObjectURL(url);
       addAppLog("导出一份全量 JSON 备份");
@@ -1373,7 +1572,7 @@
     }
 
     function restoreInitialDemoData() {
-      if (confirm("确定恢复标准演示数据吗？")) {
+      if (confirm("确定恢复《等得起》标准演示数据吗？")) {
         AppState = JSON.parse(JSON.stringify(INITIAL_DATA));
         saveAppState();
         renderCurrentView();
@@ -1396,7 +1595,5 @@
     window.addEventListener("DOMContentLoaded", () => {
       renderCurrentView();
     });
-  </script>
-
-
+</script>
 </body></html>
