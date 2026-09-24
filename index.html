@@ -1,4 +1,6 @@
-<!DOCTYPE html><html class="dark" lang="zh-CN" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="等得起" name="apple-mobile-web-app-title"><meta content="等得起" name="application-name"><meta content="#051424" name="theme-color"><meta content="等得起 · 股票长线投资与纪律做T闭环工具 - 有计划，才等得起" name="description"><link href="data:application/json;base64,eyJuYW1lIjoi562J5b6X6LW3Iiwic2hvcnRfbmFtZSI6IueFreeXu+i1tyIsImRlc2NyaXB0aW9uIjoi5pyJ6K6h5YiS77yM5omN562J5b6X6LW3Iiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwNTE0MjQiLCJ0aGVtZV9jb2xvciI6IiMwNTE0MjQifQ==" rel="manifest"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+<!DOCTYPE html>
+
+<html class="dark" lang="zh-CN" style=""><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="等得起" name="apple-mobile-web-app-title"/><meta content="等得起" name="application-name"/><meta content="#051424" name="theme-color"/><meta content="等得起 · 股票长线投资与纪律做T闭环工具 - 有计划，才等得起" name="description"/><link href="data:application/json;base64,eyJuYW1lIjoi562J5b6X6LW3Iiwic2hvcnRfbmFtZSI6IueFreeXu+i1tyIsImRlc2NyaXB0aW9uIjoi5pyJ6K6h5YiS77yM5omN562J5b6X6LW3Iiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwNTE0MjQiLCJ0aGVtZV9jb2xvciI6IiMwNTE0MjQifQ==" rel="manifest"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
     tailwind.config = {
       darkMode: "class",
       theme: {
@@ -43,7 +45,7 @@
 <!-- Self-contained Inline SVG Brand Logo -->
 <div class="flex items-center gap-2 cursor-pointer" onclick="switchNavTab('portfolio')">
 <div class="w-9 h-9 rounded-xl overflow-hidden shadow-glow shrink-0 border border-brand/40 bg-surface-card flex items-center justify-center p-0.5">
-<svg height="34" style="border-radius:9px;flex-shrink:0;" viewBox="0 0 512 512" width="34">
+<svg height="34" style="border-radius:9px;flex-shrink:0;" viewbox="0 0 512 512" width="34">
 <rect fill="#FFA826" height="512" rx="124" width="512"></rect>
 <text fill="#111827" font-family="-apple-system, sans-serif" font-size="288" font-weight="900" text-anchor="middle" x="256" y="348">等</text>
 </svg>
@@ -68,10 +70,10 @@
 <div class="h-3 w-[1px] bg-surface-border"></div>
 <div class="flex items-center gap-1">
 <span class="font-mono font-bold text-slate-100 text-[12px] tabular-nums" id="headerLivePrice">26.53</span>
-<span class="font-mono text-[10px] font-bold tabular-nums text-emerald-400" id="headerLiveChg">+0.38%</span>
+<span class="font-mono text-[10px] font-bold tabular-nums text-rose-400" id="headerLiveChg">+0.38%</span>
 </div>
 </div>
-<button class="w-8 h-8 rounded-xl bg-surface-sub border border-surface-border flex items-center justify-center text-slate-300 hover:text-brand relative transition active:scale-95" onclick="triggerImpulseLockAlert()" title="纪律雷达状态">
+<button class="flex items-center gap-1 px-2 py-1 rounded-xl bg-surface-sub border border-surface-border text-slate-300 hover:text-brand transition text-[11px] font-mono cursor-pointer active:scale-95" id="headerGhSyncBadge" onclick="toggleGhSyncModal()" title="GitHub 云端同步状态 (gszolo80/dengdeqi)"><span class="w-2 h-2 rounded-full bg-slate-500" id="ghSyncStatusDot"></span><span class="text-[10px] font-semibold text-slate-300" id="ghSyncStatusText">GH同步</span></button><button class="w-8 h-8 rounded-xl bg-surface-sub border border-surface-border flex items-center justify-center text-slate-300 hover:text-brand relative transition active:scale-95" onclick="triggerImpulseLockAlert()" title="纪律雷达状态">
 <span class="material-symbols-outlined text-[18px]" data-original-icon="notifications_active">notifications_active</span>
 <span class="w-2 h-2 rounded-full bg-emerald-500 absolute top-1.5 right-1.5 animate-ping"></span>
 <span class="w-2 h-2 rounded-full bg-emerald-500 absolute top-1.5 right-1.5"></span>
@@ -84,7 +86,7 @@
 <!-- ================= TAB 1: ① 组合 (Portfolio - 资产总览) ================= -->
 <section class="space-y-4 tab-page" id="view-portfolio">
 <!-- Asset Overview Card -->
-<div class="glass-card rounded-2xl p-4 relative overflow-hidden shadow-card border border-brand/20">
+<div class="glass-card rounded-2xl p-3 border border-surface-border/80 bg-surface-sub/60 flex items-center justify-between text-xs"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center text-slate-200 shrink-0"><svg fill="currentColor" height="18" viewbox="0 0 16 16" width="18"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg></div><div><div class="flex items-center gap-1.5 leading-none"><span class="font-bold text-slate-200 text-xs">gszolo80 / dengdeqi</span><span class="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold bg-surface-field text-slate-400 border border-surface-border" id="portfolioGhPill">未连通</span></div><p class="text-[10px] text-slate-400 mt-1 font-mono" id="portfolioGhLastSync">data.json 双向自动归档 · 尚未同步</p></div></div><div class="flex items-center gap-1.5"><button class="px-2 py-1 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:text-brand text-[11px] font-medium transition active:scale-95 flex items-center gap-0.5" onclick="pullFromGitHub(true)" title="从 GitHub 拉取"><span class="material-symbols-outlined text-[14px]">download</span>拉取</button><button class="px-2 py-1 rounded-lg bg-brand/20 border border-brand/40 text-brand-light hover:bg-brand hover:text-slate-950 text-[11px] font-bold transition active:scale-95 flex items-center gap-0.5" onclick="pushToGitHub(true)" title="推送至 GitHub"><span class="material-symbols-outlined text-[14px]">upload</span>推送</button></div></div><div class="glass-card rounded-2xl p-4 relative overflow-hidden shadow-card border border-brand/20">
 <div class="absolute -right-8 -top-8 w-32 h-32 bg-brand/10 rounded-full blur-2xl pointer-events-none"></div>
 <div class="flex items-center justify-between text-xs text-slate-400">
 <span class="flex items-center gap-1.5 font-medium">
@@ -101,7 +103,7 @@
 <span class="text-xs font-mono text-slate-400">.00</span>
 </div>
 <div class="flex items-center gap-2 mt-1">
-<span class="text-xs font-mono text-emerald-400 font-bold tabular-nums">年化 CAGR +18.4%</span>
+<span class="text-xs font-mono text-rose-400 font-bold tabular-nums">年化 CAGR +18.4%</span>
 <span class="text-[11px] text-slate-400">| 累计做T降本 ¥14,200</span>
 </div>
 </div>
@@ -131,6 +133,59 @@
 <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>伏击现金 14%</span>
 </div>
 </div>
+</div><!-- 1. SVG Net Worth Trend Chart (Linear Gradient Area & Smooth Polyline) -->
+<div class="glass-card rounded-2xl p-3.5 border border-surface-border/80 bg-surface-sub/40 space-y-2.5">
+<div class="flex items-center justify-between text-xs">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-brand">show_chart</span>
+<span class="font-bold text-slate-200">净值走势 (近30日)</span>
+</div>
+<div class="flex items-center gap-1 font-mono text-[11px]">
+<span class="text-slate-400">累计</span>
+<span class="font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-1.5 py-0.2 rounded">+18.4%</span>
+</div>
+</div>
+<div class="w-full h-32 relative pt-1">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 360 110">
+<defs>
+<lineargradient id="goldNetWorthGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#f59e0b" stop-opacity="0.35"></stop>
+<stop offset="50%" stop-color="#f59e0b" stop-opacity="0.12"></stop>
+<stop offset="100%" stop-color="#f59e0b" stop-opacity="0.0"></stop>
+</lineargradient>
+<filter height="140%" id="glowShadow" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="2" flood-color="#f59e0b" flood-opacity="0.4" stddeviation="3"></fedropshadow>
+</filter>
+</defs>
+<!-- Background Grid lines -->
+<line opacity="0.6" stroke="#203650" stroke-dasharray="3,3" stroke-width="0.75" x1="0" x2="360" y1="20" y2="20"></line>
+<line opacity="0.6" stroke="#203650" stroke-dasharray="3,3" stroke-width="0.75" x1="0" x2="360" y1="55" y2="55"></line>
+<line opacity="0.8" stroke="#203650" stroke-width="0.75" x1="0" x2="360" y1="90" y2="90"></line>
+<!-- Area fill -->
+<path d="M 10 78 Q 65 82 100 68 T 190 52 T 270 34 T 350 18 L 350 90 L 10 90 Z" fill="url(#goldNetWorthGrad)"></path>
+<!-- Golden Trend line -->
+<path d="M 10 78 Q 65 82 100 68 T 190 52 T 270 34 T 350 18" fill="none" filter="url(#glowShadow)" stroke="#f59e0b" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Key Point Highlights -->
+<circle cx="10" cy="78" fill="#182c47" r="3" stroke="#f59e0b" stroke-width="1.5"></circle>
+<circle cx="100" cy="68" fill="#182c47" r="3" stroke="#f59e0b" stroke-width="1.5"></circle>
+<circle cx="190" cy="52" fill="#182c47" r="3" stroke="#f59e0b" stroke-width="1.5"></circle>
+<circle cx="270" cy="34" fill="#182c47" r="3.5" stroke="#34d399" stroke-width="1.5"></circle>
+<!-- Current Day Pulsing dot -->
+<circle class="animate-ping" cx="350" cy="18" fill="#f59e0b" opacity="0.2" r="6"></circle>
+<circle cx="350" cy="18" fill="#fbbf24" r="4" stroke="#ffffff" stroke-width="1.5"></circle>
+</svg>
+<div class="flex justify-between items-center text-[9px] font-mono text-slate-500 pt-1 border-t border-surface-border/40">
+<span>8/26 (基准)</span>
+<span>9/04</span>
+<span>9/13</span>
+<span class="text-brand font-bold">今天 ¥38.6万</span>
+</div>
+</div>
+</div>
+<!-- 2. SVG Position Donut Chart Card (Zero external dependencies) -->
+<div class="glass-card rounded-2xl p-3.5 border border-surface-border/80 bg-surface-sub/40 space-y-3">
+<div class="flex items-center justify-between text-xs"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-emerald-400">donut_large</span><span class="font-bold text-slate-200">仓位分布</span><button class="flex items-center gap-0.5 px-1.5 py-0.5 rounded-lg bg-surface-field text-[10px] text-brand hover:text-brand-light border border-surface-border transition active:scale-95 ml-1" onclick="openPositionStrategyModal()" title="查看仓位类型定义与策略规则"><span class="material-symbols-outlined text-[12px]">settings</span><span>定义配置</span></button></div><div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-mono"><span id="donutHeaderSummaryText">核心 55% · 压舱 32% · 现款 13%</span></div></div>
+<div class="flex items-center justify-between gap-4 px-1 py-1"><!-- SVG Donut (Circumference = 2 * PI * 34 ≈ 213.6) --><div class="relative w-28 h-28 shrink-0 flex items-center justify-center"><svg class="w-full h-full -rotate-90 transform" viewbox="0 0 88 88"><!-- Track --><circle cx="44" cy="44" fill="none" r="34" stroke="#13233a" stroke-width="10"></circle><!-- 核心仓环 --><circle class="transition-all duration-700" cx="44" cy="44" fill="none" id="donutCircleCore" r="34" stroke="#f59e0b" stroke-dasharray="117.5 96.1" stroke-dashoffset="0" stroke-linecap="round" stroke-width="10"></circle><!-- 压舱仓环 --><circle class="transition-all duration-700" cx="44" cy="44" fill="none" id="donutCircleAnchor" r="34" stroke="#10b981" stroke-dasharray="68.3 145.3" stroke-dashoffset="-117.5" stroke-linecap="round" stroke-width="10"></circle><!-- 伏击现金环 --><circle class="transition-all duration-700" cx="44" cy="44" fill="none" id="donutCircleCash" r="34" stroke="#38bdf8" stroke-dasharray="27.8 185.8" stroke-dashoffset="-185.8" stroke-linecap="round" stroke-width="10"></circle></svg><!-- Center Label --><div class="absolute flex flex-col items-center justify-center text-center"><span class="text-[9px] text-slate-400 font-mono leading-none">底仓锁定</span><span class="text-xs font-bold font-mono text-slate-100 mt-0.5" id="donutCenterLockPct">87%</span></div></div><!-- Legends with exact dynamic allocation --><div class="flex-1 space-y-2 text-xs font-mono"><div class="flex items-center justify-between cursor-pointer hover:opacity-80 transition" onclick="openPositionStrategyModal('core')"><div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand shrink-0"></span><span class="text-slate-200 text-[11px] font-sans font-medium" id="donutLegendCoreLabel">核心仓 (成长弹性)</span></div><span class="font-bold text-amber-300 text-[11px]" id="donutLegendCoreVal">55%</span></div><div class="flex items-center justify-between cursor-pointer hover:opacity-80 transition" onclick="openPositionStrategyModal('anchor')"><div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shrink-0"></span><span class="text-slate-200 text-[11px] font-sans font-medium" id="donutLegendAnchorLabel">压舱仓 (低波红利)</span></div><span class="font-bold text-emerald-300 text-[11px]" id="donutLegendAnchorVal">32%</span></div><div class="flex items-center justify-between cursor-pointer hover:opacity-80 transition" onclick="openPositionStrategyModal('cash')"><div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 shrink-0"></span><span class="text-slate-200 text-[11px] font-sans font-medium" id="donutLegendCashLabel">伏击备用现金</span></div><span class="font-bold text-sky-300 text-[11px]" id="donutLegendCashVal">13%</span></div></div></div>
 </div>
 <!-- Dividend Pulse Stream Card -->
 <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
@@ -205,18 +260,30 @@
 </div>
 </div>
 <!-- Pyramid Batch Grid: Downward Buy Batches -->
-<div class="glass-card rounded-2xl p-3.5">
-<div class="flex items-center justify-between mb-2.5">
+<!-- 3. Dynamic Pyramid Execution Board with Strict Top-Narrow Bottom-Wide Visuals -->
+<div class="glass-card rounded-2xl p-3.5 space-y-3.5 border border-brand/20 bg-surface-sub/50">
+<div class="flex items-center justify-between border-b border-surface-border/60 pb-2">
 <div class="flex items-center gap-1.5">
-<span class="material-symbols-outlined text-[16px] text-emerald-400">layers</span>
-<span class="text-xs font-bold text-slate-200">分批接飞刀 · 正金字塔挂单池</span>
+<span class="material-symbols-outlined text-[18px] text-brand">layers</span>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="text-xs font-bold text-slate-100">分批接飞刀 · 正金字塔挂单池</span>
+<span class="badge-soft-gold text-[9px] px-1.5 py-0.2 rounded font-bold">严格上窄下宽</span>
 </div>
-<button class="text-[11px] font-semibold text-brand hover:text-brand-light flex items-center gap-0.5" onclick="addNewStepPrompt('buy')">
-<span class="material-symbols-outlined text-sm" data-original-icon="add_circle">add_circle</span>加一层
-</button>
+<p class="text-[10px] text-slate-400 mt-0.5">价格由高到低降序排列 · 越跌仓位买力越厚实</p>
 </div>
+</div>
+<button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-1 bg-brand/10 border border-brand/30 px-2 py-1 rounded-xl transition active:scale-95 shadow-sm" onclick="addNewStepPrompt('buy')">
+<span class="material-symbols-outlined text-sm">add_circle</span>加一层
+    </button>
+</div>
+<!-- Visual Pyramid Layer Graphic Canvas (Autocomputed by JS) -->
+<div class="p-3 rounded-2xl bg-surface-field/70 border border-surface-border space-y-1.5 flex flex-col items-center justify-center" id="pyramidVisualCanvas">
+<!-- Dynamic rendered in renderPlanView() -->
+</div>
+<!-- Pyramid Batches Operational List -->
 <div class="space-y-2" id="pyramidStepsList">
-<!-- Rendered by JS -->
+<!-- Dynamic rendered by JS with full accounting and toggle -->
 </div>
 </div>
 <!-- Staged Take-Profit Batches -->
@@ -271,7 +338,6 @@
 </div>
 </div>
 </div>
-
 <!-- 1. Stock Target & Budget Settings Box (with dedicated code input & fast select) -->
 <div class="glass-card rounded-2xl p-3.5 space-y-3">
 <div class="flex items-center justify-between border-b border-surface-border/60 pb-2">
@@ -281,7 +347,6 @@
 </span>
 <span class="text-[10px] text-slate-400">实时联动正金字塔分摊</span>
 </div>
-
 <div class="grid grid-cols-2 gap-2.5">
 <!-- Stock Code Input & Selector -->
 <div>
@@ -290,7 +355,7 @@
 <span class="text-[9px] text-brand cursor-pointer hover:underline" onclick="quickLoadHoldingStock()">快捷选择</span>
 </div>
 <div class="relative flex items-center">
-<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono font-bold text-slate-100 pl-2.5 pr-8 py-1.5 uppercase outline-none focus:border-brand" id="analysisStockCodeInput" maxlength="6" onkeydown="if(event.key==='Enter'){handleStockCodeSubmit(this.value);}" placeholder="如 300938" type="text" value="300938">
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono font-bold text-slate-100 pl-2.5 pr-8 py-1.5 uppercase outline-none focus:border-brand" id="analysisStockCodeInput" maxlength="6" onkeydown="if(event.key==='Enter'){handleStockCodeSubmit(this.value);}" placeholder="如 300938" type="text" value="300938"/>
 <button class="absolute right-1.5 text-slate-400 hover:text-brand transition" onclick="handleStockCodeSubmit(document.getElementById('analysisStockCodeInput').value)" title="加载标的">
 <span class="material-symbols-outlined text-[16px]" data-original-icon="arrow_forward">arrow_forward</span>
 </button>
@@ -299,7 +364,6 @@
 信测标准 · 现价 ¥26.53
 </div>
 </div>
-
 <!-- Budget Plan Input -->
 <div>
 <div class="flex items-center justify-between mb-1">
@@ -308,7 +372,7 @@
 </div>
 <div class="relative flex items-center">
 <span class="absolute left-2 text-xs font-mono font-bold text-slate-400">¥</span>
-<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-amber-300 font-bold pl-5 pr-2 py-1.5 outline-none focus:border-brand" id="analysisPlanTotalInput" onchange="updateAnalysisBudget(this.value)" step="1000" type="number" value="70000">
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-amber-300 font-bold pl-5 pr-2 py-1.5 outline-none focus:border-brand" id="analysisPlanTotalInput" onchange="updateAnalysisBudget(this.value)" step="1000" type="number" value="70000"/>
 </div>
 <div class="text-[10px] text-slate-400 mt-1 font-mono flex justify-between">
 <span class="">首仓约30%:</span>
@@ -316,17 +380,8 @@
 </div>
 </div>
 </div>
-
 <!-- Fast Stock Switch Buttons -->
-<div class="pt-1 flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px]">
-<span class="text-[10px] text-slate-400 shrink-0">快捷标的:</span>
-<button class="px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand font-mono shrink-0" onclick="applyPresetStockToAnalysis('300938', '信测标准', 26.53)">300938 信测标准</button>
-<button class="px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand font-mono shrink-0" onclick="applyPresetStockToAnalysis('002555', '三七互娱', 17.70)">002555 三七互娱</button>
-<button class="px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand font-mono shrink-0" onclick="applyPresetStockToAnalysis('600519', '贵州茅台', 1450.00)">600519 茅台</button>
-<button class="px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand font-mono shrink-0" onclick="applyPresetStockToAnalysis('600900', '长江电力', 29.80)">600900 长电</button>
 </div>
-</div>
-
 <!-- 2. Why Box (灵魂理由独立卡片) -->
 <div class="glass-card rounded-2xl p-3.5 space-y-2 border border-brand/20">
 <div class="flex items-center justify-between">
@@ -340,12 +395,9 @@
 为什么值得长线伏击？业绩刚性/行业反转/现金流壁垒/估值折价。此理由将整段植入 AI 提示词核心：
 </p>
 <textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 focus:border-brand outline-none leading-relaxed transition" id="aiWhyBoxInput" onchange="updateActiveStockWhy(this.value)" placeholder="为什么值得长线守候？第三方检测需求刚性，近4个季度连续超预期，当前处在估值中枢下方，坚持金字塔梯级守候..." rows="3"></textarea>
-
 <!-- Fast Keyword Tag Selector -->
 <div>
-<div class="text-[10px] text-slate-400 mb-1 flex items-center justify-between">
-<span class="">点击快速填入客观事实词条：</span>
-</div>
+<div class="text-[10px] text-slate-400 mb-1.5 flex items-center justify-between"><span>点击快速填入客观事实词条（支持管理）：</span><button class="text-[10px] text-brand hover:text-brand-light flex items-center gap-0.5 font-semibold bg-brand/10 border border-brand/30 px-1.5 py-0.5 rounded" onclick="promptNewGlobalKeyword()" type="button"><span class="material-symbols-outlined text-xs">add</span>新建词条</button></div>
 <div class="flex flex-wrap gap-1.5" id="quickTagList">
 <button class="text-[10px] px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand" onclick="insertKeyword('【技术面】周线大级别双底颈线支撑不破，日线MACD底部金叉背离')" type="button">周线颈线支撑</button>
 <button class="text-[10px] px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border text-slate-300 hover:border-brand hover:text-brand" onclick="insertKeyword('【财务面】扣非净利连续3季度环比超预期，自由现金流常年为正')" type="button">扣非连续超预期</button>
@@ -355,7 +407,6 @@
 </div>
 </div>
 </div>
-
 <!-- 3 & 4. 6-Dimensional Checklist & Customizable Factor Cards Container -->
 <div class="glass-card rounded-2xl p-3.5 space-y-3">
 <div class="flex items-center justify-between border-b border-surface-border/60 pb-2">
@@ -363,23 +414,18 @@
 <span class="material-symbols-outlined text-[16px] text-brand">checklist</span>
 <span class="text-xs font-bold text-slate-100">6维客观事实研判卡片</span>
 </div>
-<button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-0.5 bg-brand/10 border border-brand/30 px-2 py-0.5 rounded-lg transition active:scale-95" onclick="promptAddNewFactorCard()">
-<span class="material-symbols-outlined text-[14px]">add</span>＋ 添加自定义分析条件
-</button>
+<button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-0.5 bg-brand/10 border border-brand/30 px-2 py-0.5 rounded-lg transition active:scale-95" onclick="promptAddNewFactorCard()"><span class="material-symbols-outlined text-[14px]">add</span>添加自定义分析条件</button>
 </div>
-
 <!-- Accordion 6-Dimensional and Custom Cards List -->
 <div class="space-y-2.5 text-xs" id="factorCardsContainer">
 <!-- Dynamic cards rendered by JS -->
 </div>
-
 <!-- Action: Generate and Copy Prompt v5 Button -->
 <button class="w-full mt-2 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 font-bold text-xs shadow-glow hover:brightness-105 flex items-center justify-center gap-1.5 transition active:scale-[0.98]" onclick="generateStructuredPrompt()">
 <span class="material-symbols-outlined text-base" data-original-icon="content_copy">content_copy</span>
 一键生成并复制标准提示词 (Prompt v5 整合版)
 </button>
 </div>
-
 <!-- 5. AI Response Paste & Intelligent 4-Tier Parsing -->
 <div class="glass-card rounded-2xl p-3.5 space-y-3">
 <div class="flex items-center justify-between">
@@ -389,11 +435,9 @@
 </div>
 <span class="text-[10px] text-slate-400 font-mono">严格格式收敛</span>
 </div>
-
 <p class="text-[10px] text-slate-400">
 将大模型输出的研判方案整段粘贴在下方，点击一键四段标准化解析：
 </p>
-
 <textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 font-mono focus:border-brand outline-none" id="aiResponsePasteArea" placeholder="直接粘贴大模型答复。例如：
 档1｜25.60｜30%｜回踩颈线试探伏击
 档2｜24.30｜30%｜密集成交区深吸防守
@@ -401,7 +445,6 @@
 止损｜22.50｜跌破大级别底线全清认错
 盈1｜30.00｜40%｜前高颈线初次减持
 盈2｜34.00｜40%｜估值修复阶梯落袋" rows="4"></textarea>
-
 <div class="grid grid-cols-2 gap-2">
 <button class="py-2.5 rounded-xl bg-surface-sub border border-brand/40 text-brand-light font-bold text-xs hover:bg-surface-field flex items-center justify-center gap-1 transition active:scale-[0.98]" onclick="parseAiPlanPreview()">
 <span class="material-symbols-outlined text-sm">filter_alt</span>
@@ -412,13 +455,11 @@
 ⚡ 一键套用到标的执行计划
 </button>
 </div>
-
 <!-- 6. Structured Parsed Plan Breakdown & Convergence Preview -->
 <div class="hidden p-3 rounded-xl bg-surface-field/90 border border-surface-border text-xs font-mono space-y-2" id="aiParseFeedback">
 <!-- Filled by JS -->
 </div>
 </div>
-
 <!-- Educational Comparison Card: Pyramid Model Standard -->
 <div class="glass-card rounded-2xl p-3.5 border border-surface-border/60">
 <div class="flex items-center justify-between mb-1.5">
@@ -460,7 +501,7 @@
 </div>
 </div>
 <!-- Broker Fee Deduction & Slippage Reverse Calculator -->
-<div class="glass-card rounded-2xl p-3.5 border border-brand/20 space-y-3"><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-brand">receipt_long</span><span class="text-xs font-bold text-slate-200">券商实扣流水倒推与滑点对账</span></div><span class="badge-soft-emerald px-1.5 py-0.5 rounded text-[10px] font-mono" id="rateSummaryBadge">买入免税·万2.5|保底¥5</span></div><p class="text-[11px] text-slate-400 mb-2.5">填入券商银证 App 实际转出/入账总额，全自动倒推印花税、万2.5佣金、规费及成交滑点：</p><div class="mb-2.5 flex items-center justify-between bg-surface-field/90 p-1 rounded-xl border border-surface-border"><div class="flex gap-1 w-full"><button type="button" id="btnTradeBuy" onclick="setTradeType('buy')" class="flex-1 py-1 rounded-lg text-xs font-bold bg-brand text-slate-950 transition">买入扣款</button><button type="button" id="btnTradeSell" onclick="setTradeType('sell')" class="flex-1 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition">卖出到账</button></div><input type="hidden" id="brokerTradeType" value="buy"></div><div class="grid grid-cols-2 gap-2"><div><label class="text-[10px] text-slate-400 block mb-1">成交股数 (股)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcShares" oninput="runBrokerDeductionCalc()" step="100" type="number" value="700"></div><div><label class="text-[10px] text-slate-400 block mb-1">计划基准价 (¥)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcBasePx" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="25.60"></div></div><div class="mt-2"><label class="text-[10px] text-slate-400 block mb-1" id="labelActualPaid">券商银证实际扣款总额 (¥)</label><input class="w-full bg-surface-field border border-brand/40 text-amber-300 font-mono font-bold rounded-lg text-xs px-2.5 py-1.5 focus:border-brand outline-none" id="brokerCalcActualPaid" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="17926.80"></div><div class="mt-2.5 p-2 rounded-xl bg-surface-card border border-surface-border/60 text-[10px] space-y-1.5"><div class="flex items-center justify-between text-slate-400 font-medium"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs text-brand">tune</span>A股规费精算微调</span><span class="text-[9px] text-slate-500">点击±或手动修改</span></div><div class="grid grid-cols-2 gap-2 text-slate-300 font-mono"><div><span class="text-slate-400 block mb-0.5">佣金(万分比):</span><div class="flex items-center"><button type="button" onclick="adjustRateVal('brokerCommRate', -0.5)" class="w-5 h-6 rounded-l bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold">-</button><input id="brokerCommRate" type="number" step="0.1" value="2.5" oninput="runBrokerDeductionCalc()" class="w-full h-6 bg-surface-field/80 border-y border-surface-border text-center text-xs font-bold text-amber-300 outline-none p-0"><button type="button" onclick="adjustRateVal('brokerCommRate', 0.5)" class="w-5 h-6 rounded-r bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold">+</button></div></div><div><span class="text-slate-400 block mb-0.5">最低佣金(¥):</span><div class="flex items-center"><button type="button" onclick="adjustRateVal('brokerMinComm', -1)" class="w-5 h-6 rounded-l bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold">-</button><input id="brokerMinComm" type="number" step="1" value="5" oninput="runBrokerDeductionCalc()" class="w-full h-6 bg-surface-field/80 border-y border-surface-border text-center text-xs font-bold text-slate-200 outline-none p-0"><button type="button" onclick="adjustRateVal('brokerMinComm', 1)" class="w-5 h-6 rounded-r bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold">+</button></div></div></div><div class="grid grid-cols-2 gap-2 text-slate-300 font-mono"><div><span class="text-slate-400 block mb-0.5">过户规费(万分比):</span><div class="flex items-center"><button type="button" onclick="adjustRateVal('brokerTransferRate', -0.05)" class="w-5 h-6 rounded-l bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold">-</button><input id="brokerTransferRate" type="number" step="0.01" value="0.1" oninput="runBrokerDeductionCalc()" class="w-full h-6 bg-surface-field/80 border-y border-surface-border text-center text-xs font-bold text-slate-200 outline-none p-0"><button type="button" onclick="adjustRateVal('brokerTransferRate', 0.05)" class="w-5 h-6 rounded-r bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold">+</button></div></div><div><span class="text-slate-400 block mb-0.5">印花税率(%):</span><div class="flex items-center"><button type="button" onclick="adjustRateVal('brokerStampRate', -0.05)" class="w-5 h-6 rounded-l bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold">-</button><input id="brokerStampRate" type="number" step="0.01" value="0.05" oninput="runBrokerDeductionCalc()" class="w-full h-6 bg-surface-field/80 border-y border-surface-border text-center text-xs font-bold text-slate-200 outline-none p-0"><button type="button" onclick="adjustRateVal('brokerStampRate', 0.05)" class="w-5 h-6 rounded-r bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold">+</button></div></div></div></div><div class="mt-3 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-xs font-mono space-y-1"><div class="flex justify-between"><span class="text-slate-400">倒推成交均价:</span><span class="text-white font-bold tabular-nums" id="deduceAvgPrice">¥25.600</span></div><div class="flex justify-between"><span class="text-slate-400">成交滑点 (Slippage):</span><span class="text-emerald-400 font-bold tabular-nums" id="deduceSlippageDiff">¥0.000 (平准)</span></div><div class="flex justify-between"><span class="text-slate-400">倒推股票本金:</span><span class="text-slate-200 tabular-nums" id="deducePrincipal">¥17,920.00</span></div><div class="flex justify-between"><span class="text-slate-400">佣金经手费:</span><span class="text-slate-200 tabular-nums" id="deduceCommFee">¥5.00 (触发保底)</span></div><div class="flex justify-between"><span class="text-slate-400">过户规费:</span><span class="text-slate-200 tabular-nums" id="deduceTransferFee">¥0.18</span></div><div class="flex justify-between"><span class="text-slate-400">证券印花税:</span><span class="text-slate-200 tabular-nums" id="deduceStampFee">¥0.00 (买入免征)</span></div></div><button class="w-full mt-2.5 py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition active:scale-[0.98]" onclick="commitBrokerAuditToLog()">确认记账并归档至知行合一日志</button></div>
+<div class="glass-card rounded-2xl p-3.5 border border-brand/20 space-y-3"><div class="flex items-center justify-between mb-2"><div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-brand">receipt_long</span><span class="text-xs font-bold text-slate-200">券商实扣流水倒推与滑点对账</span></div><span class="badge-soft-emerald px-1.5 py-0.5 rounded text-[10px] font-mono" id="rateSummaryBadge">买入免税·万2.5|保底¥5</span></div><p class="text-[11px] text-slate-400 mb-2.5">填入券商银证 App 实际转出/入账总额，全自动倒推印花税、万2.5佣金、规费及成交滑点：</p><div class="mb-2.5 flex items-center justify-between bg-surface-field/90 p-1 rounded-xl border border-surface-border"><div class="flex gap-1 w-full"><button class="flex-1 py-1 rounded-lg text-xs font-bold bg-brand text-slate-950 transition" id="btnTradeBuy" onclick="setTradeType('buy')" type="button">买入扣款</button><button class="flex-1 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition" id="btnTradeSell" onclick="setTradeType('sell')" type="button">卖出到账</button></div><input id="brokerTradeType" type="hidden" value="buy"/></div><div class="grid grid-cols-2 gap-2"><div><label class="text-[10px] text-slate-400 block mb-1">成交股数 (股)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcShares" oninput="runBrokerDeductionCalc()" step="100" type="number" value="700"/></div><div><label class="text-[10px] text-slate-400 block mb-1">计划基准价 (¥)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcBasePx" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="25.60"/></div></div><div class="mt-2"><label class="text-[10px] text-slate-400 block mb-1" id="labelActualPaid">券商银证实际扣款总额 (¥)</label><input class="w-full bg-surface-field border border-brand/40 text-amber-300 font-mono font-bold rounded-lg text-xs px-2.5 py-1.5 focus:border-brand outline-none" id="brokerCalcActualPaid" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="17926.80"/></div><div class="mt-2.5 p-2 rounded-xl bg-surface-card border border-surface-border/60 text-[10px] space-y-1.5"><div class="flex items-center justify-between text-slate-400 font-medium"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs text-brand">tune</span>A股规费精算微调</span><span class="text-[9px] text-slate-500">点击±或手动修改</span></div><div class="grid grid-cols-2 gap-2 text-slate-300 font-mono"><div><span class="text-slate-400 block mb-0.5">佣金(万分比):</span><div class="flex items-center"><button class="w-5 h-6 rounded-l bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold" onclick="adjustRateVal('brokerCommRate', -0.5)" type="button">-</button><input class="w-full h-6 bg-surface-field/80 border-y border-surface-border text-center text-xs font-bold text-amber-300 outline-none p-0" id="brokerCommRate" oninput="runBrokerDeductionCalc()" step="0.1" type="number" value="2.5"/><button class="w-5 h-6 rounded-r bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold" onclick="adjustRateVal('brokerCommRate', 0.5)" type="button">+</button></div></div><div><span class="text-slate-400 block mb-0.5">最低佣金(¥):</span><div class="flex items-center"><button class="w-5 h-6 rounded-l bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold" onclick="adjustRateVal('brokerMinComm', -1)" type="button">-</button><input class="w-full h-6 bg-surface-field/80 border-y border-surface-border text-center text-xs font-bold text-slate-200 outline-none p-0" id="brokerMinComm" oninput="runBrokerDeductionCalc()" step="1" type="number" value="5"/><button class="w-5 h-6 rounded-r bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold" onclick="adjustRateVal('brokerMinComm', 1)" type="button">+</button></div></div></div><div class="grid grid-cols-2 gap-2 text-slate-300 font-mono"><div><span class="text-slate-400 block mb-0.5">过户规费(万分比):</span><div class="flex items-center"><button class="w-5 h-6 rounded-l bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold" onclick="adjustRateVal('brokerTransferRate', -0.05)" type="button">-</button><input class="w-full h-6 bg-surface-field/80 border-y border-surface-border text-center text-xs font-bold text-slate-200 outline-none p-0" id="brokerTransferRate" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="0.1"/><button class="w-5 h-6 rounded-r bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold" onclick="adjustRateVal('brokerTransferRate', 0.05)" type="button">+</button></div></div><div><span class="text-slate-400 block mb-0.5">印花税率(%):</span><div class="flex items-center"><button class="w-5 h-6 rounded-l bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold" onclick="adjustRateVal('brokerStampRate', -0.05)" type="button">-</button><input class="w-full h-6 bg-surface-field/80 border-y border-surface-border text-center text-xs font-bold text-slate-200 outline-none p-0" id="brokerStampRate" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="0.05"/><button class="w-5 h-6 rounded-r bg-surface-field border border-surface-border text-slate-300 hover:text-brand flex items-center justify-center font-bold" onclick="adjustRateVal('brokerStampRate', 0.05)" type="button">+</button></div></div></div></div><div class="mt-3 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-xs font-mono space-y-1"><div class="flex justify-between"><span class="text-slate-400">倒推成交均价:</span><span class="text-white font-bold tabular-nums" id="deduceAvgPrice">¥25.600</span></div><div class="flex justify-between"><span class="text-slate-400">成交滑点 (Slippage):</span><span class="text-emerald-400 font-bold tabular-nums" id="deduceSlippageDiff">¥0.000 (平准)</span></div><div class="flex justify-between"><span class="text-slate-400">倒推股票本金:</span><span class="text-slate-200 tabular-nums" id="deducePrincipal">¥17,920.00</span></div><div class="flex justify-between"><span class="text-slate-400">佣金经手费:</span><span class="text-slate-200 tabular-nums" id="deduceCommFee">¥5.00 (触发保底)</span></div><div class="flex justify-between"><span class="text-slate-400">过户规费:</span><span class="text-slate-200 tabular-nums" id="deduceTransferFee">¥0.18</span></div><div class="flex justify-between"><span class="text-slate-400">证券印花税:</span><span class="text-slate-200 tabular-nums" id="deduceStampFee">¥0.00 (买入免征)</span></div></div><button class="w-full mt-2.5 py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition active:scale-[0.98]" onclick="commitBrokerAuditToLog()">确认记账并归档至知行合一日志</button></div>
 <!-- Discipline Action Logs -->
 <div class="glass-card rounded-2xl p-3.5">
 <div class="flex items-center justify-between mb-2">
@@ -492,11 +533,11 @@
 <div class="grid grid-cols-2 gap-2 text-xs">
 <div>
 <label class="text-[10px] text-slate-400 block mb-1">每10股派现金 (元)</label>
-<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripCashInput" oninput="recalcDripPreview()" step="0.1" type="number" value="4.50">
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripCashInput" oninput="recalcDripPreview()" step="0.1" type="number" value="4.50"/>
 </div>
 <div>
 <label class="text-[10px] text-slate-400 block mb-1">每10股送转股 (股)</label>
-<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripShareInput" oninput="recalcDripPreview()" step="1" type="number" value="0">
+<input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripShareInput" oninput="recalcDripPreview()" step="1" type="number" value="0"/>
 </div>
 </div>
 <div class="mt-2.5 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-[11px] leading-relaxed text-slate-300 font-mono" id="dripPreviewBox">
@@ -525,7 +566,7 @@
 </div>
 </div>
 <!-- Data Management & Safety Center -->
-<div class="glass-card rounded-2xl p-4 space-y-2.5">
+<div class="glass-card rounded-2xl p-4 space-y-3 border border-brand/30"><div class="flex items-center justify-between"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-xl bg-brand/15 border border-brand/30 flex items-center justify-center text-brand shrink-0"><span class="material-symbols-outlined text-[20px]">cloud_sync</span></div><div><div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">GitHub 自动同步资产引擎</span><span class="badge-soft-gold text-[9px] px-1.5 py-0.2 rounded-full font-bold">data.json</span></div><p class="text-[10px] text-slate-400 mt-0.5">仓库: gszolo80/dengdeqi (私有/公开库双向同步)</p></div></div><span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-surface-field text-slate-400 border border-surface-border" id="ghSyncStatusBadgeLarge">未配置</span></div><div class="space-y-2 text-xs"><div class="flex items-center justify-between"><label class="text-[10px] text-slate-400 block">Fine-grained Personal Access Token (PAT)</label><a class="text-[9px] text-brand hover:underline flex items-center gap-0.5" href="https://github.com/settings/tokens?type=beta" target="_blank">获取Token <span class="material-symbols-outlined text-[11px]">open_in_new</span></a></div><div class="relative flex items-center"><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-slate-100 pl-2.5 pr-20 py-2 outline-none focus:border-brand" id="ghTokenInput" placeholder="github_pat_xxxx (需 Contents 读写权限)" type="password"/><button class="absolute right-12 text-slate-400 hover:text-brand text-[11px] p-1" onclick="toggleTokenVisibility()" title="显示/隐藏"><span class="material-symbols-outlined text-[16px]" id="toggleTokenEyeIcon">visibility</span></button><button class="absolute right-1.5 px-2 py-1 bg-brand text-slate-950 font-bold rounded-md text-[10px] hover:bg-brand-light" onclick="saveGitHubToken()">保存</button></div></div><div class="p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-[11px] font-mono space-y-1"><div class="flex justify-between"><span class="text-slate-400">目标文件路径:</span><span class="text-slate-200 font-bold">data.json (main 分支)</span></div><div class="flex justify-between"><span class="text-slate-400">最近 Commit SHA:</span><span class="text-slate-300" id="ghCommitShaText">-</span></div><div class="flex justify-between"><span class="text-slate-400">上次同步时间:</span><span class="text-amber-300 font-bold" id="ghLastSyncTimeText">尚未同步</span></div><div class="flex justify-between"><span class="text-slate-400">跨端自动同步:</span><span class="text-emerald-400">启动拉取 + 变更自提交</span></div></div><div class="grid grid-cols-2 gap-2 text-xs"><button class="py-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-bold hover:border-brand flex items-center justify-center gap-1 transition active:scale-95" onclick="pullFromGitHub(true)"><span class="material-symbols-outlined text-sm text-sky-400">download_for_offline</span>从 GitHub 拉取 (Pull)</button><button class="py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold hover:brightness-105 flex items-center justify-center gap-1 transition active:scale-95" onclick="pushToGitHub(true)"><span class="material-symbols-outlined text-sm">cloud_upload</span>推送到 GitHub (Commit)</button></div><div class="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-surface-border/60"><label class="flex items-center gap-1.5 cursor-pointer"><input checked="" class="rounded text-brand focus:ring-0 w-3.5 h-3.5 bg-surface-card border-surface-border" id="ghAutoSyncCheckbox" onchange="toggleAutoSyncSetting(this.checked)" type="checkbox"/><span class="text-slate-300">数据变更时后台自动 Commit 推送</span></label><button class="text-brand hover:underline font-medium" onclick="testGitHubConnection()">连通性测试</button></div></div><div class="glass-card rounded-2xl p-4 space-y-2.5">
 <span class="text-xs font-bold text-slate-200 block mb-1">本地沙盒数据管理 (PWA 离线持久化)</span>
 <div class="grid grid-cols-2 gap-2 text-xs">
 <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="exportDataToJson()">
@@ -534,7 +575,7 @@
 <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="triggerImportFileInput()">
 <span class="material-symbols-outlined text-sm">upload</span>导入恢复备份
 </button>
-<input accept=".json" class="hidden" id="importJsonFileInput" onchange="handleImportJson(event)" type="file">
+<input accept=".json" class="hidden" id="importJsonFileInput" onchange="handleImportJson(event)" type="file"/>
 </div>
 <div class="grid grid-cols-2 gap-2 text-xs">
 <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="restoreInitialDemoData()">
@@ -594,7 +635,7 @@
 系统检测到盘中波动或加仓冲动。为保全胜利果实，非事前预设突破批次不得临时拔高均价。有计划，才等得起！
 </p>
 <div class="p-3 rounded-xl bg-surface-field border border-surface-border text-xs text-slate-400 font-mono">
-剩余冷静期: 47:59:12<br>
+剩余冷静期: 47:59:12<br/>
 当前纪律评分: 94分 (严守计划 +2分)
 </div>
 <div class="flex justify-end gap-2 pt-2">
@@ -603,7 +644,7 @@
 </button>
 </div>
 </div>
-</div>
+</div><div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="ghSyncModal"><div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5"><div class="flex items-center justify-between"><div class="flex items-center gap-2 text-brand"><span class="material-symbols-outlined text-2xl">cloud_sync</span><h3 class="font-bold text-sm text-slate-100">GitHub 自动同步配置</h3></div><button class="text-slate-400 hover:text-slate-200" onclick="toggleGhSyncModal()"><span class="material-symbols-outlined text-lg">close</span></button></div><div class="text-xs text-slate-300 space-y-1 leading-relaxed"><p class="text-slate-300">绑定 GitHub Fine-grained PAT 即可实现多设备（Mac / iPhone / iPad）通过仓库 <strong class="text-brand font-mono font-semibold">gszolo80/dengdeqi</strong> 的 <strong class="text-slate-100 font-mono">data.json</strong> 自动无感双向对齐。</p></div><div class="space-y-1.5"><label class="text-[10px] text-slate-400 block">GitHub Token (github_pat_...)</label><div class="relative flex items-center"><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-slate-100 pl-2.5 pr-8 py-2 outline-none focus:border-brand" id="modalGhTokenInput" placeholder="粘贴 Token" type="password"/><button class="absolute right-2 text-slate-400 hover:text-brand" onclick="toggleModalTokenVisibility()"><span class="material-symbols-outlined text-[16px]" id="modalTokenEyeIcon">visibility</span></button></div></div><div class="p-2.5 rounded-xl bg-surface-field border border-surface-border text-[11px] font-mono space-y-1"><div class="flex justify-between"><span class="text-slate-400">状态:</span><span class="text-slate-300 font-bold" id="modalSyncStatusText">未配置</span></div><div class="flex justify-between"><span class="text-slate-400">上次提交 SHA:</span><span class="text-slate-300" id="modalCommitShaText">-</span></div><div class="flex justify-between"><span class="text-slate-400">上次同步时间:</span><span class="text-slate-300" id="modalLastSyncText">-</span></div></div><div class="grid grid-cols-2 gap-2 pt-1"><button class="py-2 rounded-xl bg-surface-sub border border-surface-border text-slate-200 font-bold text-xs hover:border-brand flex items-center justify-center gap-1 active:scale-95" onclick="pullFromGitHub(true)"><span class="material-symbols-outlined text-sm text-sky-400">download</span>拉取云端</button><button class="py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light flex items-center justify-center gap-1 active:scale-95" onclick="pushToGitHub(true)"><span class="material-symbols-outlined text-sm">upload</span>立即推送</button></div><div class="flex gap-2 pt-1"><button class="w-full py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-500/30 transition" onclick="saveModalGitHubToken()">保存配置并测试连通</button></div></div></div>
 <!-- Single-File Self-Contained JavaScript Engine -->
 <script>
     "use strict";
@@ -1916,4 +1957,400 @@ function commitBrokerAuditToLog() {
 }
 
 runBrokerDeductionCalc();
-</script></body></html>
+</script><script>
+const GH_OWNER = 'gszolo80';
+const GH_REPO = 'dengdeqi';
+const GH_PATH = 'data.json';
+const GH_TOKEN_KEY = 'dengdeqi_gh_token';
+const GH_LAST_SHA_KEY = 'dengdeqi_gh_last_sha';
+const GH_LAST_SYNC_KEY = 'dengdeqi_gh_last_sync';
+const GH_AUTO_SYNC_KEY = 'dengdeqi_gh_auto_sync';
+
+let ghSyncState = {
+  token: localStorage.getItem(GH_TOKEN_KEY) || '',
+  lastSha: localStorage.getItem(GH_LAST_SHA_KEY) || '',
+  lastSync: localStorage.getItem(GH_LAST_SYNC_KEY) || '',
+  autoSync: localStorage.getItem(GH_AUTO_SYNC_KEY) !== 'false',
+  isSyncing: false
+};
+
+function getGhHeaders() {
+  return {
+    'Accept': 'application/vnd.github.v3+json',
+    'Authorization': 'token ' + ghSyncState.token,
+    'Content-Type': 'application/json'
+  };
+}
+
+function updateGhSyncUI(status, label) {
+  const dot = document.getElementById('ghSyncStatusDot');
+  const text = document.getElementById('ghSyncStatusText');
+  const pill = document.getElementById('portfolioGhPill');
+  const lastP = document.getElementById('portfolioGhLastSync');
+  const badgeLg = document.getElementById('ghSyncStatusBadgeLarge');
+  const shaEl = document.getElementById('ghCommitShaText');
+  const timeEl = document.getElementById('ghLastSyncTimeText');
+  const mStatus = document.getElementById('modalSyncStatusText');
+  const mSha = document.getElementById('modalCommitShaText');
+  const mTime = document.getElementById('modalLastSyncText');
+
+  if (dot) {
+    dot.className = 'w-2 h-2 rounded-full ' + (status === 'synced' ? 'bg-emerald-400' : status === 'syncing' ? 'bg-amber-400 animate-ping' : status === 'error' ? 'bg-rose-400' : 'bg-slate-500');
+  }
+  if (text) text.textContent = label || (status === 'synced' ? '已同步' : status === 'syncing' ? '同步中' : '未绑定');
+  if (pill) {
+    pill.textContent = status === 'synced' ? '已连通' : status === 'syncing' ? '同步中' : status === 'error' ? '异常' : '未连通';
+    pill.className = 'text-[9px] px-1.5 py-0.2 rounded font-mono font-bold ' + (status === 'synced' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : status === 'syncing' ? 'bg-amber-400/20 text-amber-300 border border-brand/40' : status === 'error' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40' : 'bg-surface-field text-slate-400 border border-surface-border');
+  }
+  const timeStr = ghSyncState.lastSync ? ghSyncState.lastSync : '尚未同步';
+  if (lastP) lastP.textContent = '上次同步: ' + timeStr + (ghSyncState.lastSha ? ' (' + ghSyncState.lastSha.slice(0, 7) + ')' : '');
+  if (badgeLg) {
+    badgeLg.textContent = status === 'synced' ? '已连通' : status === 'syncing' ? '同步中' : status === 'error' ? '错误' : '未配置';
+    badgeLg.className = 'text-[10px] px-2 py-0.5 rounded-full font-bold ' + (status === 'synced' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : status === 'syncing' ? 'bg-amber-400/20 text-amber-300 border border-brand/40' : 'bg-surface-field text-slate-400 border border-surface-border');
+  }
+  if (shaEl) shaEl.textContent = ghSyncState.lastSha ? ghSyncState.lastSha.slice(0, 7) : '-';
+  if (timeEl) timeEl.textContent = timeStr;
+  if (mStatus) {
+    mStatus.textContent = label || (status === 'synced' ? '已成功连通' : status === 'syncing' ? '同步中...' : status === 'error' ? '异常/鉴权失败' : '未配置Token');
+    mStatus.className = 'font-bold ' + (status === 'synced' ? 'text-emerald-400' : status === 'syncing' ? 'text-amber-300' : status === 'error' ? 'text-rose-400' : 'text-slate-400');
+  }
+  if (mSha) mSha.textContent = ghSyncState.lastSha ? ghSyncState.lastSha.slice(0, 7) : '-';
+  if (mTime) mTime.textContent = timeStr;
+}
+
+function toggleGhSyncModal() {
+  const modal = document.getElementById('ghSyncModal');
+  if (!modal) return;
+  const isHidden = modal.classList.contains('hidden');
+  if (isHidden) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    const tokenInput = document.getElementById('modalGhTokenInput');
+    if (tokenInput) tokenInput.value = ghSyncState.token;
+    updateGhSyncUI(ghSyncState.token ? 'synced' : 'idle');
+  } else {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+function toggleTokenVisibility() {
+  const input = document.getElementById('ghTokenInput');
+  const icon = document.getElementById('toggleTokenEyeIcon');
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    if (icon) icon.textContent = 'visibility_off';
+  } else {
+    input.type = 'password';
+    if (icon) icon.textContent = 'visibility';
+  }
+}
+
+function toggleModalTokenVisibility() {
+  const input = document.getElementById('modalGhTokenInput');
+  const icon = document.getElementById('modalTokenEyeIcon');
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    if (icon) icon.textContent = 'visibility_off';
+  } else {
+    input.type = 'password';
+    if (icon) icon.textContent = 'visibility';
+  }
+}
+
+function saveGitHubToken() {
+  const val = (document.getElementById('ghTokenInput')?.value || '').trim();
+  ghSyncState.token = val;
+  localStorage.setItem(GH_TOKEN_KEY, val);
+  if (val) {
+    alert('✅ GitHub Token 已保存！正在测试连通性并拉取最新数据...');
+    pullFromGitHub(true);
+  } else {
+    updateGhSyncUI('idle', '未绑定');
+    alert('已清除 GitHub Token。');
+  }
+}
+
+function saveModalGitHubToken() {
+  const val = (document.getElementById('modalGhTokenInput')?.value || '').trim();
+  ghSyncState.token = val;
+  localStorage.setItem(GH_TOKEN_KEY, val);
+  const inputMain = document.getElementById('ghTokenInput');
+  if (inputMain) inputMain.value = val;
+  if (val) {
+    pullFromGitHub(true);
+  } else {
+    updateGhSyncUI('idle', '未绑定');
+  }
+}
+
+function toggleAutoSyncSetting(enabled) {
+  ghSyncState.autoSync = enabled;
+  localStorage.setItem(GH_AUTO_SYNC_KEY, enabled ? 'true' : 'false');
+}
+
+async function testGitHubConnection() {
+  if (!ghSyncState.token) {
+    alert('请先输入并保存 GitHub Fine-grained Personal Access Token！');
+    return;
+  }
+  updateGhSyncUI('syncing', '测试连通');
+  try {
+    const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
+    const res = await fetch(url, { headers: getGhHeaders() });
+    if (res.status === 200 || res.status === 404) {
+      updateGhSyncUI('synced', '已连通');
+      alert(`✅ 连通成功！成功访问 ${GH_OWNER}/${GH_REPO}。状态: ${res.status === 200 ? '已存在 data.json' : '尚未创建 data.json (首次推送时自动创建)'}`);
+    } else {
+      const errData = await res.json();
+      updateGhSyncUI('error', '鉴权失败');
+      alert(`❌ 连接失败 (${res.status}): ${errData.message || '请检查 Token 权限是否具备 Contents 读写！'}`);
+    }
+  } catch (err) {
+    updateGhSyncUI('error', '网络异常');
+    alert('❌ 请求异常：' + err.message);
+  }
+}
+
+async function pullFromGitHub(showNotice = false) {
+  if (!ghSyncState.token) {
+    if (showNotice) alert('请先绑定并保存 GitHub PAT！');
+    return;
+  }
+  updateGhSyncUI('syncing', '正在拉取');
+  try {
+    const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}?ref=main&t=${Date.now()}`;
+    const res = await fetch(url, { headers: getGhHeaders() });
+    if (res.status === 200) {
+      const data = await res.json();
+      ghSyncState.lastSha = data.sha;
+      localStorage.setItem(GH_LAST_SHA_KEY, data.sha);
+      const decoded = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+      const parsed = JSON.parse(decoded);
+      if (parsed && parsed.stocks) {
+        window.AppState = parsed;
+        if (typeof saveAppState === 'function') saveAppState();
+        if (typeof renderCurrentView === 'function') renderCurrentView();
+        const now = new Date();
+        const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+        ghSyncState.lastSync = timeStr;
+        localStorage.setItem(GH_LAST_SYNC_KEY, timeStr);
+        updateGhSyncUI('synced', '已拉取');
+        if (typeof addAppLog === 'function') addAppLog(`【GitHub拉取】成功自 ${GH_OWNER}/${GH_REPO} 载入最新 data.json`);
+        if (showNotice) alert(`✅ 成功从 GitHub 仓库拉取最新数据！\nCommit: ${data.sha.slice(0, 7)}\n标的数量: ${Object.keys(parsed.stocks).length}`);
+      }
+    } else if (res.status === 404) {
+      updateGhSyncUI('synced', '就绪');
+      if (showNotice) alert('仓库中尚未找到 data.json，点击「推送到 GitHub」即可完成首次自动创建！');
+    } else {
+      throw new Error(`HTTP ${res.status}`);
+    }
+  } catch (e) {
+    updateGhSyncUI('error', '拉取失败');
+    if (showNotice) alert('❌ 拉取失败: ' + e.message);
+  }
+}
+
+async function pushToGitHub(showNotice = false) {
+  if (!ghSyncState.token) {
+    if (showNotice) alert('请先绑定并保存 GitHub PAT！');
+    return;
+  }
+  updateGhSyncUI('syncing', '正在推送');
+  try {
+    let currentSha = ghSyncState.lastSha;
+    const checkUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}?ref=main&t=${Date.now()}`;
+    const checkRes = await fetch(checkUrl, { headers: getGhHeaders() });
+    if (checkRes.status === 200) {
+      const checkData = await checkRes.json();
+      currentSha = checkData.sha;
+    }
+
+    const dataString = JSON.stringify(window.AppState || {}, null, 2);
+    const base64Content = btoa(unescape(encodeURIComponent(dataString)));
+    const d = new Date();
+    const timeStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+    const bodyPayload = {
+      message: `Sync DengDeQi portfolio & discipline data: ${timeStr}`,
+      content: base64Content,
+      branch: 'main'
+    };
+    if (currentSha) bodyPayload.sha = currentSha;
+
+    const putUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
+    const putRes = await fetch(putUrl, {
+      method: 'PUT',
+      headers: getGhHeaders(),
+      body: JSON.stringify(bodyPayload)
+    });
+
+    if (putRes.status === 200 || putRes.status === 201) {
+      const resData = await putRes.json();
+      const newSha = resData.content?.sha || resData.commit?.sha || '';
+      ghSyncState.lastSha = newSha;
+      localStorage.setItem(GH_LAST_SHA_KEY, newSha);
+      const syncTimeOnly = `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+      ghSyncState.lastSync = syncTimeOnly;
+      localStorage.setItem(GH_LAST_SYNC_KEY, syncTimeOnly);
+      updateGhSyncUI('synced', '已同步');
+      if (typeof addAppLog === 'function') addAppLog(`【GitHub推送】已提交 data.json 至 ${GH_OWNER}/${GH_REPO} (${newSha.slice(0, 7)})`);
+      if (showNotice) alert(`✅ 成功推送至 GitHub！\n仓库: ${GH_OWNER}/${GH_REPO}\nCommit: ${newSha.slice(0, 7)}\n文件: data.json`);
+    } else {
+      const errData = await putRes.json();
+      throw new Error(errData.message || `HTTP ${putRes.status}`);
+    }
+  } catch (e) {
+    updateGhSyncUI('error', '推送失败');
+    if (showNotice) alert('❌ 推送失败: ' + e.message);
+  }
+}
+
+// 劫持原有持久化保存函数，实现全自动静默推送
+if (typeof window.saveAppState === 'function') {
+  const origSaveAppState = window.saveAppState;
+  window.saveAppState = function() {
+    origSaveAppState();
+    if (ghSyncState.token && ghSyncState.autoSync) {
+      clearTimeout(window.__ghAutoSyncTimer);
+      window.__ghAutoSyncTimer = setTimeout(() => {
+        pushToGitHub(false);
+      }, 3000);
+    }
+  };
+}
+
+// 初始化 GitHub 同步状态
+window.addEventListener('DOMContentLoaded', () => {
+  const tokenInput = document.getElementById('ghTokenInput');
+  if (tokenInput && ghSyncState.token) tokenInput.value = ghSyncState.token;
+  const autoChk = document.getElementById('ghAutoSyncCheckbox');
+  if (autoChk) autoChk.checked = ghSyncState.autoSync;
+  if (ghSyncState.token) {
+    updateGhSyncUI('synced', '已就绪');
+    // 自动在加载时后台静默拉取最新
+    pullFromGitHub(false);
+  } else {
+    updateGhSyncUI('idle', '未绑定');
+  }
+});
+</script><script>
+(function() {
+  // 覆盖并增强 Plan 视口的渲染逻辑，注入智能动态正金字塔梯度计算
+  const originalRenderPlan = window.renderPlanView;
+  window.renderPlanView = function() {
+    if (typeof originalRenderPlan === 'function') {
+      originalRenderPlan();
+    }
+    renderDynamicPyramidVisual();
+  };
+
+  function renderDynamicPyramidVisual() {
+    const canvas = document.getElementById('pyramidVisualCanvas');
+    if (!canvas || typeof getActiveStockData !== 'function') return;
+    const st = getActiveStockData();
+    if (!st) return;
+
+    // 整合当前标的底仓、买入批次与硬止损，自动价格降序排序
+    const layers = [];
+    
+    // 若有突破追单
+    const chases = (st.buySteps || []).filter(s => s.note && (s.note.includes('追') || s.note.includes('突破')));
+    const normalBuys = (st.buySteps || []).filter(s => !s.note || (!s.note.includes('追') && !s.note.includes('突破')));
+
+    chases.forEach((c, idx) => {
+      layers.push({
+        type: 'chase',
+        price: c.price,
+        label: `▲ 突破追${idx + 1}`,
+        detail: `¥${c.price.toFixed(2)} · ¥${c.amount.toLocaleString()}`,
+        color: 'sky',
+        tag: '右侧追档'
+      });
+    });
+
+    // 底仓
+    if (st.holdShares > 0) {
+      layers.push({
+        type: 'hold',
+        price: st.holdCost || st.price,
+        label: `■ 底仓`,
+        detail: `¥${(st.holdCost || st.price).toFixed(2)} · ${st.holdShares.toLocaleString()}股`,
+        color: 'brand',
+        tag: '已就绪'
+      });
+    }
+
+    // 接货档位按价格降序
+    normalBuys.sort((a, b) => b.price - a.price);
+    normalBuys.forEach((b, idx) => {
+      layers.push({
+        type: 'buy',
+        price: b.price,
+        label: `▼ 接货${idx + 1}`,
+        detail: `¥${b.price.toFixed(2)} · ¥${b.amount.toLocaleString()}`,
+        color: 'emerald',
+        tag: b.note || '分批低吸',
+        exec: !!b.exec
+      });
+    });
+
+    // 重新从高价到低价降序排序整座金字塔
+    layers.sort((a, b) => b.price - a.price);
+
+    // 动态计算每个层级的宽度（严格上窄下宽，从 46% 递增到 96%）
+    const count = layers.length;
+    const minWidth = 46;
+    const maxWidth = 96;
+    const stepWidth = count > 1 ? (maxWidth - minWidth) / (count - 1) : 0;
+
+    let html = layers.map((layer, index) => {
+      const w = Math.round(minWidth + (stepWidth * index));
+      let bgClass = 'bg-surface-sub border-surface-border text-slate-300';
+      let textBadgeClass = 'bg-surface-field text-slate-400';
+      
+      if (layer.color === 'sky') {
+        bgClass = 'bg-sky-500/15 border-sky-400/40 text-sky-200';
+        textBadgeClass = 'bg-sky-500/20 text-sky-300 border border-sky-400/30';
+      } else if (layer.color === 'brand') {
+        bgClass = 'bg-brand/20 border-brand/40 text-amber-200 shadow-glow';
+        textBadgeClass = 'bg-brand/30 text-amber-300 border border-brand/50';
+      } else if (layer.color === 'emerald') {
+        // 越深层色阶越厚实
+        const opacity = 0.15 + (index * 0.05);
+        bgClass = layer.exec ? 'bg-emerald-500/25 border-emerald-400/50 text-emerald-200' : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300';
+        textBadgeClass = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+      }
+
+      return `
+        <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono transition-all duration-300 transform active:scale-[0.99] ${bgClass}" style="width: ${w}%">
+          <div class="flex items-center gap-1.5 truncate">
+            <span class="font-bold ${layer.color === 'brand' ? 'text-amber-300' : layer.color === 'sky' ? 'text-sky-300' : 'text-emerald-400'}">${layer.label}</span>
+            <span class="text-[11px] opacity-90 truncate">${layer.detail}</span>
+          </div>
+          <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 ${textBadgeClass}">${layer.exec ? '✓已成交' : layer.tag}</span>
+        </div>
+      `;
+    }).join('');
+
+    // 底部红线警示（单向棘轮硬底线）
+    html += `
+      <div class="w-[98%] mt-2 pt-2 border-t-2 border-dashed border-rose-500/50 flex items-center justify-between px-2 text-rose-400 font-mono text-xs">
+        <div class="flex items-center gap-1 font-bold">
+          <span class="material-symbols-outlined text-[15px]">error_outline</span>
+          <span>--- 硬止损线 ¥${st.failStop.toFixed(2)} (单向棘轮) ---</span>
+        </div>
+        <span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">破位即出局</span>
+      </div>
+    `;
+
+    canvas.innerHTML = html;
+  }
+
+  // 如果当前在标的页，即刻渲染
+  if (window.AppState && window.AppState.currentTab === 'plan') {
+    renderDynamicPyramidVisual();
+  }
+})();
+</script><!-- 仓位类型定义与策略规则弹窗 (Position Strategy Modal) --><div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="posStrategyModal"><div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5"><div class="flex items-center justify-between"><div class="flex items-center gap-2 text-brand"><span class="material-symbols-outlined text-2xl">pie_chart</span><h3 class="font-bold text-sm text-slate-100">仓位类型定义与配置策略</h3></div><button class="text-slate-400 hover:text-slate-200" onclick="closePositionStrategyModal()"><span class="material-symbols-outlined text-lg">close</span></button></div><p class="text-xs text-slate-300 leading-relaxed">构建《等得起》抗脆弱仓位结构，各司其职，坚决杜绝因行情波动导致仓位失序：</p><div class="space-y-2 text-xs"><div class="p-2.5 rounded-xl bg-amber-500/10 border border-brand/30 space-y-1"><div class="flex items-center justify-between"><span class="font-bold text-amber-300 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-brand"></span>🟡 核心仓 (成长弹性主力)</span><span class="text-[10px] font-mono text-amber-300/90 font-bold">建议: 40% - 60%</span></div><p class="text-[11px] text-slate-300 leading-tight">配置高业绩弹性、估值中枢扩张个股（如信测标准、三七互娱）。严格依托正金字塔分批伏击与阶梯止盈，贡献超额 Alpha 收益。</p></div><div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-1"><div class="flex items-center justify-between"><span class="font-bold text-emerald-300 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400"></span>🟢 压舱仓 (高股息低波防守)</span><span class="text-[10px] font-mono text-emerald-300/90 font-bold">建议: 25% - 40%</span></div><p class="text-[11px] text-slate-300 leading-tight">配置高确定性、充沛自由现金流、高分红派息标的（如贵州茅台、长江电力）。充当组合定海神针，DRIP 股息源源不断反哺主力。</p></div><div class="p-2.5 rounded-xl bg-sky-500/10 border border-sky-500/30 space-y-1"><div class="flex items-center justify-between"><span class="font-bold text-sky-300 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-sky-400"></span>🔵 伏击备用现金 (子弹池)</span><span class="text-[10px] font-mono text-sky-300/90 font-bold">建议: 10% - 20%</span></div><p class="text-[11px] text-slate-300 leading-tight">未打满的浮动现金储备，存放在流动性管理工具中。绝不盲目满仓，只在极端恐慌跌破关键颈线时激活金字塔接刀。</p></div></div><div class="p-2.5 rounded-xl bg-surface-field border border-surface-border text-[11px] font-mono space-y-1.5"><div class="flex justify-between items-center"><span class="text-slate-400">备用现金总额设定:</span><div class="flex items-center gap-1"><span class="text-slate-400">¥</span><input class="w-24 bg-surface-sub border border-surface-border rounded px-1.5 py-0.5 text-xs font-mono font-bold text-sky-300 text-right outline-none focus:border-brand" id="posStrategyCashInput" onchange="updateCashReserveVal(this.value)" step="5000" type="number" value="50000"/></div></div><div class="flex justify-between text-slate-400 text-[10px]"><span>当前组合资产状态:</span><span class="text-slate-200 font-bold" id="posStrategyStatText">计算中...</span></div></div><div class="flex gap-2 pt-1"><button class="w-full py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition active:scale-[0.98]" onclick="closePositionStrategyModal()">我知道了 · 严格执行防守结构</button></div></div></div><script>/* 仓位类型定义与联动计算扩展引擎 */(function() { const defaultPosTypes = { '300938': 'core', '002555': 'core', '600519': 'anchor', '600900': 'anchor' }; const POSITION_TYPE_CONFIG = { core: { name: '核心仓', badgeClass: 'bg-brand/20 text-brand-light border-brand/40', dotColor: '#f59e0b', dotClass: 'bg-brand', desc: '成长弹性' }, anchor: { name: '压舱仓', badgeClass: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40', dotColor: '#10b981', dotClass: 'bg-emerald-400', desc: '低波红利' }, cash: { name: '伏击现金', badgeClass: 'bg-sky-500/20 text-sky-300 border-sky-500/40', dotColor: '#38bdf8', dotClass: 'bg-sky-400', desc: '备用弹药' } }; window.getPositionTypeConfig = function() { return POSITION_TYPE_CONFIG; }; window.changeStockPositionType = function(stockCode, newType, evt) { if (evt) evt.stopPropagation(); if (!window.AppState || !window.AppState.stocks || !window.AppState.stocks[stockCode]) return; window.AppState.stocks[stockCode].posType = newType; if (typeof saveAppState === 'function') saveAppState(); if (typeof addAppLog === 'function') { const name = window.AppState.stocks[stockCode].name; const typeName = POSITION_TYPE_CONFIG[newType]?.name || newType; addAppLog(`【仓位调整】标的 ${name} 分类已调整为【${typeName}】`); } renderPortfolioView(); }; window.openPositionStrategyModal = function(highlightType) { const modal = document.getElementById('posStrategyModal'); if (!modal) return; modal.classList.remove('hidden'); modal.classList.add('flex'); const cashInput = document.getElementById('posStrategyCashInput'); if (cashInput && window.AppState) { cashInput.value = window.AppState.cashReserve !== undefined ? window.AppState.cashReserve : 50000; } const statEl = document.getElementById('posStrategyStatText'); if (statEl && window.AppState) { const summary = calcPositionDistribution(); statEl.textContent = `总值 ¥${Math.round(summary.totalWorth).toLocaleString()} (仓位 ${summary.totalStockPct}%)`; } }; window.closePositionStrategyModal = function() { const modal = document.getElementById('posStrategyModal'); if (!modal) return; modal.classList.add('hidden'); modal.classList.remove('flex'); }; window.updateCashReserveVal = function(val) { const num = Math.max(0, parseFloat(val) || 0); if (window.AppState) { window.AppState.cashReserve = num; if (typeof saveAppState === 'function') saveAppState(); renderPortfolioView(); } }; function calcPositionDistribution() { if (!window.AppState || !window.AppState.stocks) { return { coreVal: 0, anchorVal: 0, cashVal: 50000, totalWorth: 50000, corePct: 0, anchorPct: 0, cashPct: 100, totalStockPct: 0, coreStocks: [], anchorStocks: [] }; } let coreVal = 0; let anchorVal = 0; const coreStocks = []; const anchorStocks = []; for (const key in window.AppState.stocks) { const s = window.AppState.stocks[key]; if (!s.posType) { s.posType = defaultPosTypes[key] || 'core'; } const val = (s.holdShares || 0) * (s.price || 0); if (s.posType === 'anchor') { anchorVal += val; anchorStocks.push(s.name); } else { coreVal += val; coreStocks.push(s.name); } } const cashVal = window.AppState.cashReserve !== undefined ? window.AppState.cashReserve : 50000; const totalWorth = coreVal + anchorVal + cashVal; const corePct = totalWorth > 0 ? Math.round((coreVal / totalWorth) * 100) : 0; const anchorPct = totalWorth > 0 ? Math.round((anchorVal / totalWorth) * 100) : 0; const cashPct = Math.max(0, 100 - corePct - anchorPct); const totalStockPct = 100 - cashPct; return { coreVal, anchorVal, cashVal, totalWorth, corePct, anchorPct, cashPct, totalStockPct, coreStocks, anchorStocks }; } window.calcPositionDistribution = calcPositionDistribution; window.renderPortfolioView = function() { const list = document.getElementById('portfolioHoldingList'); if (!list || !window.AppState || !window.AppState.stocks) return; const stockKeys = Object.keys(window.AppState.stocks); const dist = calcPositionDistribution(); const totalValEl = document.getElementById('portfolioTotalVal'); if (totalValEl) totalValEl.textContent = Math.round(dist.totalWorth).toLocaleString(); const sumText = document.getElementById('donutHeaderSummaryText'); if (sumText) { sumText.textContent = `核心 ${dist.corePct}% · 压舱 ${dist.anchorPct}% · 现款 ${dist.cashPct}%`; } const C = 213.628; const coreLen = (dist.corePct / 100) * C; const anchorLen = (dist.anchorPct / 100) * C; const cashLen = (dist.cashPct / 100) * C; const coreOffset = 0; const anchorOffset = -coreLen; const cashOffset = -(coreLen + anchorLen); const cCore = document.getElementById('donutCircleCore'); const cAnchor = document.getElementById('donutCircleAnchor'); const cCash = document.getElementById('donutCircleCash'); if (cCore) { cCore.setAttribute('stroke-dasharray', `${coreLen.toFixed(1)} ${(C - coreLen).toFixed(1)}`); cCore.setAttribute('stroke-dashoffset', '0'); } if (cAnchor) { cAnchor.setAttribute('stroke-dasharray', `${anchorLen.toFixed(1)} ${(C - anchorLen).toFixed(1)}`); cAnchor.setAttribute('stroke-dashoffset', anchorOffset.toFixed(1)); } if (cCash) { cCash.setAttribute('stroke-dasharray', `${cashLen.toFixed(1)} ${(C - cashLen).toFixed(1)}`); cCash.setAttribute('stroke-dashoffset', cashOffset.toFixed(1)); } const cCenter = document.getElementById('donutCenterLockPct'); if (cCenter) cCenter.textContent = `${dist.totalStockPct}%`; const lCoreVal = document.getElementById('donutLegendCoreVal'); const lAnchorVal = document.getElementById('donutLegendAnchorVal'); const lCashVal = document.getElementById('donutLegendCashVal'); if (lCoreVal) lCoreVal.textContent = `${dist.corePct}%`; if (lAnchorVal) lAnchorVal.textContent = `${dist.anchorPct}%`; if (lCashVal) lCashVal.textContent = `${dist.cashPct}%`; const lCoreLbl = document.getElementById('donutLegendCoreLabel'); const lAnchorLbl = document.getElementById('donutLegendAnchorLabel'); if (lCoreLbl) { const names = dist.coreStocks.slice(0, 2).map(n => n.slice(0, 2)).join('+'); lCoreLbl.textContent = names ? `核心仓 (${names})` : '核心仓 (成长弹性)'; } if (lAnchorLbl) { const names = dist.anchorStocks.slice(0, 2).map(n => n.slice(0, 2)).join('+'); lAnchorLbl.textContent = names ? `压舱仓 (${names})` : '压舱仓 (低波红利)'; } list.innerHTML = stockKeys.map(key => { const s = window.AppState.stocks[key]; if (!s.posType) s.posType = defaultPosTypes[key] || 'core'; const val = (s.holdShares || 0) * (s.price || 0); const profit = (s.price - (s.holdCost || s.price)) * (s.holdShares || 0); const costTotal = (s.holdCost || s.price) * (s.holdShares || 1); const profitPct = costTotal > 0 ? (profit / costTotal) * 100 : 0; const isSelected = key === window.AppState.activeStock; const isCore = s.posType === 'core'; const badgeColorClass = isCore ? 'bg-brand/20 text-brand-light border-brand/40' : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'; const dotColorClass = isCore ? 'bg-brand' : 'bg-emerald-400'; return `<div onclick="onGlobalStockSwitch('${s.code}'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 ${isSelected ? 'border-brand/50 bg-surface-sub/80' : 'bg-surface-card/60'}"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200 shrink-0">${s.name.slice(0, 2)}</div><div><div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">${s.name}</span><span class="text-[10px] font-mono text-slate-400">${s.code}</span><div class="relative inline-flex items-center ml-1" onclick="event.stopPropagation()"><select onchange="changeStockPositionType('${s.code}', this.value, event)" class="text-[9px] font-bold py-0.5 pl-1.5 pr-4 rounded-full border cursor-pointer outline-none transition appearance-none ${badgeColorClass}" title="点击切换仓位类型"><option value="core" class="bg-surface-card text-amber-300" ${isCore ? 'selected' : ''}>🟡 核心仓</option><option value="anchor" class="bg-surface-card text-emerald-300" ${!isCore ? 'selected' : ''}>🟢 压舱仓</option></select><span class="material-symbols-outlined text-[10px] text-slate-400 absolute right-1 pointer-events-none">arrow_drop_down</span></div></div><div class="text-[10px] text-slate-400 mt-1 flex items-center gap-2"><span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full ${dotColorClass}"></span>${isCore ? '弹性进攻' : '底仓分红'}</span><span>·</span><span>持仓 ${(s.holdShares || 0).toLocaleString()} 股 · 成本 ¥${(s.holdCost || s.price).toFixed(2)}</span></div></div></div><div class="text-right"><div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥${Math.round(val).toLocaleString()}</div><div class="text-[10px] font-mono font-semibold tabular-nums mt-0.5 ${profit >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${profit >= 0 ? '+' : ''}${profitPct.toFixed(2)}%</div></div></div>`; }).join(''); }; renderPortfolioView(); })();</script></body></html>
