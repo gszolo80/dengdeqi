@@ -429,7 +429,7 @@
       </section>
 
       <!-- ================= TAB 2: ② 标的 (Plan & Diamond Pyramid) ================= -->
-      <section class="tab-page space-y-3 hidden" id="view-plan">
+      <section class="tab-page space-y-3" id="view-plan">
         <div class="space-y-2.5">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-1.5">
@@ -572,7 +572,7 @@
       </section>
 
       <!-- ================= TAB 3: ③ 分析 (Analysis & Prompt v5) ================= -->
-      <section class="tab-page space-y-3" id="view-analysis">
+      <section class="tab-page space-y-3 hidden" id="view-analysis">
         <div class="glass-card rounded-2xl p-3.5 border border-brand/30 relative overflow-hidden">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
@@ -623,7 +623,7 @@
               </div>
               <div class="relative flex items-center">
                 <span class="absolute left-2 text-xs font-mono font-bold text-slate-400">¥</span>
-                <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-amber-300 font-bold pl-5 pr-2 py-1.5 outline-none focus:border-brand" id="analysisPlanTotalInput" onchange="updateAnalysisBudget(this.value)" step="1000" type="number" value="70000">
+                <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-amber-300 font-bold pl-5 pr-2 py-1.5 outline-none focus:border-brand" id="analysisPlanTotalInput" onchange="updateAnalysisBudget(this.value)" step="1000" type="number" value="70000" min="0">
               </div>
               <div class="text-[10px] text-slate-400 mt-1 font-mono flex justify-between">
                 <span class="">首仓约30%:</span>
@@ -779,17 +779,17 @@
           <div class="grid grid-cols-2 gap-2.5">
             <div>
               <label class="text-[10px] text-slate-400 block mb-1">成交股数 (股)</label>
-              <input class="w-full bg-surface-field border border-surface-border rounded-xl text-xs font-mono text-white px-3 py-2 focus:border-brand outline-none" id="brokerCalcShares" oninput="runBrokerDeductionCalc()" step="100" type="number" value="700">
+              <input class="w-full bg-surface-field border border-surface-border rounded-xl text-xs font-mono text-white px-3 py-2 focus:border-brand outline-none" id="brokerCalcShares" oninput="runBrokerDeductionCalc()" step="100" type="number" value="700" min="0">
             </div>
             <div>
               <label class="text-[10px] text-slate-400 block mb-1">计划基准价 (¥)</label>
-              <input class="w-full bg-surface-field border border-surface-border rounded-xl text-xs font-mono text-white px-3 py-2 focus:border-brand outline-none" id="brokerCalcBasePx" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="25.60">
+              <input class="w-full bg-surface-field border border-surface-border rounded-xl text-xs font-mono text-white px-3 py-2 focus:border-brand outline-none" id="brokerCalcBasePx" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="25.60" min="0">
             </div>
           </div>
 
           <div>
             <label class="text-[10px] text-slate-400 block mb-1" id="labelActualPaid">券商银证实际扣款总额 (¥)</label>
-            <input class="w-full bg-surface-field border border-brand/50 text-amber-300 font-mono font-bold rounded-xl text-sm px-3 py-2 focus:border-brand outline-none" id="brokerCalcActualPaid" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="17926.80">
+            <input class="w-full bg-surface-field border border-brand/50 text-amber-300 font-mono font-bold rounded-xl text-sm px-3 py-2 focus:border-brand outline-none" id="brokerCalcActualPaid" oninput="runBrokerDeductionCalc()" step="0.01" type="number" value="17926.80" min="0">
           </div>
 
           <!-- 精算倒推报表 -->
@@ -1074,12 +1074,12 @@
           <span class="material-symbols-outlined text-[22px]">pie_chart</span>
           <span class="text-[10px] font-medium mt-0.5">组合</span>
         </button>
-        <button class="flex flex-col items-center justify-center hover:text-slate-200 transition py-1 text-slate-400" id="nav-btn-plan" onclick="switchNavTab('plan')">
+        <button class="flex flex-col items-center justify-center hover:text-slate-200 transition py-1 text-brand" id="nav-btn-plan" onclick="switchNavTab('plan')">
           <span class="material-symbols-outlined text-[22px]">account_tree</span>
           <span class="text-[10px] font-medium mt-0.5">标的</span>
         </button>
         <div class="flex justify-center items-center relative -top-3">
-          <button class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-glow flex flex-col items-center justify-center border-2 border-surface transition transform active:scale-95 ring-4 ring-brand/40 scale-105" id="nav-btn-analysis" onclick="switchNavTab('analysis')" title="6维智能分析">
+          <button class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-glow flex flex-col items-center justify-center border-2 border-surface transition transform active:scale-95" id="nav-btn-analysis" onclick="switchNavTab('analysis')" title="6维智能分析">
             <span class="material-symbols-outlined text-[22px] font-extrabold">auto_awesome</span>
             <span class="text-[9px] font-black -mt-1">分析</span>
           </button>
@@ -2126,7 +2126,199 @@
     }
   }, true);
 })();
-</script><script id="analysis-interactive-enhancement">
+</script><script id="p1-risk-control-engine" class="">
+(function() {
+  // 1. 动态渲染顶部标的下拉选择框
+  window.renderStockSelectorOptions = function() {
+    const sel = document.getElementById('headerStockSelect');
+    if (!sel || !AppState || !AppState.stocks) return;
+    const currentVal = AppState.activeStock;
+    const optionsHtml = Object.keys(AppState.stocks).map(code => {
+      const s = AppState.stocks[code];
+      return `<option value="${s.code}" ${s.code === currentVal ? 'selected' : ''}>${s.name} (${s.code})</option>`;
+    }).join('');
+    sel.innerHTML = optionsHtml;
+  };
+
+  // 覆写原 renderAppHeader 确保动态渲染标的选项
+  const origRenderAppHeader = window.renderAppHeader;
+  window.renderAppHeader = function() {
+    renderStockSelectorOptions();
+    if (typeof origRenderAppHeader === 'function') origRenderAppHeader();
+  };
+
+  // 2. 单向棘轮硬风控 (Ratchet Constraint) & 更新硬失效底线
+  window.updateStockFailStop = function(code, newFailStop) {
+    code = code || AppState.activeStock;
+    const st = AppState.stocks[code];
+    if (!st) return false;
+    newFailStop = parseFloat(newFailStop);
+    if (isNaN(newFailStop) || newFailStop <= 0) {
+      alert('请输入有效的硬失效底线价格');
+      return false;
+    }
+    const curFailStop = parseFloat(st.failStop) || 0;
+    if (curFailStop > 0 && newFailStop < curFailStop) {
+      alert(`【单向棘轮铁律触犯拦截】\n系统坚决禁止下移防守底线死扛！\n当前既有止损线：¥${curFailStop.toFixed(2)}\n试图下调至：¥${newFailStop.toFixed(2)}\n防线只能单向抬高锁定胜果，系统已强行驳回并回退！`);
+      if (typeof addAppLog === 'function') {
+        addAppLog(`[棘轮拦截] 企图下调 ${st.name} 止损线至 ¥${newFailStop.toFixed(2)}，触发纪律熔断驳回`);
+      }
+      return false;
+    }
+    st.failStop = newFailStop;
+    saveAppState();
+    if (typeof addAppLog === 'function') {
+      addAppLog(`[棘轮上移] ${st.name} 硬失效底线抬高锁定至 ¥${newFailStop.toFixed(2)}`);
+    }
+    if (typeof renderCurrentView === 'function') renderCurrentView();
+    return true;
+  };
+
+  // 3. 现价跌破失效线与熔断事件底层断路器检查 (Hard Circuit Breaker)
+  window.isStockCircuitBroken = function(code) {
+    code = code || AppState.activeStock;
+    const st = AppState.stocks[code];
+    if (!st) return { broken: false };
+    
+    // 规则 A: 现价 < 硬失效底线
+    if (parseFloat(st.price) < parseFloat(st.failStop)) {
+      return {
+        broken: true,
+        reason: 'price_below_failstop',
+        msg: `现价 ¥${st.price.toFixed(2)} 已实质击穿绝对失效硬底线 ¥${st.failStop.toFixed(2)}！底层触发物理断路熔断，严禁任何形式的补仓买入！`
+      };
+    }
+
+    // 规则 B: 事件闸门中存在已发生的熔断事件
+    if (st.events && Array.isArray(st.events)) {
+      const triggeredKillEvent = st.events.find(e => e.type === 'kill' && e.status === 'done');
+      if (triggeredKillEvent) {
+        return {
+          broken: true,
+          reason: 'event_kill_triggered',
+          msg: `基本面熔断事件【${triggeredKillEvent.name}】已确认发生！系统已锁死买入闸门，停止逆势加码！`
+        };
+      }
+    }
+
+    return { broken: false };
+  };
+
+  // 4. 48小时冷静期校验与拦截逻辑
+  window.isImpulseCoolingActive = function() {
+    if (!AppState.impulseCoolingUntil) return false;
+    return Date.now() < AppState.impulseCoolingUntil;
+  };
+
+  window.activateImpulseCooling = function(hours) {
+    hours = hours || 48;
+    AppState.impulseCoolingUntil = Date.now() + hours * 3600 * 1000;
+    saveAppState();
+  };
+
+  // 强化 triggerImpulseLockAlert 显示精确倒计时
+  const origTriggerImpulseLockAlert = window.triggerImpulseLockAlert;
+  window.triggerImpulseLockAlert = function() {
+    if (!AppState.impulseCoolingUntil || AppState.impulseCoolingUntil < Date.now()) {
+      activateImpulseCooling(48);
+    }
+    const diff = AppState.impulseCoolingUntil - Date.now();
+    const remainHours = Math.floor(diff / (3600 * 1000));
+    const remainMins = Math.floor((diff % (3600 * 1000)) / (60 * 1000));
+    const impulseModal = document.getElementById('impulseModal');
+    if (impulseModal) {
+      const infoBox = impulseModal.querySelector('.font-mono');
+      if (infoBox) {
+        infoBox.innerHTML = `剩余冷静期: ${remainHours}小时${remainMins}分<br>当前纪律状态: 严格管控中 · 禁用临时加仓`;
+      }
+    }
+    if (typeof origTriggerImpulseLockAlert === 'function') origTriggerImpulseLockAlert();
+  };
+
+  // 5. 拦截 addNewStepPrompt：防线断路 + 冷静期前置拦截
+  const origAddNewStepPrompt = window.addNewStepPrompt;
+  window.addNewStepPrompt = function(type) {
+    type = type || 'buy';
+    if (type === 'buy') {
+      // 检查断路器
+      const check = isStockCircuitBroken();
+      if (check.broken) {
+        alert('【系统级物理断路器生效】\n' + check.msg);
+        if (typeof addAppLog === 'function') {
+          addAppLog(`[加仓被拒] ${check.msg}`);
+        }
+        return;
+      }
+
+      // 检查冷静期
+      if (isImpulseCoolingActive()) {
+        triggerImpulseLockAlert();
+        return;
+      }
+    }
+    if (typeof origAddNewStepPrompt === 'function') {
+      origAddNewStepPrompt(type);
+    }
+  };
+
+  // 6. 拦截真实券商记账：跌破底线时强力阻断买入扣款记账
+  const origCommitBrokerAuditToLog = window.commitBrokerAuditToLog;
+  window.commitBrokerAuditToLog = function() {
+    const type = document.getElementById('brokerTradeType')?.value || 'buy';
+    if (type === 'buy') {
+      const check = isStockCircuitBroken();
+      if (check.broken) {
+        alert('【券商流水记账驳回 · 交易底层断路】\n' + check.msg + '\n请立即执行风控复盘或停手，系统拒绝记录破位违规买单！');
+        return;
+      }
+    }
+    if (typeof origCommitBrokerAuditToLog === 'function') {
+      origCommitBrokerAuditToLog();
+    }
+  };
+
+  // 7. 事件闸门切换状态时的联动高亮与生效提醒
+  const origToggleEventGateStatus = window.toggleEventGateStatus;
+  window.toggleEventGateStatus = function(idx) {
+    if (typeof origToggleEventGateStatus === 'function') {
+      origToggleEventGateStatus(idx);
+    }
+    const st = getActiveStockData();
+    if (st && st.events && st.events[idx]) {
+      const ev = st.events[idx];
+      if (ev.type === 'kill' && ev.status === 'done') {
+        alert(`⚠️ 警报：标的【${st.name}】已触发熔断事件【${ev.name}】！\n底层买单入口已自动断路冻结！`);
+      } else if (ev.type === 'unlock' && ev.status === 'done') {
+        alert(`⚡ 激活：标的【${st.name}】现实放行条件【${ev.name}】已达成！\n突破加码批次已解锁放行！`);
+      }
+    }
+    if (typeof renderPlanView === 'function') renderPlanView();
+  };
+
+  // 8. 模态窗点击背景蒙层直接退出 (Close on Backdrop Click)
+  function initModalBackdropDismiss() {
+    const modals = document.querySelectorAll('.fixed.inset-0.z-50');
+    modals.forEach(m => {
+      m.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.add('hidden');
+          this.classList.remove('flex');
+        }
+      });
+    });
+  }
+
+  // 初始化下拉框与蒙层事件
+  document.addEventListener('DOMContentLoaded', function() {
+    renderStockSelectorOptions();
+    initModalBackdropDismiss();
+  });
+  setTimeout(function() {
+    renderStockSelectorOptions();
+    initModalBackdropDismiss();
+  }, 80);
+})();
+</script><script id="analysis-interactive-enhancement" class="">
 (function() {
   window.isFactorCardsLocked = true;
   window.isKeywordBankCollapsed = false;
@@ -2363,4 +2555,470 @@
 })();
 </script>
 
-</body></html>
+<script id="p0-core-enhancements" class="">
+(function() {
+  'use strict';
+
+  // Ensure cashReserve in AppState
+  if (typeof AppState !== 'undefined') {
+    if (AppState.cashReserve === undefined) AppState.cashReserve = 50000;
+    if (AppState.totalTProfit === undefined) AppState.totalTProfit = 14200;
+    if (AppState.ghToken === undefined) {
+      AppState.ghToken = localStorage.getItem('dengdeqi_gh_pat') || '';
+    }
+    if (AppState.tradeLogs === undefined) {
+      AppState.tradeLogs = [];
+    }
+  }
+
+  // 1. Dynamic Donut Calculation
+  window.recalcAndRenderDonut = function() {
+    if (typeof AppState === 'undefined' || !AppState.stocks) return;
+    const stockKeys = Object.keys(AppState.stocks);
+    let coreVal = 0;
+    let anchorVal = 0;
+
+    stockKeys.forEach(k => {
+      const s = AppState.stocks[k];
+      const val = (Number(s.holdShares) || 0) * (Number(s.price) || 0);
+      if (k === '300938' || k === '002555') {
+        coreVal += val;
+      } else {
+        anchorVal += val;
+      }
+    });
+
+    const cash = Number(AppState.cashReserve) || 50000;
+    const totalAssets = coreVal + anchorVal + cash;
+    if (totalAssets <= 0) return;
+
+    const corePct = Math.round((coreVal / totalAssets) * 100);
+    const anchorPct = Math.round((anchorVal / totalAssets) * 100);
+    const cashPct = Math.max(0, 100 - corePct - anchorPct);
+    const lockedPct = corePct + anchorPct;
+
+    // Donut circumference for r=34 is 2 * PI * 34 ≈ 213.628
+    const C = 2 * Math.PI * 34;
+    const coreLen = (corePct / 100) * C;
+    const anchorLen = (anchorPct / 100) * C;
+    const cashLen = (cashPct / 100) * C;
+
+    const coreCircle = document.getElementById('donutCircleCore');
+    const anchorCircle = document.getElementById('donutCircleAnchor');
+    const cashCircle = document.getElementById('donutCircleCash');
+    const lockCenterText = document.getElementById('donutCenterLockPct');
+    const summaryText = document.getElementById('donutHeaderSummaryText');
+
+    const coreLegVal = document.getElementById('donutLegendCoreVal');
+    const anchorLegVal = document.getElementById('donutLegendAnchorVal');
+    const cashLegVal = document.getElementById('donutLegendCashVal');
+
+    if (coreCircle) {
+      coreCircle.setAttribute('stroke-dasharray', `${coreLen.toFixed(1)} ${(C - coreLen).toFixed(1)}`);
+      coreCircle.setAttribute('stroke-dashoffset', '0');
+    }
+    if (anchorCircle) {
+      anchorCircle.setAttribute('stroke-dasharray', `${anchorLen.toFixed(1)} ${(C - anchorLen).toFixed(1)}`);
+      anchorCircle.setAttribute('stroke-dashoffset', `-${coreLen.toFixed(1)}`);
+    }
+    if (cashCircle) {
+      cashCircle.setAttribute('stroke-dasharray', `${cashLen.toFixed(1)} ${(C - cashLen).toFixed(1)}`);
+      cashCircle.setAttribute('stroke-dashoffset', `-${(coreLen + anchorLen).toFixed(1)}`);
+    }
+
+    if (lockCenterText) lockCenterText.textContent = `${lockedPct}%`;
+    if (summaryText) summaryText.textContent = `核心 ${corePct}% · 压舱 ${anchorPct}% · 现款 ${cashPct}%`;
+    if (coreLegVal) coreLegVal.textContent = `${corePct}%`;
+    if (anchorLegVal) anchorLegVal.textContent = `${anchorPct}%`;
+    if (cashLegVal) cashLegVal.textContent = `${cashPct}%`;
+  };
+
+  // Hook into renderPortfolioView
+  const prevRenderPortfolioView = window.renderPortfolioView;
+  window.renderPortfolioView = function() {
+    if (typeof prevRenderPortfolioView === 'function') prevRenderPortfolioView();
+    recalcAndRenderDonut();
+  };
+
+  // 2. Broker Delivery Order Real WAC & Hold Cost Update
+  window.commitBrokerAuditToLog = function() {
+    const st = getActiveStockData();
+    if (!st) return;
+    const type = (document.getElementById('brokerTradeType')?.value) || 'buy';
+    const shares = parseFloat(document.getElementById('brokerCalcShares')?.value) || 0;
+    const actualPaid = parseFloat(document.getElementById('brokerCalcActualPaid')?.value) || 0;
+    const avgPx = parseFloat(document.getElementById('deduceAvgPrice')?.textContent?.replace('¥', '')) || st.price;
+    const slip = document.getElementById('deduceSlippageDiff')?.textContent || '';
+
+    if (shares <= 0 || actualPaid <= 0) {
+      alert('请输入有效的成交股数与券商实际到账/扣款金额');
+      return;
+    }
+
+    let note = '';
+    if (type === 'buy') {
+      const oldShares = st.holdShares || 0;
+      const oldCost = st.holdCost || st.price;
+      const oldTotalVal = oldShares * oldCost;
+      const newTotalShares = oldShares + shares;
+      const newTotalCost = oldTotalVal + actualPaid;
+      const newWac = newTotalCost / newTotalShares;
+      st.holdShares = newTotalShares;
+      st.holdCost = parseFloat(newWac.toFixed(3));
+      note = `加权成本 WAC 更新为 ¥${st.holdCost.toFixed(2)}，持仓增至 ${newTotalShares.toLocaleString()} 股`;
+    } else {
+      const sellShares = Math.min(st.holdShares, shares);
+      const costBasis = sellShares * (st.holdCost || st.price);
+      const profit = actualPaid - costBasis;
+      st.holdShares = Math.max(0, st.holdShares - sellShares);
+      AppState.totalTProfit = (AppState.totalTProfit || 0) + profit;
+      note = `实现做T净收益 ¥${profit.toFixed(2)}，剩余持仓 ${st.holdShares.toLocaleString()} 股`;
+    }
+
+    const logEntry = {
+      id: 'trade_' + Date.now(),
+      time: new Date().toLocaleTimeString('zh-CN'),
+      date: new Date().toISOString().slice(0, 10),
+      code: st.code,
+      name: st.name,
+      type: type,
+      shares: shares,
+      actualPaid: actualPaid,
+      avgPrice: avgPx,
+      slip: slip,
+      note: note
+    };
+
+    if (!AppState.tradeLogs) AppState.tradeLogs = [];
+    AppState.tradeLogs.unshift(logEntry);
+
+    saveAppState();
+    addAppLog(`【真实交割凭证】${st.name} ${type === 'buy' ? '买入' : '卖出'} ${shares}股 @¥${avgPx.toFixed(3)} | ${note}`);
+    alert(`✅ 已成功记账入库并更新加权成本 (WAC)！\n\n标的：${st.name} (${st.code})\n类型：${type === 'buy' ? '买入建仓/接货' : '卖出止盈/高抛'}\n成交股数：${shares.toLocaleString()} 股\n实际总额：¥${actualPaid.toFixed(2)}\n${note}`);
+    renderCurrentView();
+  };
+
+  // 3. GitHub Two-Way Sync Functions
+  const GITHUB_REPO = 'gszolo80/dengdeqi';
+  const GITHUB_PATH = 'data.json';
+
+  window.toggleGhSyncModal = function() {
+    const m = document.getElementById('ghSyncModal');
+    if (!m) return;
+    const tokenInput = document.getElementById('modalGhTokenInput');
+    if (tokenInput && AppState.ghToken) tokenInput.value = AppState.ghToken;
+    if (m.classList.contains('hidden')) {
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    } else {
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+  };
+
+  window.toggleTokenVisibility = function() {
+    const in1 = document.getElementById('ghTokenInput');
+    const icon = document.getElementById('toggleTokenEyeIcon');
+    if (!in1) return;
+    if (in1.type === 'password') {
+      in1.type = 'text';
+      if (icon) icon.textContent = 'visibility_off';
+    } else {
+      in1.type = 'password';
+      if (icon) icon.textContent = 'visibility';
+    }
+  };
+
+  window.saveGitHubToken = function() {
+    const in1 = document.getElementById('ghTokenInput');
+    const in2 = document.getElementById('modalGhTokenInput');
+    const token = (in1?.value || in2?.value || '').trim();
+    if (!token) {
+      alert('请输入有效的 GitHub Fine-grained PAT');
+      return;
+    }
+    AppState.ghToken = token;
+    localStorage.setItem('dengdeqi_gh_pat', token);
+    saveAppState();
+    const badge = document.getElementById('ghSyncStatusBadgeLarge');
+    const dot = document.getElementById('ghSyncStatusDot');
+    if (badge) { badge.textContent = '已配置'; badge.className = 'text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'; }
+    if (dot) { dot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400 absolute top-1 right-1'; }
+    addAppLog('GitHub Token 配置并保存成功');
+    alert('GitHub PAT 保存成功！');
+  };
+
+  window.pullFromGitHub = async function(showNotice) {
+    const token = AppState.ghToken || localStorage.getItem('dengdeqi_gh_pat');
+    if (!token) {
+      alert('请先配置 GitHub Fine-grained PAT');
+      toggleGhSyncModal();
+      return;
+    }
+    try {
+      const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`, {
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      const fileData = await res.json();
+      const contentStr = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+      const parsed = JSON.parse(contentStr);
+      if (parsed && parsed.stocks) {
+        AppState = Object.assign(AppState, parsed);
+        AppState.ghFileSha = fileData.sha;
+        saveAppState();
+        renderCurrentView();
+        addAppLog('从 GitHub 仓库成功拉取并覆盖本地账本');
+        if (showNotice) alert('✅ 成功从 GitHub 云端拉取最新数据！');
+      }
+    } catch (e) {
+      console.error(e);
+      alert('从 GitHub 拉取数据失败: ' + e.message);
+    }
+  };
+
+  window.pushToGitHub = async function(showNotice) {
+    const token = AppState.ghToken || localStorage.getItem('dengdeqi_gh_pat');
+    if (!token) {
+      alert('请先配置 GitHub Fine-grained PAT');
+      toggleGhSyncModal();
+      return;
+    }
+    try {
+      let sha = AppState.ghFileSha;
+      if (!sha) {
+        const checkRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`, {
+          headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+        });
+        if (checkRes.ok) {
+          const f = await checkRes.json();
+          sha = f.sha;
+        }
+      }
+      const payloadData = btoa(unescape(encodeURIComponent(JSON.stringify(AppState, null, 2))));
+      const pushRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_PATH}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${token}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify({
+          message: `Update portfolio state [${new Date().toISOString()}]`,
+          content: payloadData,
+          sha: sha || undefined
+        })
+      });
+      if (!pushRes.ok) throw new Error(`HTTP ${pushRes.status}: ${pushRes.statusText}`);
+      const result = await pushRes.json();
+      AppState.ghFileSha = result.content.sha;
+      saveAppState();
+      addAppLog('成功将本地数据推送到 GitHub 远端');
+      if (showNotice) alert('✅ 数据已安全推送并备份到 GitHub 云端仓库！');
+    } catch (e) {
+      console.error(e);
+      alert('推送至 GitHub 失败: ' + e.message);
+    }
+  };
+
+  // 4. Data Export, Import, Factory Reset
+  window.exportDataToJson = function() {
+    try {
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(AppState, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute('href', dataStr);
+      a.setAttribute('download', `dengdeqi_backup_${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      addAppLog('完成全量账本 JSON 导出备份');
+    } catch (e) {
+      alert('导出失败: ' + e.message);
+    }
+  };
+
+  window.triggerImportFileInput = function() {
+    const inEl = document.getElementById('importJsonFileInput');
+    if (inEl) inEl.click();
+  };
+
+  window.handleImportJson = function(evt) {
+    const file = evt.target.files && evt.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const imported = JSON.parse(e.target.result);
+        if (imported && imported.stocks) {
+          AppState = imported;
+          saveAppState();
+          renderCurrentView();
+          addAppLog('成功导入外部 JSON 恢复数据');
+          alert('✅ 账本数据导入恢复成功！');
+        } else {
+          alert('导入文件格式不合规，缺失股票结构字段');
+        }
+      } catch (err) {
+        alert('解析 JSON 失败: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+    evt.target.value = '';
+  };
+
+  window.restoreInitialDemoData = function() {
+    if (!confirm('确认恢复为默认演示样例数据吗？当前数据将被覆盖。')) return;
+    AppState = JSON.parse(JSON.stringify(INITIAL_DATA));
+    saveAppState();
+    renderCurrentView();
+    addAppLog('系统已重置恢复为标准演示数据集');
+    alert('已恢复为标准示例数据！');
+  };
+
+  window.clearAllDataFactoryReset = function() {
+    if (!confirm('⚠️ 警告：该操作将彻底清空当前所有自选、交易流水与手记！确认继续吗？')) return;
+    if (!confirm('最后二次确认：是否真的清空所有账本数据？')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    AppState = JSON.parse(JSON.stringify(INITIAL_DATA));
+    AppState.stocks = {};
+    AppState.logs = [];
+    AppState.thesisNotes = [];
+    saveAppState();
+    renderCurrentView();
+    alert('已清空本地账本沙盒！');
+  };
+
+  // 5. Prompt v5 Generator & 4-tier AI Parser
+  window.generateStructuredPrompt = function() {
+    const st = getActiveStockData();
+    if (!st) return;
+    const why = st.why || '无特定长线理由';
+    const budget = st.planTotal || 70000;
+    const factors = (st.factorCards || []).filter(c => c.enabled).map(c => `【${c.title}】${c.detail}`).join('\n');
+
+    const promptText = `【角色定位】\n你是一位极端苛刻的A股绝对收益交易主理人，信奉“有计划，才等得起”与长线金字塔梯次低吸纪律。\n\n【标的信息】\n标的代码：${st.code}\n标的名称：${st.name}\n当前市价：¥${st.price.toFixed(2)}\n当前持仓：${st.holdShares} 股 (成本 ¥${st.holdCost.toFixed(2)})\n预投资金总额 P：¥${budget}\n失效硬底线(破位认错)：¥${st.failStop.toFixed(2)}\n\n【买入核心灵魂理由 (Why Box)】\n${why}\n\n【客观事实6维研判条件】\n${factors}\n\n【强制输出格式 (Prompt v5 规范)】\n请依据上述客观事实及金字塔低吸原则，严格按以下格式输出四段闭环挂单方案，不要输出多余解释：\n档1｜[触发买入价]｜[金额或比例]｜[技术逻辑依据]\n档2｜[触发买入价]｜[金额或比例]｜[技术逻辑依据]\n档3｜[触发买入价]｜[金额或比例]｜[技术逻辑依据]\n止损｜${st.failStop.toFixed(2)}｜跌破大级别底线全清认错\n盈1｜[触发止盈价]｜[股数或比例]｜[兑现利润逻辑]\n盈2｜[触发止盈价]｜[股数或比例]｜[高估清仓逻辑]`;
+
+    navigator.clipboard.writeText(promptText).then(() => {
+      alert('📋 已成功复制【Prompt v5 整合标准提示词】至剪贴板！\n\n可直接粘贴至 DeepSeek / ChatGPT 中进行研判。');
+      addAppLog(`复制 ${st.name} 标准研判 Prompt v5`);
+    }).catch(() => {
+      prompt('请手动全选复制标准提示词：', promptText);
+    });
+  };
+
+  window.parseAiPlanPreview = function() {
+    const text = document.getElementById('aiResponsePasteArea')?.value || '';
+    const feedback = document.getElementById('aiParseFeedback');
+    if (!text.trim()) {
+      alert('请先在文本框中粘贴大模型回复内容');
+      return;
+    }
+    const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+    let parsedBuys = [];
+    let parsedSells = [];
+    let failStop = null;
+
+    lines.forEach(line => {
+      const parts = line.split(/[｜|]/).map(p => p.trim());
+      if (parts.length >= 2) {
+        const tag = parts[0];
+        const px = parseFloat(parts[1]);
+        if (tag.includes('档') || tag.includes('买') || tag.includes('接')) {
+          const note = parts[3] || parts[2] || 'AI智能档位';
+          parsedBuys.push({ price: px, amount: 20000, note });
+        } else if (tag.includes('盈') || tag.includes('卖')) {
+          const note = parts[3] || parts[2] || 'AI阶梯止盈';
+          parsedSells.push({ price: px, shares: 500, note });
+        } else if (tag.includes('止损') || tag.includes('底线')) {
+          failStop = px;
+        }
+      }
+    });
+
+    if (feedback) {
+      feedback.classList.remove('hidden');
+      feedback.innerHTML = `\n        <div class="font-bold text-emerald-400">✓ 成功解析四段结构：</div>\n        <div>• 拟定买入档位: ${parsedBuys.length} 档 (${parsedBuys.map(b => '¥' + b.price).join(', ')})</div>\n        <div>• 阶梯止盈档位: ${parsedSells.length} 档 (${parsedSells.map(s => '¥' + s.price).join(', ')})</div>\n        <div>• 失效硬底线: ${failStop ? '¥' + failStop : '维持原线'}</div>\n      `;
+    }
+  };
+
+  window.applyParsedPlanToTarget = function() {
+    const text = document.getElementById('aiResponsePasteArea')?.value || '';
+    if (!text.trim()) {
+      alert('请先粘贴并解析大模型回复');
+      return;
+    }
+    const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+    const st = getActiveStockData();
+    if (!st) return;
+
+    let newBuys = [];
+    let newSells = [];
+    lines.forEach(line => {
+      const parts = line.split(/[｜|]/).map(p => p.trim());
+      if (parts.length >= 2) {
+        const tag = parts[0];
+        const px = parseFloat(parts[1]);
+        if (!isNaN(px)) {
+          if (tag.includes('档') || tag.includes('买') || tag.includes('接')) {
+            newBuys.push({ price: px, amount: 20000, note: parts[3] || parts[2] || 'AI梯次挂单', exec: null });
+          } else if (tag.includes('盈') || tag.includes('卖')) {
+            newSells.push({ price: px, shares: 500, note: parts[3] || parts[2] || '阶梯止盈' });
+          } else if (tag.includes('止损') || tag.includes('底线')) {
+            st.failStop = px;
+          }
+        }
+      }
+    });
+
+    if (newBuys.length > 0) st.buySteps = newBuys.sort((a, b) => b.price - a.price);
+    if (newSells.length > 0) st.sellSteps = newSells.sort((a, b) => a.price - b.price);
+    saveAppState();
+    addAppLog(`【AI方案落地】已将 ${newBuys.length} 档买单与 ${newSells.length} 档止盈套用至 ${st.name}`);
+    alert(`⚡ 成功将 AI 方案套用到【${st.name}】的执行预案中！`);
+    renderCurrentView();
+  };
+
+  // 6. DRIP Cash Injection into Buy Orders
+  window.injectDripCashToOrders = function() {
+    const st = getActiveStockData();
+    if (!st) return;
+    const cash = parseFloat(document.getElementById('dripCashInput')?.value) || 4.5;
+    const shares = st.holdShares || 1700;
+    const netCash = (shares / 10) * cash;
+    if (netCash <= 0) {
+      alert('分红到账金额为0，无需注水');
+      return;
+    }
+    const targetPx = parseFloat((st.price * 0.96).toFixed(2));
+    if (!st.buySteps) st.buySteps = [];
+    st.buySteps.push({
+      price: targetPx,
+      amount: parseFloat(netCash.toFixed(2)),
+      note: `💧 分红复利DRIP注水挂单 (¥${netCash.toFixed(2)})`,
+      exec: null
+    });
+    st.buySteps.sort((a, b) => b.price - a.price);
+    saveAppState();
+    addAppLog(`【DRIP分红注水】向 ${st.name} 注入买单 ¥${targetPx} (额度 ¥${netCash.toFixed(2)})`);
+    alert(`💧 成功将税后分红 ¥${netCash.toFixed(2)} 注入为下一档买入伏击挂单 (@¥${targetPx})！`);
+    renderCurrentView();
+  };
+
+  // Re-sync Token on boot
+  const storedPat = localStorage.getItem('dengdeqi_gh_pat');
+  if (storedPat) {
+    const b = document.getElementById('ghSyncStatusBadgeLarge');
+    const d = document.getElementById('ghSyncStatusDot');
+    const in1 = document.getElementById('ghTokenInput');
+    if (b) { b.textContent = '已配置'; b.className = 'text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'; }
+    if (d) { d.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400 absolute top-1 right-1'; }
+    if (in1) in1.value = storedPat;
+  }
+
+  // Run Donut immediately
+  recalcAndRenderDonut();
+})();
+</script></body></html>
