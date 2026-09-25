@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="dark" lang="zh-CN"><head>
+<!DOCTYPE html><html class="dark" lang="zh-CN" style=""><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
 <meta content="yes" name="apple-mobile-web-app-capable">
@@ -112,7 +112,7 @@
 <!-- 主视口内容 -->
 <main class="flex-1 pb-24 px-4 pt-3.5 space-y-4">
   <!-- TAB 1: 组合 (Portfolio) -->
-  <section class="space-y-4 tab-page" id="view-portfolio">
+  <section class="space-y-4 tab-page hidden" id="view-portfolio">
     <div class="glass-card rounded-2xl p-4 relative overflow-hidden shadow-card border border-brand/20">
       <div class="flex items-center justify-between text-xs text-slate-400">
         <span class="flex items-center gap-1.5 font-medium">
@@ -222,7 +222,7 @@
           <h3 class="text-xs font-bold text-slate-300 tracking-wide uppercase">核心标的仓位池</h3>
           <span class="text-[10px] text-slate-400 font-mono" id="portfolioHoldingsCount">(4只标的)</span>
         </div>
-        <button class="text-[10px] text-brand hover:text-brand-light px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border flex items-center gap-0.5 transition active:scale-95" id="btnToggleAllHoldings" onclick="window.toggleAllDetails()"><span class="material-symbols-outlined text-[13px]" id="toggleExpandAllHoldingsIcon">unfold_more</span><span id="toggleExpandAllHoldingsText" class="">展开全部明细</span></button>
+        <button class="text-[10px] text-brand hover:text-brand-light px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border flex items-center gap-0.5 transition active:scale-95" id="btnToggleAllHoldings" onclick="window.toggleAllDetails()"><span class="material-symbols-outlined text-[13px]" id="toggleExpandAllHoldingsIcon">unfold_more</span><span id="toggleExpandAllHoldingsText" class="">收起全部明细</span></button>
       </div>
       <div class="space-y-2.5" id="portfolioHoldingList"><div class="glass-card rounded-2xl p-3 border-brand/60 bg-surface-sub/80 shadow-glow cursor-pointer transition hover:border-brand/40" id="card-300938"><div class="flex items-center justify-between" onclick="window.toggleStockRow('300938', event)"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-brand/20 text-brand border-brand/50 border border-surface-border flex items-center justify-center font-bold text-xs">信测</div><div><div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">信测标准</span><span class="text-[10px] font-mono text-slate-400">300938</span><span class="text-[9px] bg-brand text-slate-950 font-bold px-1 rounded">当前</span></div><div class="text-[10px] text-slate-400 mt-0.5">持仓 1,700 股 · 成本 ¥27.46</div></div></div><div class="flex items-center gap-2"><div class="text-right"><div class="text-xs font-mono font-bold text-slate-100">¥45,101</div><div class="text-[10px] font-mono font-semibold text-emerald-400">-3.39%</div></div><span class="material-symbols-outlined text-slate-400 text-base transition transform" id="arrow-300938">expand_more</span></div></div><div class="stock-detail-section hidden border-t border-surface-border/60 mt-2.5 pt-2.5 text-xs font-mono space-y-1.5" id="detail-300938"><div class="flex justify-between text-slate-400"><span class="font-sans">计划弹药池 / 底线:</span><span class="text-slate-200">¥70,000 / ¥22.50</span></div><div class="flex justify-between text-slate-400"><span class="font-sans">持仓浮动盈亏:</span><span class="text-emerald-400 font-bold">-¥1,581 (-3.39%)</span></div><div class="flex justify-end gap-2 pt-1 font-sans"><button class="px-2 py-0.5 rounded-lg bg-brand/15 text-brand-light border border-brand/30 text-[10px] font-bold" onclick="switchStock('300938'); switchNavTab('plan'); event.stopPropagation();">进入预案 →</button></div></div></div><div class="glass-card rounded-2xl p-3 cursor-pointer transition hover:border-brand/40" id="card-600519"><div class="flex items-center justify-between" onclick="window.toggleStockRow('600519', event)"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-surface-field text-slate-200 border border-surface-border flex items-center justify-center font-bold text-xs">贵州</div><div><div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">贵州茅台</span><span class="text-[10px] font-mono text-slate-400">600519</span></div><div class="text-[10px] text-slate-400 mt-0.5">持仓 100 股 · 成本 ¥1420.00</div></div></div><div class="flex items-center gap-2"><div class="text-right"><div class="text-xs font-mono font-bold text-slate-100">¥145,000</div><div class="text-[10px] font-mono font-semibold text-rose-400">+2.11%</div></div><span class="material-symbols-outlined text-slate-400 text-base transition transform" id="arrow-600519">expand_more</span></div></div><div class="stock-detail-section hidden border-t border-surface-border/60 mt-2.5 pt-2.5 text-xs font-mono space-y-1.5" id="detail-600519"><div class="flex justify-between text-slate-400"><span class="font-sans">计划弹药池 / 底线:</span><span class="text-slate-200">¥300,000 / ¥1350.00</span></div><div class="flex justify-between text-slate-400"><span class="font-sans">持仓浮动盈亏:</span><span class="text-rose-400 font-bold">+¥3,000 (+2.11%)</span></div><div class="flex justify-end gap-2 pt-1 font-sans"><button class="px-2 py-0.5 rounded-lg bg-brand/15 text-brand-light border border-brand/30 text-[10px] font-bold" onclick="switchStock('600519'); switchNavTab('plan'); event.stopPropagation();">进入预案 →</button></div></div></div><div class="glass-card rounded-2xl p-3 cursor-pointer transition hover:border-brand/40" id="card-600900"><div class="flex items-center justify-between" onclick="window.toggleStockRow('600900', event)"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-surface-field text-slate-200 border border-surface-border flex items-center justify-center font-bold text-xs">长江</div><div><div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">长江电力</span><span class="text-[10px] font-mono text-slate-400">600900</span></div><div class="text-[10px] text-slate-400 mt-0.5">持仓 2,000 股 · 成本 ¥28.50</div></div></div><div class="flex items-center gap-2"><div class="text-right"><div class="text-xs font-mono font-bold text-slate-100">¥59,600</div><div class="text-[10px] font-mono font-semibold text-rose-400">+4.56%</div></div><span class="material-symbols-outlined text-slate-400 text-base transition transform" id="arrow-600900">expand_more</span></div></div><div class="stock-detail-section hidden border-t border-surface-border/60 mt-2.5 pt-2.5 text-xs font-mono space-y-1.5" id="detail-600900"><div class="flex justify-between text-slate-400"><span class="font-sans">计划弹药池 / 底线:</span><span class="text-slate-200">¥80,000 / ¥26.50</span></div><div class="flex justify-between text-slate-400"><span class="font-sans">持仓浮动盈亏:</span><span class="text-rose-400 font-bold">+¥2,600 (+4.56%)</span></div><div class="flex justify-end gap-2 pt-1 font-sans"><button class="px-2 py-0.5 rounded-lg bg-brand/15 text-brand-light border border-brand/30 text-[10px] font-bold" onclick="switchStock('600900'); switchNavTab('plan'); event.stopPropagation();">进入预案 →</button></div></div></div><div class="glass-card rounded-2xl p-3 cursor-pointer transition hover:border-brand/40" id="card-002555"><div class="flex items-center justify-between" onclick="window.toggleStockRow('002555', event)"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-surface-field text-slate-200 border border-surface-border flex items-center justify-center font-bold text-xs">三七</div><div><div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">三七互娱</span><span class="text-[10px] font-mono text-slate-400">002555</span></div><div class="text-[10px] text-slate-400 mt-0.5">持仓 3,200 股 · 成本 ¥17.20</div></div></div><div class="flex items-center gap-2"><div class="text-right"><div class="text-xs font-mono font-bold text-slate-100">¥56,640</div><div class="text-[10px] font-mono font-semibold text-rose-400">+2.91%</div></div><span class="material-symbols-outlined text-slate-400 text-base transition transform" id="arrow-002555">expand_more</span></div></div><div class="stock-detail-section hidden border-t border-surface-border/60 mt-2.5 pt-2.5 text-xs font-mono space-y-1.5" id="detail-002555"><div class="flex justify-between text-slate-400"><span class="font-sans">计划弹药池 / 底线:</span><span class="text-slate-200">¥80,000 / ¥15.50</span></div><div class="flex justify-between text-slate-400"><span class="font-sans">持仓浮动盈亏:</span><span class="text-rose-400 font-bold">+¥1,600 (+2.91%)</span></div><div class="flex justify-end gap-2 pt-1 font-sans"><button class="px-2 py-0.5 rounded-lg bg-brand/15 text-brand-light border border-brand/30 text-[10px] font-bold" onclick="switchStock('002555'); switchNavTab('plan'); event.stopPropagation();">进入预案 →</button></div></div></div></div>
     </div>
@@ -449,7 +449,7 @@
   </section>
 
   <!-- TAB 3: 分析 (Analysis) -->
-  <section class="space-y-4 tab-page hidden" id="view-analysis">
+  <section class="space-y-4 tab-page" id="view-analysis">
     <div class="glass-card rounded-2xl p-3.5 border border-brand/30 relative overflow-hidden">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2.5">
@@ -475,15 +475,15 @@
       </div>
       <div class="grid grid-cols-2 gap-2.5">
         <div>
-          <label class="text-[10px] text-slate-400 block mb-1">股票代码 (6位/回车)</label>
+          <label class="text-[10px] text-slate-400 block mb-1">预投资金 (元)</label>
           <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono font-bold text-slate-100 pl-2.5 pr-2 py-1.5 uppercase outline-none focus:border-brand" id="analysisStockCodeInput" maxlength="6" onkeydown="if(event.key==='Enter'){switchStock(this.value.trim());}" value="300938">
-          <div class="text-[10px] text-emerald-400 mt-1 font-mono font-medium truncate" id="analysisStockDisplayTag">信测标准 · 现价 ¥26.53</div>
+          <div class="text-[10px] text-emerald-400 mt-1 font-mono font-medium truncate" id="analysisStockDisplayTag">三七互娱 · 现价 ¥17.70</div>
         </div>
         <div>
-          <label class="text-[10px] text-slate-400 block mb-1">预投资金 P (元)</label>
+          <label class="text-[10px] text-slate-400 block mb-1">预投资金 (元)</label>
           <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-amber-300 font-bold px-2 py-1.5 outline-none focus:border-brand" id="analysisPlanTotalInput" onchange="updateAnalysisBudget(this.value)" type="number" value="70000">
           <div class="text-[10px] text-slate-400 mt-1 font-mono flex justify-between">
-            <span class="">首仓约30%:</span><span class="text-amber-300/90" id="analysisFirstBatchEst">¥21,000</span>
+            <span class="">首仓约30%:</span><span class="text-amber-300/90" id="analysisFirstBatchEst">¥24,000</span>
           </div>
         </div>
       </div>
@@ -497,16 +497,70 @@
       </div>
       <textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 focus:border-brand outline-none leading-relaxed transition" id="aiWhyBoxInput" onchange="updateActiveStockWhy(this.value)" placeholder="为什么值得长线守候？" rows="3"></textarea>
     </div>
-    <div class="glass-card rounded-2xl p-3.5 space-y-3">
-      <div class="flex items-center justify-between border-b border-surface-border/60 pb-2">
-        <span class="text-xs font-bold text-slate-100 flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-brand">checklist</span>6维客观事实研判卡片</span>
-        <button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-0.5 bg-brand/10 border border-brand/30 px-2 py-0.5 rounded-lg transition active:scale-95" onclick="promptAddNewFactorCard()"><span class="material-symbols-outlined text-[14px]">add</span>添加条件</button>
+    <div class="glass-card rounded-2xl p-3.5 space-y-3 border border-brand/20" id="customTagsHubCard"><div class="flex items-center justify-between border-b border-surface-border/60 pb-2 cursor-pointer" onclick="window.toggleCustomTagsCollapse()">
+  <div class="flex items-center gap-1.5">
+    <span class="material-symbols-outlined text-[16px] text-brand">sell</span>
+    <span class="text-xs font-bold text-slate-100">自选客观标签库 (Fact Tags)</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <span class="text-[10px] font-mono text-slate-400" id="customTagsCountBadge">已选 3 个</span>
+    <button class="w-6 h-6 rounded-lg bg-brand/10 border border-brand/30 text-brand hover:bg-brand hover:text-slate-950 flex items-center justify-center transition active:scale-95" onclick="event.stopPropagation(); window.promptNewCustomTag()" title="添加客观词条">
+      <span class="material-symbols-outlined text-[15px]">add</span>
+    </button>
+    <button type="button" class="flex items-center gap-0.5 text-[10px] text-slate-300 hover:text-brand bg-surface-field border border-surface-border px-1.5 py-0.5 rounded-lg transition">
+      <span id="customTagsToggleText" class="">展开标签库</span>
+      <span class="material-symbols-outlined text-[14px] transition transform" id="customTagsToggleArrow">expand_more</span>
+    </button>
+  </div>
+</div>
+<div id="customTagsCollapsibleBody" class="hidden space-y-3 pt-1">
+  <div class="flex flex-wrap gap-1.5 min-h-[38px]" id="customTagsPillList"></div>
+  <div class="flex items-center justify-between pt-1 border-t border-surface-border/50 text-[10px]">
+    <span class="text-slate-400">点击词条切换 · 自动反哺 AI 提示词</span>
+    <button class="text-brand hover:text-brand-light font-bold flex items-center gap-0.5 transition active:scale-95" onclick="window.applyTagsToWhyBox()">
+      <span class="material-symbols-outlined text-[13px]">input</span>填入 Why Box
+    </button>
+  </div>
+</div></div><div class="glass-card rounded-2xl p-3.5 space-y-3 border border-brand/20" id="factorCardsHubCard">
+  <div class="flex flex-col gap-2 border-b border-surface-border/60 pb-2.5">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[17px] text-brand">checklist</span>
+          <h3 class="text-xs font-bold text-slate-100">6维客观事实研判卡片</h3>
+          <span class="badge-soft-gold text-[9px] px-1.5 py-0.2 rounded-full font-bold font-mono transition-all" id="factorLockStatusBadge">已锁定防误触</span>
+        </div>
+        <p class="text-[10px] text-slate-400 mt-0.5">六维基准 · 动态绑定当前标的（锁定防手抖，解锁后可针对本标的单独微调并固化）</p>
       </div>
-      <div class="space-y-2.5 text-xs" id="factorCardsContainer"></div>
-      <button class="w-full mt-2 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 font-bold text-xs shadow-glow hover:brightness-105 flex items-center justify-center gap-1.5 transition active:scale-[0.98]" onclick="generateStructuredPrompt()">
-        <span class="material-symbols-outlined text-base">content_copy</span>一键生成并复制标准提示词 (Prompt v5)
+      <div class="flex items-center gap-1.5">
+        <button type="button" id="btnToggleFactorLock" onclick="window.toggleFactorCardsLock()" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-field border border-brand/40 text-[10px] font-bold text-amber-300 hover:text-amber-200 transition active:scale-95 shadow-sm" title="切换锁定/解锁编辑状态">
+          <span class="material-symbols-outlined text-[13px]" id="factorLockIcon">lock</span>
+          <span id="factorLockBtnText" class="">点击解锁编辑</span>
+        </button>
+      </div>
+    </div>
+    <div class="flex items-center justify-between pt-1 text-[10px]">
+      <div class="flex items-center gap-1.5">
+        <button type="button" id="btnResetFactorTemplate" onclick="window.resetFactorCardsToActiveStock()" class="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-sub border border-surface-border text-slate-300 hover:text-brand transition active:scale-95" title="基于当前标的价格与底线重新计算模版">
+          <span class="material-symbols-outlined text-[12px] text-brand">restart_alt</span>
+          <span class="">重置为当前标的动态模版</span>
+        </button>
+        <button type="button" id="btnToggleSyncAllStocks" onclick="window.toggleFactorCardsSyncMode()" class="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-surface-sub border border-surface-border text-slate-300 hover:text-brand transition active:scale-95" title="切换标的通用或独立存储">
+          <span class="material-symbols-outlined text-[12px] text-emerald-400" id="factorSyncModeIcon">sync</span>
+          <span id="factorSyncModeText" class="">全标的通用</span>
+        </button>
+      </div>
+      <button type="button" id="btnToggleAllFactors" onclick="window.toggleAllFactorCards()" class="text-brand hover:text-brand-light px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border flex items-center gap-0.5 transition active:scale-95">
+        <span class="material-symbols-outlined text-[13px]" id="toggleExpandAllFactorsIcon">unfold_more</span>
+        <span id="toggleExpandAllFactorsText" class="">展开全部</span>
       </button>
     </div>
+  </div>
+  <div class="space-y-2 text-xs" id="factorCardsContainer"></div>
+  <button class="w-full mt-2 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 font-bold text-xs shadow-glow hover:brightness-105 flex items-center justify-center gap-1.5 transition active:scale-[0.98]" onclick="generateStructuredPrompt()">
+    <span class="material-symbols-outlined text-base">content_copy</span>一键生成并复制标准提示词 (Prompt v5 整合版)
+  </button>
+</div>
     <div class="glass-card rounded-2xl p-3.5 space-y-3">
       <div class="flex items-center justify-between"><span class="text-xs font-bold text-slate-200 flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-sky-400">terminal</span>粘贴外部大模型回复</span></div>
       <textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 font-mono focus:border-brand outline-none" id="aiResponsePasteArea" placeholder="粘贴大模型输出的标准四段答复..." rows="4"></textarea>
@@ -638,7 +692,7 @@
 <!-- 底部固定 5-Tab 导航 -->
 <nav class="fixed bottom-0 z-40 w-full max-w-[440px] bg-surface/95 backdrop-blur-lg border-t border-surface-border">
   <div class="grid grid-cols-5 h-16 items-center px-1">
-    <button class="flex flex-col items-center justify-center transition py-1 text-brand" id="nav-btn-portfolio" onclick="switchNavTab('portfolio')">
+    <button class="flex flex-col items-center justify-center transition py-1 text-slate-400" id="nav-btn-portfolio" onclick="switchNavTab('portfolio')">
       <span class="material-symbols-outlined text-[22px]">pie_chart</span>
       <span class="text-[10px] font-medium mt-0.5">组合</span>
     </button>
@@ -647,7 +701,7 @@
       <span class="text-[10px] font-medium mt-0.5">标的</span>
     </button>
     <div class="flex justify-center items-center relative -top-3">
-      <button class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-glow flex flex-col items-center justify-center border-2 border-surface transition transform active:scale-95 text-slate-400" id="nav-btn-analysis" onclick="switchNavTab('analysis')" title="6维智能分析">
+      <button class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-glow flex flex-col items-center justify-center border-2 border-surface transition transform active:scale-95 text-brand" id="nav-btn-analysis" onclick="switchNavTab('analysis')" title="6维智能分析">
         <span class="material-symbols-outlined text-[22px] font-extrabold">auto_awesome</span>
         <span class="text-[9px] font-black -mt-1">分析</span>
       </button>
@@ -1764,7 +1818,7 @@ setTimeout(() => {
 
 
 
-<script>
+<script class="">
 window.allHoldingsExpanded = false;
 
 window.toggleStockRow = function(code, ev) {
@@ -1872,4 +1926,554 @@ if (typeof renderPortfolioView === 'function') {
 
 
 
-</body></html>
+<script class="">
+(function() {
+  const DEFAULT_TAGS = [
+    { name: '周线大级别双底支撑', selected: true },
+    { name: '扣非连续3季度超预期', selected: true },
+    { name: '对标华测折价35%', selected: true },
+    { name: '近三年年均派息率>50%', selected: false },
+    { name: '机构近2季大幅加仓', selected: false },
+    { name: '回购注销股份超2%', selected: false },
+    { name: '新能源车规排产景气', selected: false },
+    { name: '破位22.50坚决全清', selected: false }
+  ];
+
+  if (window.AppState) {
+    if (!window.AppState.customTags || !Array.isArray(window.AppState.customTags) || window.AppState.customTags.length === 0) {
+      window.AppState.customTags = JSON.parse(JSON.stringify(DEFAULT_TAGS));
+      if (typeof saveAppState === 'function') saveAppState();
+    }
+  } else {
+    window.CUSTOM_FACT_TAGS = JSON.parse(JSON.stringify(DEFAULT_TAGS));
+  }
+
+  function getTags() {
+    if (window.AppState && window.AppState.customTags) {
+      return window.AppState.customTags;
+    }
+    if (!window.CUSTOM_FACT_TAGS) {
+      window.CUSTOM_FACT_TAGS = JSON.parse(JSON.stringify(DEFAULT_TAGS));
+    }
+    return window.CUSTOM_FACT_TAGS;
+  }
+
+  function persistTags() {
+    if (window.AppState && typeof saveAppState === 'function') {
+      saveAppState();
+    }
+  }
+
+  window.renderCustomTagsHub = function() {
+    const container = document.getElementById('customTagsPillList');
+    const countBadge = document.getElementById('customTagsCountBadge');
+    if (!container) return;
+    const tags = getTags();
+    const selectedCount = tags.filter(t => t.selected).length;
+    if (countBadge) {
+      countBadge.textContent = `已选 ${selectedCount} 个`;
+    }
+    container.innerHTML = tags.map((t, idx) => {
+      const isSel = Boolean(t.selected);
+      return `
+        <div class="group inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-mono transition-all cursor-pointer ${isSel ? 'bg-brand/20 text-amber-200 border border-brand/60 shadow-glow' : 'bg-surface-field text-slate-300 border border-surface-border hover:border-slate-500'}" onclick="window.toggleSelectCustomTag(${idx})">
+          <span class="material-symbols-outlined text-[13px] ${isSel ? 'text-amber-300' : 'text-slate-500'}">${isSel ? 'check_circle' : 'radio_button_unchecked'}</span>
+          <span class="font-medium text-[11px]">${t.name}</span>
+          <span class="flex items-center gap-0.5 ml-1 opacity-60 group-hover:opacity-100 transition">
+            <button type="button" class="p-0.5 text-slate-400 hover:text-brand flex items-center" title="编辑标签" onclick="window.editCustomTag(${idx}, event)">
+              <span class="material-symbols-outlined text-[12px]">edit</span>
+            </button>
+            <button type="button" class="p-0.5 text-slate-400 hover:text-rose-400 flex items-center" title="删除标签" onclick="window.deleteCustomTag(${idx}, event)">
+              <span class="material-symbols-outlined text-[12px]">close</span>
+            </button>
+          </span>
+        </div>
+      `;
+    }).join('');
+  };
+
+  window.toggleSelectCustomTag = function(idx) {
+    const tags = getTags();
+    if (tags[idx]) {
+      tags[idx].selected = !tags[idx].selected;
+      persistTags();
+      window.renderCustomTagsHub();
+    }
+  };
+
+  window.promptNewCustomTag = function() {
+    const val = prompt('请输入新客观事实词条 (例如：核心客户年框已锁)：');
+    if (!val || !val.trim()) return;
+    const tags = getTags();
+    tags.push({ name: val.trim(), selected: true });
+    persistTags();
+    window.renderCustomTagsHub();
+  };
+
+  window.editCustomTag = function(idx, ev) {
+    if (ev) ev.stopPropagation();
+    const tags = getTags();
+    if (!tags[idx]) return;
+    const updated = prompt('修改客观事实标签：', tags[idx].name);
+    if (updated && updated.trim()) {
+      tags[idx].name = updated.trim();
+      persistTags();
+      window.renderCustomTagsHub();
+    }
+  };
+
+  window.deleteCustomTag = function(idx, ev) {
+    if (ev) ev.stopPropagation();
+    const tags = getTags();
+    if (!tags[idx]) return;
+    if (confirm(`确定删除标签「${tags[idx].name}」吗？`)) {
+      tags.splice(idx, 1);
+      persistTags();
+      window.renderCustomTagsHub();
+    }
+  };
+
+  window.applyTagsToWhyBox = function() {
+    const tags = getTags().filter(t => t.selected);
+    if (tags.length === 0) {
+      alert('当前未勾选任何客观词条！');
+      return;
+    }
+    const whyBox = document.getElementById('aiWhyBoxInput');
+    if (whyBox) {
+      const tagString = tags.map(t => '【' + t.name + '】').join(' ');
+      const current = whyBox.value.trim();
+      whyBox.value = current ? current + '\n' + tagString : tagString;
+      if (typeof updateActiveStockWhy === 'function') {
+        updateActiveStockWhy(whyBox.value);
+      }
+      alert('✅ 已将选中的 ' + tags.length + ' 个客观词条追加至 Why Box！');
+    }
+  };
+
+  window.toggleAllCustomTags = function(selectBoolean) {
+    const tags = getTags();
+    tags.forEach(t => t.selected = selectBoolean);
+    persistTags();
+    window.renderCustomTagsHub();
+  };
+
+  window.renderFactorCards = function() {
+    const st = typeof getActiveStockData === 'function' ? getActiveStockData() : null;
+    const factorBox = document.getElementById('factorCardsContainer');
+    if (factorBox && st && st.factorCards) {
+      factorBox.innerHTML = st.factorCards.map(f => `
+        <div class="p-3 rounded-xl bg-surface-field/90 border border-surface-border space-y-1.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" ${f.enabled !== false ? 'checked' : ''} class="rounded bg-surface border-surface-border text-brand focus:ring-0 w-3.5 h-3.5" onchange="this.closest('.p-3').dataset.enabled = this.checked;">
+              <span class="font-bold text-slate-100 text-xs">${f.title}</span>
+              <span class="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold bg-brand/15 text-brand-light border border-brand/30">标准核心 · 锁定</span>
+            </div>
+            <span class="text-[10px] text-emerald-400 font-mono font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-[12px]">lock</span>常驻规范</span>
+          </div>
+          <p class="text-[10px] text-slate-400">${f.subtitle || '客观量化研判维度'}</p>
+          <textarea class="w-full bg-surface border border-surface-border rounded-lg text-xs text-slate-200 p-2 outline-none focus:border-brand" rows="2">${f.detail}</textarea>
+        </div>
+      `).join('');
+    }
+    window.renderCustomTagsHub();
+  };
+
+  const originalRenderAnalysisView = window.renderAnalysisView;
+  window.renderAnalysisView = function() {
+    if (typeof originalRenderAnalysisView === 'function') {
+      originalRenderAnalysisView();
+    }
+    window.renderFactorCards();
+    window.renderCustomTagsHub();
+  };
+
+  window.generateStructuredPrompt = function() {
+    const st = typeof getActiveStockData === 'function' ? getActiveStockData() : null;
+    if (!st) return;
+    const selectedTags = getTags().filter(t => t.selected).map(t => t.name);
+    const tagsSection = selectedTags.length > 0 
+      ? `\n【高权重选定客观词条】: ${selectedTags.join('；')}\n` 
+      : '';
+
+    const promptText = `【6维深度研判 Prompt v5】\n标的: ${st.name} (${st.code})\n现价: ¥${Number(st.price).toFixed(2)}\n底线: ¥${Number(st.failStop).toFixed(2)}\n预投资金: ¥${st.planTotal || 70000}\n买入理由: ${st.why || ''}${tagsSection}\n请输出严格收敛的正金字塔四段可执行挂单方案。`;
+    
+    navigator.clipboard.writeText(promptText).then(() => {
+      alert('✅ 已生成并复制标准提示词 (Prompt v5，包含选定客观词条) 到剪贴板！');
+    }).catch(() => {
+      alert('✅ 提示词已生成 (包含 ' + selectedTags.length + ' 个客观词条)！');
+    });
+  };
+
+  setTimeout(() => {
+    window.renderCustomTagsHub();
+    window.renderFactorCards();
+  }, 60);
+})();
+</script><script class="">
+window.customTagsCollapsed = true;
+window.toggleCustomTagsCollapse = function() {
+  window.customTagsCollapsed = !window.customTagsCollapsed;
+  const body = document.getElementById('customTagsCollapsibleBody');
+  const arrow = document.getElementById('customTagsToggleArrow');
+  const txt = document.getElementById('customTagsToggleText');
+  if (!body) return;
+  if (window.customTagsCollapsed) {
+    body.classList.add('hidden');
+    if (arrow) arrow.textContent = 'expand_more';
+    if (txt) txt.textContent = '展开标签库';
+  } else {
+    body.classList.remove('hidden');
+    if (arrow) arrow.textContent = 'expand_less';
+    if (txt) txt.textContent = '收起标签库';
+    if (typeof window.renderCustomTagsHub === 'function') {
+      window.renderCustomTagsHub();
+    }
+  }
+};
+
+// Ensure all 6 factor cards stay intact and re-rendered without limitation
+const default6Factors = [
+  { id: 'tech', title: '① 技术面研判', subtitle: '均线形态、筹码密集峰与关键颈线支撑压力', detail: '周线大级别双底颈线支撑25.60位不破，日线MACD底部金叉底背离形成。', enabled: true },
+  { id: 'fin', title: '② 财务面硬指标', subtitle: '扣非净利同比增速、毛利率连续性及经营现金净额', detail: '近3季度扣非净利同比增速均>20%，销售毛利率稳定在42%，经营净现金流充沛覆盖资本开支。', enabled: true },
+  { id: 'ind', title: '③ 行业景气与消息面', subtitle: '行业渗透率、赛道扩容驱动及近期催化剂', detail: '新能源车规与电子元器件检测需求持续外包，下游大客户长周期订单可见度高，近期有望取得核心资质认证扩产。', enabled: true },
+  { id: 'val', title: '④ 对标龙头估值对比', subtitle: '历史PE/PB百分位分位数与同业龙头溢价收敛空间', detail: '同业龙头华测检测PE约28x，本标的静态PE仅18x，历史近5年估值分位数处于14%低位，估值安全边际夯实。', enabled: true },
+  { id: 'sen', title: '⑤ 情绪与筹码结构', subtitle: '两融杠杆比率、高位套牢盘消化度与股东户数增减', detail: '股东户数连续两期缩减-6.2%，浮筹逐渐沉淀，两融余额处于近一年低位，缺乏高杠杆多杀多风险。', enabled: true },
+  { id: 'black', title: '⑥ 证伪底线与黑天鹅预警', subtitle: '基本面不可逆变质标准、定增解禁冲击与财务合规隐患', detail: '扣非净利连续单季度同比转负或重大客户实验室资质被吊销；跌破22.50极限底线次日竞价熔断出局。', enabled: true }
+];
+
+window.renderFactorCards = function() {
+  const factorBox = document.getElementById('factorCardsContainer');
+  if (!factorBox) return;
+  const st = typeof getActiveStockData === 'function' ? getActiveStockData() : null;
+  const cards = (st && st.factorCards && st.factorCards.length >= 6) ? st.factorCards : default6Factors;
+  
+  factorBox.innerHTML = cards.map((f, i) => {
+    const isRed = i === 5 || f.id === 'black';
+    return `
+      <div class="p-3 rounded-xl bg-surface-field/90 border border-surface-border space-y-1.5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <input type="checkbox" ${f.enabled !== false ? 'checked' : ''} class="rounded bg-surface border-surface-border text-brand focus:ring-0 w-3.5 h-3.5">
+            <span class="font-bold ${isRed ? 'text-rose-300' : 'text-slate-100'} text-xs">${f.title}</span>
+            <span class="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold ${isRed ? 'bg-rose-500/15 text-rose-300 border border-rose-500/30' : 'bg-brand/15 text-brand-light border border-brand/30'}">${isRed ? '熔断红线' : '标准核心'}</span>
+          </div>
+          <span class="text-[10px] text-slate-500 font-mono">维度 ${i + 1}/6</span>
+        </div>
+        <p class="text-[10px] text-slate-400">${f.subtitle || ''}</p>
+        <textarea class="w-full bg-surface border border-surface-border rounded-lg text-xs text-slate-200 p-2 outline-none focus:border-brand" rows="2">${f.detail}</textarea>
+      </div>
+    `;
+  }).join('');
+};
+
+setTimeout(() => {
+  if (typeof window.renderCustomTagsHub === 'function') window.renderCustomTagsHub();
+  if (typeof window.renderFactorCards === 'function') window.renderFactorCards();
+}, 30);
+</script><script class="">
+(function() {
+  window.allFactorsExpanded = false;
+  window.factorSyncUniversal = true;
+
+  const DEFAULT_6_FACTORS = [
+    { id: 'tech', title: '① 技术面研判', subtitle: '均线形态、筹码密集峰与关键颈线支撑压力', detail: '周线大级别双底颈线支撑25.60位不破，日线MACD底部金叉底背离形成。', enabled: true },
+    { id: 'fin', title: '② 财务面硬指标', subtitle: '扣非净利同比增速、毛利率连续性及经营现金净额', detail: '近3季度扣非净利同比增速均>20%，销售毛利率稳定在42%，经营净现金流充沛覆盖资本开支。', enabled: true },
+    { id: 'ind', title: '③ 行业景气与消息面', subtitle: '行业渗透率、赛道扩容驱动及近期催化剂', detail: '新能源车规与电子元器件检测需求持续外包，下游大客户长周期订单可见度高，近期有望取得核心资质认证扩产。', enabled: true },
+    { id: 'val', title: '④ 对标龙头估值对比', subtitle: '历史PE/PB百分位分位数与同业龙头溢价收敛空间', detail: '同业龙头华测检测PE约28x，本标的静态PE仅18x，历史近5年估值分位数处于14%低位，估值安全边际夯实。', enabled: true },
+    { id: 'sen', title: '⑤ 情绪与筹码结构', subtitle: '两融杠杆比率、高位套牢盘消化度与股东户数增减', detail: '股东户数连续两期缩减-6.2%，浮筹逐渐沉淀，两融余额处于近一年低位，缺乏高杠杆多杀多风险。', enabled: true },
+    { id: 'black', title: '⑥ 证伪底线与黑天鹅预警', subtitle: '基本面不可逆变质标准、定增解禁冲击与财务合规隐患', detail: '扣非净利连续单季度同比转负或重大客户实验室资质被吊销；跌破22.50极限底线次日竞价熔断出局。', enabled: true }
+  ];
+
+  window.toggleFactorCardExpand = function(idx, ev) {
+    if (ev) ev.stopPropagation();
+    const body = document.getElementById('factor-card-body-' + idx);
+    const arrow = document.getElementById('factor-arrow-' + idx);
+    const preview = document.getElementById('factor-preview-' + idx);
+    if (!body) return;
+    const isHidden = body.classList.contains('hidden');
+    if (isHidden) {
+      body.classList.remove('hidden');
+      if (arrow) arrow.textContent = 'expand_less';
+      if (preview) preview.classList.add('hidden');
+    } else {
+      body.classList.add('hidden');
+      if (arrow) arrow.textContent = 'expand_more';
+      if (preview) preview.classList.remove('hidden');
+    }
+  };
+
+  window.toggleAllFactorCards = function(ev) {
+    if (ev) ev.preventDefault();
+    window.allFactorsExpanded = !window.allFactorsExpanded;
+    const isExpanded = window.allFactorsExpanded;
+    for (let i = 0; i < 6; i++) {
+      const body = document.getElementById('factor-card-body-' + i);
+      const arrow = document.getElementById('factor-arrow-' + i);
+      const preview = document.getElementById('factor-preview-' + i);
+      if (body) {
+        if (isExpanded) {
+          body.classList.remove('hidden');
+          if (arrow) arrow.textContent = 'expand_less';
+          if (preview) preview.classList.add('hidden');
+        } else {
+          body.classList.add('hidden');
+          if (arrow) arrow.textContent = 'expand_more';
+          if (preview) preview.classList.remove('hidden');
+        }
+      }
+    }
+    const icon = document.getElementById('toggleExpandAllFactorsIcon');
+    const txt = document.getElementById('toggleExpandAllFactorsText');
+    if (icon) icon.textContent = isExpanded ? 'unfold_less' : 'unfold_more';
+    if (txt) txt.textContent = isExpanded ? '收起全部' : '展开全部';
+  };
+
+  window.toggleFactorCardsSyncMode = function() {
+    window.factorSyncUniversal = !window.factorSyncUniversal;
+    const txt = document.getElementById('factorSyncModeText');
+    const icon = document.getElementById('factorSyncModeIcon');
+    if (txt) txt.textContent = window.factorSyncUniversal ? '全标的通用' : '单标的独立';
+    if (icon) {
+      icon.textContent = window.factorSyncUniversal ? 'sync' : 'lock_open';
+      icon.className = 'material-symbols-outlined text-[12px] ' + (window.factorSyncUniversal ? 'text-emerald-400' : 'text-amber-300');
+    }
+    alert(window.factorSyncUniversal ? '✅ 已切换为「全标的通用模板」模式：修改任意维度将自动同步至所有标的库！' : 'ℹ️ 已切换为「单标的独立」模式：当前修改仅对当前标的有效。');
+  };
+
+  window.handleFactorCardTextChange = function(idx, val) {
+    const st = typeof getActiveStockData === 'function' ? getActiveStockData() : null;
+    if (st && st.factorCards && st.factorCards[idx]) {
+      st.factorCards[idx].detail = val;
+    }
+    if (window.factorSyncUniversal && window.AppState && window.AppState.stocks) {
+      Object.keys(window.AppState.stocks).forEach(k => {
+        const s = window.AppState.stocks[k];
+        if (!s.factorCards || s.factorCards.length < 6) {
+          s.factorCards = JSON.parse(JSON.stringify(DEFAULT_6_FACTORS));
+        }
+        if (s.factorCards[idx]) {
+          s.factorCards[idx].detail = val;
+        }
+      });
+    }
+    if (typeof saveAppState === 'function') saveAppState();
+    const previewEl = document.getElementById('factor-preview-text-' + idx);
+    if (previewEl) previewEl.textContent = val.trim() || '未填入研判';
+  };
+
+  window.handleFactorCardToggleCheck = function(idx, isChecked) {
+    const st = typeof getActiveStockData === 'function' ? getActiveStockData() : null;
+    if (st && st.factorCards && st.factorCards[idx]) {
+      st.factorCards[idx].enabled = isChecked;
+    }
+    if (window.factorSyncUniversal && window.AppState && window.AppState.stocks) {
+      Object.keys(window.AppState.stocks).forEach(k => {
+        const s = window.AppState.stocks[k];
+        if (s.factorCards && s.factorCards[idx]) {
+          s.factorCards[idx].enabled = isChecked;
+        }
+      });
+    }
+    if (typeof saveAppState === 'function') saveAppState();
+  };
+
+  window.renderFactorCards = function() {
+    const factorBox = document.getElementById('factorCardsContainer');
+    if (!factorBox) return;
+    const st = typeof getActiveStockData === 'function' ? getActiveStockData() : null;
+    let cards = (st && st.factorCards && st.factorCards.length >= 6) ? st.factorCards : DEFAULT_6_FACTORS;
+    if (st && (!st.factorCards || st.factorCards.length < 6)) {
+      st.factorCards = JSON.parse(JSON.stringify(DEFAULT_6_FACTORS));
+      cards = st.factorCards;
+      if (typeof saveAppState === 'function') saveAppState();
+    }
+    const isExp = window.allFactorsExpanded;
+
+    factorBox.innerHTML = cards.map((f, i) => {
+      const isRed = i === 5 || f.id === 'black';
+      const previewText = f.detail ? f.detail.replace(/\n/g, ' ').slice(0, 38) + (f.detail.length > 38 ? '...' : '') : '暂无研判摘要...';
+      return `
+        <div class="p-2.5 rounded-xl bg-surface-field/90 border border-surface-border transition hover:border-brand/40" id="factor-card-${i}">
+          <div class="flex items-center justify-between cursor-pointer" onclick="window.toggleFactorCardExpand(${i}, event)">
+            <div class="flex items-center gap-2 min-w-0 pr-2">
+              <input type="checkbox" ${f.enabled !== false ? 'checked' : ''} onclick="event.stopPropagation()" onchange="window.handleFactorCardToggleCheck(${i}, this.checked)" class="rounded bg-surface border-surface-border text-brand focus:ring-0 w-3.5 h-3.5 shrink-0">
+              <span class="font-bold ${isRed ? 'text-rose-300' : 'text-slate-100'} text-xs shrink-0">${f.title}</span>
+              <span class="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold shrink-0 ${isRed ? 'bg-rose-500/15 text-rose-300 border border-rose-500/30' : 'bg-brand/15 text-brand-light border border-brand/30'}">${isRed ? '熔断红线' : '标准核心'}</span>
+              <span class="text-[10px] text-slate-400 font-mono truncate hidden sm:inline" id="factor-preview-top-${i}">· ${previewText}</span>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span class="text-[10px] text-slate-500 font-mono">${i + 1}/6</span>
+              <span class="material-symbols-outlined text-slate-400 text-base transition transform" id="factor-arrow-${i}">${isExp ? 'expand_less' : 'expand_more'}</span>
+            </div>
+          </div>
+          <div class="mt-1 text-[11px] text-slate-400 font-mono truncate pl-5.5 ${isExp ? 'hidden' : 'block'}" id="factor-preview-${i}">
+            <span class="text-slate-500 font-sans">摘要: </span><span id="factor-preview-text-${i}">${previewText}</span>
+          </div>
+          <div class="space-y-1.5 pt-2 border-t border-surface-border/60 mt-2 ${isExp ? 'block' : 'hidden'}" id="factor-card-body-${i}">
+            <div class="flex items-center justify-between text-[10px] text-slate-400">
+              <span>${f.subtitle || '客观量化研判维度'}</span>
+              <span class="text-emerald-400 font-mono font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-[12px]">lock</span>内置定锚</span>
+            </div>
+            <textarea class="w-full bg-surface border border-surface-border rounded-lg text-xs text-slate-200 p-2 outline-none focus:border-brand transition leading-relaxed" rows="2" onchange="window.handleFactorCardTextChange(${i}, this.value)" placeholder="输入该维度的客观事实与标准数值...">${f.detail || ''}</textarea>
+          </div>
+        </div>
+      `;
+    }).join('');
+  };
+
+  setTimeout(() => {
+    if (typeof window.renderFactorCards === 'function') window.renderFactorCards();
+  }, 50);
+})();
+</script><script>
+(function() {
+  window.factorCardsLocked = true;
+
+  function getDynamicFactorTemplate(st) {
+    const name = (st && st.name) || '标的';
+    const code = (st && st.code) || '------';
+    const price = Number((st && st.price) || 0).toFixed(2);
+    const failStop = Number((st && st.failStop) || (price * 0.85)).toFixed(2);
+    const unexecutedBuy = (st && st.buySteps && st.buySteps.find(b => !b.exec)) || (st && st.buySteps && st.buySteps[0]) || { price: price * 0.95 };
+    const supportPrice = Number(unexecutedBuy.price || (price * 0.96)).toFixed(2);
+
+    return [
+      {
+        id: 'tech',
+        title: '① 技术面研判',
+        subtitle: '均线形态、筹码密集峰与关键颈线支撑压力',
+        detail: `【${name}(${code})】周线大级别支撑位及关键网格买点 ¥${supportPrice} 附近支撑有效，现价 ¥${price}，日线呈现筑底企稳特征。`,
+        enabled: true
+      },
+      {
+        id: 'fin',
+        title: '② 财务面硬指标',
+        subtitle: '扣非净利同比增速、毛利率连续性及经营现金净额',
+        detail: `【${name}】近3个报告期主营经营现金净额覆盖资本开支，业务核心指标稳健，无突发坏账或有息负债违约风险。`,
+        enabled: true
+      },
+      {
+        id: 'ind',
+        title: '③ 行业景气与消息面',
+        subtitle: '行业渗透率、赛道扩容驱动及近期催化剂',
+        detail: `【${name}】所处细分赛道具备结构性成长或高股息类永续现金流属性，下游订单及产业景气度持续性良好。`,
+        enabled: true
+      },
+      {
+        id: 'val',
+        title: '④ 对标龙头估值对比',
+        subtitle: '历史PE/PB百分位分位数与同业龙头溢价收敛空间',
+        detail: `【${name}】现价 ¥${price} 对应估值处于近三年估值中枢下方，较同业具备估值安全垫与正期望修复空间。`,
+        enabled: true
+      },
+      {
+        id: 'sen',
+        title: '⑤ 情绪与筹码结构',
+        subtitle: '两融杠杆比率、高位套牢盘消化度与股东户数增减',
+        detail: `【${name}】浮筹经过长周期换手沉淀，市场分歧缩小，缺乏高杠杆多杀多抛压，筹码结构逐步收敛集中。`,
+        enabled: true
+      },
+      {
+        id: 'black',
+        title: '⑥ 证伪底线与黑天鹅预警',
+        subtitle: '基本面不可逆变质标准、定增解禁冲击与财务合规隐患',
+        detail: `【${name}】若主营业务遭遇不可逆政策或财务基本面证伪，或盘中放量跌破硬底线 ¥${failStop}，次日竞价坚决执行单向棘轮熔断全清。`,
+        enabled: true
+      }
+    ];
+  }
+
+  window.toggleFactorCardsLock = function() {
+    window.factorCardsLocked = !window.factorCardsLocked;
+    const isLocked = window.factorCardsLocked;
+    const btnText = document.getElementById('factorLockBtnText');
+    const btnIcon = document.getElementById('factorLockIcon');
+    const badge = document.getElementById('factorLockStatusBadge');
+    const btn = document.getElementById('btnToggleFactorLock');
+
+    if (btnText) btnText.textContent = isLocked ? '点击解锁编辑' : '确认锁定保存';
+    if (btnIcon) btnIcon.textContent = isLocked ? 'lock' : 'lock_open';
+    if (badge) {
+      badge.textContent = isLocked ? '已锁定防误触' : '🔓 编辑中 (未锁定)';
+      badge.className = isLocked 
+        ? 'badge-soft-gold text-[9px] px-1.5 py-0.2 rounded-full font-bold font-mono transition-all'
+        : 'text-[9px] px-1.5 py-0.2 rounded-full font-bold font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 transition-all';
+    }
+    if (btn) {
+      if (isLocked) {
+        btn.className = 'flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-field border border-brand/40 text-[10px] font-bold text-amber-300 hover:text-amber-200 transition active:scale-95 shadow-sm';
+      } else {
+        btn.className = 'flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-[10px] font-bold text-emerald-300 hover:bg-emerald-500/30 transition active:scale-95 shadow-glow';
+      }
+    }
+    window.renderFactorCards();
+  };
+
+  window.resetFactorCardsToActiveStock = function() {
+    const st = typeof getActiveStockData === 'function' ? getActiveStockData() : null;
+    if (!st) return;
+    const dyn = getDynamicFactorTemplate(st);
+    st.factorCards = dyn;
+    if (typeof saveAppState === 'function') saveAppState();
+    window.renderFactorCards();
+    alert(`✅ 已根据【${st.name}】当前现价 ¥${Number(st.price).toFixed(2)} 及底线 ¥${Number(st.failStop).toFixed(2)} 动态更新6维研判模版！`);
+  };
+
+  window.renderFactorCards = function() {
+    const factorBox = document.getElementById('factorCardsContainer');
+    if (!factorBox) return;
+    const st = typeof getActiveStockData === 'function' ? getActiveStockData() : null;
+    if (!st) return;
+
+    if (!st.factorCards || st.factorCards.length < 6 || (st.factorCards[0] && st.factorCards[0].detail && st.factorCards[0].detail.includes('25.60') && st.code !== '300938')) {
+      st.factorCards = getDynamicFactorTemplate(st);
+      if (typeof saveAppState === 'function') saveAppState();
+    }
+
+    const cards = st.factorCards;
+    const isExp = window.allFactorsExpanded;
+    const isLocked = Boolean(window.factorCardsLocked);
+
+    factorBox.innerHTML = cards.map((f, i) => {
+      const isRed = i === 5 || f.id === 'black';
+      const previewText = f.detail ? f.detail.replace(/\n/g, ' ').slice(0, 36) + (f.detail.length > 36 ? '...' : '') : '暂无研判摘要...';
+      return `
+        <div class="p-2.5 rounded-xl bg-surface-field/90 border ${isLocked ? 'border-surface-border' : 'border-emerald-500/40'} transition hover:border-brand/40" id="factor-card-${i}">
+          <div class="flex items-center justify-between cursor-pointer" onclick="window.toggleFactorCardExpand(${i}, event)">
+            <div class="flex items-center gap-2 min-w-0 pr-2">
+              <input type="checkbox" ${f.enabled !== false ? 'checked' : ''} ${isLocked ? 'disabled' : ''} onclick="event.stopPropagation()" onchange="window.handleFactorCardToggleCheck(${i}, this.checked)" class="rounded bg-surface border-surface-border text-brand focus:ring-0 w-3.5 h-3.5 shrink-0 ${isLocked ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}">
+              <span class="font-bold ${isRed ? 'text-rose-300' : 'text-slate-100'} text-xs shrink-0">${f.title}</span>
+              <span class="text-[9px] px-1.5 py-0.2 rounded font-mono font-bold shrink-0 ${isRed ? 'bg-rose-500/15 text-rose-300 border border-rose-500/30' : 'bg-brand/15 text-brand-light border border-brand/30'}">${isRed ? '熔断红线' : '标准核心'}</span>
+              <span class="text-[10px] text-slate-400 font-mono truncate hidden sm:inline" id="factor-preview-top-${i}">· ${previewText}</span>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span class="text-[10px] text-slate-500 font-mono">${i + 1}/6</span>
+              <span class="material-symbols-outlined text-slate-400 text-base transition transform" id="factor-arrow-${i}">${isExp ? 'expand_less' : 'expand_more'}</span>
+            </div>
+          </div>
+          <div class="mt-1 text-[11px] text-slate-400 font-mono truncate pl-5.5 ${isExp ? 'hidden' : 'block'}" id="factor-preview-${i}">
+            <span class="text-slate-500 font-sans">摘要: </span><span id="factor-preview-text-${i}">${previewText}</span>
+          </div>
+          <div class="space-y-1.5 pt-2 border-t border-surface-border/60 mt-2 ${isExp ? 'block' : 'hidden'}" id="factor-card-body-${i}">
+            <div class="flex items-center justify-between text-[10px] text-slate-400">
+              <span>${f.subtitle || '客观量化研判维度'}</span>
+              <span class="${isLocked ? 'text-amber-300' : 'text-emerald-400'} font-mono font-semibold flex items-center gap-0.5">
+                <span class="material-symbols-outlined text-[12px]">${isLocked ? 'lock' : 'edit'}</span>
+                ${isLocked ? '只读锁定' : '可编辑'}
+              </span>
+            </div>
+            <textarea class="w-full bg-surface border rounded-lg text-xs text-slate-200 p-2 outline-none transition leading-relaxed ${isLocked ? 'border-surface-border opacity-85 select-text' : 'border-brand focus:border-brand-light bg-surface-field'}" rows="2" ${isLocked ? 'readonly' : ''} onchange="window.handleFactorCardTextChange(${i}, this.value)" placeholder="输入该维度的客观事实与标准数值...">${f.detail || ''}</textarea>
+          </div>
+        </div>
+      `;
+    }).join('');
+  };
+
+  // Trigger initial dynamic render
+  setTimeout(() => {
+    if (typeof window.renderFactorCards === 'function') window.renderFactorCards();
+  }, 50);
+})();
+</script></body></html>
