@@ -1616,6 +1616,9 @@ ${factorsText}
         addAppLog(`新增止盈档位 @¥${px}`);
       }
       renderPlanView();
+      // 加档后必须重渲染菱形：菱形层完全由 buySteps / sellSteps 实时算出，否则新增档位不进图
+      if (typeof renderDiamondShapeVisual === 'function') renderDiamondShapeVisual(st);
+      if (typeof renderPortfolioView === 'function') renderPortfolioView();
     }
 
     function markStepExecuted(idx) {
@@ -1624,6 +1627,7 @@ ${factorsText}
         st.buySteps[idx].exec = true;
         addAppLog(`【档位成交】${st.name} 确认执行第 ${idx + 1} 档 @¥${st.buySteps[idx].price}`);
         renderPlanView();
+        if (typeof renderDiamondShapeVisual === 'function') renderDiamondShapeVisual(st);
       }
     }
 
@@ -2482,68 +2486,98 @@ window.addEventListener('DOMContentLoaded', () => {
   window.renderDiamondShapeVisual = function(st) {
     const box = document.getElementById('diamondBoardLayers');
     if (!box || !st) return;
-    const d = st.diamond || STOCK_PRESETS[st.code]?.diamond || {
-      takeProfit2: { name: '▲ 止盈2', price: st.price * 1.25, desc: '清仓落袋', tag: '落袋离场', width: 35 },
-      takeProfit1: { name: '▲ 突破减仓', price: st.price * 1.12, desc: '减1/3', tag: '兑现利润', width: 65 },
-      coreAnchor: { name: '■ 底仓锁定', price: st.holdCost || st.price, shares: st.holdShares || 1000, tag: '核心基准', width: 95 },
-      buyStep1: { name: '▼ 接货1', price: st.price * 0.95, desc: '颈线回踩试探', tag: '挂单伏击', width: 70 },
-      buyStep2: { name: '▼ 接货2', price: st.price * 0.90, desc: '密集成交下沿', tag: '大底深吸', width: 45 },
-      failStop: st.failStop || st.price * 0.85
-    };
 
-    const sharesText = d.coreAnchor.shares ? `${d.coreAnchor.shares.toLocaleString()}股` : `${(st.holdShares || 0).toLocaleString()}股`;
-    const costText = `¥${Number(d.coreAnchor.price).toFixed(2)}`;
+    const money = (v) => Number(v) || 0;
+    const fmt = (v) => money(v).toLocaleString('zh-CN');
+    // 买入档：价高在上（接货1 最接近现价）
+    const buys  = (st.buySteps  || []).slice().sort((a, b) => money(b.price) - money(a.price));
+    // 止盈档：价高在上（最上面一档为清仓档）
+    const sells = (st.sellSteps || []).slice().sort((a, b) => money(b.price) - money(a.price));
+    const coreShares = money(st.holdShares);
+    const coreCost   = money(st.holdCost || st.price);
+    const coreAmt    = coreShares * coreCost;
 
-    box.innerHTML = `
-      <!-- 止盈2 -->
-      <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-rose-500/15 border-rose-500/30 text-rose-300 shadow-sm transition active:scale-[0.99]" style="width: ${d.takeProfit2.width}%">
+    // 各层资金权重：止盈 = 股数 × 价，底仓 = 持仓市值，接货 = 计划金额
+    const sellAmts = sells.map(x => money(x.shares) * money(x.price));
+    const buyAmts  = buys.map(x => money(x.amount));
+    const maxAmt   = Math.max(1, coreAmt, ...sellAmts, ...buyAmts);
+    // 层宽按资金占比算，收敛在 38%~96%，保证菱形形状成立
+    const widthOf = (amt) => Math.max(38, Math.min(96, Math.round(money(amt) / maxAmt * 100)));
+
+    let html = '';
+
+    // ① 止盈层（红系）：自上而下价由高到低，最上一档为清仓档
+    sells.forEach((x, i) => {
+      const isTop = i === 0;
+      const tag = isTop ? '清仓落袋' : '兑现利润';
+      html += `
+      <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono ${isTop ? 'bg-rose-500/15 border-rose-500/30 shadow-sm' : 'bg-rose-500/10 border-rose-500/30'} text-rose-300 transition active:scale-[0.99]" style="width: ${widthOf(sellAmts[i])}%">
         <div class="flex items-center gap-1.5 truncate">
-          <span class="font-bold text-rose-400">${d.takeProfit2.name}</span>
-          <span class="text-[11px] text-rose-300 truncate">¥${Number(d.takeProfit2.price).toFixed(2)} · ${d.takeProfit2.desc}</span>
+          <span class="font-bold text-rose-400">▲ 止盈${sells.length - i}</span>
+          <span class="text-[11px] text-rose-300 truncate">¥${money(x.price).toFixed(2)} · ${fmt(x.shares)}股 · ${x.note || '分批兑现'}</span>
         </div>
-        <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-rose-500/20 text-rose-300 border border-rose-500/30">${d.takeProfit2.tag}</span>
-      </div>
-      <!-- 止盈1 -->
-      <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-rose-500/10 border-rose-500/30 text-rose-300 transition active:scale-[0.99]" style="width: ${d.takeProfit1.width}%">
+        <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-rose-500/20 text-rose-300 border border-rose-500/30">${tag}</span>
+      </div>`;
+    });
+
+    // ② 底仓中枢（金）
+    if (coreShares > 0) {
+      html += `
+      <div class="h-9 rounded-xl border-2 border-brand/50 flex items-center justify-between px-3 text-xs font-mono bg-brand/20 text-amber-200 shadow-glow relative ring-1 ring-brand/30 transition active:scale-[0.99]" style="width: ${widthOf(coreAmt)}%">
         <div class="flex items-center gap-1.5 truncate">
-          <span class="font-bold text-rose-400">${d.takeProfit1.name}</span>
-          <span class="text-[11px] text-rose-300 truncate">¥${Number(d.takeProfit1.price).toFixed(2)} · ${d.takeProfit1.desc}</span>
+          <span class="font-bold text-amber-300">■ 底仓锁定</span>
+          <span class="text-[11px] text-amber-100 font-bold truncate">¥${coreCost.toFixed(2)} · ${fmt(coreShares)}股</span>
         </div>
-        <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-rose-500/20 text-rose-300 border border-rose-500/30">${d.takeProfit1.tag}</span>
-      </div>
-      <!-- 底仓中枢 -->
-      <div class="h-9 rounded-xl border-2 border-brand/50 flex items-center justify-between px-3 text-xs font-mono bg-brand/20 text-amber-200 shadow-glow relative ring-1 ring-brand/30 transition active:scale-[0.99]" style="width: ${d.coreAnchor.width}%">
+        <span class="text-[9px] px-2 py-0.5 rounded font-sans font-bold shrink-0 bg-brand text-slate-950 shadow-sm">核心基准</span>
+      </div>`;
+    }
+
+    // ③ 接货层（绿系）：价高在上，已成交标 ✓
+    buys.forEach((x, i) => {
+      const done = x.exec === true;
+      const tag = done ? '✓已成交' : (i === buys.length - 1 ? '大底深吸' : '挂单伏击');
+      html += `
+      <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono ${done ? 'bg-emerald-500/25 border-emerald-400/50' : (i === 0 ? 'bg-emerald-500/15' : 'bg-emerald-500/10') + ' border-emerald-500/30'} text-emerald-300 transition active:scale-[0.99]" style="width: ${widthOf(buyAmts[i])}%">
         <div class="flex items-center gap-1.5 truncate">
-          <span class="font-bold text-amber-300">${d.coreAnchor.name}</span>
-          <span class="text-[11px] text-amber-100 font-bold truncate">${costText} · ${sharesText}</span>
+          <span class="font-bold text-emerald-400">▼ 接货${i + 1}</span>
+          <span class="text-[11px] text-emerald-300 truncate">¥${money(x.price).toFixed(2)} · ¥${fmt(x.amount)} · ${x.note || '手动补充档位'}</span>
         </div>
-        <span class="text-[9px] px-2 py-0.5 rounded font-sans font-bold shrink-0 bg-brand text-slate-950 shadow-sm">${d.coreAnchor.tag}</span>
-      </div>
-      <!-- 接货1 -->
-      <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-emerald-500/15 border-emerald-500/30 text-emerald-300 transition active:scale-[0.99]" style="width: ${d.buyStep1.width}%">
-        <div class="flex items-center gap-1.5 truncate">
-          <span class="font-bold text-emerald-400">${d.buyStep1.name}</span>
-          <span class="text-[11px] text-emerald-300 truncate">¥${Number(d.buyStep1.price).toFixed(2)} · ${d.buyStep1.desc}</span>
+        <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 ${done ? 'bg-emerald-400 text-slate-950' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'}">${tag}</span>
+      </div>`;
+    });
+
+    // ④ 绝对失效硬底线（原 w-[98%] 比最宽层还宽导致错位，改 w-full 并去掉两侧破折号）
+    html += `
+      <div class="w-[96%] mt-2 pt-2 border-t-2 border-dashed border-rose-500/50 flex items-center justify-between gap-2 px-1 text-rose-400 font-mono text-xs">
+        <div class="flex items-center gap-1 font-bold min-w-0">
+          <span class="material-symbols-outlined text-[15px] shrink-0">error_outline</span>
+          <span class="truncate">绝对失效硬底线 ¥${money(st.failStop).toFixed(2)} · 破位全清</span>
         </div>
-        <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">${d.buyStep1.tag}</span>
-      </div>
-      <!-- 接货2 -->
-      <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-emerald-500/10 border-emerald-500/30 text-emerald-300 transition active:scale-[0.99]" style="width: ${d.buyStep2.width}%">
-        <div class="flex items-center gap-1.5 truncate">
-          <span class="font-bold text-emerald-400">${d.buyStep2.name}</span>
-          <span class="text-[11px] text-emerald-300 truncate">¥${Number(d.buyStep2.price).toFixed(2)} · ${d.buyStep2.desc}</span>
+        <span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30 shrink-0">单向棘轮</span>
+      </div>`;
+
+    // ⑤ 资金分布条：一条 5px 横条，按各买入档资金占比分段，颜色由浅到深区分档位
+    const buySum = buyAmts.reduce((a, b) => a + b, 0);
+    if (buySum > 0) {
+      const COLORS = ['#6ee7b7', '#34d399', '#10b981', '#059669', '#047857', '#065f46', '#064e3b'];
+      const segs = buys.map((x, i) => {
+        const pct = (buyAmts[i] / buySum) * 100;
+        return `<div class="h-full" style="width:${pct.toFixed(2)}%;background:${COLORS[i % COLORS.length]}" title="接货${i + 1} @¥${money(x.price).toFixed(2)} · ¥${fmt(x.amount)} (${pct.toFixed(1)}%)"></div>`;
+      }).join('');
+      const legend = buys.map((x, i) => `<span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-sm shrink-0" style="background:${COLORS[i % COLORS.length]}"></span>接货${i + 1} ¥${fmt(x.amount)}</span>`).join('');
+      const used = buySum, plan = money(st.planTotal) || buySum;
+      html += `
+      <div class="w-[96%] mt-2.5 pt-2 border-t border-surface-border/50">
+        <div class="flex items-center justify-between text-[9px] font-sans mb-1">
+          <span class="font-bold text-slate-300">买入档资金分布</span>
+          <span class="font-mono text-slate-400">合计 ¥${fmt(used)} / 计划 ¥${fmt(plan)}</span>
         </div>
-        <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">${d.buyStep2.tag}</span>
-      </div>
-      <!-- 绝对失效硬底线 -->
-      <div class="w-[98%] mt-2 pt-2 border-t-2 border-dashed border-rose-500/50 flex items-center justify-between px-2 text-rose-400 font-mono text-xs">
-        <div class="flex items-center gap-1 font-bold">
-          <span class="material-symbols-outlined text-[15px]">error_outline</span>
-          <span>--- 绝对失效硬底线 ¥${Number(st.failStop || d.failStop).toFixed(2)} (破位全清) ---</span>
-        </div>
-        <span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">单向棘轮</span>
-      </div>
-    `;
+        <div class="w-full h-[5px] rounded-full overflow-hidden flex border border-surface-border/60 bg-surface-field">${segs}</div>
+        <div class="flex flex-wrap gap-x-3 gap-y-0.5 mt-1.5 text-[9px] font-mono text-slate-400">${legend}</div>
+      </div>`;
+    }
+
+    box.innerHTML = html;
   };
 
   // 4. 重载全局选股切换函数，确保全面同步触发
@@ -2776,30 +2810,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. 渲染双向收敛钻石金字塔 (Diamond Board)
-    const diamondBox = document.getElementById('diamondBoardLayers');
-    if (diamondBox && st.diamond) {
-      diamondBox.innerHTML = st.diamond.map(item => {
-        if (item.type === 'sell-high') {
-          return `<div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-rose-500/15 border-rose-500/30 text-rose-300 shadow-sm transition active:scale-[0.99]" style="width: ${item.width}%"><div class="flex items-center gap-1.5 truncate"><span class="font-bold text-rose-400">${item.name}</span><span class="text-[11px] text-rose-300 truncate">¥${item.price.toFixed(2)} · ${item.desc}</span></div><span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-rose-500/20 text-rose-300 border border-rose-500/30">${item.tag}</span></div>`;
-        } else if (item.type === 'sell-mid') {
-          return `<div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-rose-500/10 border-rose-500/30 text-rose-300 transition active:scale-[0.99]" style="width: ${item.width}%"><div class="flex items-center gap-1.5 truncate"><span class="font-bold text-rose-400">${item.name}</span><span class="text-[11px] text-rose-300 truncate">¥${item.price.toFixed(2)} · ${item.desc}</span></div><span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-rose-500/20 text-rose-300 border border-rose-500/30">${item.tag}</span></div>`;
-        } else if (item.type === 'anchor') {
-          return `<div class="h-9 rounded-xl border-2 border-brand/50 flex items-center justify-between px-3 text-xs font-mono bg-brand/20 text-amber-200 shadow-glow relative ring-1 ring-brand/30 transition active:scale-[0.99]" style="width: ${item.width}%"><div class="flex items-center gap-1.5 truncate"><span class="font-bold text-amber-300">${item.name}</span><span class="text-[11px] text-amber-100 font-bold truncate">¥${item.price.toFixed(2)} · ${item.desc}</span></div><span class="text-[9px] px-2 py-0.5 rounded font-sans font-bold shrink-0 bg-brand text-slate-950 shadow-sm">${item.tag}</span></div>`;
-        } else if (item.type === 'buy-mid') {
-          return `<div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-emerald-500/15 border-emerald-500/30 text-emerald-300 transition active:scale-[0.99]" style="width: ${item.width}%"><div class="flex items-center gap-1.5 truncate"><span class="font-bold text-emerald-400">${item.name}</span><span class="text-[11px] text-emerald-300 truncate">¥${item.price.toFixed(2)} · ${item.desc}</span></div><span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">${item.tag}</span></div>`;
-        } else {
-          return `<div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-emerald-500/10 border-emerald-500/30 text-emerald-300 transition active:scale-[0.99]" style="width: ${item.width}%"><div class="flex items-center gap-1.5 truncate"><span class="font-bold text-emerald-400">${item.name}</span><span class="text-[11px] text-emerald-300 truncate">¥${item.price.toFixed(2)} · ${item.desc}</span></div><span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">${item.tag}</span></div>`;
-        }
-      }).join('') + `
-        <div class="w-[98%] mt-2 pt-2 border-t-2 border-dashed border-rose-500/50 flex items-center justify-between px-2 text-rose-400 font-mono text-xs">
-          <div class="flex items-center gap-1 font-bold">
-            <span class="material-symbols-outlined text-[15px]">error_outline</span>
-            <span>--- 绝对失效硬底线 ¥${st.failStop.toFixed(2)} (破位全清) ---</span>
-          </div>
-          <span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">单向棘轮</span>
-        </div>
-      `;
-    }
+    //    统一交给 renderDiamondShapeVisual：完全按 buySteps / sellSteps 实时计算，加档即联动
+    if (typeof renderDiamondShapeVisual === 'function') renderDiamondShapeVisual(st);
 
     // 5. 更新买入阶梯档位
     const buyListContainer = document.getElementById('pyramidStepsList');
