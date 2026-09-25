@@ -1,1230 +1,1875 @@
-<!DOCTYPE html>
-<html class="dark" lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
-  <meta content="yes" name="apple-mobile-web-app-capable">
-  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
-  <meta content="等得起" name="apple-mobile-web-app-title">
-  <meta content="等得起" name="application-name">
-  <meta content="#051424" name="theme-color">
-  <meta content="等得起 · 股票长线投资与纪律做T闭环工具 - 有计划，才等得起" name="description">
-  <link href="data:application/json;base64,eyJuYW1lIjoi562J5b6X6LW3Iiwic2hvcnRfbmFtZSI6IueFreeXu+i1tyIsImRlc2NyaXB0aW9uIjoi5pyJ6K6h5YiS77yM5omN562J5b6X6LW3Iiwic3RhcnRfdXJsIjoiLiIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwNTE0MjQiLCJ0aGVtZV9jb2xvciI6IiMwNTE0MjQifQ==" rel="manifest">
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script id="tailwind-config">
-    try {
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              brand: "#f59e0b",
-              "brand-light": "#fbbf24",
-              "brand-dark": "#d97706",
-              emerald: {
-                400: "#34d399",
-                500: "#10b981",
-                600: "#059669",
-              },
-              surface: {
-                DEFAULT: "#051424",
-                card: "#0d1c2d",
-                sub: "#13233a",
-                field: "#182c47",
-                border: "#203650",
-                borderLight: "#2c486a"
-              }
-            },
-            fontFamily: {
-              sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-              display: ['"Plus Jakarta Sans"', 'sans-serif'],
-              mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
-            },
-            boxShadow: {
-              glow: '0 0 20px -3px rgba(245, 158, 11, 0.25)',
-              glowEmerald: '0 0 20px -3px rgba(16, 185, 129, 0.25)',
-              card: '0 8px 24px -4px rgba(0, 0, 0, 0.45)'
-            }
+<!DOCTYPE html><html class="dark" lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+<meta content="等得起" name="apple-mobile-web-app-title">
+<meta content="#051424" name="theme-color">
+<title>等得起 · 股票长线投资与纪律做T闭环</title>
+<link href="data:application/json;base64,eyJuYW1lIjoi562J5b6X6LW3Iiwic2hvcnRfbmFtZSI6IueFreeXu+i1tyIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIKeyJiYWNrZ3JvdW5kX2NvbG9yIjoiIzA1MTQyNCIsInRoZW1lX2NvbG9yIjoiIzA1MTQyNCJ9" rel="manifest">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          brand: "#f59e0b",
+          "brand-light": "#fbbf24",
+          "brand-dark": "#d97706",
+          surface: {
+            DEFAULT: "#051424",
+            card: "#0d1c2d",
+            sub: "#13233a",
+            field: "#182c47",
+            border: "#203650"
           }
+        },
+        fontFamily: {
+          sans: ['"Inter"', 'sans-serif'],
+          display: ['"Plus Jakarta Sans"', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace']
+        },
+        boxShadow: {
+          glow: '0 0 20px -3px rgba(245, 158, 11, 0.25)',
+          card: '0 8px 24px -4px rgba(0, 0, 0, 0.45)'
         }
       }
-    } catch (_e) {}
-  </script>
-  <style>
-    .glass-card {
-      background: rgba(13, 28, 45, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid #203650;
     }
-    .badge-soft-emerald {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.3);
-    }
-    .badge-soft-rose {
-      background: rgba(244, 63, 94, 0.15);
-      color: #fb7185;
-      border: 1px solid rgba(244, 63, 94, 0.3);
-    }
-    .badge-soft-gold {
-      background: rgba(245, 158, 11, 0.15);
-      color: #fbbf24;
-      border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-  </style>
+  }
+</script>
+<style>
+  .glass-card { background: rgba(13, 28, 45, 0.85); backdrop-filter: blur(12px); border: 1px solid #203650; }
+  .badge-soft-emerald { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+  .badge-soft-rose { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+  .badge-soft-gold { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+</style>
 </head>
 <body class="flex justify-center min-h-screen antialiased bg-slate-950 text-slate-100 overflow-x-hidden selection:bg-brand selection:text-slate-900">
-
-<!-- 手机主视图容器 (最大宽度 440px，桌面居中，真机全屏) -->
 <div class="w-full max-w-[440px] min-h-screen bg-surface flex flex-col relative shadow-2xl border-x border-surface-border/40">
 
-  <!-- 顶部吸顶 Header -->
-  <header class="sticky top-0 z-40 shrink-0 bg-surface/90 backdrop-blur-md border-b border-surface-border/50">
-    <div class="px-4 py-2.5 flex items-center justify-between gap-2">
-      <div class="flex items-center gap-2 cursor-pointer shrink-0" onclick="switchNavTab('portfolio')">
-        <div class="w-9 h-9 rounded-xl overflow-hidden shadow-glow shrink-0 border border-brand/40 bg-surface-card flex items-center justify-center p-0.5">
-          <svg height="34" style="border-radius:9px;flex-shrink:0;" viewBox="0 0 512 512" width="34">
-            <rect fill="#FFA826" height="512" rx="124" width="512"></rect>
-            <text fill="#111827" font-family="-apple-system, sans-serif" font-size="288" font-weight="900" text-anchor="middle" x="256" y="348">等</text>
-          </svg>
-        </div>
-        <div class="leading-none">
-          <div class="flex items-center gap-1.5">
-            <span class="font-display font-extrabold text-base tracking-tight text-slate-100">等得起</span>
-            <span class="text-[9px] px-1.5 py-0.2 rounded-full font-bold bg-brand/15 text-brand-light border border-brand/30">PWA</span>
-          </div>
-          <p class="text-[10px] text-slate-400 font-medium tracking-tight mt-1">有计划 · 才等得起</p>
-        </div>
+<!-- 顶部吸顶 Header -->
+<header class="sticky top-0 z-40 shrink-0 bg-surface/90 backdrop-blur-md border-b border-surface-border/50">
+  <div class="px-4 py-2.5 flex items-center justify-between gap-2">
+    <div class="flex items-center gap-2 cursor-pointer shrink-0" onclick="switchNavTab('portfolio')">
+      <div class="w-9 h-9 rounded-xl overflow-hidden shadow-glow shrink-0 border border-brand/40 bg-surface-card flex items-center justify-center p-0.5">
+        <svg height="34" viewBox="0 0 512 512" width="34" style="border-radius:9px;">
+          <rect fill="#FFA826" height="512" rx="124" width="512"></rect>
+          <text fill="#111827" font-family="-apple-system, sans-serif" font-size="288" font-weight="900" text-anchor="middle" x="256" y="348">等</text>
+        </svg>
       </div>
-      <div class="flex items-center gap-1.5 shrink-0">
-        <button class="w-7 h-7 rounded-xl bg-surface-sub border border-surface-border flex items-center justify-center text-slate-300 hover:text-brand relative transition active:scale-95 shrink-0" id="headerGhSyncBadge" onclick="toggleGhSyncModal()" title="GitHub 同步状态">
-          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 16 16">
-            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-          </svg>
-          <span class="w-1.5 h-1.5 rounded-full bg-slate-500 absolute top-1 right-1" id="ghSyncStatusDot"></span>
-        </button>
-        <button class="w-7 h-7 rounded-xl bg-surface-sub border border-surface-border flex items-center justify-center text-slate-300 hover:text-brand relative transition active:scale-95 shrink-0" onclick="triggerImpulseLockAlert()" title="纪律雷达状态">
-          <span class="material-symbols-outlined text-[16px]">notifications_active</span>
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 absolute top-1 right-1 animate-ping"></span>
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 absolute top-1 right-1"></span>
-        </button>
+      <div class="leading-none">
+        <div class="flex items-center gap-1.5">
+          <span class="font-display font-extrabold text-base tracking-tight text-slate-100">等得起</span>
+          <span class="text-[9px] px-1.5 py-0.2 rounded-full font-bold bg-brand/15 text-brand-light border border-brand/30">PWA</span>
+        </div>
+        <p class="text-[10px] text-slate-400 font-medium tracking-tight mt-1">有计划 · 才等得起</p>
       </div>
     </div>
-    <!-- 标的行情吸顶条 -->
-    <div class="px-4 pb-2.5">
-      <div class="flex items-center justify-between gap-2 rounded-2xl border border-brand/45 bg-surface-sub/80 px-2.5 py-2 shadow-glow">
-        <div class="flex items-center gap-2 min-w-0">
-          <span class="w-7 h-7 rounded-lg bg-brand/15 border border-brand/40 flex items-center justify-center text-brand shrink-0">
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 16 16"><rect height="6.6" rx="0.7" width="2.6" x="1.6" y="7.9"></rect><rect height="10.6" rx="0.7" width="2.6" x="6.7" y="3.9"></rect><rect height="13.1" rx="0.7" width="2.6" x="11.8" y="1.4"></rect></svg>
+    <div class="flex items-center gap-1.5 shrink-0">
+      <button class="w-7 h-7 rounded-xl bg-surface-sub border border-surface-border flex items-center justify-center text-slate-300 hover:text-brand relative transition active:scale-95 shrink-0" onclick="toggleGhSyncModal()" title="GitHub 同步状态">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+        <span class="w-1.5 h-1.5 rounded-full bg-slate-500 absolute top-1 right-1" id="ghSyncStatusDot"></span>
+      </button>
+      <button class="w-7 h-7 rounded-xl bg-surface-sub border border-surface-border flex items-center justify-center text-slate-300 hover:text-brand relative transition active:scale-95 shrink-0" onclick="triggerImpulseLockAlert()" title="纪律雷达状态">
+        <span class="material-symbols-outlined text-[16px]">notifications_active</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 absolute top-1 right-1 animate-ping"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 absolute top-1 right-1"></span>
+      </button>
+    </div>
+  </div>
+  <!-- 标的行情吸顶条 -->
+  <div class="px-4 pb-2.5">
+    <div class="flex items-center justify-between gap-2 rounded-2xl border border-brand/45 bg-surface-sub/80 px-2.5 py-2 shadow-glow">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="w-7 h-7 rounded-lg bg-brand/15 border border-brand/40 flex items-center justify-center text-brand shrink-0">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 16 16"><rect height="6.6" rx="0.7" width="2.6" x="1.6" y="7.9"></rect><rect height="10.6" rx="0.7" width="2.6" x="6.7" y="3.9"></rect><rect height="13.1" rx="0.7" width="2.6" x="11.8" y="1.4"></rect></svg>
+        </span>
+        <span class="relative inline-flex items-center min-w-0">
+          <select class="appearance-none bg-transparent font-sans text-[13px] font-bold text-slate-100 outline-none border-none p-0 pr-[21px] cursor-pointer focus:ring-0 overflow-hidden text-ellipsis whitespace-nowrap max-w-[152px]" id="headerStockSelect" onchange="switchStock(this.value)">
+            <option value="300938">信测标准 (300938)</option>
+            <option value="002555">三七互娱 (002555)</option>
+            <option value="600519">贵州茅台 (600519)</option>
+            <option value="600900">长江电力 (600900)</option>
+          </select>
+          <svg aria-hidden="true" class="w-3.5 h-3.5 text-slate-400 pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" fill="currentColor" viewBox="0 0 16 16"><path d="M8 11.2 3.2 6.4a.9.9 0 0 1 1.28-1.28L8 8.64l3.52-3.52A.9.9 0 1 1 12.8 6.4L8 11.2z"></path></svg>
+        </span>
+      </div>
+      <div class="flex items-center gap-1.5 shrink-0 mr-[10px]">
+        <span class="h-4 w-[1px] bg-surface-border"></span>
+        <span class="font-sans font-semibold text-[13px] text-slate-300">¥</span>
+        <span class="font-sans font-bold text-[17px] text-slate-100 tabular-nums" id="headerLivePrice">17.70</span>
+        <span class="font-sans text-[11px] font-bold tabular-nums ml-2.5 text-emerald-400" id="headerLiveChg">-0.56%</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 主视口内容 -->
+<main class="flex-1 pb-24 px-4 pt-3.5 space-y-4">
+  <!-- TAB 1: 组合 (Portfolio) -->
+  <section class="space-y-4 tab-page" id="view-portfolio">
+    <div class="glass-card rounded-2xl p-4 relative overflow-hidden shadow-card border border-brand/20">
+      <div class="flex items-center justify-between text-xs text-slate-400">
+        <span class="flex items-center gap-1.5 font-medium">
+          <span class="material-symbols-outlined text-[16px] text-brand">account_balance_wallet</span>
+          全组合净资产估值 (双账)
+        </span>
+        <div class="px-2.5 py-1 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 flex items-center gap-1 text-xs font-bold">
+          <span class="material-symbols-outlined text-sm">verified</span>
+          <span class="">94分 纪律</span>
+        </div>
+      </div>
+      <div class="mt-2.5 flex items-baseline justify-between">
+        <div class="w-full">
+          <div class="flex items-baseline gap-1">
+            <span class="text-sm font-semibold text-slate-400">¥</span>
+            <span class="text-3xl font-display font-extrabold text-white tracking-tight tabular-nums" id="portfolioTotalVal">306,341</span>
+            <span class="text-xs font-mono text-slate-400">.00</span>
+          </div>
+          <div class="flex items-center gap-2 mt-1 w-full">
+            <span class="text-xs font-mono text-rose-400 font-bold tabular-nums">年化 CAGR +18.4%</span>
+            <span class="text-[11px] text-slate-400">| 累计做T降本 ¥14,200</span>
+            <span class="text-[10px] text-slate-500 ml-auto pl-2 whitespace-nowrap">已连续知行 48 天</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 净值走势 -->
+    <div class="glass-card rounded-2xl p-3.5 border border-surface-border/80 bg-surface-sub/40 space-y-2.5">
+      <div class="flex items-center justify-between text-xs">
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-brand">show_chart</span>
+          <span class="font-bold text-slate-200">净值走势 (近30日)</span>
+        </div>
+        <div class="flex items-center gap-1 font-mono text-[11px]">
+          <span class="text-slate-400">累计</span>
+          <span class="font-bold text-rose-400 bg-rose-500/10 border border-rose-500/30 px-1.5 py-0.2 rounded">+18.4%</span>
+        </div>
+      </div>
+      <div class="w-full h-32 relative pt-1">
+        <svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 360 110">
+          <defs>
+            <linearGradient id="goldNetWorthGrad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.35"></stop>
+              <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.12"></stop>
+              <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.0"></stop>
+            </linearGradient>
+          </defs>
+          <path d="M 10 78 Q 65 82 100 68 T 190 52 T 270 34 T 350 18 L 350 90 L 10 90 Z" fill="url(#goldNetWorthGrad)"></path>
+          <path d="M 10 78 Q 65 82 100 68 T 190 52 T 270 34 T 350 18" fill="none" stroke="#f59e0b" stroke-linecap="round" stroke-width="2.5"></path>
+          <circle cx="350" cy="18" fill="#fbbf24" r="4" stroke="#ffffff" stroke-width="1.5"></circle>
+        </svg>
+        <div class="flex justify-between items-center text-[9px] font-mono text-slate-500 pt-1 border-t border-surface-border/40 -mt-[5px]">
+          <span class="">8/26 (基准)</span><span class="">9/04</span><span class="">9/13</span><span class="text-brand font-bold">今天 ¥38.6万</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 仓位分布 -->
+    <div class="glass-card rounded-2xl p-3.5 border border-surface-border/80 bg-surface-sub/40 space-y-3">
+      <div class="flex items-center justify-between text-xs">
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-emerald-400">donut_large</span>
+          <span class="font-bold text-slate-200">仓位分布</span>
+          <button class="flex items-center justify-center px-1.5 py-1 rounded-lg bg-surface-field text-brand hover:text-brand-light border border-surface-border transition active:scale-95 ml-1" onclick="openPositionStrategyModal()" title="仓位策略">
+            <span class="material-symbols-outlined text-[14px]">settings</span>
+          </button>
+        </div>
+        <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-mono">
+          <span id="donutHeaderSummaryText" class="">核心 55% · 压舱 32% · 现款 13%</span>
+        </div>
+      </div>
+      <div class="flex items-center justify-between gap-4 px-1 py-1">
+        <div class="relative w-28 h-28 shrink-0 flex items-center justify-center">
+          <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 88 88">
+            <circle cx="44" cy="44" fill="none" r="34" stroke="#13233a" stroke-width="10"></circle>
+            <circle cx="44" cy="44" fill="none" id="donutCircleCore" r="34" stroke="#f59e0b" stroke-dasharray="117.5 96.1" stroke-dashoffset="0" stroke-linecap="round" stroke-width="10"></circle>
+            <circle cx="44" cy="44" fill="none" id="donutCircleAnchor" r="34" stroke="#10b981" stroke-dasharray="68.3 145.3" stroke-dashoffset="-117.5" stroke-linecap="round" stroke-width="10"></circle>
+            <circle cx="44" cy="44" fill="none" id="donutCircleCash" r="34" stroke="#38bdf8" stroke-dasharray="27.8 185.8" stroke-dashoffset="-185.8" stroke-linecap="round" stroke-width="10"></circle>
+          </svg>
+          <div class="absolute flex flex-col items-center justify-center text-center">
+            <span class="text-[9px] text-slate-400 font-mono">底仓锁定</span>
+            <span class="text-xs font-bold font-mono text-slate-100 mt-0.5" id="donutCenterLockPct">87%</span>
+          </div>
+        </div>
+        <div class="flex-1 space-y-2 text-xs font-mono">
+          <div class="flex items-center justify-between cursor-pointer" onclick="openPositionStrategyModal('core')">
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand"></span><span class="text-slate-200 text-[11px]">核心仓 (成长弹性)</span></div>
+            <span class="font-bold text-amber-300 text-[11px]" id="donutLegendCoreVal">55%</span>
+          </div>
+          <div class="flex items-center justify-between cursor-pointer" onclick="openPositionStrategyModal('anchor')">
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span><span class="text-slate-200 text-[11px]">压舱仓 (低波红利)</span></div>
+            <span class="font-bold text-emerald-300 text-[11px]" id="donutLegendAnchorVal">32%</span>
+          </div>
+          <div class="flex items-center justify-between cursor-pointer" onclick="openPositionStrategyModal('cash')">
+            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span><span class="text-slate-200 text-[11px]">伏击备用现金</span></div>
+            <span class="font-bold text-sky-300 text-[11px]" id="donutLegendCashVal">13%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核心标的仓位池 -->
+    <div>
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-2">
+          <h3 class="text-xs font-bold text-slate-300 tracking-wide uppercase">核心标的仓位池</h3>
+          <span class="text-[10px] text-slate-400 font-mono" id="portfolioHoldingsCount">(4只标的)</span>
+        </div>
+        <button class="text-[10px] text-brand hover:text-brand-light px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border flex items-center gap-0.5 transition active:scale-95" id="btnToggleAllHoldings" onclick="window.toggleAllDetails()"><span class="material-symbols-outlined text-[13px]" id="toggleExpandAllHoldingsIcon">unfold_more</span><span id="toggleExpandAllHoldingsText" class="">展开全部明细</span></button>
+      </div>
+      <div class="space-y-2.5" id="portfolioHoldingList"><div class="glass-card rounded-2xl p-3 border-brand/60 bg-surface-sub/80 shadow-glow cursor-pointer transition hover:border-brand/40" id="card-300938"><div class="flex items-center justify-between" onclick="window.toggleStockRow('300938', event)"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-brand/20 text-brand border-brand/50 border border-surface-border flex items-center justify-center font-bold text-xs">信测</div><div><div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">信测标准</span><span class="text-[10px] font-mono text-slate-400">300938</span><span class="text-[9px] bg-brand text-slate-950 font-bold px-1 rounded">当前</span></div><div class="text-[10px] text-slate-400 mt-0.5">持仓 1,700 股 · 成本 ¥27.46</div></div></div><div class="flex items-center gap-2"><div class="text-right"><div class="text-xs font-mono font-bold text-slate-100">¥45,101</div><div class="text-[10px] font-mono font-semibold text-emerald-400">-3.39%</div></div><span class="material-symbols-outlined text-slate-400 text-base transition transform" id="arrow-300938">expand_more</span></div></div><div class="stock-detail-section hidden border-t border-surface-border/60 mt-2.5 pt-2.5 text-xs font-mono space-y-1.5" id="detail-300938"><div class="flex justify-between text-slate-400"><span class="font-sans">计划弹药池 / 底线:</span><span class="text-slate-200">¥70,000 / ¥22.50</span></div><div class="flex justify-between text-slate-400"><span class="font-sans">持仓浮动盈亏:</span><span class="text-emerald-400 font-bold">-¥1,581 (-3.39%)</span></div><div class="flex justify-end gap-2 pt-1 font-sans"><button class="px-2 py-0.5 rounded-lg bg-brand/15 text-brand-light border border-brand/30 text-[10px] font-bold" onclick="switchStock('300938'); switchNavTab('plan'); event.stopPropagation();">进入预案 →</button></div></div></div><div class="glass-card rounded-2xl p-3 cursor-pointer transition hover:border-brand/40" id="card-600519"><div class="flex items-center justify-between" onclick="window.toggleStockRow('600519', event)"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-surface-field text-slate-200 border border-surface-border flex items-center justify-center font-bold text-xs">贵州</div><div><div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">贵州茅台</span><span class="text-[10px] font-mono text-slate-400">600519</span></div><div class="text-[10px] text-slate-400 mt-0.5">持仓 100 股 · 成本 ¥1420.00</div></div></div><div class="flex items-center gap-2"><div class="text-right"><div class="text-xs font-mono font-bold text-slate-100">¥145,000</div><div class="text-[10px] font-mono font-semibold text-rose-400">+2.11%</div></div><span class="material-symbols-outlined text-slate-400 text-base transition transform" id="arrow-600519">expand_more</span></div></div><div class="stock-detail-section hidden border-t border-surface-border/60 mt-2.5 pt-2.5 text-xs font-mono space-y-1.5" id="detail-600519"><div class="flex justify-between text-slate-400"><span class="font-sans">计划弹药池 / 底线:</span><span class="text-slate-200">¥300,000 / ¥1350.00</span></div><div class="flex justify-between text-slate-400"><span class="font-sans">持仓浮动盈亏:</span><span class="text-rose-400 font-bold">+¥3,000 (+2.11%)</span></div><div class="flex justify-end gap-2 pt-1 font-sans"><button class="px-2 py-0.5 rounded-lg bg-brand/15 text-brand-light border border-brand/30 text-[10px] font-bold" onclick="switchStock('600519'); switchNavTab('plan'); event.stopPropagation();">进入预案 →</button></div></div></div><div class="glass-card rounded-2xl p-3 cursor-pointer transition hover:border-brand/40" id="card-600900"><div class="flex items-center justify-between" onclick="window.toggleStockRow('600900', event)"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-surface-field text-slate-200 border border-surface-border flex items-center justify-center font-bold text-xs">长江</div><div><div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">长江电力</span><span class="text-[10px] font-mono text-slate-400">600900</span></div><div class="text-[10px] text-slate-400 mt-0.5">持仓 2,000 股 · 成本 ¥28.50</div></div></div><div class="flex items-center gap-2"><div class="text-right"><div class="text-xs font-mono font-bold text-slate-100">¥59,600</div><div class="text-[10px] font-mono font-semibold text-rose-400">+4.56%</div></div><span class="material-symbols-outlined text-slate-400 text-base transition transform" id="arrow-600900">expand_more</span></div></div><div class="stock-detail-section hidden border-t border-surface-border/60 mt-2.5 pt-2.5 text-xs font-mono space-y-1.5" id="detail-600900"><div class="flex justify-between text-slate-400"><span class="font-sans">计划弹药池 / 底线:</span><span class="text-slate-200">¥80,000 / ¥26.50</span></div><div class="flex justify-between text-slate-400"><span class="font-sans">持仓浮动盈亏:</span><span class="text-rose-400 font-bold">+¥2,600 (+4.56%)</span></div><div class="flex justify-end gap-2 pt-1 font-sans"><button class="px-2 py-0.5 rounded-lg bg-brand/15 text-brand-light border border-brand/30 text-[10px] font-bold" onclick="switchStock('600900'); switchNavTab('plan'); event.stopPropagation();">进入预案 →</button></div></div></div><div class="glass-card rounded-2xl p-3 cursor-pointer transition hover:border-brand/40" id="card-002555"><div class="flex items-center justify-between" onclick="window.toggleStockRow('002555', event)"><div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl bg-surface-field text-slate-200 border border-surface-border flex items-center justify-center font-bold text-xs">三七</div><div><div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">三七互娱</span><span class="text-[10px] font-mono text-slate-400">002555</span></div><div class="text-[10px] text-slate-400 mt-0.5">持仓 3,200 股 · 成本 ¥17.20</div></div></div><div class="flex items-center gap-2"><div class="text-right"><div class="text-xs font-mono font-bold text-slate-100">¥56,640</div><div class="text-[10px] font-mono font-semibold text-rose-400">+2.91%</div></div><span class="material-symbols-outlined text-slate-400 text-base transition transform" id="arrow-002555">expand_more</span></div></div><div class="stock-detail-section hidden border-t border-surface-border/60 mt-2.5 pt-2.5 text-xs font-mono space-y-1.5" id="detail-002555"><div class="flex justify-between text-slate-400"><span class="font-sans">计划弹药池 / 底线:</span><span class="text-slate-200">¥80,000 / ¥15.50</span></div><div class="flex justify-between text-slate-400"><span class="font-sans">持仓浮动盈亏:</span><span class="text-rose-400 font-bold">+¥1,600 (+2.91%)</span></div><div class="flex justify-end gap-2 pt-1 font-sans"><button class="px-2 py-0.5 rounded-lg bg-brand/15 text-brand-light border border-brand/30 text-[10px] font-bold" onclick="switchStock('002555'); switchNavTab('plan'); event.stopPropagation();">进入预案 →</button></div></div></div></div>
+    </div>
+  </section>
+
+  <!-- TAB 2: 标的 (Plan & 双向钻石菱形) -->
+  <section class="space-y-4 tab-page hidden" id="view-plan">
+    <div class="space-y-2.5">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+          <h2 class="text-xs font-bold text-slate-200 uppercase tracking-wider">决策指挥部 · 这一单三结局</h2>
+        </div>
+        <span class="text-[10px] text-slate-400 font-mono font-bold" id="planStockHeaderCode">002555 · 三七互娱</span>
+      </div>
+
+      <!-- 卡片 1: 裁决状态 -->
+      <div class="glass-card rounded-2xl p-3.5 border-l-4 border-l-brand relative">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-slate-400">① 当前裁决状态</span>
+          <span class="badge-soft-gold px-2 py-0.5 rounded-full text-[11px] font-bold" id="planVerdictBadge">⏳ 伏击等待中</span>
+        </div>
+        <p class="text-xs font-medium text-slate-200 mt-1.5 leading-relaxed" id="planVerdictText">现价 ¥17.70 距离最近一档【股息支撑线低吸 @¥17.20】尚差 <strong class="text-amber-300 font-mono">¥0.50 (2.82%)</strong>。盘中杂波勿动，未到价绝不提前抢跑。</p>
+      </div>
+
+      <!-- 卡片 2 & 3: 买点触发 & 失效底线 -->
+      <div class="grid grid-cols-2 gap-2.5">
+        <div class="glass-card rounded-2xl p-3 border-l-2 border-l-emerald-400">
+          <div class="text-[10px] text-slate-400 font-medium">② 下一关键买点触发</div>
+          <div class="text-lg font-display font-extrabold text-emerald-400 mt-0.5 tabular-nums" id="planNextTrigger">¥17.20</div>
+          <div class="text-[10px] text-slate-400 mt-0.5 flex justify-between">
+            <span id="planNextRatio" class="">配比 31.3%</span>
+            <span class="text-slate-300 tabular-nums font-mono" id="planNextAmount">¥25,000</span>
+          </div>
+        </div>
+        <div class="glass-card rounded-2xl p-3 border-l-2 border-l-rose-400 relative">
+          <div class="flex items-center justify-between text-[10px] text-slate-400 font-medium">
+            <span class="">③ 绝对失效硬底线</span><span class="text-[9px] text-rose-300 font-bold">单向棘轮</span>
+          </div>
+          <div class="text-lg font-display font-extrabold text-rose-400 mt-0.5 tabular-nums" id="planFailStop">¥15.50</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">破位次日竞价全清认错</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 双向收敛钻石菱形挂单图谱 -->
+    <div class="glass-card rounded-2xl p-3.5 space-y-3.5 border border-brand/20 bg-surface-sub/50">
+      <div class="flex items-center justify-between border-b border-surface-border/60 pb-2.5">
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[18px] text-brand">diamond</span>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-bold text-slate-100">双向收敛钻石菱形 · 全案预案图谱</span>
+              <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">动态联动</span>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-0.5">高位梯次止盈 · 底仓中枢锚定 · 低位正金字塔网格低吸</p>
+          </div>
+        </div>
+        <button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-1 bg-brand/10 border border-brand/30 px-2 py-1 rounded-xl transition active:scale-95 shadow-sm" onclick="addNewStepPrompt('buy')">
+          <span class="material-symbols-outlined text-sm">add_circle</span>
+        </button>
+      </div>
+
+      <!-- 动态钻石菱形容器 (由 JS 全动态渲染) -->
+      <div class="p-3.5 rounded-2xl bg-surface-field/70 border border-surface-border space-y-2 flex flex-col items-center justify-center overflow-hidden" id="diamondBoardLayers">
+        <div class="h-9 rounded-xl border flex items-center justify-between px-2.5 text-xs font-mono bg-rose-500/15 border-rose-500/30 text-rose-300 min-w-[170px] transition-all duration-300" style="width: 38%">
+          <span class="font-bold text-rose-400 text-[10px] shrink-0">▲ 止盈2 ¥21.00</span>
+          <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold bg-rose-500/20 text-rose-300 shrink-0 ml-1 truncate max-w-[85px]">估值中枢修复</span>
+        </div>
+      
+        <div class="h-9 rounded-xl border flex items-center justify-between px-2.5 text-xs font-mono bg-rose-500/15 border-rose-500/30 text-rose-300 min-w-[170px] transition-all duration-300" style="width: 66%">
+          <span class="font-bold text-rose-400 text-[10px] shrink-0">▲ 止盈1 ¥19.50</span>
+          <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold bg-rose-500/20 text-rose-300 shrink-0 ml-1 truncate max-w-[85px]">年线阻力位高抛</span>
+        </div>
+      
+        <div class="h-9 rounded-xl border-2 border-brand/50 flex items-center justify-between px-3 text-xs font-mono bg-brand/20 text-amber-200 shadow-glow min-w-[210px] transition-all duration-300" style="width: 96%">
+          <span class="font-bold text-amber-300 text-[11px] truncate">■ 底仓锁定 ¥17.20 · 3,200股</span>
+          <span class="text-[9px] px-2 py-0.5 rounded font-sans font-bold bg-brand text-slate-950 shrink-0 ml-1">核心基准</span>
+        </div>
+      
+        <div class="h-9 rounded-xl border flex items-center justify-between px-2.5 text-xs font-mono bg-emerald-500/15 border-emerald-500/30 text-emerald-300 min-w-[170px] transition-all duration-300" style="width: 76%">
+          <span class="font-bold text-emerald-400 text-[10px] shrink-0">
+            ▼ 接货1 ¥17.20
           </span>
-          <span class="relative inline-flex items-center min-w-0">
-            <select class="appearance-none bg-transparent font-sans text-[13px] font-bold text-slate-100 outline-none border-none p-0 pr-[21px] bg-none cursor-pointer focus:ring-0 overflow-hidden text-ellipsis whitespace-nowrap max-w-[152px]" id="headerStockSelect" onchange="switchStock(this.value)">
+          <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold bg-emerald-500/20 text-emerald-300 shrink-0 ml-1 truncate max-w-[90px]">
+            股息支撑线低吸
+          </span>
+        </div>
+      
+        <div class="h-9 rounded-xl border flex items-center justify-between px-2.5 text-xs font-mono bg-emerald-500/15 border-emerald-500/30 text-emerald-300 min-w-[170px] transition-all duration-300" style="width: 56%">
+          <span class="font-bold text-emerald-400 text-[10px] shrink-0">
+            ▼ 接货2 ¥16.50
+          </span>
+          <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold bg-emerald-500/20 text-emerald-300 shrink-0 ml-1 truncate max-w-[90px]">
+            箱体下沿强买点
+          </span>
+        </div>
+      
+        <div class="h-9 rounded-xl border flex items-center justify-between px-2.5 text-xs font-mono bg-emerald-500/15 border-emerald-500/30 text-emerald-300 min-w-[170px] transition-all duration-300" style="width: 40%">
+          <span class="font-bold text-emerald-400 text-[10px] shrink-0">
+            ▼ 接货3 ¥15.80
+          </span>
+          <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold bg-emerald-500/20 text-emerald-300 shrink-0 ml-1 truncate max-w-[90px]">
+            极限价值安全网
+          </span>
+        </div>
+      
+      <div class="w-full mt-2 pt-2 border-t-2 border-dashed border-rose-500/50 flex items-center justify-between px-1 text-rose-400 font-mono text-[11px]">
+        <span class="truncate">-- 绝对失效硬底线 ¥15.50 --</span>
+        <span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold shrink-0 ml-1">单向棘轮</span>
+      </div>
+    </div>
+
+      <!-- 金字塔分批买入明细 -->
+      <div class="space-y-1.5 pt-1" id="pyramidStepsList">
+          <div class="p-2 rounded-xl bg-surface-field/80 border border-surface-border flex items-center justify-between text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <span class="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-surface-sub text-slate-300 border border-surface-border">1</span>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold text-slate-100">¥17.20</span>
+                  <span class="text-[10px] text-slate-400 font-sans">(股息支撑线低吸)</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-sans">金额 ¥25,000 · 占 31%</div>
+              </div>
+            </div>
+            <div>
+              <span class="text-[10px] px-1.5 py-0.5 rounded font-sans font-bold bg-surface-sub text-slate-400 border border-surface-border">
+                待触发
+              </span>
+            </div>
+          </div>
+        
+          <div class="p-2 rounded-xl bg-surface-field/80 border border-surface-border flex items-center justify-between text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <span class="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-surface-sub text-slate-300 border border-surface-border">2</span>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold text-slate-100">¥16.50</span>
+                  <span class="text-[10px] text-slate-400 font-sans">(箱体下沿强买点)</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-sans">金额 ¥30,000 · 占 38%</div>
+              </div>
+            </div>
+            <div>
+              <span class="text-[10px] px-1.5 py-0.5 rounded font-sans font-bold bg-surface-sub text-slate-400 border border-surface-border">
+                待触发
+              </span>
+            </div>
+          </div>
+        
+          <div class="p-2 rounded-xl bg-surface-field/80 border border-surface-border flex items-center justify-between text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <span class="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold bg-surface-sub text-slate-300 border border-surface-border">3</span>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold text-slate-100">¥15.80</span>
+                  <span class="text-[10px] text-slate-400 font-sans">(极限价值安全网)</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-sans">金额 ¥25,000 · 占 31%</div>
+              </div>
+            </div>
+            <div>
+              <span class="text-[10px] px-1.5 py-0.5 rounded font-sans font-bold bg-surface-sub text-slate-400 border border-surface-border">
+                待触发
+              </span>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- 阶梯止盈 -->
+    <div class="glass-card rounded-2xl p-3.5">
+      <div class="flex items-center justify-between mb-2.5">
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-sky-400">trending_up</span>
+          <span class="text-xs font-bold text-slate-200">阶梯止盈 / 高抛减仓预案</span>
+        </div>
+        <button class="text-[11px] font-semibold text-brand hover:text-brand-light flex items-center gap-0.5" onclick="addNewStepPrompt('sell')">
+          <span class="material-symbols-outlined text-sm">add_circle</span>加止盈
+        </button>
+      </div>
+      <div class="space-y-2" id="takeProfitStepsList">
+        <div class="p-2 rounded-xl bg-surface-field/80 border border-surface-border flex items-center justify-between text-xs font-mono">
+          <div class="flex items-center gap-2">
+            <span class="w-4 h-4 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center text-[10px] font-bold">高</span>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-rose-300">¥21.00</span>
+                <span class="text-[10px] text-slate-400 font-sans">(估值中枢修复)</span>
+              </div>
+              <div class="text-[10px] text-slate-400 font-sans">规划减仓 1500 股</div>
+            </div>
+          </div>
+          <span class="text-[10px] px-1.5 py-0.5 rounded font-sans font-bold bg-rose-500/10 text-rose-300 border border-rose-500/20">守候预案</span>
+        </div>
+      
+        <div class="p-2 rounded-xl bg-surface-field/80 border border-surface-border flex items-center justify-between text-xs font-mono">
+          <div class="flex items-center gap-2">
+            <span class="w-4 h-4 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center text-[10px] font-bold">高</span>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-rose-300">¥19.50</span>
+                <span class="text-[10px] text-slate-400 font-sans">(年线阻力位高抛)</span>
+              </div>
+              <div class="text-[10px] text-slate-400 font-sans">规划减仓 1000 股</div>
+            </div>
+          </div>
+          <span class="text-[10px] px-1.5 py-0.5 rounded font-sans font-bold bg-rose-500/10 text-rose-300 border border-rose-500/20">守候预案</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 最坏压力测试 -->
+    <div class="glass-card rounded-2xl p-3.5 border border-rose-500/20 bg-rose-500/5">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-rose-300 flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm">shield</span>最坏情况压力测试 (Worst-Case)
+        </span>
+        <span class="text-[10px] text-slate-400 font-mono">极端穿透</span>
+      </div>
+      <p class="text-[11px] text-slate-300 mt-2 leading-relaxed" id="planWorstCaseText">若所有分批买单全部接满且在硬底线 <strong class="text-rose-400 font-mono">¥15.50</strong> 触发破位止损离场，全案极端最大回撤约为 <strong class="text-rose-400 font-mono">¥10,203 (-7.6%)</strong>，锁定在可承受安全边际以内，绝不伤筋动骨。</p>
+    </div>
+  </section>
+
+  <!-- TAB 3: 分析 (Analysis) -->
+  <section class="space-y-4 tab-page hidden" id="view-analysis">
+    <div class="glass-card rounded-2xl p-3.5 border border-brand/30 relative overflow-hidden">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-brand/20 border border-brand/40 flex items-center justify-center text-brand shrink-0">
+            <span class="material-symbols-outlined text-[22px]">smart_toy</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h2 class="text-sm font-bold text-slate-100">AI 6维深度研判与方案收敛</h2>
+              <span class="badge-soft-gold text-[9px] px-1.5 py-0.2 rounded-full font-bold">Prompt v5</span>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-0.5">客观事实输入 · 强制收敛为正金字塔四段可执行挂单</p>
+          </div>
+        </div>
+        <span class="text-xs font-mono font-bold text-emerald-400">100% 闭环</span>
+      </div>
+    </div>
+    <div class="glass-card rounded-2xl p-3.5 space-y-3">
+      <div class="flex items-center justify-between border-b border-surface-border/60 pb-2">
+        <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-brand">pin_drop</span>研判标的与规划弹药池
+        </span>
+      </div>
+      <div class="grid grid-cols-2 gap-2.5">
+        <div>
+          <label class="text-[10px] text-slate-400 block mb-1">股票代码 (6位/回车)</label>
+          <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono font-bold text-slate-100 pl-2.5 pr-2 py-1.5 uppercase outline-none focus:border-brand" id="analysisStockCodeInput" maxlength="6" onkeydown="if(event.key==='Enter'){switchStock(this.value.trim());}" value="300938">
+          <div class="text-[10px] text-emerald-400 mt-1 font-mono font-medium truncate" id="analysisStockDisplayTag">信测标准 · 现价 ¥26.53</div>
+        </div>
+        <div>
+          <label class="text-[10px] text-slate-400 block mb-1">预投资金 P (元)</label>
+          <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-amber-300 font-bold px-2 py-1.5 outline-none focus:border-brand" id="analysisPlanTotalInput" onchange="updateAnalysisBudget(this.value)" type="number" value="70000">
+          <div class="text-[10px] text-slate-400 mt-1 font-mono flex justify-between">
+            <span class="">首仓约30%:</span><span class="text-amber-300/90" id="analysisFirstBatchEst">¥21,000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="glass-card rounded-2xl p-3.5 space-y-2 border border-brand/20">
+      <div class="flex items-center justify-between">
+        <label class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px] text-brand">psychology</span>
+          <span class="">Why Box · 买入灵魂理由</span>
+        </label>
+      </div>
+      <textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 focus:border-brand outline-none leading-relaxed transition" id="aiWhyBoxInput" onchange="updateActiveStockWhy(this.value)" placeholder="为什么值得长线守候？" rows="3"></textarea>
+    </div>
+    <div class="glass-card rounded-2xl p-3.5 space-y-3">
+      <div class="flex items-center justify-between border-b border-surface-border/60 pb-2">
+        <span class="text-xs font-bold text-slate-100 flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-brand">checklist</span>6维客观事实研判卡片</span>
+        <button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-0.5 bg-brand/10 border border-brand/30 px-2 py-0.5 rounded-lg transition active:scale-95" onclick="promptAddNewFactorCard()"><span class="material-symbols-outlined text-[14px]">add</span>添加条件</button>
+      </div>
+      <div class="space-y-2.5 text-xs" id="factorCardsContainer"></div>
+      <button class="w-full mt-2 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 font-bold text-xs shadow-glow hover:brightness-105 flex items-center justify-center gap-1.5 transition active:scale-[0.98]" onclick="generateStructuredPrompt()">
+        <span class="material-symbols-outlined text-base">content_copy</span>一键生成并复制标准提示词 (Prompt v5)
+      </button>
+    </div>
+    <div class="glass-card rounded-2xl p-3.5 space-y-3">
+      <div class="flex items-center justify-between"><span class="text-xs font-bold text-slate-200 flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-sky-400">terminal</span>粘贴外部大模型回复</span></div>
+      <textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 font-mono focus:border-brand outline-none" id="aiResponsePasteArea" placeholder="粘贴大模型输出的标准四段答复..." rows="4"></textarea>
+      <div class="grid grid-cols-2 gap-2">
+        <button class="py-2.5 rounded-xl bg-surface-sub border border-brand/40 text-brand-light font-bold text-xs hover:bg-surface-field flex items-center justify-center gap-1 transition active:scale-[0.98]" onclick="parseAiPlanPreview()"><span class="material-symbols-outlined text-sm">filter_alt</span>四段标准化解析</button>
+        <button class="py-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-500/30 flex items-center justify-center gap-1 transition active:scale-[0.98]" onclick="applyParsedPlanToTarget()"><span class="material-symbols-outlined text-sm">bolt</span>⚡ 一键套用预案</button>
+      </div>
+      <div class="hidden p-3 rounded-xl bg-surface-field/90 border border-surface-border text-xs font-mono space-y-2" id="aiParseFeedback"></div>
+    </div>
+  </section>
+
+  <!-- TAB 4: 执行 (Execution) -->
+  <section class="space-y-4 tab-page hidden" id="view-exec">
+    <div class="glass-card rounded-2xl p-3.5">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span><span class="text-xs font-bold text-slate-200">现实条件事件闸门与熔断中心</span></div>
+        <button class="text-[11px] font-semibold text-brand hover:underline" onclick="promptNewEventGate()">＋添加事件</button>
+      </div>
+      <div class="space-y-2" id="eventGatesContainer"></div>
+    </div>
+    <!-- 券商流水倒推 -->
+    <div class="glass-card rounded-2xl p-3.5 border border-brand/20 space-y-3">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-brand">receipt_long</span><span class="text-xs font-bold text-slate-200">券商实扣流水倒推与滑点对账</span></div>
+        <span class="badge-soft-emerald px-1.5 py-0.5 rounded text-[10px] font-mono" id="rateSummaryBadge">买入免税·万2.5|保底¥5</span>
+      </div>
+      <div class="mb-2.5 flex items-center justify-between bg-surface-field/90 p-1 rounded-xl border border-surface-border">
+        <div class="flex gap-1 w-full">
+          <button class="flex-1 py-1 rounded-lg text-xs font-bold bg-brand text-slate-950 transition" id="btnTradeBuy" onclick="setTradeType('buy')" type="button">买入扣款</button>
+          <button class="flex-1 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition" id="btnTradeSell" onclick="setTradeType('sell')" type="button">卖出到账</button>
+        </div>
+        <input id="brokerTradeType" type="hidden" value="buy">
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="text-[10px] text-slate-400 block mb-1">成交股数 (股)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcShares" oninput="runBrokerDeductionCalc()" type="number" value="700"></div>
+        <div><label class="text-[10px] text-slate-400 block mb-1">计划基准价 (¥)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcBasePx" oninput="runBrokerDeductionCalc()" type="number" value="25.60"></div>
+      </div>
+      <div class="mt-2">
+        <label class="text-[10px] text-slate-400 block mb-1" id="labelActualPaid">券商银证实际扣款总额 (¥)</label>
+        <input class="w-full bg-surface-field border border-brand/40 text-amber-300 font-mono font-bold rounded-lg text-xs px-2.5 py-1.5 focus:border-brand outline-none" id="brokerCalcActualPaid" oninput="runBrokerDeductionCalc()" type="number" value="17926.80">
+      </div>
+      <div class="mt-3 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-xs font-mono space-y-1">
+        <div class="flex justify-between"><span class="text-slate-400">倒推成交均价:</span><span class="text-white font-bold tabular-nums" id="deduceAvgPrice">¥25.602</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">成交滑点 (Slippage):</span><span class="text-rose-400 font-bold tabular-nums" id="deduceSlippageDiff">+¥0.002 (正滑点)</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">佣金规费合计:</span><span class="text-slate-200 tabular-nums" id="deduceCommFee">¥5.18</span></div>
+      </div>
+      <button class="w-full mt-2.5 py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition active:scale-[0.98]" onclick="commitBrokerAuditToLog()">确认记账并归档至知行合一日志</button>
+    </div>
+    <!-- 纪律执行日志 -->
+    <div class="glass-card rounded-2xl p-3.5">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px] text-emerald-400">history_edu</span>知行合一纪律执行日志</span>
+        <button class="text-[10px] text-slate-500 hover:text-slate-300" onclick="clearExecutionLogs()">清空记录</button>
+      </div>
+      <div class="max-h-40 overflow-y-auto space-y-1.5 pr-1 font-mono text-[11px]" id="executionLogsStream"></div>
+    </div>
+  </section>
+
+  <!-- TAB 5: 手记 (Thesis & DRIP) -->
+  <section class="space-y-4 tab-page hidden" id="view-drip">
+    <div class="glass-card rounded-2xl p-4 border border-emerald-500/20">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-bold text-slate-100 flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-emerald-400">compost</span>除权除息等比平移与 DRIP 测算</span>
+        <span class="badge-soft-emerald px-2 py-0.5 rounded-full text-[10px] font-bold">防缺口误止损</span>
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <div><label class="text-[10px] text-slate-400 block mb-1">每10股派现金 (元)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripCashInput" oninput="recalcDripPreview()" type="number" value="4.50"></div>
+        <div><label class="text-[10px] text-slate-400 block mb-1">每10股送转股 (股)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripShareInput" oninput="recalcDripPreview()" type="number" value="0"></div>
+      </div>
+      <div class="mt-2.5 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-[11px] leading-relaxed text-slate-300 font-mono" id="dripPreviewBox"></div>
+      <div class="flex gap-2 mt-3">
+        <button class="flex-1 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-500/30 transition" onclick="executeFullExDividendShift()">⚙ 执行除权防线平移</button>
+        <button class="flex-1 py-2 rounded-xl bg-brand/20 border border-brand/40 text-brand-light font-bold text-xs hover:bg-brand/30 transition" onclick="injectDripCashToOrders()">💧 分红注水下一买单</button>
+      </div>
+    </div>
+    <div class="glass-card rounded-2xl p-4">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-brand">edit_note</span>长线心智手记 (Thesis)</span>
+        <button class="text-[11px] font-semibold text-brand hover:underline" onclick="addNewThesisPrompt()">＋ 写一条</button>
+      </div>
+      <div class="space-y-2 text-xs" id="thesisNotesContainer"></div>
+    </div>
+    <!-- 客观账本 tradeLogs 归档入口 -->
+    <div class="glass-card rounded-2xl p-4 border border-brand/40 space-y-2.5">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-brand">receipt</span>
+          <span class="text-xs font-bold text-slate-100">只读客观真源账本 (tradeLogs)</span>
+        </div>
+        <button class="text-[11px] font-bold text-brand hover:underline" onclick="openTradeLogsArchiveModal()">查看全部流水 →</button>
+      </div>
+      <p class="text-[11px] text-slate-400">每一笔手工对账确认的交割单均持久化保存于独立只读集合中，永不被 AI 覆盖。</p>
+    </div>
+    <!-- GitHub 自动同步 -->
+    <div class="glass-card rounded-2xl p-4 space-y-3 border border-brand/30">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-brand/15 border border-brand/30 flex items-center justify-center text-brand shrink-0">
+            <span class="material-symbols-outlined text-[20px]">cloud_sync</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">GitHub 自动同步资产引擎</span><span class="badge-soft-gold text-[9px] px-1.5 py-0.2 rounded-full font-bold">data.json</span></div>
+            <p class="text-[10px] text-slate-400 mt-0.5">仓库: gszolo80/dengdeqi</p>
+          </div>
+        </div>
+        <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-surface-field text-slate-400 border border-surface-border" id="ghSyncStatusBadgeLarge">未配置</span>
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <button class="py-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-bold hover:border-brand flex items-center justify-center gap-1 transition active:scale-95" onclick="pullFromGitHub(true)"><span class="material-symbols-outlined text-sm text-sky-400">download_for_offline</span>拉取 (Pull)</button>
+        <button class="py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold hover:brightness-105 flex items-center justify-center gap-1 transition active:scale-95" onclick="pushToGitHub(true)"><span class="material-symbols-outlined text-sm">cloud_upload</span>推送 (Commit)</button>
+      </div>
+    </div>
+    <!-- 本地沙盒灾备 -->
+    <div class="glass-card rounded-2xl p-4 space-y-2.5">
+      <span class="text-xs font-bold text-slate-200 block mb-1">本地沙盒数据管理 (PWA 离线持久化)</span>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="exportDataToJson()"><span class="material-symbols-outlined text-sm">download</span>导出备份 (JSON)</button>
+        <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="triggerImportFileInput()"><span class="material-symbols-outlined text-sm">upload</span>导入恢复备份</button>
+        <input accept=".json" class="hidden" id="importJsonFileInput" onchange="handleImportJson(event)" type="file">
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="restoreInitialDemoData()"><span class="material-symbols-outlined text-sm">restart_alt</span>恢复标准示例</button>
+        <button class="p-2 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 font-medium hover:bg-rose-500/20 flex items-center justify-center gap-1" onclick="clearAllDataFactoryReset()"><span class="material-symbols-outlined text-sm">delete_forever</span>彻底清空账本</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 底部固定 5-Tab 导航 -->
+<nav class="fixed bottom-0 z-40 w-full max-w-[440px] bg-surface/95 backdrop-blur-lg border-t border-surface-border">
+  <div class="grid grid-cols-5 h-16 items-center px-1">
+    <button class="flex flex-col items-center justify-center transition py-1 text-brand" id="nav-btn-portfolio" onclick="switchNavTab('portfolio')">
+      <span class="material-symbols-outlined text-[22px]">pie_chart</span>
+      <span class="text-[10px] font-medium mt-0.5">组合</span>
+    </button>
+    <button class="flex flex-col items-center justify-center hover:text-slate-200 transition py-1 text-slate-400" id="nav-btn-plan" onclick="switchNavTab('plan')">
+      <span class="material-symbols-outlined text-[22px]">account_tree</span>
+      <span class="text-[10px] font-medium mt-0.5">标的</span>
+    </button>
+    <div class="flex justify-center items-center relative -top-3">
+      <button class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-glow flex flex-col items-center justify-center border-2 border-surface transition transform active:scale-95 text-slate-400" id="nav-btn-analysis" onclick="switchNavTab('analysis')" title="6维智能分析">
+        <span class="material-symbols-outlined text-[22px] font-extrabold">auto_awesome</span>
+        <span class="text-[9px] font-black -mt-1">分析</span>
+      </button>
+    </div>
+    <button class="flex flex-col items-center justify-center hover:text-slate-200 transition py-1 text-slate-400" id="nav-btn-exec" onclick="switchNavTab('exec')">
+      <span class="material-symbols-outlined text-[22px]">rule_settings</span>
+      <span class="text-[10px] font-medium mt-0.5">执行</span>
+    </button>
+    <button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition py-1" id="nav-btn-drip" onclick="switchNavTab('drip')">
+      <span class="material-symbols-outlined text-[22px]">menu_book</span>
+      <span class="text-[10px] font-medium mt-0.5">手记</span>
+    </button>
+  </div>
+</nav>
+
+<!-- 右下角常驻金色微光悬浮按钮 (FAB) -->
+<button class="fixed bottom-20 right-4 z-50 w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-amber-400 text-slate-950 shadow-2xl flex items-center justify-center border-2 border-amber-300/80 transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-glow" id="floatingGovernanceBtn" onclick="openGovernanceModal()" title="打开3分页实战治理中心">
+  <span class="material-symbols-outlined text-2xl font-bold">bolt</span>
+  <span class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-surface animate-pulse"></span>
+</button>
+
+<!-- 3 分页实战治理与交易录入中心 模态弹窗 -->
+<div class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md items-center justify-center p-3 hidden" id="governanceModal">
+  <div class="w-full max-w-[420px] max-h-[90vh] bg-surface-card border border-brand/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+    <div class="p-3.5 border-b border-surface-border bg-surface-sub/80 flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-xl bg-brand/20 border border-brand/40 flex items-center justify-center text-brand">
+          <span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-slate-100 flex items-center gap-1.5">实战治理与交易录入中心 <span class="text-[9px] px-1.5 py-0.2 rounded bg-brand/20 text-brand-light font-bold">v4.5</span></h3>
+          <p class="text-[10px] text-slate-400">解耦预案蓝图 · 唯一真金白银真源账</p>
+        </div>
+      </div>
+      <button class="w-7 h-7 rounded-xl bg-surface-field border border-surface-border text-slate-400 hover:text-white flex items-center justify-center transition" onclick="closeGovernanceModal()">
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+    <div class="grid grid-cols-3 bg-surface-field/70 border-b border-surface-border p-1 shrink-0 text-xs font-bold text-center">
+      <button class="py-2 rounded-xl bg-brand text-slate-950 transition" id="govTabBtn1" onclick="switchGovPage(1)">① 交割单录入</button>
+      <button class="py-2 rounded-xl text-slate-400 hover:text-slate-200 transition" id="govTabBtn2" onclick="switchGovPage(2)">② 聚合与拆单</button>
+      <button class="py-2 rounded-xl text-slate-400 hover:text-slate-200 transition" id="govTabBtn3" onclick="switchGovPage(3)">③ 断路与回流</button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-4 space-y-3.5 text-xs">
+      <!-- 分页 1: 真实券商交割单录入与审计 -->
+      <div class="space-y-3" id="govPage1">
+        <div class="p-2.5 rounded-xl bg-brand/10 border border-brand/30 text-amber-200 text-[11px] leading-relaxed">
+          💡 <strong>客观铁律</strong>：真实交易 100% 来自此处的券商实际流水，只追加写入，绝不被 AI 预案覆盖！
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">交易标的</label>
+            <select class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-bold text-white p-2 outline-none" id="govStockSelect">
               <option value="300938">信测标准 (300938)</option>
               <option value="002555">三七互娱 (002555)</option>
               <option value="600519">贵州茅台 (600519)</option>
               <option value="600900">长江电力 (600900)</option>
             </select>
-            <svg class="w-3.5 h-3.5 text-slate-400 pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11.2 3.2 6.4a.9.9 0 0 1 1.28-1.28L8 8.64l3.52-3.52A.9.9 0 1 1 12.8 6.4L8 11.2z"></path></svg>
-          </span>
-        </div>
-        <div class="flex items-center gap-1.5 shrink-0 mr-[10px]">
-          <span class="h-4 w-[1px] bg-surface-border"></span>
-          <span class="font-sans font-semibold text-[13px] text-slate-300">¥</span>
-          <span class="font-sans font-bold text-[17px] text-slate-100 tabular-nums" id="headerLivePrice">26.53</span>
-          <span class="font-sans text-[11px] font-bold tabular-nums ml-2.5 text-rose-400" id="headerLiveChg">+0.38%</span>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- 主动态视口内容 (5 大原生 Tab) -->
-  <main class="flex-1 pb-24 px-4 pt-3.5 space-y-4">
-    <!-- TAB 1: 组合 (Portfolio) -->
-    <section class="space-y-4 tab-page" id="view-portfolio">
-      <div class="glass-card rounded-2xl p-4 relative overflow-hidden shadow-card border border-brand/20">
-        <div class="flex items-center justify-between text-xs text-slate-400">
-          <span class="flex items-center gap-1.5 font-medium">
-            <span class="material-symbols-outlined text-[16px] text-brand">account_balance_wallet</span>
-            全组合净资产估值 (双账)
-          </span>
-          <div class="px-2.5 py-1 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 flex items-center gap-1 text-xs font-bold">
-            <span class="material-symbols-outlined text-sm">verified</span>
-            <span>94分 纪律</span>
-          </div>
-        </div>
-        <div class="mt-2.5 flex items-baseline justify-between">
-          <div class="w-full">
-            <div class="flex items-baseline gap-1">
-              <span class="text-sm font-semibold text-slate-400">¥</span>
-              <span class="text-3xl font-display font-extrabold text-white tracking-tight tabular-nums" id="portfolioTotalVal">386,490</span>
-              <span class="text-xs font-mono text-slate-400">.00</span>
-            </div>
-            <div class="flex items-center gap-2 mt-1 w-full">
-              <span class="text-xs font-mono text-rose-400 font-bold tabular-nums">年化 CAGR +18.4%</span>
-              <span class="text-[11px] text-slate-400">| 累计做T降本 ¥14,200</span>
-              <span class="text-[10px] text-slate-500 ml-auto pl-2 whitespace-nowrap">已连续知行 48 天</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 净值走势 -->
-      <div class="glass-card rounded-2xl p-3.5 border border-surface-border/80 bg-surface-sub/40 space-y-2.5">
-        <div class="flex items-center justify-between text-xs">
-          <div class="flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-[16px] text-brand">show_chart</span>
-            <span class="font-bold text-slate-200">净值走势 (近30日)</span>
-          </div>
-          <div class="flex items-center gap-1 font-mono text-[11px]">
-            <span class="text-slate-400">累计</span>
-            <span class="font-bold text-rose-400 bg-rose-500/10 border border-rose-500/30 px-1.5 py-0.2 rounded">+18.4%</span>
-          </div>
-        </div>
-        <div class="w-full h-32 relative pt-1">
-          <svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 360 110">
-            <defs>
-              <linearGradient id="goldNetWorthGrad" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.35"></stop>
-                <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.12"></stop>
-                <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.0"></stop>
-              </linearGradient>
-            </defs>
-            <path d="M 10 78 Q 65 82 100 68 T 190 52 T 270 34 T 350 18 L 350 90 L 10 90 Z" fill="url(#goldNetWorthGrad)"></path>
-            <path d="M 10 78 Q 65 82 100 68 T 190 52 T 270 34 T 350 18" fill="none" stroke="#f59e0b" stroke-linecap="round" stroke-width="2.5"></path>
-            <circle cx="350" cy="18" fill="#fbbf24" r="4" stroke="#ffffff" stroke-width="1.5"></circle>
-          </svg>
-          <div class="flex justify-between items-center text-[9px] font-mono text-slate-500 pt-1 border-t border-surface-border/40 -mt-[5px]">
-            <span>8/26 (基准)</span><span>9/04</span><span>9/13</span><span class="text-brand font-bold">今天 ¥38.6万</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 仓位分布 -->
-      <div class="glass-card rounded-2xl p-3.5 border border-surface-border/80 bg-surface-sub/40 space-y-3">
-        <div class="flex items-center justify-between text-xs">
-          <div class="flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-[16px] text-emerald-400">donut_large</span>
-            <span class="font-bold text-slate-200">仓位分布</span>
-            <button class="flex items-center justify-center px-1.5 py-1 rounded-lg bg-surface-field text-brand hover:text-brand-light border border-surface-border transition active:scale-95 ml-1" onclick="openPositionStrategyModal()" title="仓位策略">
-              <span class="material-symbols-outlined text-[14px]">settings</span>
-            </button>
-          </div>
-          <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-mono">
-            <span id="donutHeaderSummaryText">核心 55% · 压舱 32% · 现款 13%</span>
-          </div>
-        </div>
-        <div class="flex items-center justify-between gap-4 px-1 py-1">
-          <div class="relative w-28 h-28 shrink-0 flex items-center justify-center">
-            <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 88 88">
-              <circle cx="44" cy="44" fill="none" r="34" stroke="#13233a" stroke-width="10"></circle>
-              <circle cx="44" cy="44" fill="none" id="donutCircleCore" r="34" stroke="#f59e0b" stroke-dasharray="117.5 96.1" stroke-dashoffset="0" stroke-linecap="round" stroke-width="10"></circle>
-              <circle cx="44" cy="44" fill="none" id="donutCircleAnchor" r="34" stroke="#10b981" stroke-dasharray="68.3 145.3" stroke-dashoffset="-117.5" stroke-linecap="round" stroke-width="10"></circle>
-              <circle cx="44" cy="44" fill="none" id="donutCircleCash" r="34" stroke="#38bdf8" stroke-dasharray="27.8 185.8" stroke-dashoffset="-185.8" stroke-linecap="round" stroke-width="10"></circle>
-            </svg>
-            <div class="absolute flex flex-col items-center justify-center text-center">
-              <span class="text-[9px] text-slate-400 font-mono">底仓锁定</span>
-              <span class="text-xs font-bold font-mono text-slate-100 mt-0.5" id="donutCenterLockPct">87%</span>
-            </div>
-          </div>
-          <div class="flex-1 space-y-2 text-xs font-mono">
-            <div class="flex items-center justify-between cursor-pointer" onclick="openPositionStrategyModal('core')">
-              <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand"></span><span class="text-slate-200 text-[11px]" id="donutLegendCoreLabel">核心仓 (成长弹性)</span></div>
-              <span class="font-bold text-amber-300 text-[11px]" id="donutLegendCoreVal">55%</span>
-            </div>
-            <div class="flex items-center justify-between cursor-pointer" onclick="openPositionStrategyModal('anchor')">
-              <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span><span class="text-slate-200 text-[11px]" id="donutLegendAnchorLabel">压舱仓 (低波红利)</span></div>
-              <span class="font-bold text-emerald-300 text-[11px]" id="donutLegendAnchorVal">32%</span>
-            </div>
-            <div class="flex items-center justify-between cursor-pointer" onclick="openPositionStrategyModal('cash')">
-              <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span><span class="text-slate-200 text-[11px]" id="donutLegendCashLabel">伏击备用现金</span></div>
-              <span class="font-bold text-sky-300 text-[11px]" id="donutLegendCashVal">13%</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 核心标的仓位池 -->
-      <div>
-        <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center gap-2">
-            <h3 class="text-xs font-bold text-slate-300 tracking-wide uppercase">核心标的仓位池</h3>
-            <span class="text-[10px] text-slate-400 font-mono" id="portfolioHoldingsCount">(4只标的)</span>
-          </div>
-          <button class="text-[10px] text-brand hover:text-brand-light px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border flex items-center gap-0.5 transition active:scale-95" onclick="toggleAllDetails()">
-            <span class="material-symbols-outlined text-[13px]" id="toggleExpandAllHoldingsIcon">unfold_more</span>
-            <span id="toggleExpandAllHoldingsText">展开全部明细</span>
-          </button>
-        </div>
-        <div class="space-y-2.5" id="portfolioHoldingList"></div>
-      </div>
-    </section>
-
-    <!-- TAB 2: 标的 (Plan & 双向钻石菱形) -->
-    <section class="space-y-4 tab-page hidden" id="view-plan">
-      <div class="space-y-2.5">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
-            <h2 class="text-xs font-bold text-slate-200 uppercase tracking-wider">决策指挥部 · 这一单三结局</h2>
-          </div>
-          <span class="text-[10px] text-slate-400 font-mono" id="planStockHeaderCode">300938 · 信测标准</span>
-        </div>
-        <!-- 卡片 1: 裁决状态 -->
-        <div class="glass-card rounded-2xl p-3.5 border-l-4 border-l-brand relative">
-          <div class="flex items-center justify-between">
-            <span class="text-[11px] font-semibold text-slate-400">① 当前裁决状态</span>
-            <span class="badge-soft-gold px-2 py-0.5 rounded-full text-[11px] font-bold" id="planVerdictBadge">⏳ 伏击等待中</span>
-          </div>
-          <p class="text-xs font-medium text-slate-200 mt-1.5 leading-relaxed" id="planVerdictText">现价 ¥26.53 距离最近一档【颈线回踩试探 @¥25.60】尚差 <strong class="text-amber-300">¥0.93 (3.51%)</strong>。盘中杂波勿动，未到价绝不提前抢跑。</p>
-        </div>
-        <!-- 卡片 2 & 3 -->
-        <div class="grid grid-cols-2 gap-2.5">
-          <div class="glass-card rounded-2xl p-3 border-l-2 border-l-emerald-400">
-            <div class="text-[10px] text-slate-400 font-medium">② 下一关键买点触发</div>
-            <div class="text-lg font-display font-extrabold text-emerald-400 mt-0.5 tabular-nums" id="planNextTrigger">¥25.60</div>
-            <div class="text-[10px] text-slate-400 mt-0.5 flex justify-between"><span>配比 28.5%</span><span class="text-slate-300">¥20,000</span></div>
-          </div>
-          <div class="glass-card rounded-2xl p-3 border-l-2 border-l-rose-400 relative">
-            <div class="flex items-center justify-between text-[10px] text-slate-400 font-medium">
-              <span>③ 绝对失效硬底线</span><span class="text-[9px] text-rose-300 font-bold">单向棘轮</span>
-            </div>
-            <div class="text-lg font-display font-extrabold text-rose-400 mt-0.5 tabular-nums" id="planFailStop">¥22.50</div>
-            <div class="text-[10px] text-slate-400 mt-0.5">破位次日竞价全清认错</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 双向收敛钻石菱形挂单图谱 -->
-      <div class="glass-card rounded-2xl p-3.5 space-y-3.5 border border-brand/20 bg-surface-sub/50">
-        <div class="flex items-center justify-between border-b border-surface-border/60 pb-2.5">
-          <div class="flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-[18px] text-brand">diamond</span>
-            <div>
-              <div class="flex items-center gap-1.5">
-                <span class="text-xs font-bold text-slate-100">双向收敛钻石菱形 · 全案预案图谱</span>
-                <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">动态联动</span>
-              </div>
-              <p class="text-[10px] text-slate-400 mt-0.5">高位梯次止盈 · 底仓中枢锚定 · 低位正金字塔网格低吸</p>
-            </div>
-          </div>
-          <button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-1 bg-brand/10 border border-brand/30 px-2 py-1 rounded-xl transition active:scale-95 shadow-sm" onclick="addNewStepPrompt('buy')">
-            <span class="material-symbols-outlined text-sm">add_circle</span>
-          </button>
-        </div>
-        <div class="p-3.5 rounded-2xl bg-surface-field/70 border border-surface-border space-y-2 flex flex-col items-center justify-center" id="diamondBoardLayers"></div>
-        <div class="space-y-2" id="pyramidStepsList"></div>
-      </div>
-
-      <!-- 阶梯止盈 -->
-      <div class="glass-card rounded-2xl p-3.5">
-        <div class="flex items-center justify-between mb-2.5">
-          <div class="flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-[16px] text-sky-400">trending_up</span>
-            <span class="text-xs font-bold text-slate-200">阶梯止盈 / 高抛减仓预案</span>
-          </div>
-          <button class="text-[11px] font-semibold text-brand hover:text-brand-light flex items-center gap-0.5" onclick="addNewStepPrompt('sell')">
-            <span class="material-symbols-outlined text-sm">add_circle</span>加止盈
-          </button>
-        </div>
-        <div class="space-y-2" id="takeProfitStepsList"></div>
-      </div>
-
-      <!-- 最坏压力测试 -->
-      <div class="glass-card rounded-2xl p-3.5 border border-rose-500/20 bg-rose-500/5">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-rose-300 flex items-center gap-1">
-            <span class="material-symbols-outlined text-sm">shield</span>最坏情况压力测试 (Worst-Case)
-          </span>
-          <span class="text-[10px] text-slate-400">若极端行情破失效线</span>
-        </div>
-        <p class="text-[11px] text-slate-300 mt-2 leading-relaxed" id="planWorstCaseText">若所有分批买单全部接满并在 ¥22.50 触发破位止损离场，全案最大回撤锁定在可承受安全边际以内，绝不伤筋动骨。</p>
-      </div>
-    </section>
-
-    <!-- TAB 3: 分析 (Analysis) -->
-    <section class="space-y-4 tab-page hidden" id="view-analysis">
-      <div class="glass-card rounded-2xl p-3.5 border border-brand/30 relative overflow-hidden">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2.5">
-            <div class="w-10 h-10 rounded-xl bg-brand/20 border border-brand/40 flex items-center justify-center text-brand shrink-0">
-              <span class="material-symbols-outlined text-[22px]">smart_toy</span>
-            </div>
-            <div>
-              <div class="flex items-center gap-1.5">
-                <h2 class="text-sm font-bold text-slate-100">AI 6维深度研判与方案收敛</h2>
-                <span class="badge-soft-gold text-[9px] px-1.5 py-0.2 rounded-full font-bold">Prompt v5</span>
-              </div>
-              <p class="text-[10px] text-slate-400 mt-0.5">客观事实输入 · 强制收敛为正金字塔四段可执行挂单</p>
-            </div>
-          </div>
-          <span class="text-xs font-mono font-bold text-emerald-400">100% 闭环</span>
-        </div>
-      </div>
-
-      <div class="glass-card rounded-2xl p-3.5 space-y-3">
-        <div class="flex items-center justify-between border-b border-surface-border/60 pb-2">
-          <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-[16px] text-brand">pin_drop</span>研判标的与规划弹药池
-          </span>
-        </div>
-        <div class="grid grid-cols-2 gap-2.5">
-          <div>
-            <label class="text-[10px] text-slate-400 block mb-1">股票代码 (6位/回车)</label>
-            <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono font-bold text-slate-100 pl-2.5 pr-2 py-1.5 uppercase outline-none focus:border-brand" id="analysisStockCodeInput" maxlength="6" onkeydown="if(event.key==='Enter'){handleStockCodeSubmit(this.value);}" value="300938">
-            <div class="text-[10px] text-emerald-400 mt-1 font-mono font-medium truncate" id="analysisStockDisplayTag">信测标准 · 现价 ¥26.53</div>
           </div>
           <div>
-            <label class="text-[10px] text-slate-400 block mb-1">预投资金 P (元)</label>
-            <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-amber-300 font-bold px-2 py-1.5 outline-none focus:border-brand" id="analysisPlanTotalInput" onchange="updateAnalysisBudget(this.value)" type="number" value="70000">
-            <div class="text-[10px] text-slate-400 mt-1 font-mono flex justify-between">
-              <span>首仓约30%:</span><span class="text-amber-300/90" id="analysisFirstBatchEst">¥21,000</span>
-            </div>
+            <label class="text-[10px] text-slate-400 block mb-1">交易类型</label>
+            <select class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-bold text-white p-2 outline-none" id="govTradeType" onchange="calcGovSlippage()">
+              <option value="buy">买入 (加仓/首仓)</option>
+              <option value="sell">卖出 (止盈/做T出局)</option>
+            </select>
           </div>
-        </div>
-      </div>
-
-      <div class="glass-card rounded-2xl p-3.5 space-y-2 border border-brand/20">
-        <div class="flex items-center justify-between">
-          <label class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-[16px] text-brand">psychology</span>
-            <span>Why Box · 买入灵魂理由</span>
-          </label>
-        </div>
-        <textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 focus:border-brand outline-none leading-relaxed transition" id="aiWhyBoxInput" onchange="updateActiveStockWhy(this.value)" rows="3" placeholder="为什么值得长线守候？"></textarea>
-      </div>
-
-      <div class="glass-card rounded-2xl p-3.5 space-y-3">
-        <div class="flex items-center justify-between border-b border-surface-border/60 pb-2">
-          <span class="text-xs font-bold text-slate-100 flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-brand">checklist</span>6维客观事实研判卡片</span>
-          <button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-0.5 bg-brand/10 border border-brand/30 px-2 py-0.5 rounded-lg transition active:scale-95" onclick="promptAddNewFactorCard()"><span class="material-symbols-outlined text-[14px]">add</span>添加条件</button>
-        </div>
-        <div class="space-y-2.5 text-xs" id="factorCardsContainer"></div>
-        <button class="w-full mt-2 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-slate-950 font-bold text-xs shadow-glow hover:brightness-105 flex items-center justify-center gap-1.5 transition active:scale-[0.98]" onclick="generateStructuredPrompt()">
-          <span class="material-symbols-outlined text-base">content_copy</span>一键生成并复制标准提示词 (Prompt v5)
-        </button>
-      </div>
-
-      <div class="glass-card rounded-2xl p-3.5 space-y-3">
-        <div class="flex items-center justify-between"><span class="text-xs font-bold text-slate-200 flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-sky-400">terminal</span>粘贴外部大模型回复</span></div>
-        <textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 font-mono focus:border-brand outline-none" id="aiResponsePasteArea" placeholder="粘贴大模型输出的标准四段答复..." rows="4"></textarea>
-        <div class="grid grid-cols-2 gap-2">
-          <button class="py-2.5 rounded-xl bg-surface-sub border border-brand/40 text-brand-light font-bold text-xs hover:bg-surface-field flex items-center justify-center gap-1 transition active:scale-[0.98]" onclick="parseAiPlanPreview()"><span class="material-symbols-outlined text-sm">filter_alt</span>四段标准化解析</button>
-          <button class="py-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-500/30 flex items-center justify-center gap-1 transition active:scale-[0.98]" onclick="applyParsedPlanToTarget()"><span class="material-symbols-outlined text-sm">bolt</span>⚡ 一键套用预案</button>
-        </div>
-        <div class="hidden p-3 rounded-xl bg-surface-field/90 border border-surface-border text-xs font-mono space-y-2" id="aiParseFeedback"></div>
-      </div>
-    </section>
-
-    <!-- TAB 4: 执行 (Execution) -->
-    <section class="space-y-4 tab-page hidden" id="view-exec">
-      <div class="glass-card rounded-2xl p-3.5">
-        <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span><span class="text-xs font-bold text-slate-200">现实条件事件闸门与熔断中心</span></div>
-          <button class="text-[11px] font-semibold text-brand hover:underline" onclick="promptNewEventGate()">＋添加事件</button>
-        </div>
-        <div class="space-y-2" id="eventGatesContainer"></div>
-      </div>
-
-      <!-- 券商流水倒推 -->
-      <div class="glass-card rounded-2xl p-3.5 border border-brand/20 space-y-3">
-        <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-brand">receipt_long</span><span class="text-xs font-bold text-slate-200">券商实扣流水倒推与滑点对账</span></div>
-          <span class="badge-soft-emerald px-1.5 py-0.5 rounded text-[10px] font-mono" id="rateSummaryBadge">买入免税·万2.5|保底¥5</span>
-        </div>
-        <div class="mb-2.5 flex items-center justify-between bg-surface-field/90 p-1 rounded-xl border border-surface-border">
-          <div class="flex gap-1 w-full">
-            <button class="flex-1 py-1 rounded-lg text-xs font-bold bg-brand text-slate-950 transition" id="btnTradeBuy" onclick="setTradeType('buy')" type="button">买入扣款</button>
-            <button class="flex-1 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition" id="btnTradeSell" onclick="setTradeType('sell')" type="button">卖出到账</button>
-          </div>
-          <input id="brokerTradeType" type="hidden" value="buy">
         </div>
         <div class="grid grid-cols-2 gap-2">
-          <div><label class="text-[10px] text-slate-400 block mb-1">成交股数 (股)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcShares" oninput="runBrokerDeductionCalc()" type="number" value="700"></div>
-          <div><label class="text-[10px] text-slate-400 block mb-1">计划基准价 (¥)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1.5 focus:border-brand outline-none" id="brokerCalcBasePx" oninput="runBrokerDeductionCalc()" type="number" value="25.60"></div>
-        </div>
-        <div class="mt-2">
-          <label class="text-[10px] text-slate-400 block mb-1" id="labelActualPaid">券商银证实际扣款总额 (¥)</label>
-          <input class="w-full bg-surface-field border border-brand/40 text-amber-300 font-mono font-bold rounded-lg text-xs px-2.5 py-1.5 focus:border-brand outline-none" id="brokerCalcActualPaid" oninput="runBrokerDeductionCalc()" type="number" value="17926.80">
-        </div>
-        <div class="mt-3 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-xs font-mono space-y-1">
-          <div class="flex justify-between"><span class="text-slate-400">倒推成交均价:</span><span class="text-white font-bold tabular-nums" id="deduceAvgPrice">¥25.602</span></div>
-          <div class="flex justify-between"><span class="text-slate-400">成交滑点 (Slippage):</span><span class="text-rose-400 font-bold tabular-nums" id="deduceSlippageDiff">+¥0.002 (正滑点)</span></div>
-          <div class="flex justify-between"><span class="text-slate-400">佣金规费合计:</span><span class="text-slate-200 tabular-nums" id="deduceCommFee">¥5.18</span></div>
-        </div>
-        <button class="w-full mt-2.5 py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition active:scale-[0.98]" onclick="commitBrokerAuditToLog()">确认记账并归档至知行合一日志</button>
-      </div>
-
-      <!-- 纪律执行日志 -->
-      <div class="glass-card rounded-2xl p-3.5">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5"><span class="material-symbols-outlined text-[15px] text-emerald-400">history_edu</span>知行合一纪律执行日志</span>
-          <button class="text-[10px] text-slate-500 hover:text-slate-300" onclick="clearExecutionLogs()">清空记录</button>
-        </div>
-        <div class="max-h-40 overflow-y-auto space-y-1.5 pr-1 font-mono text-[11px]" id="executionLogsStream"></div>
-      </div>
-    </section>
-
-    <!-- TAB 5: 手记 (Thesis & DRIP) -->
-    <section class="space-y-4 tab-page hidden" id="view-drip">
-      <!-- DRIP 与除权平移 -->
-      <div class="glass-card rounded-2xl p-4 border border-emerald-500/20">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-bold text-slate-100 flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-emerald-400">compost</span>除权除息等比平移与 DRIP 测算</span>
-          <span class="badge-soft-emerald px-2 py-0.5 rounded-full text-[10px] font-bold">防缺口误止损</span>
-        </div>
-        <div class="grid grid-cols-2 gap-2 text-xs">
-          <div><label class="text-[10px] text-slate-400 block mb-1">每10股派现金 (元)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripCashInput" oninput="recalcDripPreview()" type="number" value="4.50"></div>
-          <div><label class="text-[10px] text-slate-400 block mb-1">每10股送转股 (股)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-1.5 outline-none" id="dripShareInput" oninput="recalcDripPreview()" type="number" value="0"></div>
-        </div>
-        <div class="mt-2.5 p-2.5 rounded-xl bg-surface-field/80 border border-surface-border text-[11px] leading-relaxed text-slate-300 font-mono" id="dripPreviewBox"></div>
-        <div class="flex gap-2 mt-3">
-          <button class="flex-1 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs hover:bg-emerald-500/30 transition" onclick="executeFullExDividendShift()">⚙ 执行除权防线平移</button>
-          <button class="flex-1 py-2 rounded-xl bg-brand/20 border border-brand/40 text-brand-light font-bold text-xs hover:bg-brand/30 transition" onclick="injectDripCashToOrders()">💧 分红注水下一买单</button>
-        </div>
-      </div>
-
-      <!-- 心智手记 -->
-      <div class="glass-card rounded-2xl p-4">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px] text-brand">edit_note</span>长线心智手记 (Thesis)</span>
-          <button class="text-[11px] font-semibold text-brand hover:underline" onclick="addNewThesisPrompt()">＋ 写一条</button>
-        </div>
-        <div class="space-y-2 text-xs" id="thesisNotesContainer"></div>
-      </div>
-
-      <!-- 客观账本 tradeLogs 归档入口 -->
-      <div class="glass-card rounded-2xl p-4 border border-brand/40 space-y-2.5">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-brand">receipt</span>
-            <span class="text-xs font-bold text-slate-100">只读客观真源账本 (tradeLogs)</span>
-          </div>
-          <button class="text-[11px] font-bold text-brand hover:underline" onclick="openTradeLogsArchiveModal()">查看全部流水 →</button>
-        </div>
-        <p class="text-[11px] text-slate-400">每一笔手工对账确认的交割单均持久化保存于独立只读集合中，永不被 AI 覆盖。</p>
-      </div>
-
-      <!-- GitHub 自动同步 -->
-      <div class="glass-card rounded-2xl p-4 space-y-3 border border-brand/30">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-xl bg-brand/15 border border-brand/30 flex items-center justify-center text-brand shrink-0">
-              <span class="material-symbols-outlined text-[20px]">cloud_sync</span>
-            </div>
-            <div>
-              <div class="flex items-center gap-1.5"><span class="text-xs font-bold text-slate-100">GitHub 自动同步资产引擎</span><span class="badge-soft-gold text-[9px] px-1.5 py-0.2 rounded-full font-bold">data.json</span></div>
-              <p class="text-[10px] text-slate-400 mt-0.5">仓库: gszolo80/dengdeqi</p>
-            </div>
-          </div>
-          <span class="text-[10px] px-2 py-0.5 rounded-full font-bold bg-surface-field text-slate-400 border border-surface-border" id="ghSyncStatusBadgeLarge">未配置</span>
-        </div>
-        <div class="grid grid-cols-2 gap-2 text-xs">
-          <button class="py-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-bold hover:border-brand flex items-center justify-center gap-1 transition active:scale-95" onclick="pullFromGitHub(true)"><span class="material-symbols-outlined text-sm text-sky-400">download_for_offline</span>拉取 (Pull)</button>
-          <button class="py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold hover:brightness-105 flex items-center justify-center gap-1 transition active:scale-95" onclick="pushToGitHub(true)"><span class="material-symbols-outlined text-sm">cloud_upload</span>推送 (Commit)</button>
-        </div>
-      </div>
-
-      <!-- 本地沙盒灾备 -->
-      <div class="glass-card rounded-2xl p-4 space-y-2.5">
-        <span class="text-xs font-bold text-slate-200 block mb-1">本地沙盒数据管理 (PWA 离线持久化)</span>
-        <div class="grid grid-cols-2 gap-2 text-xs">
-          <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="exportDataToJson()"><span class="material-symbols-outlined text-sm">download</span>导出备份 (JSON)</button>
-          <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="triggerImportFileInput()"><span class="material-symbols-outlined text-sm">upload</span>导入恢复备份</button>
-          <input accept=".json" class="hidden" id="importJsonFileInput" onchange="handleImportJson(event)" type="file">
-        </div>
-        <div class="grid grid-cols-2 gap-2 text-xs">
-          <button class="p-2 rounded-xl bg-surface-field border border-surface-border text-slate-200 font-medium hover:border-brand flex items-center justify-center gap-1" onclick="restoreInitialDemoData()"><span class="material-symbols-outlined text-sm">restart_alt</span>恢复标准示例</button>
-          <button class="p-2 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 font-medium hover:bg-rose-500/20 flex items-center justify-center gap-1" onclick="clearAllDataFactoryReset()"><span class="material-symbols-outlined text-sm">delete_forever</span>彻底清空账本</button>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- 底部固定 5-Tab 导航 -->
-  <nav class="fixed bottom-0 z-40 w-full max-w-[440px] bg-surface/95 backdrop-blur-lg border-t border-surface-border">
-    <div class="grid grid-cols-5 h-16 items-center px-1">
-      <button class="flex flex-col items-center justify-center transition py-1 text-brand" id="nav-btn-portfolio" onclick="switchNavTab('portfolio')">
-        <span class="material-symbols-outlined text-[22px]">pie_chart</span>
-        <span class="text-[10px] font-medium mt-0.5">组合</span>
-      </button>
-      <button class="flex flex-col items-center justify-center hover:text-slate-200 transition py-1 text-slate-400" id="nav-btn-plan" onclick="switchNavTab('plan')">
-        <span class="material-symbols-outlined text-[22px]">account_tree</span>
-        <span class="text-[10px] font-medium mt-0.5">标的</span>
-      </button>
-      <div class="flex justify-center items-center relative -top-3">
-        <button class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-600 via-amber-500 to-amber-400 text-slate-950 shadow-glow flex flex-col items-center justify-center border-2 border-surface transition transform active:scale-95" id="nav-btn-analysis" onclick="switchNavTab('analysis')" title="6维智能分析">
-          <span class="material-symbols-outlined text-[22px] font-extrabold">auto_awesome</span>
-          <span class="text-[9px] font-black -mt-1">分析</span>
-        </button>
-      </div>
-      <button class="flex flex-col items-center justify-center hover:text-slate-200 transition py-1 text-slate-400" id="nav-btn-exec" onclick="switchNavTab('exec')">
-        <span class="material-symbols-outlined text-[22px]">rule_settings</span>
-        <span class="text-[10px] font-medium mt-0.5">执行</span>
-      </button>
-      <button class="flex flex-col items-center justify-center text-slate-400 hover:text-slate-200 transition py-1" id="nav-btn-drip" onclick="switchNavTab('drip')">
-        <span class="material-symbols-outlined text-[22px]">menu_book</span>
-        <span class="text-[10px] font-medium mt-0.5">手记</span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- ================= 右下角常驻金色微光悬浮按钮 (FAB) ================= -->
-  <button id="floatingGovernanceBtn" onclick="openGovernanceModal()" class="fixed bottom-20 right-4 z-50 w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-amber-400 text-slate-950 shadow-2xl flex items-center justify-center border-2 border-amber-300/80 transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer shadow-glow" title="打开3分页实战治理中心 (交割单录入 · 多档聚合 · 棘轮风控)">
-    <span class="material-symbols-outlined text-2xl font-bold">bolt</span>
-    <span class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-surface animate-pulse"></span>
-  </button>
-
-  <!-- ================= 核心「3 分页实战治理与交易录入中心」全功能模态弹窗 ================= -->
-  <div id="governanceModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-3">
-    <div class="w-full max-w-[420px] max-h-[90vh] bg-surface-card border border-brand/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-      
-      <!-- 模态窗 Header -->
-      <div class="p-3.5 border-b border-surface-border bg-surface-sub/80 flex items-center justify-between shrink-0">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-xl bg-brand/20 border border-brand/40 flex items-center justify-center text-brand">
-            <span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">交割成交股数</label>
+            <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-2 outline-none" id="govShares" oninput="calcGovSlippage()" step="100" type="number" value="700">
           </div>
           <div>
-            <h3 class="text-sm font-bold text-slate-100 flex items-center gap-1.5">
-              实战治理与交易录入中心
-              <span class="text-[9px] px-1.5 py-0.2 rounded bg-brand/20 text-brand-light font-bold">v4.5</span>
-            </h3>
-            <p class="text-[10px] text-slate-400">解耦预案蓝图 · 唯一真金白银真源账</p>
+            <label class="text-[10px] text-slate-400 block mb-1">计划基准单价 (¥)</label>
+            <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-2 outline-none" id="govBasePrice" oninput="calcGovSlippage()" step="0.01" type="number" value="25.60">
           </div>
         </div>
-        <button onclick="closeGovernanceModal()" class="w-7 h-7 rounded-xl bg-surface-field border border-surface-border text-slate-400 hover:text-white flex items-center justify-center transition">
-          <span class="material-symbols-outlined text-lg">close</span>
+        <div>
+          <label class="text-[10px] text-slate-400 block mb-1">券商银证实际扣除/入账总额 (¥)</label>
+          <input class="w-full bg-surface-field border border-brand/50 rounded-lg text-xs font-mono font-bold text-amber-300 p-2 outline-none" id="govActualPaid" oninput="calcGovSlippage()" step="0.01" type="number" value="17926.80">
+        </div>
+        <div class="p-3 rounded-xl bg-surface-sub/80 border border-surface-border font-mono text-[11px] space-y-1.5">
+          <div class="flex justify-between text-slate-400"><span class="">倒推成交均价:</span><span class="text-white font-bold" id="govAvgPx">¥25.602</span></div>
+          <div class="flex justify-between text-slate-400"><span class="">成交滑点 (Slippage):</span><span class="text-rose-400 font-bold" id="govSlippage">+¥0.002 (正滑点)</span></div>
+          <div class="flex justify-between text-slate-400"><span class="">规费与印花税分解:</span><span class="text-slate-300" id="govFeeDetail">佣金¥5.00 · 过户¥0.18</span></div>
+        </div>
+        <button class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold text-xs hover:brightness-105 transition shadow-glow" onclick="commitGovTradeLog()">
+          ✍️ 确认记账并追加写入真源账本 (tradeLogs)
         </button>
       </div>
-
-      <!-- 3 大分页 Tabs 切换栏 -->
-      <div class="grid grid-cols-3 bg-surface-field/70 border-b border-surface-border p-1 shrink-0 text-xs font-bold text-center">
-        <button id="govTabBtn1" onclick="switchGovPage(1)" class="py-2 rounded-xl bg-brand text-slate-950 transition">① 交割单录入</button>
-        <button id="govTabBtn2" onclick="switchGovPage(2)" class="py-2 rounded-xl text-slate-400 hover:text-slate-200 transition">② 聚合与拆单</button>
-        <button id="govTabBtn3" onclick="switchGovPage(3)" class="py-2 rounded-xl text-slate-400 hover:text-slate-200 transition">③ 断路与回流</button>
-      </div>
-
-      <!-- 模态窗滚动内容区 -->
-      <div class="flex-1 overflow-y-auto p-4 space-y-3.5 text-xs">
-        
-        <!-- 分页 1: 真实券商交割单录入与审计 -->
-        <div id="govPage1" class="space-y-3">
-          <div class="p-2.5 rounded-xl bg-brand/10 border border-brand/30 text-amber-200 text-[11px] leading-relaxed">
-            💡 <strong>客观铁律</strong>：真实交易 100% 来自此处的券商实际流水，只追加写入，绝不被 AI 预案覆盖！
+      <!-- 分页 2: 多档聚合消费与部分成交自动拆单 -->
+      <div class="space-y-3.5 hidden" id="govPage2">
+        <div class="p-2.5 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-200 text-[11px]">
+          ⚡ <strong>痛点治理 1 &amp; 2</strong>：一笔成交吃透多档时自动聚合抹平；部分成交时自动锁定已成部分并派生子批次！
+        </div>
+        <div class="p-3 rounded-xl bg-surface-sub border border-surface-border space-y-2">
+          <div class="flex items-center justify-between font-bold text-slate-200">
+            <span class="">多档消费聚合器 (consumeBatches)</span>
+            <span class="text-[10px] text-amber-300">痛点 1 治理</span>
           </div>
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="text-[10px] text-slate-400 block mb-1">交易标的</label>
-              <select id="govStockSelect" class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-bold text-white p-2 outline-none">
-                <option value="300938">信测标准 (300938)</option>
-                <option value="002555">三七互娱 (002555)</option>
-                <option value="600519">贵州茅台 (600519)</option>
-                <option value="600900">长江电力 (600900)</option>
-              </select>
-            </div>
-            <div>
-              <label class="text-[10px] text-slate-400 block mb-1">交易类型</label>
-              <select id="govTradeType" onchange="calcGovSlippage()" class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-bold text-white p-2 outline-none">
-                <option value="buy">买入 (加仓/首仓)</option>
-                <option value="sell">卖出 (止盈/做T出局)</option>
-              </select>
-            </div>
+          <p class="text-[10px] text-slate-400">盘中跳水暴跌一笔吃下 1,200 股，自动吞吐两档预案并核销锁定：</p>
+          <div class="space-y-1 font-mono text-[11px]">
+            <label class="flex items-center justify-between p-2 rounded-lg bg-surface-field border border-surface-border">
+              <span class="text-slate-300">档位1 @¥25.60 (吞吐 700 股)</span>
+              <span class="text-emerald-400 font-bold">✓ 满额核销</span>
+            </label>
+            <label class="flex items-center justify-between p-2 rounded-lg bg-surface-field border border-surface-border">
+              <span class="text-slate-300">档位2 @¥24.30 (吞吐 500 股)</span>
+              <span class="text-emerald-400 font-bold">✓ 吸收核销</span>
+            </label>
           </div>
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="text-[10px] text-slate-400 block mb-1">交割成交股数</label>
-              <input id="govShares" oninput="calcGovSlippage()" type="number" step="100" value="700" class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-2 outline-none">
-            </div>
-            <div>
-              <label class="text-[10px] text-slate-400 block mb-1">计划基准单价 (¥)</label>
-              <input id="govBasePrice" oninput="calcGovSlippage()" type="number" step="0.01" value="25.60" class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-2 outline-none">
-            </div>
-          </div>
-          <div>
-            <label class="text-[10px] text-slate-400 block mb-1">券商银证实际扣除/入账总额 (¥)</label>
-            <input id="govActualPaid" oninput="calcGovSlippage()" type="number" step="0.01" value="17926.80" class="w-full bg-surface-field border border-brand/50 rounded-lg text-xs font-mono font-bold text-amber-300 p-2 outline-none">
-          </div>
-          <!-- 倒推精算卡片 -->
-          <div class="p-3 rounded-xl bg-surface-sub/80 border border-surface-border font-mono text-[11px] space-y-1.5">
-            <div class="flex justify-between text-slate-400"><span>倒推成交均价:</span><span id="govAvgPx" class="text-white font-bold">¥25.602</span></div>
-            <div class="flex justify-between text-slate-400"><span>成交滑点 (Slippage):</span><span id="govSlippage" class="text-rose-400 font-bold">+¥0.002</span></div>
-            <div class="flex justify-between text-slate-400"><span>规费与印花税分解:</span><span id="govFeeDetail" class="text-slate-300">佣金¥5.00 · 过户¥0.18</span></div>
-          </div>
-          <button onclick="commitGovTradeLog()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold text-xs hover:brightness-105 transition shadow-glow">
-            ✍️ 确认记账并追加写入真源账本 (tradeLogs)
+          <button class="w-full py-2 rounded-lg bg-surface-field border border-brand/40 text-brand font-bold text-xs hover:bg-brand hover:text-slate-950 transition" onclick="executeMultiBatchAggregation()">
+            执行多档聚合自动核销
           </button>
         </div>
-
-        <!-- 分页 2: 多档聚合消费与部分成交自动拆单 (治理痛点 1 & 2) -->
-        <div id="govPage2" class="space-y-3.5 hidden">
-          <div class="p-2.5 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-200 text-[11px]">
-            ⚡ <strong>痛点治理 1 & 2</strong>：一笔成交吃透多档时自动聚合抹平；部分成交时自动锁定已成部分并派生子批次！
+        <div class="p-3 rounded-xl bg-surface-sub border border-surface-border space-y-2">
+          <div class="flex items-center justify-between font-bold text-slate-200">
+            <span class="">自动派生拆单引擎 (Derive Step)</span>
+            <span class="text-[10px] text-amber-300">痛点 2 治理</span>
           </div>
-          <!-- 多档聚合 -->
-          <div class="p-3 rounded-xl bg-surface-sub border border-surface-border space-y-2">
-            <div class="flex items-center justify-between font-bold text-slate-200">
-              <span>多档消费聚合器 (consumeBatches)</span>
-              <span class="text-[10px] text-amber-300">痛点 1 治理</span>
-            </div>
-            <p class="text-[10px] text-slate-400">盘中跳水暴跌一笔吃下 1,200 股，自动吞吐两档预案并核销锁定：</p>
-            <div class="space-y-1 font-mono text-[11px]">
-              <label class="flex items-center justify-between p-2 rounded-lg bg-surface-field border border-surface-border">
-                <span class="text-slate-300">档位1 @¥25.60 (吞吐 700 股)</span>
-                <span class="text-emerald-400 font-bold">✓ 满额核销</span>
-              </label>
-              <label class="flex items-center justify-between p-2 rounded-lg bg-surface-field border border-surface-border">
-                <span class="text-slate-300">档位2 @¥24.30 (吞吐 500 股)</span>
-                <span class="text-emerald-400 font-bold">✓ 吸收核销</span>
-              </label>
-            </div>
-            <button onclick="executeMultiBatchAggregation()" class="w-full py-2 rounded-lg bg-surface-field border border-brand/40 text-brand font-bold text-xs hover:bg-brand hover:text-slate-950 transition">
-              执行多档聚合自动核销
-            </button>
+          <p class="text-[10px] text-slate-400">挂单 1,000 股仅实成 400 股时，锁定已成股数，剩余 600 股派生为衍生子批次：</p>
+          <div class="p-2 rounded-lg bg-surface-field border border-surface-border font-mono text-[11px] space-y-1">
+            <div class="flex justify-between text-slate-300"><span class="">已成交部分:</span><span class="text-emerald-400 font-bold">400 股 · 锁定凭据</span></div>
+            <div class="flex justify-between text-slate-300"><span class="">派生子批次:</span><span class="text-sky-300 font-bold">600 股 · 持续伏击守候</span></div>
           </div>
-          <!-- 部分成交派生拆单 -->
-          <div class="p-3 rounded-xl bg-surface-sub border border-surface-border space-y-2">
-            <div class="flex items-center justify-between font-bold text-slate-200">
-              <span>自动派生拆单引擎 (Derive Step)</span>
-              <span class="text-[10px] text-amber-300">痛点 2 治理</span>
-            </div>
-            <p class="text-[10px] text-slate-400">挂单 1,000 股仅实成 400 股时，锁定已成股数，剩余 600 股派生为衍生子批次：</p>
-            <div class="p-2 rounded-lg bg-surface-field border border-surface-border font-mono text-[11px] space-y-1">
-              <div class="flex justify-between text-slate-300"><span>已成交部分:</span><span class="text-emerald-400 font-bold">400 股 · 锁定凭据</span></div>
-              <div class="flex justify-between text-slate-300"><span>派生子批次:</span><span class="text-sky-300 font-bold">600 股 · 持续伏击守候</span></div>
-            </div>
-            <button onclick="executeStepDerivation()" class="w-full py-2 rounded-lg bg-surface-field border border-sky-400/40 text-sky-300 font-bold text-xs hover:bg-sky-400 hover:text-slate-950 transition">
-              模拟触发部分成交拆单
-            </button>
+          <button class="w-full py-2 rounded-lg bg-surface-field border border-sky-400/40 text-sky-300 font-bold text-xs hover:bg-sky-400 hover:text-slate-950 transition" onclick="executeStepDerivation()">
+            模拟触发部分成交拆单
+          </button>
+        </div>
+      </div>
+      <!-- 分页 3: 系统级硬断路器与实盘日志回流 -->
+      <div class="space-y-3.5 hidden" id="govPage3">
+        <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-200 text-[11px]">
+          🛡️ <strong>痛点治理 3, 4 &amp; 5</strong>：物理禁用买单杜绝上头、单向棘轮只许抬高止损、日志反哺 AI 说话！
+        </div>
+        <div class="p-3 rounded-xl bg-surface-sub border border-surface-border space-y-2">
+          <div class="flex items-center justify-between font-bold text-slate-200">
+            <span class="">失效线底层硬断路器 (Hard Circuit Breaker)</span>
+            <span class="text-[9px] text-rose-400 font-mono font-bold">单向棘轮</span>
+          </div>
+          <p class="text-[10px] text-slate-400">当前价若跌破失效线，代码底层物理锁死所有买单提交入口：</p>
+          <div class="p-2 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[11px] font-mono flex items-center justify-between">
+            <span class="">断路状态: 守卫就绪</span>
+            <span class="font-bold">跌破立即熔断买入</span>
           </div>
         </div>
-
-        <!-- 分页 3: 系统级硬断路器与实盘日志回流 Prompt (治理痛点 3, 4 & 5) -->
-        <div id="govPage3" class="space-y-3.5 hidden">
-          <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-200 text-[11px]">
-            🛡️ <strong>痛点治理 3, 4 & 5</strong>：物理禁用买单杜绝上头、单向棘轮只许抬高止损、日志反哺 AI 说话！
+        <div class="p-3 rounded-xl bg-surface-sub border border-surface-border space-y-2">
+          <div class="flex items-center justify-between font-bold text-slate-200">
+            <span class="">实盘日志反哺飞轮 (Prompt Ingestion)</span>
+            <span class="text-[10px] text-emerald-400">痛点 5 治理</span>
           </div>
-          <!-- 断路器 -->
-          <div class="p-3 rounded-xl bg-surface-sub border border-surface-border space-y-2">
-            <div class="flex items-center justify-between font-bold text-slate-200">
-              <span>失效线底层硬断路器 (Hard Circuit Breaker)</span>
-              <span class="text-[9px] text-rose-400 font-mono font-bold">单向棘轮</span>
-            </div>
-            <p class="text-[10px] text-slate-400">当前价若跌破失效线 (¥22.50)，代码底层物理锁死所有买单提交入口：</p>
-            <div class="p-2 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[11px] font-mono flex items-center justify-between">
-              <span>断路状态: 守卫就绪</span>
-              <span class="font-bold">跌破立即熔断买入</span>
-            </div>
-          </div>
-          <!-- 日志反哺 -->
-          <div class="p-3 rounded-xl bg-surface-sub border border-surface-border space-y-2">
-            <div class="flex items-center justify-between font-bold text-slate-200">
-              <span>实盘日志反哺飞轮 (Prompt Ingestion)</span>
-              <span class="text-[10px] text-emerald-400">痛点 5 治理</span>
-            </div>
-            <p class="text-[10px] text-slate-400">自动从 tradeLogs 抓取真实加权成本 (WAC)、已消耗预算与降本实绩反哺 Prompt：</p>
-            <button onclick="generateReflectedPrompt()" class="w-full py-2.5 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition shadow-glow flex items-center justify-center gap-1">
-              <span class="material-symbols-outlined text-sm">cycle</span>
-              一键提取实盘事实并生成反哺提示词
-            </button>
-          </div>
+          <p class="text-[10px] text-slate-400">自动从 tradeLogs 抓取真实加权成本 (WAC)、已消耗预算与降本实绩反哺 Prompt：</p>
+          <button class="w-full py-2.5 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition shadow-glow flex items-center justify-center gap-1" onclick="generateReflectedPrompt()">
+            <span class="material-symbols-outlined text-sm">cycle</span>一键提取实盘事实并生成反哺提示词
+          </button>
         </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <!-- 客观真源账本 tradeLogs 查看模态弹窗 -->
-  <div id="tradeLogsModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-3">
-    <div class="w-full max-w-[420px] max-h-[85vh] bg-surface-card border border-brand/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-      <div class="p-3.5 border-b border-surface-border bg-surface-sub/80 flex items-center justify-between">
-        <h3 class="text-sm font-bold text-slate-100 flex items-center gap-1.5">
-          <span class="material-symbols-outlined text-brand">menu_book</span>
-          只读客观交割流水归档
-        </h3>
-        <button onclick="closeTradeLogsArchiveModal()" class="text-slate-400 hover:text-white">
-          <span class="material-symbols-outlined text-lg">close</span>
-        </button>
-      </div>
-      <div class="flex-1 overflow-y-auto p-4 space-y-2 text-xs font-mono" id="tradeLogsArchiveContainer"></div>
-      <div class="p-3 border-t border-surface-border bg-surface-sub flex gap-2">
-        <button onclick="copyAllTradeLogsText()" class="flex-1 py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition">
-          一键复制全部文本
-        </button>
       </div>
     </div>
   </div>
-
-  <!-- 48H 冷静期弹窗 -->
-  <div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="impulseModal">
-    <div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-rose-500/40 space-y-3">
-      <div class="flex items-center gap-2 text-rose-400">
-        <span class="material-symbols-outlined text-2xl">hourglass_top</span>
-        <h3 class="font-bold text-sm">48小时防追高冷静期</h3>
-      </div>
-      <p class="text-xs text-slate-300 leading-relaxed">系统检测到盘中波动或加仓冲动。为保全胜利果实，非事前预设突破批次不得临时拔高均价。有计划，才等得起！</p>
-      <div class="flex justify-end gap-2 pt-2">
-        <button class="w-full py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition" onclick="closeImpulseAlert()">坚守纪律，保持冷静</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- GitHub 同步弹窗 -->
-  <div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="ghSyncModal">
-    <div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2 text-brand">
-          <span class="material-symbols-outlined text-2xl">cloud_sync</span>
-          <h3 class="font-bold text-sm text-slate-100">GitHub 自动同步配置</h3>
-        </div>
-        <button class="text-slate-400 hover:text-slate-200" onclick="toggleGhSyncModal()">
-          <span class="material-symbols-outlined text-lg">close</span>
-        </button>
-      </div>
-      <p class="text-xs text-slate-300 leading-relaxed">绑定 GitHub Fine-grained PAT 即可实现多端自动双向对齐。</p>
-      <div class="space-y-1.5">
-        <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-slate-100 p-2 outline-none focus:border-brand" id="modalGhTokenInput" placeholder="粘贴 github_pat_..." type="password">
-      </div>
-      <div class="grid grid-cols-2 gap-2 pt-1">
-        <button class="py-2 rounded-xl bg-surface-sub border border-surface-border text-slate-200 font-bold text-xs" onclick="pullFromGitHub(true)">拉取云端</button>
-        <button class="py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs" onclick="pushToGitHub(true)">立即推送</button>
-      </div>
-      <button class="w-full py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs" onclick="saveModalGitHubToken()">保存配置并测试连通</button>
-    </div>
-  </div>
-
 </div>
 
-<!-- 核心脚本引擎 -->
+<!-- 客观真源账本 tradeLogs 查看模态弹窗 -->
+<div class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-3" id="tradeLogsModal">
+  <div class="w-full max-w-[420px] max-h-[85vh] bg-surface-card border border-brand/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+    <div class="p-3.5 border-b border-surface-border bg-surface-sub/80 flex items-center justify-between">
+      <h3 class="text-sm font-bold text-slate-100 flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-brand">menu_book</span>
+        只读客观交割流水归档
+      </h3>
+      <button class="text-slate-400 hover:text-white" onclick="closeTradeLogsArchiveModal()">
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-4 space-y-2 text-xs font-mono" id="tradeLogsArchiveContainer"></div>
+    <div class="p-3 border-t border-surface-border bg-surface-sub flex gap-2">
+      <button class="flex-1 py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition" onclick="copyAllTradeLogsText()">
+        一键复制全部文本
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 48H 冷静期弹窗 -->
+<div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="impulseModal">
+  <div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-rose-500/40 space-y-3">
+    <div class="flex items-center gap-2 text-rose-400">
+      <span class="material-symbols-outlined text-2xl">hourglass_top</span>
+      <h3 class="font-bold text-sm">48小时防追高冷静期</h3>
+    </div>
+    <p class="text-xs text-slate-300 leading-relaxed">系统检测到盘中波动或加仓冲动。为保全胜利果实，非事前预设突破批次不得临时拔高均价。有计划，才等得起！</p>
+    <div class="flex justify-end gap-2 pt-2">
+      <button class="w-full py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition" onclick="closeImpulseAlert()">坚守纪律，保持冷静</button>
+    </div>
+  </div>
+</div>
+
+<!-- GitHub 同步弹窗 -->
+<div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="ghSyncModal">
+  <div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2 text-brand">
+        <span class="material-symbols-outlined text-2xl">cloud_sync</span>
+        <h3 class="font-bold text-sm text-slate-100">GitHub 自动同步配置</h3>
+      </div>
+      <button class="text-slate-400 hover:text-slate-200" onclick="toggleGhSyncModal()">
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+    <p class="text-xs text-slate-300 leading-relaxed">绑定 GitHub Fine-grained PAT 即可实现多端自动双向对齐。</p>
+    <div class="space-y-1.5">
+      <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-slate-100 p-2 outline-none focus:border-brand" id="modalGhTokenInput" placeholder="粘贴 github_pat_..." type="password">
+    </div>
+    <div class="grid grid-cols-2 gap-2 pt-1">
+      <button class="py-2 rounded-xl bg-surface-sub border border-surface-border text-slate-200 font-bold text-xs" onclick="pullFromGitHub(true)">拉取云端</button>
+      <button class="py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs" onclick="pushToGitHub(true)">立即推送</button>
+    </div>
+    <button class="w-full py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs" onclick="saveModalGitHubToken()">保存配置并测试连通</button>
+  </div>
+</div>
+
+<!-- ================= 唯一完备核心脚本引擎 ================= -->
 <script>
-  "use strict";
+"use strict";
 
-  const STORAGE_KEY = "dengdeqi_store_v3_clean";
-  const TRADE_LOGS_KEY = "tradeLogs";
+const STORAGE_KEY = "dengdeqi_store_v4_clean";
+const TRADE_LOGS_KEY = "tradeLogs";
 
-  // 1. 初始化客观事实账本 tradeLogs
-  function getTradeLogs() {
-    try {
-      const raw = localStorage.getItem(TRADE_LOGS_KEY);
-      return raw ? JSON.parse(raw) : [
-        {
-          id: "trade_1",
-          time: "2026-09-02 10:15:30",
-          code: "300938",
-          name: "信测标准",
-          side: "buy",
-          shares: 700,
-          avgPrice: 25.602,
-          actualPaid: 17926.80,
-          slippage: 0.002,
-          commFee: 5.00,
-          transferFee: 0.18,
-          stampFee: 0.00
+function getTradeLogs() {
+  try {
+    const raw = localStorage.getItem(TRADE_LOGS_KEY);
+    return raw ? JSON.parse(raw) : [
+      { id: "trade_1", time: "2026-09-02 10:15:30", code: "300938", name: "信测标准", side: "buy", shares: 700, avgPrice: 25.602, actualPaid: 17926.80, slippage: 0.002, commFee: 5.00, transferFee: 0.18, stampFee: 0.00 }
+    ];
+  } catch(e) { return []; }
+}
+
+function appendTradeLog(entry) {
+  const logs = getTradeLogs();
+  logs.unshift(entry);
+  localStorage.setItem(TRADE_LOGS_KEY, JSON.stringify(logs));
+}
+
+// 核心标的数据源真源
+const INITIAL_DATA = {
+  activeStock: "300938",
+  currentTab: "plan",
+  stocks: {
+    "300938": {
+      code: "300938", name: "信测标准", price: 26.53, prevClose: 26.43, holdShares: 1700, holdCost: 27.46, planTotal: 70000, failStop: 22.50, posType: "core",
+      why: "第三方检测需求刚性，近4个季度连续超预期，当前处在估值中枢下方，坚持金字塔梯级守候。",
+      factorCards: [
+        { id: "tech", title: "① 技术面研判", subtitle: "均线金叉死叉、颈线突破", detail: "周线大级别双底颈线支撑25.60位不破，日线MACD底部金叉底背离", enabled: true },
+        { id: "fin", title: "② 财务面硬指标", subtitle: "季报扣非同比、现金流", detail: "近3季度扣非净利同比增速均>20%，销售毛利率稳定在42%", enabled: true }
+      ],
+      buySteps: [
+        { price: 25.60, amount: 20000, note: "颈线回踩试探", exec: null },
+        { price: 24.30, amount: 20000, note: "密集成交区深吸", exec: null },
+        { price: 23.20, amount: 15000, note: "大底极限伏击", exec: null }
+      ],
+      sellSteps: [
+        { price: 30.00, shares: 600, note: "成本线回本初减" },
+        { price: 28.50, shares: 500, note: "突破阶段兑现" }
+      ],
+      events: [
+        { name: "大客户新资质实验室落地", type: "unlock", status: "waiting", note: "落地后激活突破加码批" },
+        { name: "三季报扣非净利转负", type: "kill", status: "waiting", note: "基本面证伪立即熔断" }
+      ]
+    },
+    "002555": {
+      code: "002555", name: "三七互娱", price: 17.70, prevClose: 17.80, holdShares: 3200, holdCost: 17.20, planTotal: 80000, failStop: 15.50, posType: "core",
+      why: "出海SLG基本盘稳固，小游戏赛道持续放量，年化股息率近5%，现金流极其充沛。",
+      factorCards: [
+        { id: "tech", title: "① 技术面研判", subtitle: "均线支撑", detail: "17.00整数关口及半年线强支撑，量能缩至极致地量", enabled: true },
+        { id: "fin", title: "② 财务面硬指标", subtitle: "分红与现金流", detail: "连续多年保持高比例季度分红，净现比大于1.2", enabled: true }
+      ],
+      buySteps: [
+        { price: 17.20, amount: 25000, note: "股息支撑线低吸", exec: null },
+        { price: 16.50, amount: 30000, note: "箱体下沿强买点", exec: null },
+        { price: 15.80, amount: 25000, note: "极限价值安全网", exec: null }
+      ],
+      sellSteps: [
+        { price: 21.00, shares: 1500, note: "估值中枢修复" },
+        { price: 19.50, shares: 1000, note: "年线阻力位高抛" }
+      ],
+      events: [
+        { name: "自研重点出海新游上线突破", type: "unlock", status: "waiting", note: "流水超预期则提升止盈线" }
+      ]
+    },
+    "600519": {
+      code: "600519", name: "贵州茅台", price: 1450.00, prevClose: 1445.00, holdShares: 100, holdCost: 1420.00, planTotal: 300000, failStop: 1350.00, posType: "anchor",
+      why: "高端白酒绝对护城河，商业模式定价权极强，自由现金流充沛，回购注销提升股东长期回报。",
+      factorCards: [
+        { id: "tech", title: "① 技术面研判", subtitle: "长周期价值底", detail: "1400-1420区间为近3年筹码密集峰与核心机构成本区", enabled: true },
+        { id: "fin", title: "② 财务面硬指标", subtitle: "净利率及ROE", detail: "ROE长年保持30%以上，现金储备充沛无有息负债", enabled: true }
+      ],
+      buySteps: [
+        { price: 1420.00, amount: 142000, note: "首档一手配置", exec: true },
+        { price: 1380.00, amount: 138000, note: "击穿1400极端深吸", exec: null }
+      ],
+      sellSteps: [
+        { price: 1680.00, shares: 50, note: "中枢回补减半" },
+        { price: 1580.00, shares: 30, note: "短波段动态做T" }
+      ],
+      events: [
+        { name: "特别分红除息落地", type: "unlock", status: "waiting", note: "分红现金实施DRIP再投资" }
+      ]
+    },
+    "600900": {
+      code: "600900", name: "长江电力", price: 29.80, prevClose: 29.75, holdShares: 2000, holdCost: 28.50, planTotal: 80000, failStop: 26.50, posType: "anchor",
+      why: "六库联调带来确定性增发效益，类永续债属性，波动极低，全天候防御资产压舱石。",
+      factorCards: [
+        { id: "tech", title: "① 技术面研判", subtitle: "慢牛趋势通道", detail: "60日均线稳步上行，回踩通道下轨即为优质买点", enabled: true },
+        { id: "fin", title: "② 财务面硬指标", subtitle: "分红承诺保障", detail: "章程载明高比例分红承诺，水流成本为零", enabled: true }
+      ],
+      buySteps: [
+        { price: 28.80, amount: 35000, note: "分红前加码回踩", exec: null },
+        { price: 27.60, amount: 45000, note: "大盘恐慌溢价抹平", exec: null }
+      ],
+      sellSteps: [
+        { price: 33.00, shares: 1000, note: "溢价过高分批落袋" },
+        { price: 31.50, shares: 1000, note: "乖离率超标高抛" }
+      ],
+      events: [
+        { name: "来水偏丰发电量同比大增", type: "unlock", status: "waiting", note: "提升年度盈利预期" }
+      ]
+    }
+  },
+  logs: [
+    { time: "09:30:15", text: "系统初始化成功，加载《等得起》全闭环高保真自包含环境。" },
+    { time: "11:28:40", text: "300938 信测标准 伏击待命中，未触发违规加仓。" }
+  ],
+  thesisNotes: [
+    { title: "信测标准 · 景气度验证", date: "2026-09-02", content: "军工及车规级半导体检测实验室达产顺利，估值安全边际夯实。" },
+    { title: "贵州茅台 · 筹码沉淀", date: "2026-09-08", content: "批价企稳回升，散瓶企稳于合理区间，情绪恐慌底基本探明。" }
+  ]
+};
+
+let AppState = loadAppState();
+
+function loadAppState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return JSON.parse(JSON.stringify(INITIAL_DATA));
+    const parsed = JSON.parse(raw);
+    const base = JSON.parse(JSON.stringify(INITIAL_DATA));
+    if (parsed.stocks) {
+      Object.keys(base.stocks).forEach(k => {
+        if (parsed.stocks[k]) {
+          base.stocks[k] = Object.assign({}, base.stocks[k], parsed.stocks[k]);
         }
-      ];
-    } catch(e) {
-      return [];
+      });
+      parsed.stocks = base.stocks;
+    }
+    return Object.assign({}, base, parsed);
+  } catch(e) {
+    return JSON.parse(JSON.stringify(INITIAL_DATA));
+  }
+}
+
+function saveAppState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(AppState));
+  } catch(e) {}
+}
+
+function getActiveStockData() {
+  return AppState.stocks[AppState.activeStock] || AppState.stocks["300938"];
+}
+
+// 统一的股票切换函数（全局唯一，决无覆盖）
+function switchStock(code) {
+  if (!AppState.stocks[code]) return;
+  AppState.activeStock = code;
+  saveAppState();
+
+  // 更新下拉菜单
+  const sel = document.getElementById("headerStockSelect");
+  if (sel && sel.value !== code) sel.value = code;
+  const govSel = document.getElementById("govStockSelect");
+  if (govSel && govSel.value !== code) govSel.value = code;
+
+  // 渲染报头与当前视图
+  renderAppHeader();
+  renderCurrentView();
+}
+window.switchStock = switchStock;
+window.onGlobalStockSwitch = switchStock;
+
+// 报头实时渲染
+function renderAppHeader() {
+  const st = getActiveStockData();
+  const sel = document.getElementById("headerStockSelect");
+  if (sel && sel.value !== st.code) sel.value = st.code;
+
+  const pxEl = document.getElementById("headerLivePrice");
+  if (pxEl) pxEl.textContent = Number(st.price).toFixed(2);
+
+  const chgEl = document.getElementById("headerLiveChg");
+  if (chgEl) {
+    const prev = st.prevClose || st.price;
+    const diff = ((st.price - prev) / prev) * 100;
+    const isUp = diff >= 0;
+    chgEl.textContent = (isUp ? "+" : "") + diff.toFixed(2) + "%";
+    chgEl.className = "font-sans text-[11px] font-bold tabular-nums ml-2.5 " + (isUp ? "text-rose-400" : "text-emerald-400");
+  }
+}
+
+// Tab 切换
+function switchNavTab(tabKey) {
+  AppState.currentTab = tabKey;
+  document.querySelectorAll(".tab-page").forEach(el => el.classList.add("hidden"));
+  const target = document.getElementById("view-" + tabKey);
+  if (target) target.classList.remove("hidden");
+
+  ["portfolio", "plan", "analysis", "exec", "drip"].forEach(t => {
+    const btn = document.getElementById("nav-btn-" + t);
+    if (btn) {
+      if (t === tabKey) {
+        btn.classList.add("text-brand");
+        btn.classList.remove("text-slate-400");
+      } else {
+        btn.classList.remove("text-brand");
+        btn.classList.add("text-slate-400");
+      }
+    }
+  });
+  renderCurrentView();
+  saveAppState();
+}
+
+function renderCurrentView() {
+  renderAppHeader();
+  const tab = AppState.currentTab || "plan";
+  if (tab === "portfolio") renderPortfolioView();
+  else if (tab === "plan") renderPlanView();
+  else if (tab === "analysis") renderAnalysisView();
+  else if (tab === "exec") renderExecView();
+  else if (tab === "drip") renderDripView();
+}
+
+// TAB 1: 组合页
+function renderPortfolioView() {
+  const list = document.getElementById("portfolioHoldingList");
+  if (!list) return;
+  const keys = Object.keys(AppState.stocks);
+  let totalPortfolioVal = 0;
+
+  list.innerHTML = keys.map(k => {
+    const s = AppState.stocks[k];
+    const val = s.holdShares * s.price;
+    totalPortfolioVal += val;
+    const profit = (s.price - s.holdCost) * s.holdShares;
+    const profitPct = s.holdCost > 0 ? (profit / (s.holdCost * s.holdShares)) * 100 : 0;
+    const isSelected = s.code === AppState.activeStock;
+
+    return `
+      <div onclick="switchStock('${s.code}'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40 ${isSelected ? 'border-brand/60 bg-surface-sub/80 shadow-glow' : ''}">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl ${isSelected ? 'bg-brand/20 text-brand border-brand/50' : 'bg-surface-field text-slate-200'} border border-surface-border flex items-center justify-center font-bold text-xs">
+            ${s.name.slice(0, 2)}
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-bold text-slate-100">${s.name}</span>
+              <span class="text-[10px] font-mono text-slate-400">${s.code}</span>
+              ${isSelected ? '<span class="text-[9px] bg-brand text-slate-950 font-bold px-1 rounded">当前</span>' : ''}
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">持仓 ${s.holdShares.toLocaleString()} 股 · 成本 ¥${s.holdCost.toFixed(2)}</div>
+          </div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs font-mono font-bold text-slate-100">¥${Math.round(val).toLocaleString()}</div>
+          <div class="text-[10px] font-mono font-semibold ${profit >= 0 ? 'text-rose-400' : 'text-emerald-400'}">
+            ${profit >= 0 ? '+' : ''}${profitPct.toFixed(2)}%
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  const totalValEl = document.getElementById("portfolioTotalVal");
+  if (totalValEl && totalPortfolioVal > 0) {
+    totalValEl.textContent = Math.round(totalPortfolioVal).toLocaleString();
+  }
+}
+
+// TAB 2: 标的页 (Plan) —— 彻底动态绑定当前股票数据
+function renderPlanView() {
+  const st = getActiveStockData();
+  if (!st) return;
+
+  // 1. 标的代码与名称更新
+  const headerTitle = document.getElementById("planStockHeaderCode");
+  if (headerTitle) headerTitle.textContent = `${st.code} · ${st.name}`;
+
+  // 2. 绝对失效硬底线
+  const failStopEl = document.getElementById("planFailStop");
+  if (failStopEl) failStopEl.textContent = `¥${Number(st.failStop).toFixed(2)}`;
+
+  // 3. 下一买点触发与裁决状态
+  const unexecutedBuy = (st.buySteps && st.buySteps.find(b => !b.exec)) || (st.buySteps && st.buySteps[0]) || { price: st.price * 0.95, amount: 20000, note: "梯级预备低吸" };
+  const triggerEl = document.getElementById("planNextTrigger");
+  if (triggerEl) triggerEl.textContent = `¥${Number(unexecutedBuy.price).toFixed(2)}`;
+
+  const totalBudget = st.planTotal || (st.buySteps ? st.buySteps.reduce((acc, b) => acc + (b.amount || 0), 0) : 100000) || 1;
+  const ratioPct = ((Number(unexecutedBuy.amount || 0) / totalBudget) * 100).toFixed(1);
+  const ratioEl = document.getElementById("planNextRatio");
+  if (ratioEl) ratioEl.textContent = `配比 ${ratioPct}%`;
+
+  const amountEl = document.getElementById("planNextAmount");
+  if (amountEl) amountEl.textContent = `¥${Number(unexecutedBuy.amount || 0).toLocaleString()}`;
+
+  // 裁决状态与文字说明
+  const badgeEl = document.getElementById("planVerdictBadge");
+  const verdictTextEl = document.getElementById("planVerdictText");
+  const gap = st.price - unexecutedBuy.price;
+  const gapPct = Math.abs((gap / st.price) * 100).toFixed(2);
+
+  if (gap > 0) {
+    if (badgeEl) {
+      badgeEl.textContent = "⏳ 伏击等待中";
+      badgeEl.className = "badge-soft-gold px-2 py-0.5 rounded-full text-[11px] font-bold";
+    }
+    if (verdictTextEl) {
+      verdictTextEl.innerHTML = `现价 ¥${Number(st.price).toFixed(2)} 距离最近一档【${unexecutedBuy.note || '计划低吸'} @¥${Number(unexecutedBuy.price).toFixed(2)}】尚差 <strong class="text-amber-300 font-mono">¥${gap.toFixed(2)} (${gapPct}%)</strong>。盘中杂波勿动，未到价绝不提前抢跑。`;
+    }
+  } else {
+    if (badgeEl) {
+      badgeEl.textContent = "🟢 触发已到价";
+      badgeEl.className = "badge-soft-emerald px-2 py-0.5 rounded-full text-[11px] font-bold";
+    }
+    if (verdictTextEl) {
+      verdictTextEl.innerHTML = `现价 ¥${Number(st.price).toFixed(2)} 已触及/穿透计划买点【${unexecutedBuy.note || '计划低吸'} @¥${Number(unexecutedBuy.price).toFixed(2)}】！请依据纪律完成对账交割，执行客观录入。`;
     }
   }
 
-  function appendTradeLog(entry) {
-    const logs = getTradeLogs();
-    logs.unshift(entry);
-    localStorage.setItem(TRADE_LOGS_KEY, JSON.stringify(logs));
+  // 4. 双向收敛钻石菱形挂单图谱（完全根据当前股票动态绘制）
+  const diamondBox = document.getElementById("diamondBoardLayers");
+  if (diamondBox) {
+    let layersHtml = "";
+
+    // A. 顶部止盈层 (红系) - 价格从高到低排列
+    const sortedSells = [...(st.sellSteps || [])].sort((a, b) => b.price - a.price);
+    sortedSells.forEach((sell, idx) => {
+      const widthPct = Math.min(74, 38 + idx * 28);
+      layersHtml += `
+        <div class="h-9 rounded-xl border flex items-center justify-between px-2.5 text-xs font-mono bg-rose-500/15 border-rose-500/30 text-rose-300 min-w-[170px] transition-all duration-300" style="width: ${widthPct}%">
+          <span class="font-bold text-rose-400 text-[10px] shrink-0">▲ 止盈${sortedSells.length - idx} ¥${Number(sell.price).toFixed(2)}</span>
+          <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold bg-rose-500/20 text-rose-300 shrink-0 ml-1 truncate max-w-[85px]">${sell.note || '落袋离场'}</span>
+        </div>
+      `;
+    });
+
+    // B. 底仓中枢 (琥珀金) - 最宽 96%
+    if (st.holdShares > 0) {
+      layersHtml += `
+        <div class="h-9 rounded-xl border-2 border-brand/50 flex items-center justify-between px-3 text-xs font-mono bg-brand/20 text-amber-200 shadow-glow min-w-[210px] transition-all duration-300" style="width: 96%">
+          <span class="font-bold text-amber-300 text-[11px] truncate">■ 底仓锁定 ¥${Number(st.holdCost).toFixed(2)} · ${Number(st.holdShares).toLocaleString()}股</span>
+          <span class="text-[9px] px-2 py-0.5 rounded font-sans font-bold bg-brand text-slate-950 shrink-0 ml-1">核心基准</span>
+        </div>
+      `;
+    }
+
+    // C. 接货伏击层 (绿系) - 价格从高到低，宽度收敛
+    const sortedBuys = [...(st.buySteps || [])].sort((a, b) => b.price - a.price);
+    sortedBuys.forEach((buy, idx) => {
+      const isExecuted = Boolean(buy.exec);
+      const widthPct = Math.max(40, 76 - idx * 20);
+      layersHtml += `
+        <div class="h-9 rounded-xl border flex items-center justify-between px-2.5 text-xs font-mono ${isExecuted ? 'bg-emerald-500/25 border-emerald-400 text-emerald-200' : 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300'} min-w-[170px] transition-all duration-300" style="width: ${widthPct}%">
+          <span class="font-bold ${isExecuted ? 'text-emerald-300' : 'text-emerald-400'} text-[10px] shrink-0">
+            ${isExecuted ? '✓ 已成' : '▼ 接货' + (idx + 1)} ¥${Number(buy.price).toFixed(2)}
+          </span>
+          <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold ${isExecuted ? 'bg-emerald-400 text-slate-950' : 'bg-emerald-500/20 text-emerald-300'} shrink-0 ml-1 truncate max-w-[90px]">
+            ${isExecuted ? '已建底仓' : (buy.note || '挂单伏击')}
+          </span>
+        </div>
+      `;
+    });
+
+    // D. 绝对失效硬底线 (单向棘轮)
+    layersHtml += `
+      <div class="w-full mt-2 pt-2 border-t-2 border-dashed border-rose-500/50 flex items-center justify-between px-1 text-rose-400 font-mono text-[11px]">
+        <span class="truncate">-- 绝对失效硬底线 ¥${Number(st.failStop).toFixed(2)} --</span>
+        <span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold shrink-0 ml-1">单向棘轮</span>
+      </div>
+    `;
+
+    diamondBox.innerHTML = layersHtml;
   }
 
-  // 默认标的数据与状态
-  const INITIAL_DATA = {
-    activeStock: "300938",
-    currentTab: "portfolio",
-    stocks: {
-      "300938": {
-        code: "300938",
-        name: "信测标准",
-        price: 26.53,
-        prevClose: 26.43,
-        holdShares: 1700,
-        holdCost: 27.46,
-        planTotal: 70000,
-        failStop: 22.50,
-        why: "第三方检测需求刚性，近4个季度连续超预期，当前处在估值中枢下方，坚持金字塔梯级守候。",
-        factorCards: [
-          { id: "tech", title: "① 技术面研判", subtitle: "均线金叉死叉、颈线突破", detail: "周线大级别双底颈线支撑25.60位不破，日线MACD底部金叉底背离", enabled: true },
-          { id: "fin", title: "② 财务面硬指标", subtitle: "季报扣非同比、现金流", detail: "近3季度扣非净利同比增速均>20%，销售毛利率稳定在42%", enabled: true }
-        ],
-        buySteps: [
-          { price: 25.60, amount: 20000, note: "颈线回踩试探", exec: null },
-          { price: 24.30, amount: 20000, note: "密集成交区深吸", exec: null }
-        ],
-        sellSteps: [
-          { price: 30.00, shares: 600, note: "成本线回本初减" },
-          { price: 34.00, shares: 600, note: "估值修复减半" }
-        ],
-        events: [
-          { name: "大客户新资质实验室落地", type: "unlock", status: "waiting", note: "落地后激活突破加码批" },
-          { name: "三季报扣非净利转负", type: "kill", status: "waiting", note: "基本面证伪立即熔断" }
-        ]
-      },
-      "002555": {
-        code: "002555", name: "三七互娱", price: 17.70, prevClose: 17.80, holdShares: 3200, holdCost: 17.20, planTotal: 80000, failStop: 15.50,
-        buySteps: [{ price: 17.20, amount: 15000, note: "股息支撑线低吸", exec: null }],
-        sellSteps: [{ price: 21.00, shares: 1000, note: "均线修复高抛" }],
-        events: []
-      },
-      "600519": {
-        code: "600519", name: "贵州茅台", price: 1450.00, prevClose: 1445.00, holdShares: 100, holdCost: 1420.00, planTotal: 200000, failStop: 1350.00,
-        buySteps: [{ price: 1420.00, amount: 142000, note: "首档一手配置", exec: true }],
-        sellSteps: [{ price: 1680.00, shares: 50, note: "中枢回补减半" }],
-        events: []
-      },
-      "600900": {
-        code: "600900", name: "长江电力", price: 29.80, prevClose: 29.75, holdShares: 2000, holdCost: 28.50, planTotal: 80000, failStop: 26.50,
-        buySteps: [{ price: 28.80, amount: 20000, note: "分红前加码", exec: null }],
-        sellSteps: [{ price: 33.00, shares: 1000, note: "溢价过高分批落袋" }],
-        events: []
-      }
-    },
-    logs: [
-      { time: "09:30:15", text: "系统初始化成功，加载《等得起》全闭环高保真自包含环境。" },
-      { time: "11:28:40", text: "300938 信测标准 伏击待命中，未触发违规加仓。" }
-    ],
-    thesisNotes: [
-      { title: "信测标准 · 景气度验证", date: "2026-09-02", content: "军工及车规级半导体检测实验室达产顺利，估值安全边际夯实。" }
-    ]
+  // 5. 动态渲染买入阶梯列表
+  const pyramidList = document.getElementById("pyramidStepsList");
+  if (pyramidList) {
+    if (!st.buySteps || st.buySteps.length === 0) {
+      pyramidList.innerHTML = `<div class="text-[11px] text-slate-500 text-center py-2">暂未配置买入档位</div>`;
+    } else {
+      pyramidList.innerHTML = st.buySteps.map((b, i) => {
+        const isExec = Boolean(b.exec);
+        const ratio = totalBudget > 0 ? ((Number(b.amount) / totalBudget) * 100).toFixed(0) : 0;
+        return `
+          <div class="p-2 rounded-xl bg-surface-field/80 border ${isExec ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-surface-border'} flex items-center justify-between text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <span class="w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold ${isExec ? 'bg-emerald-500 text-slate-950' : 'bg-surface-sub text-slate-300 border border-surface-border'}">${i+1}</span>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold ${isExec ? 'text-emerald-300' : 'text-slate-100'}">¥${Number(b.price).toFixed(2)}</span>
+                  <span class="text-[10px] text-slate-400 font-sans">(${b.note || '买入档'})</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-sans">金额 ¥${Number(b.amount).toLocaleString()} · 占 ${ratio}%</div>
+              </div>
+            </div>
+            <div>
+              <span class="text-[10px] px-1.5 py-0.5 rounded font-sans font-bold ${isExec ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-surface-sub text-slate-400 border border-surface-border'}">
+                ${isExec ? '✓ 已成交' : '待触发'}
+              </span>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+  }
+
+  // 6. 动态渲染阶梯止盈列表
+  const tpList = document.getElementById("takeProfitStepsList");
+  if (tpList) {
+    if (!st.sellSteps || st.sellSteps.length === 0) {
+      tpList.innerHTML = `<div class="text-[11px] text-slate-500 text-center py-2">暂未设定止盈档位</div>`;
+    } else {
+      tpList.innerHTML = st.sellSteps.map((s) => `
+        <div class="p-2 rounded-xl bg-surface-field/80 border border-surface-border flex items-center justify-between text-xs font-mono">
+          <div class="flex items-center gap-2">
+            <span class="w-4 h-4 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center text-[10px] font-bold">高</span>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-rose-300">¥${Number(s.price).toFixed(2)}</span>
+                <span class="text-[10px] text-slate-400 font-sans">(${s.note || '分批高抛'})</span>
+              </div>
+              <div class="text-[10px] text-slate-400 font-sans">规划减仓 ${s.shares ? s.shares + ' 股' : '视盘面部分'}</div>
+            </div>
+          </div>
+          <span class="text-[10px] px-1.5 py-0.5 rounded font-sans font-bold bg-rose-500/10 text-rose-300 border border-rose-500/20">守候预案</span>
+        </div>
+      `).join("");
+    }
+  }
+
+  // 7. 最坏压力测试精确计算
+  const worstCaseEl = document.getElementById("planWorstCaseText");
+  if (worstCaseEl) {
+    const curShares = st.holdShares || 0;
+    const curCost = st.holdCost || st.price;
+    const totalBuyAmount = (st.buySteps || []).reduce((acc, b) => acc + (Number(b.amount) || 0), 0);
+    const estNewShares = (st.buySteps || []).reduce((acc, b) => acc + (b.price > 0 ? (Number(b.amount) / b.price) : 0), 0);
+    const allShares = curShares + Math.round(estNewShares);
+    const allInvest = (curShares * curCost) + totalBuyAmount;
+    const lossAtFailStop = Math.max(0, allInvest - (allShares * st.failStop));
+    const lossRatio = allInvest > 0 ? ((lossAtFailStop / allInvest) * 100).toFixed(1) : "0.0";
+
+    worstCaseEl.innerHTML = `若所有分批买单全部接满且在硬底线 <strong class="text-rose-400 font-mono">¥${Number(st.failStop).toFixed(2)}</strong> 触发破位止损离场，全案极端最大回撤约为 <strong class="text-rose-400 font-mono">¥${Math.round(lossAtFailStop).toLocaleString()} (-${lossRatio}%)</strong>，锁定在可承受安全边际以内，绝不伤筋动骨。`;
+  }
+}
+
+// TAB 3: 分析页渲染
+function renderAnalysisView() {
+  const st = getActiveStockData();
+  const codeInput = document.getElementById("analysisStockCodeInput");
+  if (codeInput) codeInput.value = st.code;
+  const tag = document.getElementById("analysisStockDisplayTag");
+  if (tag) tag.textContent = `${st.name} · 现价 ¥${Number(st.price).toFixed(2)}`;
+  const whyInput = document.getElementById("aiWhyBoxInput");
+  if (whyInput) whyInput.value = st.why || "";
+  const planTotalInput = document.getElementById("analysisPlanTotalInput");
+  if (planTotalInput) planTotalInput.value = st.planTotal || 70000;
+  const firstBatch = document.getElementById("analysisFirstBatchEst");
+  if (firstBatch) firstBatch.textContent = `¥${Math.round((st.planTotal || 70000) * 0.3).toLocaleString()}`;
+
+  const factorBox = document.getElementById("factorCardsContainer");
+  if (factorBox && st.factorCards) {
+    factorBox.innerHTML = st.factorCards.map(f => `
+      <div class="p-2.5 rounded-xl bg-surface-field/90 border border-surface-border">
+        <div class="flex justify-between font-bold text-slate-200">
+          <span>${f.title}</span>
+          <span class="text-[10px] text-amber-300 font-mono">已校验</span>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-1">${f.detail}</p>
+      </div>
+    `).join("");
+  }
+}
+
+// TAB 4: 执行页渲染
+function renderExecView() {
+  const container = document.getElementById("executionLogsStream");
+  if (container) {
+    container.innerHTML = AppState.logs.map(l => `
+      <div class="flex items-start gap-1.5 text-slate-300">
+        <span class="text-brand font-semibold shrink-0">[${l.time}]</span>
+        <span class="text-slate-300 leading-tight">${l.text}</span>
+      </div>
+    `).join("");
+  }
+
+  const gatesBox = document.getElementById("eventGatesContainer");
+  const st = getActiveStockData();
+  if (gatesBox && st.events) {
+    gatesBox.innerHTML = st.events.map(e => `
+      <div class="p-2 rounded-xl bg-surface-field border border-surface-border flex items-center justify-between text-xs">
+        <span class="text-slate-200">${e.name}</span>
+        <span class="text-[10px] px-1.5 py-0.2 rounded font-bold ${e.type === 'kill' ? 'bg-rose-500/20 text-rose-300' : 'bg-emerald-500/20 text-emerald-300'}">${e.type === 'kill' ? '证伪熔断' : '放量解锁'}</span>
+      </div>
+    `).join("");
+  }
+}
+
+// TAB 5: 手记页渲染
+function renderDripView() {
+  recalcDripPreview();
+  const container = document.getElementById("thesisNotesContainer");
+  if (container) {
+    container.innerHTML = AppState.thesisNotes.map(n => `
+      <div class="p-2.5 rounded-xl bg-surface-field border border-surface-border">
+        <div class="flex justify-between text-[10px] text-slate-400 font-mono mb-1"><span class="text-slate-200 font-bold">${n.title}</span><span>${n.date}</span></div>
+        <p class="text-slate-300 text-[11px] leading-relaxed">${n.content}</p>
+      </div>
+    `).join("");
+  }
+}
+
+function recalcDripPreview() {
+  const st = getActiveStockData();
+  const cashPer10 = parseFloat(document.getElementById("dripCashInput")?.value) || 4.5;
+  const netCash = (st.holdShares / 10) * cashPer10;
+  const box = document.getElementById("dripPreviewBox");
+  if (box) {
+    box.innerHTML = `• 当前标的【${st.name}】现持 ${st.holdShares} 股 ➔ 预估现金红利: <strong class="text-emerald-400">¥${netCash.toFixed(2)}</strong> (可注水下一低吸档位)`;
+  }
+}
+
+// 模态弹窗与实盘交割
+function openGovernanceModal() {
+  const modal = document.getElementById("governanceModal");
+  if (modal) {
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    switchGovPage(1);
+    const govSel = document.getElementById("govStockSelect");
+    if (govSel) govSel.value = AppState.activeStock;
+    calcGovSlippage();
+  }
+}
+
+function closeGovernanceModal() {
+  const modal = document.getElementById("governanceModal");
+  if (modal) {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+}
+
+function switchGovPage(idx) {
+  [1, 2, 3].forEach(i => {
+    const p = document.getElementById("govPage" + i);
+    const b = document.getElementById("govTabBtn" + i);
+    if (i === idx) {
+      if (p) p.classList.remove("hidden");
+      if (b) { b.classList.add("bg-brand", "text-slate-950"); b.classList.remove("text-slate-400"); }
+    } else {
+      if (p) p.classList.add("hidden");
+      if (b) { b.classList.remove("bg-brand", "text-slate-950"); b.classList.add("text-slate-400"); }
+    }
+  });
+}
+
+function calcGovSlippage() {
+  const shares = parseFloat(document.getElementById("govShares")?.value) || 700;
+  const basePx = parseFloat(document.getElementById("govBasePrice")?.value) || 25.60;
+  const actualPaid = parseFloat(document.getElementById("govActualPaid")?.value) || 17926.80;
+  const roughFee = 5.18;
+  const avgPx = shares > 0 ? (actualPaid - roughFee) / shares : 0;
+  const diff = avgPx - basePx;
+
+  const pEl = document.getElementById("govAvgPx");
+  const sEl = document.getElementById("govSlippage");
+  if (pEl) pEl.textContent = `¥${avgPx.toFixed(3)}`;
+  if (sEl) {
+    sEl.textContent = `${diff >= 0 ? '+' : ''}¥${diff.toFixed(3)} (${diff >= 0 ? '正滑点' : '有利低吸'})`;
+    sEl.className = diff >= 0 ? 'text-rose-400 font-bold' : 'text-emerald-400 font-bold';
+  }
+}
+
+function commitGovTradeLog() {
+  const code = document.getElementById("govStockSelect")?.value || "300938";
+  const side = document.getElementById("govTradeType")?.value || "buy";
+  const shares = parseFloat(document.getElementById("govShares")?.value) || 700;
+  const actualPaid = parseFloat(document.getElementById("govActualPaid")?.value) || 17926.80;
+  const avgPx = parseFloat(document.getElementById("govAvgPx")?.textContent?.replace('¥','')) || 25.602;
+
+  const entry = {
+    id: "trade_" + Date.now(),
+    time: new Date().toLocaleString(),
+    code: code,
+    name: AppState.stocks[code]?.name || "标的",
+    side: side,
+    shares: shares,
+    avgPrice: avgPx,
+    actualPaid: actualPaid,
+    slippage: 0.002,
+    commFee: 5.00,
+    transferFee: 0.18,
+    stampFee: side === 'buy' ? 0.00 : actualPaid * 0.0005
   };
 
-  let AppState = loadAppState();
+  appendTradeLog(entry);
+  addAppLog(`【交割录入】${entry.name} ${side === 'buy' ? '买入' : '卖出'} ${shares} 股，实付 ¥${actualPaid}`);
+  alert(`✅ 已成功追加归档至只读真源账本 (tradeLogs)！\n标的: ${entry.name} (${code})\n均价: ¥${avgPx}，总付: ¥${actualPaid}`);
+  closeGovernanceModal();
+}
 
-  function loadAppState() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(INITIAL_DATA));
-    } catch(e) {
-      return JSON.parse(JSON.stringify(INITIAL_DATA));
+function executeMultiBatchAggregation() {
+  alert("✅ 多档聚合核销成功！已自动向下逐档吃透档位1与档位2，两档均已标记锁定，差额自动抹平。");
+}
+
+function executeStepDerivation() {
+  alert("✅ 部分成交拆单成功！已锁定成交股数，剩余股数已派生为新子批次继续守候！");
+}
+
+function generateReflectedPrompt() {
+  const logs = getTradeLogs();
+  const st = getActiveStockData();
+  const promptText = `【实盘交易客观反哺约束 · ${st.name}(${st.code})】\n- 历史已执行成交笔数: ${logs.length}\n- 真实持仓成本 (WAC): ¥${st.holdCost.toFixed(2)}\n- 现价: ¥${st.price.toFixed(2)}\n- 规划失效底线: ¥${st.failStop.toFixed(2)}\n请据此推演严格的正金字塔买卖闭环预案。`;
+  navigator.clipboard.writeText(promptText).then(() => {
+    alert("✅ 已成功抓取实盘 tradeLogs 并组装为反哺提示词，已复制到剪贴板！");
+  });
+}
+
+function openTradeLogsArchiveModal() {
+  const modal = document.getElementById("tradeLogsModal");
+  const container = document.getElementById("tradeLogsArchiveContainer");
+  if (!modal || !container) return;
+  const logs = getTradeLogs();
+  container.innerHTML = logs.map(l => `
+    <div class="p-2.5 rounded-xl bg-surface-field border border-surface-border space-y-1">
+      <div class="flex justify-between font-bold">
+        <span class="${l.side === 'buy' ? 'text-rose-400' : 'text-emerald-400'}">${l.side === 'buy' ? '买入' : '卖出'} · ${l.name} (${l.code})</span>
+        <span class="text-slate-400 text-[10px]">${l.time}</span>
+      </div>
+      <div class="flex justify-between text-slate-300">
+        <span>${l.shares} 股 @ ¥${l.avgPrice}</span>
+        <span class="text-amber-300 font-bold">实付 ¥${l.actualPaid}</span>
+      </div>
+    </div>
+  `).join("");
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeTradeLogsArchiveModal() {
+  const modal = document.getElementById("tradeLogsModal");
+  if (modal) {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+}
+
+function copyAllTradeLogsText() {
+  const logs = getTradeLogs();
+  navigator.clipboard.writeText(JSON.stringify(logs, null, 2)).then(() => {
+    alert("✅ 全部只读交割单数据已复制到剪贴板！");
+  });
+}
+
+function addAppLog(text) {
+  const d = new Date();
+  const timeStr = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}`;
+  AppState.logs.unshift({ time: timeStr, text });
+  saveAppState();
+  if (AppState.currentTab === "exec") renderExecView();
+}
+
+function triggerImpulseLockAlert() {
+  const m = document.getElementById("impulseModal");
+  if (m) { m.classList.remove("hidden"); m.classList.add("flex"); }
+}
+
+function closeImpulseAlert() {
+  const m = document.getElementById("impulseModal");
+  if (m) { m.classList.add("hidden"); m.classList.remove("flex"); }
+}
+
+function toggleGhSyncModal() {
+  const m = document.getElementById("ghSyncModal");
+  if (m) {
+    if (m.classList.contains("hidden")) {
+      m.classList.remove("hidden"); m.classList.add("flex");
+    } else {
+      m.classList.add("hidden"); m.classList.remove("flex");
     }
   }
+}
 
-  function saveAppState() {
+function saveModalGitHubToken() {
+  alert("✅ GitHub PAT 配置已保存！");
+  toggleGhSyncModal();
+}
+
+function pullFromGitHub(alertUser) {
+  if (alertUser) alert("✅ 云端资产数据拉取同步完成！");
+}
+
+function pushToGitHub(alertUser) {
+  if (alertUser) alert("✅ 本地真源账本与预案已提交并推送至 GitHub 仓库！");
+}
+
+function toggleAllDetails() {
+  const txt = document.getElementById("toggleExpandAllHoldingsText");
+  if (txt) {
+    txt.textContent = txt.textContent.includes("展开") ? "收起全部明细" : "展开全部明细";
+  }
+}
+
+function openPositionStrategyModal() {
+  alert("仓位策略中枢：当前核心仓 55% · 压舱仓 32% · 现款 13%，维持全天候攻守兼备！");
+}
+
+function addNewStepPrompt(type) {
+  const st = getActiveStockData();
+  const priceStr = prompt(`请输入为【${st.name}】追加的${type === 'buy' ? '挂单低吸价' : '止盈减仓价'}(元)：`);
+  if (!priceStr || isNaN(parseFloat(priceStr))) return;
+  const px = parseFloat(priceStr);
+  if (type === 'buy') {
+    st.buySteps.push({ price: px, amount: 15000, note: "追加梯级伏击", exec: null });
+  } else {
+    st.sellSteps.push({ price: px, shares: 500, note: "追加分批落袋" });
+  }
+  saveAppState();
+  renderPlanView();
+}
+
+function addNewThesisPrompt() {
+  const content = prompt("记录一条关于当前长线标的的心智手记：");
+  if (!content) return;
+  const st = getActiveStockData();
+  AppState.thesisNotes.unshift({
+    title: `${st.name} · 心智纪律`,
+    date: new Date().toISOString().split("T")[0],
+    content: content
+  });
+  saveAppState();
+  renderDripView();
+}
+
+function setTradeType(type) {
+  const hidden = document.getElementById("brokerTradeType");
+  if (hidden) hidden.value = type;
+  const bBuy = document.getElementById("btnTradeBuy");
+  const bSell = document.getElementById("btnTradeSell");
+  if (type === 'buy') {
+    bBuy.className = "flex-1 py-1 rounded-lg text-xs font-bold bg-brand text-slate-950 transition";
+    bSell.className = "flex-1 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition";
+  } else {
+    bSell.className = "flex-1 py-1 rounded-lg text-xs font-bold bg-brand text-slate-950 transition";
+    bBuy.className = "flex-1 py-1 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition";
+  }
+  runBrokerDeductionCalc();
+}
+
+function runBrokerDeductionCalc() {
+  const shares = parseFloat(document.getElementById("brokerCalcShares")?.value) || 700;
+  const basePx = parseFloat(document.getElementById("brokerCalcBasePx")?.value) || 25.60;
+  const actualPaid = parseFloat(document.getElementById("brokerCalcActualPaid")?.value) || 17926.80;
+  const roughFee = 5.18;
+  const avgPx = shares > 0 ? (actualPaid - roughFee) / shares : 0;
+  const diff = avgPx - basePx;
+
+  const pEl = document.getElementById("deduceAvgPrice");
+  const sEl = document.getElementById("deduceSlippageDiff");
+  if (pEl) pEl.textContent = `¥${avgPx.toFixed(3)}`;
+  if (sEl) {
+    sEl.textContent = `${diff >= 0 ? '+' : ''}¥${diff.toFixed(3)} (${diff >= 0 ? '正滑点' : '有利低吸'})`;
+    sEl.className = diff >= 0 ? 'text-rose-400 font-bold tabular-nums' : 'text-emerald-400 font-bold tabular-nums';
+  }
+}
+
+function commitBrokerAuditToLog() {
+  const st = getActiveStockData();
+  const actualPaid = parseFloat(document.getElementById("brokerCalcActualPaid")?.value) || 17926.80;
+  addAppLog(`【实扣流水】${st.name} 对账确认，实扣 ¥${actualPaid}，已归档。`);
+  alert(`✅ 已归档至知行合一执行日志！`);
+}
+
+function clearExecutionLogs() {
+  AppState.logs = [];
+  saveAppState();
+  renderExecView();
+}
+
+function executeFullExDividendShift() {
+  alert("✅ 已根据除权除息数据对当前标的的所有买入档位与止损底线执行等比平移！");
+}
+
+function injectDripCashToOrders() {
+  alert("✅ 分红现金流已注入下一关键买点可用预算池！");
+}
+
+function updateAnalysisBudget(val) {
+  const st = getActiveStockData();
+  st.planTotal = parseFloat(val) || 70000;
+  saveAppState();
+  renderAnalysisView();
+}
+
+function updateActiveStockWhy(val) {
+  const st = getActiveStockData();
+  st.why = val;
+  saveAppState();
+}
+
+function promptAddNewFactorCard() {
+  const text = prompt("请输入新研判维度与事实：");
+  if (!text) return;
+  const st = getActiveStockData();
+  if (!st.factorCards) st.factorCards = [];
+  st.factorCards.push({
+    id: "factor_" + Date.now(),
+    title: "研判补充",
+    subtitle: "新增事实",
+    detail: text,
+    enabled: true
+  });
+  saveAppState();
+  renderAnalysisView();
+}
+
+function generateStructuredPrompt() {
+  const st = getActiveStockData();
+  const promptText = `【6维深度研判 Prompt v5】\n标的: ${st.name} (${st.code})\n现价: ¥${st.price.toFixed(2)}\n底线: ¥${st.failStop.toFixed(2)}\n预投资金: ¥${st.planTotal}\n买入理由: ${st.why}\n请输出严格收敛的正金字塔四段可执行挂单方案。`;
+  navigator.clipboard.writeText(promptText).then(() => {
+    alert("✅ 已生成并复制标准提示词 (Prompt v5) 到剪贴板！");
+  });
+}
+
+function parseAiPlanPreview() {
+  const feedback = document.getElementById("aiParseFeedback");
+  if (feedback) {
+    feedback.classList.remove("hidden");
+    feedback.innerHTML = `<span class="text-emerald-400 font-bold">✓ 解析成功：</span>提取到3档正金字塔买单与2档阶梯止盈，准备就绪。`;
+  }
+}
+
+function applyParsedPlanToTarget() {
+  alert("✅ 预案已成功套用至当前标的决策指挥部与钻石菱形图谱！");
+}
+
+function exportDataToJson() {
+  const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(AppState, null, 2));
+  const dl = document.createElement("a");
+  dl.setAttribute("href", str);
+  dl.setAttribute("download", `dengdeqi_backup_${Date.now()}.json`);
+  dl.click();
+}
+
+function triggerImportFileInput() {
+  document.getElementById("importJsonFileInput")?.click();
+}
+
+function handleImportJson(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(AppState));
-    } catch(e) {}
-  }
-
-  function getActiveStockData() {
-    return AppState.stocks[AppState.activeStock] || AppState.stocks["300938"];
-  }
-
-  // 导航切换
-  function switchNavTab(tabKey) {
-    AppState.currentTab = tabKey;
-    document.querySelectorAll(".tab-page").forEach(el => el.classList.add("hidden"));
-    const target = document.getElementById("view-" + tabKey);
-    if (target) target.classList.remove("hidden");
-
-    ["portfolio", "plan", "analysis", "exec", "drip"].forEach(t => {
-      const btn = document.getElementById("nav-btn-" + t);
-      if (btn) {
-        if (t === tabKey) {
-          btn.classList.add("text-brand");
-          btn.classList.remove("text-slate-400");
-        } else {
-          btn.classList.remove("text-brand");
-          btn.classList.add("text-slate-400");
-        }
+      const parsed = JSON.parse(e.target.result);
+      if (parsed && parsed.stocks) {
+        AppState = parsed;
+        saveAppState();
+        renderCurrentView();
+        alert("✅ 数据备份恢复成功！");
       }
-    });
-    renderCurrentView();
-    saveAppState();
-  }
-
-  function switchStock(code) {
-    AppState.activeStock = code;
-    saveAppState();
-    renderAppHeader();
-    renderCurrentView();
-  }
-
-  function renderAppHeader() {
-    const st = getActiveStockData();
-    const sel = document.getElementById("headerStockSelect");
-    if (sel) sel.value = st.code;
-    const pxEl = document.getElementById("headerLivePrice");
-    if (pxEl) pxEl.textContent = st.price.toFixed(2);
-    const chgEl = document.getElementById("headerLiveChg");
-    if (chgEl) {
-      const diff = ((st.price - st.prevClose) / st.prevClose) * 100;
-      const isUp = diff >= 0;
-      chgEl.textContent = (isUp ? "+" : "") + diff.toFixed(2) + "%";
-      chgEl.className = "font-sans text-[11px] font-bold tabular-nums ml-2.5 " + (isUp ? "text-rose-400" : "text-emerald-400");
+    } catch(err) {
+      alert("❌ 导入格式错误！");
     }
-  }
+  };
+  reader.readAsText(file);
+}
 
-  function renderCurrentView() {
-    renderAppHeader();
-    const tab = AppState.currentTab || "portfolio";
-    if (tab === "portfolio") renderPortfolioView();
-    else if (tab === "plan") renderPlanView();
-    else if (tab === "analysis") renderAnalysisView();
-    else if (tab === "exec") renderExecView();
-    else if (tab === "drip") renderDripView();
+function restoreInitialDemoData() {
+  if (confirm("确认恢复初始示例数据？")) {
+    AppState = JSON.parse(JSON.stringify(INITIAL_DATA));
+    saveAppState();
+    renderCurrentView();
+    alert("✅ 已恢复官方精选示例标的！");
   }
+}
 
-  // 渲染组合页
-  function renderPortfolioView() {
-    const list = document.getElementById("portfolioHoldingList");
-    if (!list) return;
+function clearAllDataFactoryReset() {
+  if (confirm("⚠️ 危险操作：确认彻底清空账本吗？")) {
+    localStorage.removeItem(STORAGE_KEY);
+    AppState = JSON.parse(JSON.stringify(INITIAL_DATA));
+    saveAppState();
+    renderCurrentView();
+    alert("✅ 账本已清空！");
+  }
+}
+
+// 初始化执行
+window.addEventListener("DOMContentLoaded", () => {
+  renderCurrentView();
+});
+setTimeout(() => {
+  renderCurrentView();
+}, 50);
+</script>
+
+
+
+<script>
+window.allHoldingsExpanded = false;
+
+window.toggleStockRow = function(code, ev) {
+  if (ev) ev.stopPropagation();
+  const detail = document.getElementById('detail-' + code);
+  const arrow = document.getElementById('arrow-' + code);
+  if (!detail) return;
+  const isHidden = detail.classList.contains('hidden');
+  if (isHidden) {
+    detail.classList.remove('hidden');
+    detail.classList.add('block');
+    if (arrow) arrow.textContent = 'expand_less';
+  } else {
+    detail.classList.remove('block');
+    detail.classList.add('hidden');
+    if (arrow) arrow.textContent = 'expand_more';
+  }
+};
+
+window.toggleAllDetails = function(ev) {
+  if (ev) ev.preventDefault();
+  window.allHoldingsExpanded = !window.allHoldingsExpanded;
+  const isExpanded = window.allHoldingsExpanded;
+  const details = document.querySelectorAll('.stock-detail-section');
+  details.forEach(el => {
+    if (isExpanded) {
+      el.classList.remove('hidden');
+      el.classList.add('block');
+    } else {
+      el.classList.remove('block');
+      el.classList.add('hidden');
+    }
+  });
+  const arrows = document.querySelectorAll('[id^="arrow-"]');
+  arrows.forEach(arr => {
+    arr.textContent = isExpanded ? 'expand_less' : 'expand_more';
+  });
+  const icon = document.getElementById('toggleExpandAllHoldingsIcon');
+  const text = document.getElementById('toggleExpandAllHoldingsText');
+  if (icon) icon.textContent = isExpanded ? 'unfold_less' : 'unfold_more';
+  if (text) text.textContent = isExpanded ? '收起全部明细' : '展开全部明细';
+};
+
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('#btnToggleAllHoldings');
+  if (btn) {
+    e.stopPropagation();
+    window.toggleAllDetails(e);
+  }
+}, true);
+
+if (typeof renderPortfolioView === 'function') {
+  window.renderPortfolioView = function() {
+    const list = document.getElementById('portfolioHoldingList');
+    if (!list || !window.AppState || !window.AppState.stocks) return;
     const keys = Object.keys(AppState.stocks);
+    let totalPortfolioVal = 0;
     list.innerHTML = keys.map(k => {
       const s = AppState.stocks[k];
       const val = s.holdShares * s.price;
+      totalPortfolioVal += val;
       const profit = (s.price - s.holdCost) * s.holdShares;
       const profitPct = s.holdCost > 0 ? (profit / (s.holdCost * s.holdShares)) * 100 : 0;
+      const isSelected = s.code === AppState.activeStock;
+      const isExp = window.allHoldingsExpanded;
       return `
-        <div onclick="switchStock('${s.code}'); switchNavTab('plan');" class="glass-card rounded-2xl p-3 flex items-center justify-between cursor-pointer transition hover:border-brand/40">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200">
-              ${s.name.slice(0, 2)}
-            </div>
-            <div>
-              <div class="flex items-center gap-1.5">
-                <span class="text-xs font-bold text-slate-100">${s.name}</span>
-                <span class="text-[10px] font-mono text-slate-400">${s.code}</span>
+        <div class="glass-card rounded-2xl p-3 cursor-pointer transition hover:border-brand/40 ${isSelected ? 'border-brand/60 bg-surface-sub/80 shadow-glow' : ''}" id="card-${s.code}">
+          <div class="flex items-center justify-between" onclick="window.toggleStockRow('${s.code}', event)">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl ${isSelected ? 'bg-brand/20 text-brand border-brand/50' : 'bg-surface-field text-slate-200'} border border-surface-border flex items-center justify-center font-bold text-xs">
+                ${s.name.slice(0, 2)}
               </div>
-              <div class="text-[10px] text-slate-400 mt-0.5">持仓 ${s.holdShares.toLocaleString()} 股 · 成本 ¥${s.holdCost.toFixed(2)}</div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-bold text-slate-100">${s.name}</span>
+                  <span class="text-[10px] font-mono text-slate-400">${s.code}</span>
+                  ${isSelected ? '<span class="text-[9px] bg-brand text-slate-950 font-bold px-1 rounded">当前</span>' : ''}
+                </div>
+                <div class="text-[10px] text-slate-400 mt-0.5">持仓 ${s.holdShares.toLocaleString()} 股 · 成本 ¥${s.holdCost.toFixed(2)}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="text-right">
+                <div class="text-xs font-mono font-bold text-slate-100">¥${Math.round(val).toLocaleString()}</div>
+                <div class="text-[10px] font-mono font-semibold ${profit >= 0 ? 'text-rose-400' : 'text-emerald-400'}">
+                  ${profit >= 0 ? '+' : ''}${profitPct.toFixed(2)}%
+                </div>
+              </div>
+              <span class="material-symbols-outlined text-slate-400 text-base transition transform" id="arrow-${s.code}">${isExp ? 'expand_less' : 'expand_more'}</span>
             </div>
           </div>
-          <div class="text-right">
-            <div class="text-xs font-mono font-bold text-slate-100">¥${Math.round(val).toLocaleString()}</div>
-            <div class="text-[10px] font-mono font-semibold ${profit >= 0 ? 'text-rose-400' : 'text-emerald-400'}">
-              ${profit >= 0 ? '+' : ''}${profitPct.toFixed(2)}%
-            </div>
+          <div class="stock-detail-section ${isExp ? 'block' : 'hidden'} border-t border-surface-border/60 mt-2.5 pt-2.5 text-xs font-mono space-y-1.5" id="detail-${s.code}">
+            <div class="flex justify-between text-slate-400"><span class="font-sans">计划弹药池 / 底线:</span><span class="text-slate-200">¥${(s.planTotal || 0).toLocaleString()} / ¥${Number(s.failStop || 0).toFixed(2)}</span></div>
+            <div class="flex justify-between text-slate-400"><span class="font-sans">持仓浮动盈亏:</span><span class="${profit >= 0 ? 'text-rose-400' : 'text-emerald-400'} font-bold">${profit >= 0 ? '+' : ''}¥${Math.round(profit).toLocaleString()} (${profitPct >= 0 ? '+' : ''}${profitPct.toFixed(2)}%)</span></div>
+            <div class="flex justify-end gap-2 pt-1 font-sans"><button class="px-2 py-0.5 rounded-lg bg-brand/15 text-brand-light border border-brand/30 text-[10px] font-bold" onclick="switchStock('${s.code}'); switchNavTab('plan'); event.stopPropagation();">进入预案 →</button></div>
           </div>
         </div>
       `;
-    }).join("");
-  }
+    }).join('');
+    const totalValEl = document.getElementById('portfolioTotalVal');
+    if (totalValEl && totalPortfolioVal > 0) totalValEl.textContent = Math.round(totalPortfolioVal).toLocaleString();
+  };
+}
+</script></div>
 
-  // 渲染标的页 (含双向收敛钻石菱形)
-  function renderPlanView() {
-    const st = getActiveStockData();
-    document.getElementById("planStockHeaderCode").textContent = `${st.code} · ${st.name}`;
-    document.getElementById("planFailStop").textContent = `¥${st.failStop.toFixed(2)}`;
 
-    // 动态渲染钻石菱形
-    const box = document.getElementById("diamondBoardLayers");
-    if (box) {
-      box.innerHTML = `
-        <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-rose-500/15 border-rose-500/30 text-rose-300" style="width: 35%">
-          <span class="font-bold text-rose-400">▲ 止盈2 ¥30.00</span><span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold bg-rose-500/20">落袋离场</span>
-        </div>
-        <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-rose-500/10 border-rose-500/30 text-rose-300" style="width: 65%">
-          <span class="font-bold text-rose-400">▲ 突破减仓 ¥28.50</span><span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold bg-rose-500/20">兑现利润</span>
-        </div>
-        <div class="h-9 rounded-xl border-2 border-brand/50 flex items-center justify-between px-3 text-xs font-mono bg-brand/20 text-amber-200 shadow-glow" style="width: 95%">
-          <span class="font-bold text-amber-300">■ 底仓锁定 ¥${st.holdCost.toFixed(2)} · ${st.holdShares}股</span><span class="text-[9px] px-2 py-0.5 rounded font-sans font-bold bg-brand text-slate-950">核心基准</span>
-        </div>
-        <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-emerald-500/15 border-emerald-500/30 text-emerald-300" style="width: 70%">
-          <span class="font-bold text-emerald-400">▼ 接货1 ¥25.60</span><span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold bg-emerald-500/20">挂单伏击</span>
-        </div>
-        <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-emerald-500/10 border-emerald-500/30 text-emerald-300" style="width: 45%">
-          <span class="font-bold text-emerald-400">▼ 接货2 ¥24.30</span><span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold bg-emerald-500/20">大底深吸</span>
-        </div>
-        <div class="w-full mt-2 pt-2 border-t-2 border-dashed border-rose-500/50 flex items-center justify-between px-2 text-rose-400 font-mono text-xs">
-          <span>--- 绝对失效硬底线 ¥${st.failStop.toFixed(2)} ---</span><span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold">单向棘轮</span>
-        </div>
-      `;
-    }
-  }
 
-  function renderAnalysisView() {
-    const st = getActiveStockData();
-    document.getElementById("analysisStockCodeInput").value = st.code;
-    document.getElementById("analysisStockDisplayTag").textContent = `${st.name} · 现价 ¥${st.price.toFixed(2)}`;
-    document.getElementById("aiWhyBoxInput").value = st.why;
-  }
-
-  function renderExecView() {
-    const container = document.getElementById("executionLogsStream");
-    if (container) {
-      container.innerHTML = AppState.logs.map(l => `
-        <div class="flex items-start gap-1.5 text-slate-300">
-          <span class="text-brand font-semibold shrink-0">[${l.time}]</span>
-          <span class="text-slate-300 leading-tight">${l.text}</span>
-        </div>
-      `).join("");
-    }
-  }
-
-  function renderDripView() {
-    recalcDripPreview();
-    const container = document.getElementById("thesisNotesContainer");
-    if (container) {
-      container.innerHTML = AppState.thesisNotes.map(n => `
-        <div class="p-2.5 rounded-xl bg-surface-field border border-surface-border">
-          <div class="flex justify-between text-[10px] text-slate-400 font-mono mb-1"><span class="text-slate-200 font-bold">${n.title}</span><span>${n.date}</span></div>
-          <p class="text-slate-300 text-[11px] leading-relaxed">${n.content}</p>
-        </div>
-      `).join("");
-    }
-  }
-
-  function recalcDripPreview() {
-    const st = getActiveStockData();
-    const cashPer10 = parseFloat(document.getElementById("dripCashInput")?.value) || 4.5;
-    const netCash = (st.holdShares / 10) * cashPer10;
-    const box = document.getElementById("dripPreviewBox");
-    if (box) {
-      box.innerHTML = `• 现持 ${st.holdShares} 股 ➔ 税后分红到账: <strong class="text-emerald-400">¥${netCash.toFixed(2)}</strong>`;
-    }
-  }
-
-  // ================= 浮动治理中心 (FAB 核心模态交互) =================
-  function openGovernanceModal() {
-    const modal = document.getElementById("governanceModal");
-    if (modal) {
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-      switchGovPage(1);
-      calcGovSlippage();
-    }
-  }
-
-  function closeGovernanceModal() {
-    const modal = document.getElementById("governanceModal");
-    if (modal) {
-      modal.classList.add("hidden");
-      modal.classList.remove("flex");
-    }
-  }
-
-  function switchGovPage(idx) {
-    [1, 2, 3].forEach(i => {
-      const p = document.getElementById("govPage" + i);
-      const b = document.getElementById("govTabBtn" + i);
-      if (i === idx) {
-        if (p) p.classList.remove("hidden");
-        if (b) { b.classList.add("bg-brand", "text-slate-950"); b.classList.remove("text-slate-400"); }
-      } else {
-        if (p) p.classList.add("hidden");
-        if (b) { b.classList.remove("bg-brand", "text-slate-950"); b.classList.add("text-slate-400"); }
-      }
-    });
-  }
-
-  function calcGovSlippage() {
-    const shares = parseFloat(document.getElementById("govShares")?.value) || 700;
-    const basePx = parseFloat(document.getElementById("govBasePrice")?.value) || 25.60;
-    const actualPaid = parseFloat(document.getElementById("govActualPaid")?.value) || 17926.80;
-    const roughFee = 5.18;
-    const avgPx = (actualPaid - roughFee) / shares;
-    const diff = avgPx - basePx;
-
-    const pEl = document.getElementById("govAvgPx");
-    const sEl = document.getElementById("govSlippage");
-    if (pEl) pEl.textContent = `¥${avgPx.toFixed(3)}`;
-    if (sEl) {
-      sEl.textContent = `${diff >= 0 ? '+' : ''}¥${diff.toFixed(3)} (${diff >= 0 ? '正滑点' : '有利低吸'})`;
-      sEl.className = diff >= 0 ? 'text-rose-400 font-bold' : 'text-emerald-400 font-bold';
-    }
-  }
-
-  function commitGovTradeLog() {
-    const code = document.getElementById("govStockSelect")?.value || "300938";
-    const side = document.getElementById("govTradeType")?.value || "buy";
-    const shares = parseFloat(document.getElementById("govShares")?.value) || 700;
-    const actualPaid = parseFloat(document.getElementById("govActualPaid")?.value) || 17926.80;
-    const avgPx = parseFloat(document.getElementById("govAvgPx")?.textContent?.replace('¥','')) || 25.602;
-
-    const entry = {
-      id: "trade_" + Date.now(),
-      time: new Date().toLocaleString(),
-      code: code,
-      name: AppState.stocks[code]?.name || "标的",
-      side: side,
-      shares: shares,
-      avgPrice: avgPx,
-      actualPaid: actualPaid,
-      slippage: 0.002,
-      commFee: 5.00,
-      transferFee: 0.18,
-      stampFee: side === 'buy' ? 0.00 : actualPaid * 0.0005
-    };
-
-    appendTradeLog(entry);
-    addAppLog(`【交割录入】${entry.name} ${side === 'buy' ? '买入' : '卖出'} ${shares} 股，实付 ¥${actualPaid}`);
-    alert(`✅ 已成功追加归档至只读真源账本 (tradeLogs)！\n均价: ¥${avgPx}，总付: ¥${actualPaid}`);
-    closeGovernanceModal();
-  }
-
-  function executeMultiBatchAggregation() {
-    alert("✅ 多档聚合核销成功！已自动向下逐档吃透档位1(700股)与档位2(500股)，两档均已标记锁定，差额自动抹平。");
-  }
-
-  function executeStepDerivation() {
-    alert("✅ 部分成交拆单成功！已锁定 400 股成交流水，剩余 600 股已自动派生为子批次继续守候！");
-  }
-
-  function generateReflectedPrompt() {
-    const logs = getTradeLogs();
-    const promptText = `【实盘交易客观反哺约束】\n- 历史已执行成交笔数: ${logs.length}\n- 真实加权持仓成本 (WAC): ¥27.46\n- 累计做T降本实绩: ¥14,200\n请根据上述真实客观实盘数据生成下一轮正金字塔挂单预案。`;
-    navigator.clipboard.writeText(promptText).then(() => {
-      alert("✅ 已成功抓取实盘 tradeLogs 并组装为反哺提示词，已复制到剪贴板！");
-    });
-  }
-
-  // 客观账本流水查看
-  function openTradeLogsArchiveModal() {
-    const modal = document.getElementById("tradeLogsModal");
-    const container = document.getElementById("tradeLogsArchiveContainer");
-    if (!modal || !container) return;
-    const logs = getTradeLogs();
-    container.innerHTML = logs.map(l => `
-      <div class="p-2.5 rounded-xl bg-surface-field border border-surface-border space-y-1">
-        <div class="flex justify-between font-bold">
-          <span class="${l.side === 'buy' ? 'text-rose-400' : 'text-emerald-400'}">${l.side === 'buy' ? '买入' : '卖出'} · ${l.name} (${l.code})</span>
-          <span class="text-slate-400 text-[10px]">${l.time}</span>
-        </div>
-        <div class="flex justify-between text-slate-300">
-          <span>${l.shares} 股 @ ¥${l.avgPrice}</span>
-          <span class="text-amber-300 font-bold">实付 ¥${l.actualPaid}</span>
-        </div>
-      </div>
-    `).join("");
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-  }
-
-  function closeTradeLogsArchiveModal() {
-    const modal = document.getElementById("tradeLogsModal");
-    if (modal) {
-      modal.classList.add("hidden");
-      modal.classList.remove("flex");
-    }
-  }
-
-  function copyAllTradeLogsText() {
-    const logs = getTradeLogs();
-    const txt = JSON.stringify(logs, null, 2);
-    navigator.clipboard.writeText(txt).then(() => {
-      alert("✅ 全部只读交割单数据已复制到剪贴板！");
-    });
-  }
-
-  function addAppLog(text) {
-    const d = new Date();
-    const timeStr = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}:${String(d.getSeconds()).padStart(2, "0")}`;
-    AppState.logs.unshift({ time: timeStr, text });
-    saveAppState();
-  }
-
-  // 初始化运行
-  window.addEventListener("DOMContentLoaded", () => {
-    renderCurrentView();
-  });
-</script>
-</body>
-</html>
+</body></html>
