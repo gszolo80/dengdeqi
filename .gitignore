@@ -1,0 +1,4 @@
+
+# 安全中心拦截产生的 sips 隐藏临时文件
+assets/.*
+.DS_Store
