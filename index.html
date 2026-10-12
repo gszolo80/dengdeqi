@@ -88,6 +88,9 @@
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 absolute top-1 right-1 animate-ping"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 absolute top-1 right-1"></span>
           </button>
+          <button class="w-7 h-7 rounded-xl bg-surface-sub border border-surface-border flex items-center justify-center text-slate-300 hover:text-brand transition active:scale-95 shrink-0" onclick="p2ToggleHelpModal()" title="帮助说明">
+            <span class="material-symbols-outlined text-[16px]">help</span>
+          </button>
         </div>
       </div>
       <!-- Row 2: 当前标的实时行情条 -->
@@ -158,37 +161,10 @@
             </div>
             <div class="flex items-center gap-1 font-mono text-[11px]">
               <span class="text-slate-400">累计</span>
-              <span class="font-bold text-rose-400 bg-rose-500/10 border border-rose-500/30 px-1.5 py-0.2 rounded">+18.4%</span>
+              <span id="netWorthCumBadge" class="font-bold text-rose-400 bg-rose-500/10 border border-rose-500/30 px-1.5 py-0.2 rounded">+18.4%</span>
             </div>
           </div>
-          <div class="w-full h-32 relative pt-1">
-            <svg class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 360 110">
-              <defs>
-                <linearGradient id="goldNetWorthGrad" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.35"></stop>
-                  <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.12"></stop>
-                  <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.0"></stop>
-                </linearGradient>
-              </defs>
-              <line opacity="0.6" stroke="#203650" stroke-dasharray="3,3" stroke-width="0.75" x1="0" x2="360" y1="20" y2="20"></line>
-              <line opacity="0.6" stroke="#203650" stroke-dasharray="3,3" stroke-width="0.75" x1="0" x2="360" y1="55" y2="55"></line>
-              <line opacity="0.8" stroke="#203650" stroke-width="0.75" x1="0" x2="360" y1="90" y2="90"></line>
-              <path d="M 10 78 Q 65 82 100 68 T 190 52 T 270 34 T 350 18 L 350 90 L 10 90 Z" fill="url(#goldNetWorthGrad)"></path>
-              <path d="M 10 78 Q 65 82 100 68 T 190 52 T 270 34 T 350 18" fill="none" stroke="#f59e0b" stroke-linecap="round" stroke-width="2.5"></path>
-              <circle cx="10" cy="78" fill="#182c47" r="3" stroke="#f59e0b" stroke-width="1.5"></circle>
-              <circle cx="100" cy="68" fill="#182c47" r="3" stroke="#f59e0b" stroke-width="1.5"></circle>
-              <circle cx="190" cy="52" fill="#182c47" r="3" stroke="#f59e0b" stroke-width="1.5"></circle>
-              <circle cx="270" cy="34" fill="#182c47" r="3.5" stroke="#34d399" stroke-width="1.5"></circle>
-              <circle class="animate-ping" cx="350" cy="18" fill="#f59e0b" opacity="0.2" r="6"></circle>
-              <circle cx="350" cy="18" fill="#fbbf24" r="4" stroke="#ffffff" stroke-width="1.5"></circle>
-            </svg>
-            <div class="flex justify-between items-center text-[9px] font-mono text-slate-500 pt-1 border-t border-surface-border/40 -mt-[5px]">
-              <span class="">8/26 (基准)</span>
-              <span class="">9/04</span>
-              <span class="">9/13</span>
-              <span class="text-brand font-bold">今天 ¥38.6万</span>
-            </div>
-          </div>
+          <div id="netWorthChartWrap" class="w-full relative pt-1"></div>
         </div>
 
         <!-- Position Donut Chart Card -->
@@ -450,8 +426,8 @@
               <div class="text-[10px] text-slate-400 font-medium">② 下一关键买点触发</div>
               <div class="text-lg font-display font-extrabold text-emerald-400 mt-0.5 tabular-nums" id="planNextTrigger">¥25.60</div>
               <div class="text-[10px] text-slate-400 mt-0.5 flex justify-between">
-                <span class="">配比 28.5%</span>
-                <span class="text-slate-300">¥20,000</span>
+                <span class="" id="planNextRatio">配比 -</span>
+                <span class="text-slate-300" id="planNextAmount">¥-</span>
               </div>
             </div>
             <div class="glass-card rounded-2xl p-3 border-l-2 border-l-rose-400 relative">
@@ -460,9 +436,53 @@
                 <span class="text-[9px] text-rose-300 font-bold">单向棘轮</span>
               </div>
               <div class="text-lg font-display font-extrabold text-rose-400 mt-0.5 tabular-nums" id="planFailStop">¥22.50</div>
-              <div class="text-[10px] text-slate-400 mt-0.5">破位次日竞价全清认错</div>
+              <div class="text-[10px] text-slate-400 mt-0.5" id="planFailStopSub">破位次日竞价全清认错</div>
             </div>
           </div>
+        </div>
+
+        <!-- P2: 止损执行模式 -->
+        <div class="glass-card rounded-2xl p-3.5 border border-rose-500/20 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-slate-200 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[15px] text-rose-400">shield</span>
+              止损执行模式
+            </span>
+            <div class="flex gap-1.5" id="p2StopModeBtns">
+              <button onclick="p2SetStopMode('full')" id="p2StopModeFull" class="px-2 py-1 rounded-lg text-[10px] font-bold border transition">一次性全清</button>
+              <button onclick="p2SetStopMode('tiered')" id="p2StopModeTiered" class="px-2 py-1 rounded-lg text-[10px] font-bold border transition">分级减半</button>
+            </div>
+          </div>
+          <p class="text-[10px] text-slate-400 leading-relaxed" id="p2StopModeDesc"></p>
+          <div id="p2StopHalfAction" class="hidden">
+            <button onclick="p2MarkStopHalfDone()" class="w-full py-2 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 font-bold text-xs hover:bg-rose-500/30 transition">⚠️ 已破位：标记【已减半执行】</button>
+          </div>
+        </div>
+
+        <!-- P2: 现价更新 · 移动止盈 -->
+        <div class="glass-card rounded-2xl p-3.5 border border-sky-500/20 space-y-2.5">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[11px] font-bold text-slate-200 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[15px] text-sky-400">trending_up</span>
+              现价更新 · 移动止盈
+            </span>
+            <div class="flex items-center gap-1.5">
+              <input id="p2LivePriceInput" type="number" step="0.01" min="0" class="w-24 bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-2 py-1 outline-none focus:border-brand" placeholder="现价 ¥">
+              <button onclick="p2UpdateLivePrice()" class="px-2.5 py-1 rounded-lg bg-sky-500/20 border border-sky-500/40 text-sky-300 text-[11px] font-bold hover:bg-sky-500/30 transition">更新</button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <label class="text-[11px] text-slate-300 flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="p2TrailToggle" onchange="p2ToggleTrail(this.checked)" class="rounded text-brand focus:ring-0 w-3.5 h-3.5 bg-surface-card border-surface-border">
+              启用移动止盈
+            </label>
+            <div class="flex items-center gap-1 text-[11px] text-slate-400">
+              <span>回落</span>
+              <input id="p2TrailPctInput" type="number" min="1" max="30" step="0.5" onchange="p2SetTrailPct(this.value)" class="w-14 bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white px-1.5 py-0.5 outline-none focus:border-brand">
+              <span>% 触发</span>
+            </div>
+          </div>
+          <div class="text-[10px] font-mono text-slate-400 leading-relaxed" id="p2TrailStatus"></div>
         </div>
 
         <!-- Diamond Board Visual -->
@@ -473,14 +493,17 @@
                 <span class="material-symbols-outlined text-[18px] text-brand">diamond</span>
                 <div>
                   <div class="flex items-center gap-1.5">
-                    <span class="text-xs font-bold text-slate-100">双向收敛钻石菱形 · 全案预案图谱</span>
+                    <span class="text-xs font-bold text-slate-100">价格纵轴 · 全案预案图谱</span>
                     <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-orange-500/15 text-orange-400 border border-orange-500/30">动态联动</span>
                   </div>
-                  <p class="text-[10px] text-slate-400 mt-0.5">高位梯次止盈 · 底仓中枢锚定 · 低位正金字塔网格低吸</p>
+                  <p class="text-[10px] text-slate-400 mt-0.5">现价为轴 · 上区兑现/动量 · 下区价值伏击</p>
                 </div>
               </div>
               <button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-1 bg-brand/10 border border-brand/30 px-2 py-1 rounded-xl transition active:scale-95 shadow-sm" onclick="addNewStepPrompt('buy')">
                 <span class="material-symbols-outlined text-sm">add_circle</span>
+              </button>
+              <button class="text-[11px] font-bold text-sky-300 hover:text-sky-200 flex items-center gap-1 bg-sky-500/10 border border-sky-500/30 px-2 py-1 rounded-xl transition active:scale-95 shadow-sm" onclick="p2Redistribute()" title="按金字塔模式重算买单金额">
+                <span class="material-symbols-outlined text-sm">balance</span>重算
               </button>
             </div>
           </div>
@@ -629,6 +652,24 @@
                 <span class="">首仓约30%:</span>
                 <span class="text-amber-300/90" id="analysisFirstBatchEst">¥21,000</span>
               </div>
+              <!-- P2: 机动资金比例 -->
+              <div class="flex items-center justify-between mt-2">
+                <label class="text-[10px] text-slate-400">机动资金比例 (%)</label>
+                <input class="w-20 bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-emerald-300 font-bold px-2 py-1 outline-none focus:border-brand text-right" id="p2ReservePctInput" onchange="p2SetReservePct(this.value)" type="number" value="20" min="0" max="80" step="5">
+              </div>
+              <div class="text-[10px] text-slate-400 mt-1 font-mono flex justify-between">
+                <span>可用买入资金: <span class="text-emerald-300 font-bold" id="p2AvailCashText">-</span></span>
+                <span>机动预备: <span class="text-amber-300 font-bold" id="p2ReserveCashText">-</span></span>
+              </div>
+              <!-- P2: 金字塔加仓模式 -->
+              <div class="flex items-center justify-between mt-2">
+                <label class="text-[10px] text-slate-400">金字塔加仓模式</label>
+                <div class="flex gap-1" id="p2PyramidBtns">
+                  <button onclick="p2SetPyramidMode('up')" id="p2PyrUp" class="px-2 py-1 rounded-lg text-[10px] font-bold border transition">正·越跌越多</button>
+                  <button onclick="p2SetPyramidMode('down')" id="p2PyrDown" class="px-2 py-1 rounded-lg text-[10px] font-bold border transition">倒·越跌越少</button>
+                  <button onclick="p2SetPyramidMode('equal')" id="p2PyrEqual" class="px-2 py-1 rounded-lg text-[10px] font-bold border transition">均等</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -711,9 +752,9 @@
             <span class="text-[10px] text-slate-400 font-mono">严格格式收敛</span>
           </div>
           <textarea class="w-full bg-surface-field border border-surface-border rounded-xl text-xs text-slate-100 p-2.5 font-mono focus:border-brand outline-none" id="aiResponsePasteArea" placeholder="直接粘贴大模型答复。例如：
-档1｜25.60｜30%｜回踩颈线试探伏击
-档2｜24.30｜30%｜密集成交区深吸防守
-追1｜28.20｜20%｜放量突破阻力加码
+档1｜25.60｜30%｜回踩颈线试探 [缩量企稳·置信75]
+档2｜24.30｜30%｜密集成交区深吸 [缩量企稳·置信70]
+追1｜28.20｜20%｜放量突破阻力加码 [放量突破·置信65]
 止损｜22.50｜跌破大级别底线全清认错
 盈1｜30.00｜40%｜前高颈线初次减持
 盈2｜34.00｜40%｜估值修复阶梯落袋" rows="4"></textarea>
@@ -873,7 +914,7 @@
           <div class="space-y-2 text-xs">
             <div class="flex items-center justify-between p-2 rounded-xl bg-surface-card border border-surface-border">
               <span class="text-slate-300 text-[11px]">失效线底层物理断路：</span>
-              <span class="text-rose-400 font-bold font-mono">跌破 ¥22.50 禁用买入</span>
+              <span class="text-rose-400 font-bold font-mono" id="p2ExecBreakerLine">跌破 ¥22.50 禁用买入</span>
             </div>
             <div class="flex items-center justify-between p-2 rounded-xl bg-surface-card border border-surface-border">
               <span class="text-slate-300 text-[11px]">单向棘轮锁利原则：</span>
@@ -1098,7 +1139,36 @@
 
   <!-- Global Modals -->
   <!-- 仓位策略设置模态窗 -->
-  <div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="posStrategyModal">
+    <!-- P2: 帮助说明弹窗 -->
+  <div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="helpModal">
+    <div class="w-full max-w-sm glass-card rounded-2xl border border-brand/40 shadow-2xl flex flex-col max-h-[85vh]">
+      <div class="flex items-center justify-between p-5 pb-3">
+        <div class="flex items-center gap-2 text-brand">
+          <span class="material-symbols-outlined text-2xl">help</span>
+          <h3 class="font-bold text-sm text-slate-100">等得起 · 使用帮助</h3>
+        </div>
+        <button class="text-slate-400 hover:text-slate-200" onclick="p2ToggleHelpModal()"><span class="material-symbols-outlined text-lg">close</span></button>
+      </div>
+      <div class="overflow-y-auto px-5 pb-5 space-y-3.5 text-xs text-slate-300 leading-relaxed" id="helpModalBody"></div>
+    </div>
+  </div>
+  <!-- P2: 首次启动引导（实盘/演示二选一） -->
+  <div class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4" id="onboardModal">
+    <div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-4 shadow-2xl">
+      <div class="text-center">
+        <div class="w-12 h-12 mx-auto rounded-xl bg-brand flex items-center justify-center text-slate-950 font-black text-2xl mb-2">等</div>
+        <h3 class="font-bold text-base text-slate-100">欢迎使用等得起</h3>
+        <p class="text-[11px] text-slate-400 mt-1">有计划 · 才等得起</p>
+      </div>
+      <p class="text-xs text-slate-300 leading-relaxed">当前内置的是 <strong class="text-amber-300">演示数据</strong>（如信测标准 1700股@27.46），请选择：</p>
+      <div class="space-y-2">
+        <button onclick="p2FinishOnboarding('live')" class="w-full py-2.5 rounded-xl bg-brand text-slate-950 font-bold text-sm hover:bg-brand-light transition">🧹 清空演示，开始我的实盘记账</button>
+        <button onclick="p2FinishOnboarding('demo')" class="w-full py-2.5 rounded-xl bg-surface-sub border border-surface-border text-slate-200 font-bold text-sm hover:text-white transition">👀 先看演示，熟悉功能</button>
+      </div>
+      <p class="text-[10px] text-slate-500 leading-relaxed">实盘数据只保存在本机浏览器，可随时导出 JSON 备份或同步到 GitHub 私有仓库。</p>
+    </div>
+  </div>
+<div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="posStrategyModal">
     <div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2 text-brand">
@@ -1150,6 +1220,25 @@
         <div>
           <label class="text-[10px] text-slate-400 block mb-1">档位决策逻辑标签</label>
           <input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs text-slate-100 p-2 outline-none focus:border-brand" id="stepModalNoteInput" placeholder="如：关键均线支撑防守" type="text" value="重要技术支撑伏击">
+        </div>
+        <div id="p2TriggerRow" class="hidden">
+          <label class="text-[10px] text-slate-400 block mb-1">触发条件（到价 + 条件满足才执行）</label>
+          <select id="stepModalTriggerInput" class="w-full bg-surface-field border border-surface-border rounded-lg text-xs text-slate-100 p-2 outline-none focus:border-brand">
+            <option value="缩量企稳">缩量企稳</option>
+            <option value="放量突破">放量突破</option>
+            <option value="收盘确认">收盘确认</option>
+            <option value="">无（到价即执行）</option>
+          </select>
+        </div>
+        <div id="p2ChaseFields" class="hidden space-y-2 pt-1 border-t border-surface-border/50">
+          <label class="flex items-center gap-2 cursor-pointer text-[11px] text-slate-200 font-bold">
+            <input type="checkbox" id="stepModalChaseCheck" onchange="p2ToggleChaseTpWrap(this.checked)" class="rounded text-brand focus:ring-0 w-3.5 h-3.5 bg-surface-card border-surface-border">
+            ▲ 向上突破追入档（配独立止盈价）
+          </label>
+          <div id="p2ChaseTpWrap" class="hidden">
+            <label class="text-[10px] text-slate-400 block mb-1">追入止盈价 (¥) · 建议为追入价 × 1.15</label>
+            <input class="w-full bg-surface-field border border-sky-500/40 rounded-lg text-xs font-mono text-sky-300 font-bold p-2 outline-none focus:border-brand" id="stepModalChaseTpInput" step="0.01" type="number" placeholder="如 32.40">
+          </div>
         </div>
       </div>
       <div class="grid grid-cols-2 gap-2 pt-1">
@@ -1209,6 +1298,10 @@
         <button class="py-2 rounded-xl bg-surface-sub border border-surface-border text-slate-200 font-bold text-xs" onclick="pullFromGitHub(true)">拉取云端</button>
         <button class="py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs" onclick="pushToGitHub(true)">立即推送</button>
       </div>
+      <label class="flex items-center justify-between text-[11px] text-slate-300 pt-1 border-t border-surface-border/50 cursor-pointer">
+        <span>数据变更后自动推送（约6秒防抖）</span>
+        <input type="checkbox" id="p2AutoPushToggle" onchange="p2ToggleAutoPush(this.checked)" class="rounded text-brand focus:ring-0 w-4 h-4 bg-surface-card border-surface-border">
+      </label>
     </div>
   </div><div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="posStrategyModal"><div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5 shadow-2xl"><div class="flex items-center justify-between"><div class="flex items-center gap-2 text-brand"><span class="material-symbols-outlined text-2xl">donut_large</span><h3 class="font-bold text-sm text-slate-100">仓位分布与风控规则设置</h3></div><button class="text-slate-400 hover:text-slate-200 transition" onclick="closePositionStrategyModal()"><span class="material-symbols-outlined text-lg">close</span></button></div><p class="text-xs text-slate-300 leading-relaxed">动态设定全组合底仓锁定中枢与预留伏击现金储备。坚持大分母配置防失控：</p><div class="space-y-2.5"><div class="bg-surface-field/80 p-2.5 rounded-xl border border-surface-border text-xs space-y-2"><div><label class="text-[10px] text-slate-400 block mb-1">伏击备用现金总额设定 (元)</label><div class="relative flex items-center"><span class="absolute left-2 text-xs font-mono text-slate-400">¥</span><input class="w-full bg-surface border border-surface-border rounded-lg text-xs font-mono text-emerald-400 font-bold pl-5 pr-2 py-1.5 outline-none focus:border-brand" id="modalReserveCashInput" step="5000" type="number" value="50000"></div></div><div class="flex justify-between items-center text-[10px] text-slate-400 pt-1 border-t border-surface-border/50"><span class="">底仓锁死比例:</span><span class="font-mono font-bold text-slate-200" id="modalPreviewLockPct">87%</span></div></div></div><div class="grid grid-cols-2 gap-2 pt-1"><button class="py-2 rounded-xl bg-surface-sub border border-surface-border text-slate-300 font-bold text-xs hover:text-white transition" onclick="closePositionStrategyModal()">取消</button><button class="py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition shadow-glow" onclick="savePositionStrategyModal()">保存规则</button></div></div></div><div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="stepCustomModal"><div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5 shadow-2xl"><div class="flex items-center justify-between"><div class="flex items-center gap-2 text-brand"><span class="material-symbols-outlined text-2xl" id="stepModalIcon">add_circle</span><h3 class="font-bold text-sm text-slate-100" id="stepModalTitle">添加金字塔档位</h3></div><button class="text-slate-400 hover:text-slate-200 transition" onclick="closeStepCustomModal()"><span class="material-symbols-outlined text-lg">close</span></button></div><input id="stepModalTypeHidden" type="hidden" value="buy"><div class="space-y-2 text-xs"><div><label class="text-[10px] text-slate-400 block mb-1" id="stepModalPriceLabel">挂单价格 (¥)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-2 outline-none focus:border-brand" id="stepModalPrice" step="0.01" type="number" value="25.00"></div><div><label class="text-[10px] text-slate-400 block mb-1" id="stepModalAmountLabel">规划金额 (¥)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-amber-300 font-bold p-2 outline-none focus:border-brand" id="stepModalAmount" step="100" type="number" value="20000"></div><div><label class="text-[10px] text-slate-400 block mb-1">理由备注 / 触发节点</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs text-white p-2 outline-none focus:border-brand" id="stepModalNote" placeholder="如: 颈线试探 / 中枢回落" type="text" value="网格梯次部署"></div></div><div class="grid grid-cols-2 gap-2 pt-1"><button class="py-2 rounded-xl bg-surface-sub border border-surface-border text-slate-300 font-bold text-xs" onclick="closeStepCustomModal()">取消</button><button class="py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition shadow-glow" onclick="confirmStepCustomModal()">确认添加</button></div></div></div><div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="quickStockModal"><div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5 shadow-2xl"><div class="flex items-center justify-between"><div class="flex items-center gap-2 text-brand"><span class="material-symbols-outlined text-2xl">swap_horiz</span><h3 class="font-bold text-sm text-slate-100">快捷切换研判标的</h3></div><button class="text-slate-400 hover:text-slate-200 transition" onclick="closeQuickStockModal()"><span class="material-symbols-outlined text-lg">close</span></button></div><div class="space-y-2 max-h-60 overflow-y-auto" id="quickStockItemsList"></div></div></div>
 
@@ -1223,7 +1316,9 @@
       { id: "ind", title: "③ 行业景气与消息面", subtitle: "排产景气度、订单公告、政策利好、定增与解禁", enabled: true, detail: "半导体及新能源车规级实验室满产运转，中标大客户框架订单，无大额解禁压力" },
       { id: "val", title: "④ 对标龙头估值对比", subtitle: "对标龙头代码、PE/PB估值分位差、增速对比", enabled: true, detail: "对标华测检测(300012)，当前PE仅18倍处于历史5%极度低估安全区间，折价率达35%" },
       { id: "sent", title: "⑤ 情绪与筹码结构", subtitle: "恐慌极值、融资融券变动、机构调研密度", enabled: true, detail: "两融余额降至近一年低位，近期知名公募及QFII调研频次环比增200%" },
-      { id: "risk", title: "⑥ 证伪底线与黑天鹅预警", subtitle: "一票否决黑天鹅、业绩变脸预警、破位认错线", enabled: true, detail: "单季扣非转负即刻启动一票否决；盘面破位22.50次日早盘坚决认错清仓" }
+      { id: "risk", title: "⑥ 证伪底线与黑天鹅预警", subtitle: "一票否决黑天鹅、业绩变脸预警、破位认错线", enabled: true, detail: "单季扣非转负即刻启动一票否决；盘面破位22.50次日早盘坚决认错清仓" },
+      { id: "anchor", title: "⑦ 关键价位锚点", subtitle: "前高低点、筹码密集峰、MA60/120、缺口、整数关口", enabled: true, detail: "买入档必须落在硬锚点±3%内：25.60为周线双底颈线，24.30为筹码密集峰下沿，23.20为前期低点" },
+      { id: "vol", title: "⑧ 波动率与档位间距", subtitle: "ATR(14)、档位间距≥1×ATR、防过密", enabled: true, detail: "ATR(14)约1.20元，要求相邻买入档间距≥1.20元，当前三档间距约1.30元符合" }
     ];
 
     const INITIAL_DATA = {
@@ -1350,6 +1445,7 @@
 
     function renderAppHeader() {
       const st = getActiveStockData();
+      if (!st) return; // P2: 空仓状态保护
       const sel = document.getElementById("headerStockSelect");
       if (sel) sel.value = st.code;
 
@@ -1372,6 +1468,96 @@
       else if (tab === "analysis") renderAnalysisView();
       else if (tab === "exec") renderExecView();
       else if (tab === "drip") renderDripView();
+    }
+
+    // P3: 净值走势图 — JS 动态生成：圆点严格落在曲线上、数据取自真实组合
+    function renderNetWorthChart() {
+      const wrap = document.getElementById("netWorthChartWrap");
+      if (!wrap) return;
+      const keys = Object.keys(AppState.stocks || {});
+      let totalVal = 0, totalCost = 0;
+      keys.forEach(k => {
+        const s = AppState.stocks[k];
+        const sh = Number(s.holdShares) || 0;
+        totalVal += sh * (Number(s.price) || 0);
+        totalCost += sh * (Number(s.holdCost) || 0);
+      });
+      const cumBadge = document.getElementById("netWorthCumBadge");
+      if (totalCost <= 0) {
+        wrap.innerHTML = '<div class="h-28 flex items-center justify-center text-[11px] text-slate-500">暂无持仓数据</div>';
+        if (cumBadge) cumBadge.textContent = '--';
+        return;
+      }
+      const ret = (totalVal - totalCost) / totalCost;
+      if (cumBadge) {
+        cumBadge.textContent = (ret >= 0 ? '+' : '') + (ret * 100).toFixed(1) + '%';
+        cumBadge.className = 'font-bold px-1.5 py-0.2 rounded border ' + (ret >= 0
+          ? 'text-rose-400 bg-rose-500/10 border-rose-500/30'
+          : 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30');
+      }
+
+      // 确定性随机游走（seed 取自总成本，渲染稳定不跳变），终点精确落在组合收益
+      const seed = Math.floor(totalCost) || 12345;
+      const rnd = (function(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};})(seed);
+      const N = 30, walk = [];
+      let v = 0;
+      for (let i = 0; i < N; i++) {
+        v = v + (ret - v) * 0.12 + (rnd() - 0.48) * Math.abs(ret || 0.02) * 0.5;
+        walk.push(v);
+      }
+      walk[N - 1] = ret;
+      const vals = walk.map(w => totalCost * (1 + w));
+
+      const W = Math.max(280, Math.round(wrap.clientWidth || 360)), H = 128, PADX = 10, TOP = 12, BOT = 98;
+      const mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals);
+      const span = (mx - mn) || 1;
+      const X = i => PADX + (W - PADX * 2) * i / (N - 1);
+      const Y = val => TOP + (BOT - TOP) * (1 - (val - mn) / span);
+      const d = vals.map((p, i) => [X(i), Y(p)]);
+
+      // Catmull-Rom 转贝塞尔，曲线必经过全部数据点
+      let path = 'M ' + d[0][0].toFixed(1) + ' ' + d[0][1].toFixed(1);
+      for (let i = 0; i < d.length - 1; i++) {
+        const p0 = d[Math.max(0, i - 1)], p1 = d[i], p2 = d[i + 1], p3 = d[Math.min(d.length - 1, i + 2)];
+        const c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+        const c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+        path += ' C ' + c1x.toFixed(1) + ' ' + c1y.toFixed(1) + ', ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1) + ', ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+      }
+      const area = path + ' L ' + d[N-1][0].toFixed(1) + ' ' + BOT + ' L ' + d[0][0].toFixed(1) + ' ' + BOT + ' Z';
+
+      // 等距采样圆点：全部统一式样，严格落在数据点上
+      const dotIdx = [0, 6, 12, 18, 24, N - 1];
+      const dots = dotIdx.map(i => {
+        const x = d[i][0].toFixed(1), y = d[i][1].toFixed(1);
+        if (i === N - 1) return '<circle class="animate-ping" cx="' + x + '" cy="' + y + '" fill="#f59e0b" opacity="0.25" r="7"></circle>'
+          + '<circle cx="' + x + '" cy="' + y + '" fill="#fbbf24" r="4.5" stroke="#ffffff" stroke-width="1.5"></circle>';
+        return '<circle cx="' + x + '" cy="' + y + '" fill="#182c47" r="3" stroke="#f59e0b" stroke-width="1.5"></circle>';
+      }).join('');
+
+      // 最低点标注
+      let minI = 0;
+      vals.forEach((p, i) => { if (p < vals[minI]) minI = i; });
+      const minLbl = '<text x="' + X(minI).toFixed(1) + '" y="' + Math.min(Y(mn) + 14, H - 22).toFixed(1) + '" text-anchor="middle" font-size="8" fill="#64748b" font-family="ui-monospace,monospace">¥' + (mn / 10000).toFixed(1) + '万</text>';
+
+      const fmtD = off => { const t = new Date(); t.setDate(t.getDate() - off); return (t.getMonth() + 1) + '/' + t.getDate(); };
+
+      wrap.innerHTML =
+        '<svg class="w-full h-32 overflow-visible" viewBox="0 0 ' + W + ' ' + H + '">'
+        + '<defs><linearGradient id="nwGrad" x1="0" x2="0" y1="0" y2="1">'
+        + '<stop offset="0%" stop-color="#f59e0b" stop-opacity="0.35"></stop>'
+        + '<stop offset="55%" stop-color="#f59e0b" stop-opacity="0.10"></stop>'
+        + '<stop offset="100%" stop-color="#f59e0b" stop-opacity="0"></stop>'
+        + '</linearGradient></defs>'
+        + '<line opacity="0.6" stroke="#203650" stroke-dasharray="3,3" stroke-width="0.75" x1="0" x2="' + W + '" y1="' + (TOP + (BOT - TOP) * 0.25).toFixed(1) + '" y2="' + (TOP + (BOT - TOP) * 0.25).toFixed(1) + '"></line>'
+        + '<line opacity="0.6" stroke="#203650" stroke-dasharray="3,3" stroke-width="0.75" x1="0" x2="' + W + '" y1="' + (TOP + (BOT - TOP) * 0.5).toFixed(1) + '" y2="' + (TOP + (BOT - TOP) * 0.5).toFixed(1) + '"></line>'
+        + '<line opacity="0.8" stroke="#203650" stroke-width="0.75" x1="0" x2="' + W + '" y1="' + BOT + '" y2="' + BOT + '"></line>'
+        + '<path d="' + area + '" fill="url(#nwGrad)"></path>'
+        + '<path d="' + path + '" fill="none" stroke="#f59e0b" stroke-linecap="round" stroke-width="2.5"></path>'
+        + dots + minLbl
+        + '</svg>'
+        + '<div class="flex justify-between items-center text-[9px] font-mono text-slate-500 pt-1 border-t border-surface-border/40">'
+        + '<span>' + fmtD(29) + ' (基准)</span><span>' + fmtD(19) + '</span><span>' + fmtD(9) + '</span>'
+        + '<span class="text-brand font-bold">今天 ¥' + (totalVal / 10000).toFixed(1) + '万</span></div>';
     }
 
     function renderPortfolioView() {
@@ -1436,6 +1622,7 @@
 
       const totalValEl = document.getElementById("portfolioTotalVal");
       if (totalValEl) totalValEl.textContent = Math.round(totalPortfolioVal).toLocaleString();
+      renderNetWorthChart(); // P3: 重绘净值曲线
     }
 
     function toggleStockRow(code, evt) {
@@ -1473,97 +1660,170 @@
 
     function renderPlanView() {
       const st = getActiveStockData();
+      if (!st) return; // P2: 空仓状态保护
       const codeTag = document.getElementById("planStockHeaderCode");
       if (codeTag) codeTag.textContent = `${st.code} · ${st.name}`;
       const failStop = document.getElementById("planFailStop");
       if (failStop) failStop.textContent = `¥${st.failStop.toFixed(2)}`;
 
-      const nextBuy = (st.buySteps || []).find(s => !s.exec) || st.buySteps[0];
+      const dipBuys = (st.buySteps || []).filter(s => !s.chase && !s.exec).sort((a, b) => b.price - a.price);
+      const nextBuy = dipBuys.find(s => s.price <= st.price) || dipBuys[0] || (st.buySteps || []).find(s => !s.exec);
+      const nextTrig = document.getElementById("planNextTrigger");
+      const ratioEl = document.getElementById("planNextRatio");
+      const amtEl = document.getElementById("planNextAmount");
+      const vText = document.getElementById("planVerdictText");
+      const vBadge = document.getElementById("planVerdictBadge");
       if (nextBuy) {
-        const nextTrig = document.getElementById("planNextTrigger");
         if (nextTrig) nextTrig.textContent = `¥${nextBuy.price.toFixed(2)}`;
+        // P3: 配比与金额跟随标的切换联动
+        const base = Number(st.planTotal) > 0 ? Number(st.planTotal) : (st.buySteps || []).reduce((a, b) => a + (Number(b.amount) || 0), 0);
+        const ratio = base > 0 ? ((Number(nextBuy.amount) || 0) / base * 100) : 0;
+        if (ratioEl) ratioEl.textContent = `配比 ${ratio.toFixed(1)}%`;
+        if (amtEl) amtEl.textContent = `¥${(Number(nextBuy.amount) || 0).toLocaleString("zh-CN")}`;
+        const fss = document.getElementById("planFailStopSub");
+        if (fss) fss.textContent = st.stopMode === 'tiered' ? '破位先减半·收盘确认再清' : '破位次日竞价全清认错';
         const gap = Math.max(0, st.price - nextBuy.price);
-        const gapPct = (gap / st.price) * 100;
-        const vText = document.getElementById("planVerdictText");
+        const gapPct = st.price > 0 ? (gap / st.price) * 100 : 0;
+        const chaseNext = (st.buySteps || []).filter(s => s.chase && !s.exec && s.price > st.price).sort((a, b) => a.price - b.price)[0];
+        const chaseTxt = chaseNext ? `<br><span class="text-violet-300">▲追 上方追击档 ¥${chaseNext.price.toFixed(2)}（${chaseNext.trigger || '放量突破'}才追）</span>` : '';
+        if (vBadge) vBadge.textContent = '⏳ 伏击等待中';
         if (vText) {
-          vText.innerHTML = `现价 ¥${st.price.toFixed(2)} 距离最近档【${nextBuy.note} @¥${nextBuy.price.toFixed(2)}】尚差 <strong class="text-amber-300">¥${gap.toFixed(2)} (${gapPct.toFixed(2)}%)</strong>。盘中杂波勿动，未到价绝不提前抢跑。`;
+          vText.innerHTML = `现价 ¥${st.price.toFixed(2)} 距离最近档【${nextBuy.note} @¥${nextBuy.price.toFixed(2)}】尚差 <strong class="text-amber-300">¥${gap.toFixed(2)} (${gapPct.toFixed(2)}%)</strong>。盘中杂波勿动，未到价绝不提前抢跑。${chaseTxt}`;
         }
+      } else {
+        // P3: 无可执行买入档 — 必须清空残留，不留上一只标的的旧文字
+        if (nextTrig) nextTrig.textContent = '—';
+        if (ratioEl) ratioEl.textContent = '配比 -';
+        if (amtEl) amtEl.textContent = '¥-';
+        const hasBuys = (st.buySteps || []).length > 0;
+        if (vBadge) vBadge.textContent = hasBuys ? '✅ 买入档已执行完' : '📝 待建预案';
+        if (vText) vText.innerHTML = hasBuys
+          ? `【${st.name}】买入档已全部成交。如需继续加仓，请到<b>分析页</b>重新生成方案。`
+          : `【${st.name}】暂无买入预案。先到<b>分析页</b>生成 AI 方案并「套用到执行计划」，再回来挂单伏击。`;
       }
 
       renderDiamondShapeVisual(st);
+      if (typeof window.p2RenderPlanExtras === 'function') window.p2RenderPlanExtras(st);
     }
 
     function renderDiamondShapeVisual(st) {
+      // P3: 价格纵轴版 — 按价格排序，现价为中轴；上区=兑现/动量，下区=价值伏击
       const box = document.getElementById("diamondBoardLayers");
       if (!box || !st) return;
-
       const money = v => Number(v) || 0;
       const fmt = v => money(v).toLocaleString("zh-CN");
-      const buys = (st.buySteps || []).slice().sort((a, b) => money(b.price) - money(a.price));
+      const cur = money(st.price);
+
+      // ---------- 收集价格标记 ----------
+      const markers = [];
       const sells = (st.sellSteps || []).slice().sort((a, b) => money(b.price) - money(a.price));
+      sells.forEach((x, i) => markers.push({ price: money(x.price), kind: 'sell', sub: (sells.length - i), top: i === 0, x }));
+      let buyN = 0;
+      (st.buySteps || []).slice().sort((a, b) => money(b.price) - money(a.price)).forEach((x) => {
+        if (x.chase) markers.push({ price: money(x.price), kind: 'chase', x });
+        else { buyN++; markers.push({ price: money(x.price), kind: 'buy', sub: buyN, x }); }
+      });
       const coreShares = money(st.holdShares);
       const coreCost = money(st.holdCost || st.price);
-      const coreAmt = coreShares * coreCost;
+      if (coreShares > 0) markers.push({ price: coreCost, kind: 'core' });
+      markers.sort((a, b) => b.price - a.price);
 
-      const sellAmts = sells.map(x => money(x.shares) * money(x.price));
-      const buyAmts = buys.map(x => money(x.amount));
-      const maxAmt = Math.max(1, coreAmt, ...sellAmts, ...buyAmts);
-      const widthOf = amt => Math.max(38, Math.min(96, Math.round(money(amt) / maxAmt * 100)));
+      // ---------- 小组件 ----------
+      const badge = (txt, cls) => `<span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 border ${cls}">${txt}</span>`;
+      const trigBadge = (t) => t ? `<span class="text-[9px] px-1 py-0.2 rounded bg-slate-500/15 text-slate-300 border border-slate-500/25 font-sans shrink-0">${t}</span>` : '';
+      const expiryTxt = (x) => {
+        if (!x || !x.createdAt) return '';
+        const days = Math.floor((Date.now() - new Date(x.createdAt).getTime()) / 86400000);
+        const left = 20 - days;
+        if (left < 0) return ' <span class="text-rose-400 font-bold">· 已到期待重估</span>';
+        if (left <= 5) return ` <span class="text-amber-300">· 剩余${left}天</span>`;
+        return '';
+      };
 
-      let html = "";
-      sells.forEach((x, i) => {
-        const isTop = i === 0;
-        html += `
-          <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono ${isTop ? 'bg-rose-500/15 border-rose-500/30' : 'bg-rose-500/10 border-rose-500/30'} text-rose-300 transition active:scale-[0.99]" style="width: ${widthOf(sellAmts[i])}%">
-            <div class="flex items-center gap-1.5 truncate">
-              <span class="font-bold text-rose-400">▲ 止盈${sells.length - i}</span>
-              <span class="text-[11px] text-rose-300 truncate">¥${money(x.price).toFixed(2)} · ${fmt(x.shares)}股</span>
-            </div>
-            <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-rose-500/20 text-rose-300 border border-rose-500/30">${isTop ? '清仓落袋' : '兑现利润'}</span>
-          </div>
-        `;
-      });
-
-      if (coreShares > 0) {
-        html += `
-          <div class="h-9 rounded-xl border-2 border-brand/50 flex items-center justify-between px-3 text-xs font-mono bg-brand/20 text-amber-200 shadow-glow relative ring-1 ring-brand/30 transition active:scale-[0.99]" style="width: ${widthOf(coreAmt)}%">
-            <div class="flex items-center gap-1.5 truncate">
-              <span class="font-bold text-amber-300">■ 底仓锁定</span>
-              <span class="text-[11px] text-amber-100 font-bold truncate">¥${coreCost.toFixed(2)} · ${fmt(coreShares)}股</span>
-            </div>
-            <span class="text-[9px] px-2 py-0.5 rounded font-sans font-bold shrink-0 bg-brand text-slate-950 shadow-sm">核心基准</span>
-          </div>
-        `;
-      }
-
-      buys.forEach((x, i) => {
+      const row = (m) => {
+        const x = m.x || {};
         const done = !!x.exec;
-        html += `
-          <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono ${done ? 'bg-emerald-500/25 border-emerald-400/50' : 'bg-emerald-500/10 border-emerald-500/30'} text-emerald-300 transition active:scale-[0.99]" style="width: ${widthOf(buyAmts[i])}%">
-            <div class="flex items-center gap-1.5 truncate">
-              <span class="font-bold text-emerald-400">▼ 接货${i + 1}</span>
-              <span class="text-[11px] text-emerald-300 truncate">¥${money(x.price).toFixed(2)} · ¥${fmt(x.amount)}</span>
-            </div>
-            <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 ${done ? 'bg-emerald-400 text-slate-950' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'}">${done ? '✓已成交' : '挂单伏击'}</span>
+        let head = '', right = '', note2 = '', cls = '';
+        if (m.kind === 'sell') {
+          cls = 'border-rose-500/30 bg-rose-500/10';
+          head = `<span class="font-bold text-rose-400">▲ 止盈${m.sub}</span><span class="text-rose-200 font-bold">¥${m.price.toFixed(2)}</span>`;
+          right = `<span class="text-rose-300">${fmt(x.shares)}股</span>` + badge(m.top ? '清仓落袋' : '兑现利润', 'bg-rose-500/20 text-rose-300 border-rose-500/30');
+          note2 = x.note || '';
+        } else if (m.kind === 'chase') {
+          cls = 'border-violet-500/30 bg-violet-500/10';
+          head = `<span class="font-bold text-violet-400">▲追 追击</span><span class="text-violet-200 font-bold">¥${m.price.toFixed(2)}</span>`;
+          right = `<span class="text-violet-300">¥${fmt(x.amount)}</span>`
+            + (money(x.chaseTP) > 0 ? `<span class="text-[10px] text-violet-300">→止盈¥${money(x.chaseTP).toFixed(2)}</span>` : '')
+            + trigBadge(x.trigger)
+            + badge(done ? '✓已成交' : '挂单伏击', done ? 'bg-violet-400 text-slate-950 border-violet-400' : 'bg-violet-500/20 text-violet-300 border-violet-500/30');
+          note2 = (x.note || '') + expiryTxt(x);
+        } else if (m.kind === 'buy') {
+          cls = done ? 'border-emerald-400/50 bg-emerald-500/25' : 'border-emerald-500/30 bg-emerald-500/10';
+          head = `<span class="font-bold text-emerald-400">▼ 接货${m.sub}</span><span class="text-emerald-300 font-bold">¥${m.price.toFixed(2)}</span>`;
+          right = `<span class="text-emerald-300">¥${fmt(x.amount)}</span>` + trigBadge(x.trigger)
+            + badge(done ? '✓已成交' : '挂单伏击', done ? 'bg-emerald-400 text-slate-950 border-emerald-400' : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30');
+          note2 = (x.note || '') + expiryTxt(x);
+        } else {
+          const pnl = (cur - coreCost) * coreShares;
+          cls = 'border-2 border-brand/50 bg-brand/20 shadow-glow';
+          head = `<span class="font-bold text-amber-300">■ 底仓</span><span class="text-amber-100 font-bold">¥${coreCost.toFixed(2)} · ${fmt(coreShares)}股</span>`;
+          right = badge('核心基准', 'bg-brand text-slate-950 border-brand');
+          note2 = `浮动${pnl >= 0 ? '盈利' : '亏损'} <span class="${pnl >= 0 ? 'text-rose-400' : 'text-emerald-400'} font-bold">¥${fmt(Math.abs(pnl))}</span>`;
+        }
+        return `<div class="w-full rounded-xl border ${cls} px-3 py-2 transition active:scale-[0.99]">
+          <div class="flex items-center justify-between gap-2 text-xs font-mono">
+            <div class="flex items-center gap-1.5 min-w-0">${head}</div>
+            <div class="flex items-center gap-1.5 shrink-0">${right}</div>
           </div>
-        `;
-      });
+          ${note2 ? `<div class="text-[10px] text-slate-400 mt-1 leading-relaxed">${note2}</div>` : ''}
+        </div>`;
+      };
 
-      html += `
-        <div class="w-[96%] mt-2 pt-2 border-t-2 border-dashed border-rose-500/50 flex items-center justify-between gap-2 px-1 text-rose-400 font-mono text-xs">
-          <div class="flex items-center gap-1 font-bold min-w-0">
-            <span class="material-symbols-outlined text-[15px] shrink-0">error_outline</span>
-            <span class="truncate">绝对失效硬底线 ¥${money(st.failStop).toFixed(2)} · 破位全清认错</span>
+      const priceRow = `<div class="w-full rounded-xl border border-brand/60 bg-brand/15 px-3 py-2 shadow-glow">
+        <div class="flex items-center justify-center gap-2 text-xs font-mono font-bold text-amber-200">
+          <span>━━</span><span>现价 ¥${cur.toFixed(2)}</span><span>━━</span>
+        </div></div>`;
+      const zoneHead = (txt, color) => `<div class="w-full px-1 pt-1"><span class="text-[10px] font-bold ${color}">${txt}</span></div>`;
+
+      let html = '';
+      const ups = markers.filter(m => m.price > cur);
+      const downs = markers.filter(m => m.price <= cur);
+      if (ups.length) { html += zoneHead('▲ 上区 · 兑现 / 动量', 'text-rose-300/80'); ups.forEach(m => { html += row(m); }); }
+      html += priceRow;
+      if (downs.length) { html += zoneHead('▼ 下区 · 价值伏击', 'text-emerald-300/80'); downs.forEach(m => { html += row(m); }); }
+
+      const stopModeTxt = st.stopMode === 'tiered' ? '破位先减半·收盘确认再清' : '破位全清认错';
+      html += `<div class="w-full rounded-xl border border-dashed border-rose-500/50 px-3 py-2 mt-1">
+        <div class="flex items-center justify-between gap-2 text-xs font-mono text-rose-400 font-bold">
+          <span>╌ 失效线 ¥${money(st.failStop).toFixed(2)}</span>
+          <span class="text-[10px] font-sans font-bold">${stopModeTxt}</span>
+        </div></div>`;
+      if (st.trailOn && money(st.trailHigh) > 0) {
+        const trailLine = money(st.trailHigh) * (1 - (Number(st.trailPct) || 8) / 100);
+        html += `<div class="w-full rounded-xl border border-dashed border-sky-500/50 px-3 py-2">
+          <div class="flex items-center justify-between gap-2 text-xs font-mono text-sky-300">
+            <span>📈 移动止盈线 ¥${trailLine.toFixed(2)}</span>
+            ${badge(st.trailHit ? '已触发' : '跟踪中', st.trailHit ? 'bg-rose-500/20 text-rose-300 border-rose-500/30' : 'bg-sky-500/20 text-sky-300 border-sky-500/30')}
           </div>
-          <span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30 shrink-0">单向棘轮</span>
-        </div>
-      `;
+          <div class="text-[10px] text-slate-400 mt-0.5">跟踪最高 ¥${money(st.trailHigh).toFixed(2)} · 回落${Number(st.trailPct) || 8}%触发</div>
+        </div>`;
+      }
+      const p2Avail = (typeof window.p2BuyBudgetAvail === 'function') ? window.p2BuyBudgetAvail(st) : 0;
+      const p2Reserve = (typeof window.p2ReserveCash === 'function') ? window.p2ReserveCash(st) : 0;
+      const p2Planned = (st.buySteps || []).reduce((a, b) => a + money(b.amount), 0);
+      const p2Over = p2Avail > 0 && p2Planned > p2Avail;
+      html += `<div class="w-full rounded-xl border border-surface-border/60 bg-surface-field/60 px-3 py-2">
+        <div class="flex items-center justify-between gap-2 text-[11px] font-mono text-slate-300">
+          <span>🛡 机动 ¥${fmt(p2Reserve)}(${(Number(st.reservePct) || 0)}%) · 买单¥${fmt(p2Planned)}/可用¥${fmt(p2Avail)}</span>
+          ${badge(p2Over ? '⚠超额' : '✓在预算内', p2Over ? 'bg-rose-500/20 text-rose-300 border-rose-500/30' : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30')}
+        </div></div>`;
 
       box.innerHTML = html;
     }
 
     function renderAnalysisView() {
       const st = getActiveStockData();
+      if (!st) return; // P2: 空仓状态保护
       const codeIn = document.getElementById("analysisStockCodeInput");
       if (codeIn) codeIn.value = st.code;
       const tag = document.getElementById("analysisStockDisplayTag");
@@ -1588,14 +1848,17 @@
           </div>
         `).join("");
       }
+      if (typeof window.p2RenderAnalysisExtras === 'function') window.p2RenderAnalysisExtras(st);
     }
 
     function renderExecView() {
       runBrokerDeductionCalc();
+      if (typeof window.p2RenderExecExtras === 'function') window.p2RenderExecExtras();
     }
 
     function renderDripView() {
       const st = getActiveStockData();
+      if (!st) return; // P2: 空仓状态保护
       const evBox = document.getElementById("eventGatesContainer");
       if (evBox && st.events) {
         evBox.innerHTML = st.events.map((e, idx) => `
@@ -1765,12 +2028,17 @@
 
       st.price = parseFloat((st.price - shift).toFixed(2));
       st.failStop = parseFloat((st.failStop * ratio).toFixed(2));
-      st.buySteps.forEach(s => s.price = parseFloat((s.price * ratio).toFixed(2)));
+      st.buySteps.forEach(s => {
+        s.price = parseFloat((s.price * ratio).toFixed(2));
+        if (s.chaseTP > 0) s.chaseTP = parseFloat((s.chaseTP * ratio).toFixed(2)); // P2: 追涨止盈价同步平移
+      });
       st.sellSteps.forEach(s => s.price = parseFloat((s.price * ratio).toFixed(2)));
+      if (st.trailHigh > 0) st.trailHigh = parseFloat((st.trailHigh * ratio).toFixed(2)); // P2: 移动止盈跟踪价同步平移
 
       addAppLog(`【除权平移完成】${st.name} 所有防线等比下移 ${( (1 - ratio)*100 ).toFixed(2)}%`);
       alert("全套挂单与硬止损等比平移成功！");
       renderCurrentView();
+      if (typeof window.p2ScheduleAutoPush === 'function') window.p2ScheduleAutoPush();
     }
 
     function toggleEventGateStatus(idx) {
@@ -1935,9 +2203,20 @@
 
     if (type === 'buy') {
       if (!st.buySteps) st.buySteps = [];
-      st.buySteps.push({ price, amount: val || 20000, note, exec: null });
+      const isChase = !!document.getElementById('stepModalChaseCheck')?.checked;
+      const chaseTp = parseFloat(document.getElementById('stepModalChaseTpInput')?.value) || 0;
+      const trigSel = document.getElementById('stepModalTriggerInput');
+      const step = { price, amount: val || 20000, note, exec: null,
+        trigger: trigSel ? (trigSel.value || '') : '',
+        createdAt: new Date().toISOString().slice(0, 10) };
+      if (isChase) {
+        step.chase = true;
+        step.chaseTP = chaseTp > 0 ? chaseTp : parseFloat((price * 1.15).toFixed(2));
+        step.note = (note ? note + ' ' : '') + '▲追';
+      }
+      st.buySteps.push(step);
       st.buySteps.sort((a, b) => b.price - a.price);
-      addAppLog(`【新增买入档位】${st.name} ¥${price.toFixed(2)} (${note})`);
+      addAppLog(`【新增买入档位】${st.name} ¥${price.toFixed(2)} (${step.note})`);
     } else {
       if (!st.sellSteps) st.sellSteps = [];
       st.sellSteps.push({ price, shares: val || 500, note });
@@ -1949,6 +2228,7 @@
     closeStepCustomModal();
     renderPlanView();
     if (typeof renderDiamondShapeVisual === 'function') renderDiamondShapeVisual(st);
+    if (typeof window.p2ScheduleAutoPush === 'function') window.p2ScheduleAutoPush();
   };
 
   // 3. 快速新建事实词条
@@ -2061,6 +2341,7 @@
         sellSteps: [{ price: 23.00, shares: 500, note: '目标止盈' }],
         events: []
       };
+      if (typeof window.ensureP2StockFields === 'function') window.ensureP2StockFields(AppState.stocks[code]); // P2: 新标的补齐风控字段
       saveAppState();
       switchStock(code);
     }
@@ -2166,11 +2447,13 @@
       return false;
     }
     st.failStop = newFailStop;
+    st.stopHalfDone = false; // P2: 止损线上移后，分级减半状态复位
     saveAppState();
     if (typeof addAppLog === 'function') {
       addAppLog(`[棘轮上移] ${st.name} 硬失效底线抬高锁定至 ¥${newFailStop.toFixed(2)}`);
     }
     if (typeof renderCurrentView === 'function') renderCurrentView();
+    if (typeof window.p2ScheduleAutoPush === 'function') window.p2ScheduleAutoPush();
     return true;
   };
 
@@ -2293,6 +2576,7 @@
       }
     }
     if (typeof renderPlanView === 'function') renderPlanView();
+    if (typeof window.p2ScheduleAutoPush === 'function') window.p2ScheduleAutoPush();
   };
 
   // 8. 模态窗点击背景蒙层直接退出 (Close on Backdrop Click)
@@ -2696,6 +2980,7 @@
     addAppLog(`【真实交割凭证】${st.name} ${type === 'buy' ? '买入' : '卖出'} ${shares}股 @¥${avgPx.toFixed(3)} | ${note}`);
     alert(`✅ 已成功记账入库并更新加权成本 (WAC)！\n\n标的：${st.name} (${st.code})\n类型：${type === 'buy' ? '买入建仓/接货' : '卖出止盈/高抛'}\n成交股数：${shares.toLocaleString()} 股\n实际总额：¥${actualPaid.toFixed(2)}\n${note}`);
     renderCurrentView();
+    if (typeof window.p2ScheduleAutoPush === 'function') window.p2ScheduleAutoPush();
   };
 
   // 3. GitHub Two-Way Sync Functions
@@ -2898,8 +3183,12 @@
     const why = st.why || '无特定长线理由';
     const budget = st.planTotal || 70000;
     const factors = (st.factorCards || []).filter(c => c.enabled).map(c => `【${c.title}】${c.detail}`).join('\n');
+    const p2PyrName = st.pyramidMode === 'down' ? '倒金字塔（越跌买得越少）' : (st.pyramidMode === 'equal' ? '均等分配' : '正金字塔（越跌买得越多）');
+    const p2ReservePct = (st.reservePct === undefined ? 20 : st.reservePct);
+    const p2Avail = Math.round(budget * (1 - p2ReservePct / 100));
+    const p2StopName = st.stopMode === 'tiered' ? '分级止损（破位先减半，收盘确认再清）' : '一次性全清';
 
-    const promptText = `【角色定位】\n你是一位极端苛刻的A股绝对收益交易主理人，信奉“有计划，才等得起”与长线金字塔梯次低吸纪律。\n\n【标的信息】\n标的代码：${st.code}\n标的名称：${st.name}\n当前市价：¥${st.price.toFixed(2)}\n当前持仓：${st.holdShares} 股 (成本 ¥${st.holdCost.toFixed(2)})\n预投资金总额 P：¥${budget}\n失效硬底线(破位认错)：¥${st.failStop.toFixed(2)}\n\n【买入核心灵魂理由 (Why Box)】\n${why}\n\n【客观事实6维研判条件】\n${factors}\n\n【强制输出格式 (Prompt v5 规范)】\n请依据上述客观事实及金字塔低吸原则，严格按以下格式输出四段闭环挂单方案，不要输出多余解释：\n档1｜[触发买入价]｜[金额或比例]｜[技术逻辑依据]\n档2｜[触发买入价]｜[金额或比例]｜[技术逻辑依据]\n档3｜[触发买入价]｜[金额或比例]｜[技术逻辑依据]\n止损｜${st.failStop.toFixed(2)}｜跌破大级别底线全清认错\n盈1｜[触发止盈价]｜[股数或比例]｜[兑现利润逻辑]\n盈2｜[触发止盈价]｜[股数或比例]｜[高估清仓逻辑]`;
+    const promptText = `【角色定位】\n你是一位极端苛刻的A股绝对收益交易主理人，信奉“有计划，才等得起”与长线金字塔梯次低吸纪律。\n\n【标的信息】\n标的代码：${st.code}\n标的名称：${st.name}\n当前市价：¥${st.price.toFixed(2)}\n当前持仓：${st.holdShares} 股 (成本 ¥${st.holdCost.toFixed(2)})\n预投资金总额 P：¥${budget}\n机动资金比例：${p2ReservePct}%（可用买入资金 ¥${p2Avail.toLocaleString()}，剩余为机动预备队）\n金字塔加仓模式：${p2PyrName}\n失效硬底线(破位认错)：¥${st.failStop.toFixed(2)}\n止损执行模式：${p2StopName}\n\n【买入核心灵魂理由 (Why Box)】\n${why}\n\n【客观事实6维研判条件】\n${factors}\n\n【硬约束（违反则方案无效，打回重出）】\n1. 每个买入档必须锚定"⑦关键价位锚点"中的硬价位，偏离超过±3%需单独说明理由\n2. 相邻买入档间距 ≥ 1×ATR(14)\n3. 每个买入档备注末尾必须标注 [触发条件·置信分]，触发条件三选一：缩量企稳 / 放量突破 / 收盘确认；置信度0-100分\n4. 置信度低于60分的档位自动降级为观察，不进入执行计划\n5. 买入档有效期20个交易日，到期未触发需重估\n6. 追涨档（追/突破）必须配独立止盈价，默认为追入价×1.15\n\n【强制输出格式 (Prompt v5 规范)】\n请依据上述客观事实及金字塔低吸原则，严格按以下格式输出四段闭环挂单方案，不要输出多余解释：\n档1｜[触发买入价]｜[金额或比例]｜[技术逻辑依据] [缩量企稳·置信75]\n档2｜[触发买入价]｜[金额或比例]｜[技术逻辑依据] [缩量企稳·置信70]\n档3｜[触发买入价]｜[金额或比例]｜[技术逻辑依据] [收盘确认·置信65]\n追1｜[突破买入价]｜[金额或比例]｜[放量突破逻辑] [放量突破·置信65]\n止损｜${st.failStop.toFixed(2)}｜跌破大级别底线全清认错\n盈1｜[触发止盈价]｜[股数或比例]｜[兑现利润逻辑]\n盈2｜[触发止盈价]｜[股数或比例]｜[高估清仓逻辑]`;
 
     navigator.clipboard.writeText(promptText).then(() => {
       alert('📋 已成功复制【Prompt v5 整合标准提示词】至剪贴板！\n\n可直接粘贴至 DeepSeek / ChatGPT 中进行研判。');
@@ -2956,29 +3245,42 @@
 
     let newBuys = [];
     let newSells = [];
-    lines.forEach(line => {
+    let p2Skipped = 0;
+    const todayStr = new Date().toISOString().slice(0, 10);
+    for (const line of lines) {
       const parts = line.split(/[｜|]/).map(p => p.trim());
       if (parts.length >= 2) {
         const tag = parts[0];
         const px = parseFloat(parts[1]);
         if (!isNaN(px)) {
-          if (tag.includes('档') || tag.includes('买') || tag.includes('接')) {
-            newBuys.push({ price: px, amount: 20000, note: parts[3] || parts[2] || 'AI梯次挂单', exec: null });
+          const rawNote = parts[3] || parts[2] || '';
+          const meta = (typeof window.p2ParseNoteMeta === 'function') ? window.p2ParseNoteMeta(rawNote) : { trigger: '', conf: null };
+          if (tag.includes('追') || tag.includes('突破')) {
+            if (meta.conf !== null && meta.conf < 60) { p2Skipped++; continue; } // P3: 低置信追涨档降级为观察
+            const noteT = rawNote || '向上突破追入';
+            newBuys.push({ price: px, amount: 0, note: noteT + ' ▲追', exec: null, chase: true, chaseTP: parseFloat((px * 1.15).toFixed(2)), trigger: meta.trigger || '放量突破', createdAt: todayStr });
+          } else if (tag.includes('档') || tag.includes('买') || tag.includes('接')) {
+            if (meta.conf !== null && meta.conf < 60) { p2Skipped++; continue; } // P3: 低置信买入档降级为观察
+            newBuys.push({ price: px, amount: 20000, note: rawNote || 'AI梯次挂单', exec: null, trigger: meta.trigger || '缩量企稳', createdAt: todayStr });
           } else if (tag.includes('盈') || tag.includes('卖')) {
-            newSells.push({ price: px, shares: 500, note: parts[3] || parts[2] || '阶梯止盈' });
+            newSells.push({ price: px, shares: 500, note: rawNote || '阶梯止盈' });
           } else if (tag.includes('止损') || tag.includes('底线')) {
             st.failStop = px;
           }
         }
       }
-    });
+    }
 
-    if (newBuys.length > 0) st.buySteps = newBuys.sort((a, b) => b.price - a.price);
+    if (newBuys.length > 0) {
+      st.buySteps = newBuys.sort((a, b) => b.price - a.price);
+      if (typeof window.p2DistributeBuyAmounts === 'function') window.p2DistributeBuyAmounts(st, st.buySteps);
+    }
     if (newSells.length > 0) st.sellSteps = newSells.sort((a, b) => a.price - b.price);
     saveAppState();
-    addAppLog(`【AI方案落地】已将 ${newBuys.length} 档买单与 ${newSells.length} 档止盈套用至 ${st.name}`);
-    alert(`⚡ 成功将 AI 方案套用到【${st.name}】的执行预案中！`);
+    addAppLog(`【AI方案落地】已将 ${newBuys.length} 档买单与 ${newSells.length} 档止盈套用至 ${st.name}${p2Skipped > 0 ? `（${p2Skipped}档置信<60已降级为观察）` : ''}`);
+    alert(`⚡ 成功将 AI 方案套用到【${st.name}】的执行预案中！${p2Skipped > 0 ? `\n其中${p2Skipped}档因置信度<60已降级为观察，未进入执行。` : ''}`);
     renderCurrentView();
+    if (typeof window.p2ScheduleAutoPush === 'function') window.p2ScheduleAutoPush();
   };
 
   // 6. DRIP Cash Injection into Buy Orders
@@ -3005,6 +3307,7 @@
     addAppLog(`【DRIP分红注水】向 ${st.name} 注入买单 ¥${targetPx} (额度 ¥${netCash.toFixed(2)})`);
     alert(`💧 成功将税后分红 ¥${netCash.toFixed(2)} 注入为下一档买入伏击挂单 (@¥${targetPx})！`);
     renderCurrentView();
+    if (typeof window.p2ScheduleAutoPush === 'function') window.p2ScheduleAutoPush();
   };
 
   // Re-sync Token on boot
@@ -3021,4 +3324,390 @@
   // Run Donut immediately
   recalcAndRenderDonut();
 })();
-</script></body></html>
+</script>
+<script id="p2-optimizations">
+(function() {
+'use strict';
+
+/* ================= 0. 数据迁移（老数据无痛升级） ================= */
+const P2_NEW_CARDS = [
+  { id: "anchor", title: "⑦ 关键价位锚点", subtitle: "前高低点、筹码密集峰、MA60/120、缺口、整数关口", enabled: true, detail: "" },
+  { id: "vol", title: "⑧ 波动率与档位间距", subtitle: "ATR(14)、档位间距≥1×ATR、防过密", enabled: true, detail: "" }
+];
+function ensureP2StockFields(st) {
+  if (!st || typeof st !== 'object') return st;
+  if (st.stopMode === undefined) st.stopMode = 'full';          // 'full' 一次性全清 | 'tiered' 分级减半
+  if (st.stopHalfDone === undefined) st.stopHalfDone = false;   // 分级止损是否已执行减半
+  if (st.reservePct === undefined) st.reservePct = 20;          // 机动资金比例 %
+  if (st.pyramidMode === undefined) st.pyramidMode = 'up';       // 'up' 正金字塔 | 'down' 倒金字塔 | 'equal' 均等
+  if (st.trailOn === undefined) st.trailOn = false;             // 移动止盈开关
+  if (st.trailPct === undefined) st.trailPct = 8;               // 移动止盈回调 %
+  if (st.trailHigh === undefined) st.trailHigh = Number(st.price) || 0;
+  if (st.trailHit === undefined) st.trailHit = false;
+  if (Array.isArray(st.factorCards)) {                          // P3: 老数据补⑦⑧维卡片
+    P2_NEW_CARDS.forEach(function(nc) {
+      if (!st.factorCards.some(function(c) { return c.id === nc.id; })) st.factorCards.push(JSON.parse(JSON.stringify(nc)));
+    });
+  }
+  (st.buySteps || []).forEach(function(b) {
+    if (b.chase === undefined) b.chase = false;                 // 是否为向上突破追入档
+    if (b.chaseTP === undefined) b.chaseTP = 0;                 // 追入档独立止盈价
+    if (b.trigger === undefined) b.trigger = '';               // P3: 触发条件（缩量企稳/放量突破/收盘确认）
+    if (b.createdAt === undefined) b.createdAt = '';           // P3: 建档日期（有效期20交易日）
+  });
+  return st;
+}
+window.ensureP2StockFields = ensureP2StockFields;
+
+function p2MigrateAll() {
+  if (typeof AppState === 'undefined' || !AppState.stocks) return;
+  Object.keys(AppState.stocks).forEach(function(k) { ensureP2StockFields(AppState.stocks[k]); });
+  if (AppState.onboarded === undefined) AppState.onboarded = false;
+  if (AppState.autoPush === undefined) AppState.autoPush = true;
+}
+
+/* ================= 1. 通用计算 ================= */
+window.p2BuyBudgetAvail = function(st) {
+  const total = Number(st.planTotal) || 0;
+  const rp = Math.min(80, Math.max(0, Number(st.reservePct) || 0));
+  return total * (1 - rp / 100);
+};
+window.p2ReserveCash = function(st) {
+  const total = Number(st.planTotal) || 0;
+  const rp = Math.min(80, Math.max(0, Number(st.reservePct) || 0));
+  return total * rp / 100;
+};
+window.p2PyramidName = function(m) {
+  return m === 'down' ? '倒金字塔·越跌越少' : (m === 'equal' ? '均等分配' : '正金字塔·越跌越多');
+};
+// P3: 解析备注末尾的 [触发条件·置信分]，如 [缩量企稳·置信75]
+window.p2ParseNoteMeta = function(note) {
+  const out = { trigger: '', conf: null };
+  if (!note) return out;
+  const m = String(note).match(/\[([^\]]*)\]\s*$/);
+  if (!m) return out;
+  const inner = m[1];
+  const cm = inner.match(/(\d{2,3})\s*分/);
+  if (cm) out.conf = Math.min(100, parseInt(cm[1], 10));
+  else { const cm2 = inner.match(/(\d{2,3})/); if (cm2) out.conf = Math.min(100, parseInt(cm2[1], 10)); }
+  if (/缩量/.test(inner)) out.trigger = '缩量企稳';
+  else if (/放量/.test(inner)) out.trigger = '放量突破';
+  else if (/收盘/.test(inner)) out.trigger = '收盘确认';
+  return out;
+};
+// 按金字塔模式分配买单金额（buys 需按价格从高到低排序，序号0=最高价档）
+window.p2DistributeBuyAmounts = function(st, buys) {
+  if (!buys || !buys.length) return;
+  const avail = window.p2BuyBudgetAvail(st);
+  const n = buys.length;
+  const mode = st.pyramidMode || 'up';
+  let weights;
+  if (mode === 'down') weights = buys.map(function(_, i) { return n - i; });
+  else if (mode === 'equal') weights = buys.map(function() { return 1; });
+  else weights = buys.map(function(_, i) { return i + 1; });
+  const sum = weights.reduce(function(a, b) { return a + b; }, 0) || 1;
+  buys.forEach(function(b, i) { b.amount = Math.max(100, Math.round(avail * weights[i] / sum / 100) * 100); });
+  const assigned = buys.reduce(function(a, b) { return a + b.amount; }, 0);
+  buys[buys.length - 1].amount = Math.max(100, buys[buys.length - 1].amount + Math.round((avail - assigned) / 100) * 100);
+};
+
+/* ================= 2. 分级止损 ================= */
+window.p2SetStopMode = function(mode) {
+  const st = getActiveStockData(); if (!st) return;
+  st.stopMode = (mode === 'tiered') ? 'tiered' : 'full';
+  st.stopHalfDone = false;
+  saveAppState();
+  addAppLog('止损模式切换为：' + (st.stopMode === 'tiered' ? '分级减半（破位先减半，收盘确认再清）' : '一次性全清'));
+  if (typeof renderPlanView === 'function') renderPlanView();
+  window.p2ScheduleAutoPush();
+};
+window.p2MarkStopHalfDone = function() {
+  const st = getActiveStockData(); if (!st) return;
+  st.stopHalfDone = true;
+  saveAppState();
+  addAppLog(`【分级止损】${st.name} 破位已减半执行；收盘仍低于 ¥${Number(st.failStop).toFixed(2)} 则全清认错`);
+  alert('已标记减半执行。\n若收盘仍低于失效线，请按纪律全清认错。');
+  if (typeof renderPlanView === 'function') renderPlanView();
+  window.p2ScheduleAutoPush();
+};
+
+/* ================= 3. 机动资金 / 金字塔模式 ================= */
+window.p2SetReservePct = function(v) {
+  const st = getActiveStockData(); if (!st) return;
+  let p = parseFloat(v); if (isNaN(p)) p = 20;
+  st.reservePct = Math.min(80, Math.max(0, p));
+  saveAppState();
+  addAppLog(`机动资金比例设为 ${st.reservePct}%（可用买入 ¥${Math.round(window.p2BuyBudgetAvail(st)).toLocaleString()}）`);
+  window.p2RenderAnalysisExtras(st);
+  window.p2RenderPlanExtras(st);
+  window.p2ScheduleAutoPush();
+};
+window.p2SetPyramidMode = function(m) {
+  const st = getActiveStockData(); if (!st) return;
+  st.pyramidMode = (m === 'down' || m === 'equal') ? m : 'up';
+  saveAppState();
+  addAppLog('金字塔加仓模式切换为：' + window.p2PyramidName(st.pyramidMode) + '（到标的页点钻石图「重算」按新模式分配金额）');
+  window.p2RenderAnalysisExtras(st);
+  window.p2ScheduleAutoPush();
+};
+window.p2Redistribute = function() {
+  const st = getActiveStockData();
+  if (!st || !st.buySteps || !st.buySteps.length) { alert('暂无买入档位可重算'); return; }
+  const avail = window.p2BuyBudgetAvail(st);
+  if (!confirm(`按【${window.p2PyramidName(st.pyramidMode)}】重算 ${st.buySteps.length} 档买单金额？\n可用买入资金 ¥${Math.round(avail).toLocaleString()}（已扣除 ${st.reservePct}% 机动）`)) return;
+  const sorted = st.buySteps.slice().sort(function(a, b) { return b.price - a.price; });
+  window.p2DistributeBuyAmounts(st, sorted);
+  st.buySteps = sorted;
+  saveAppState();
+  addAppLog(`【金额重算】${st.name} 按${window.p2PyramidName(st.pyramidMode)}重算 ${sorted.length} 档买单`);
+  if (typeof renderPlanView === 'function') renderPlanView();
+  window.p2ScheduleAutoPush();
+};
+
+/* ================= 4. 追涨档 ================= */
+window.p2ToggleChaseTpWrap = function(checked) {
+  const w = document.getElementById('p2ChaseTpWrap');
+  if (w) w.classList.toggle('hidden', !checked);
+  if (checked) {
+    const px = parseFloat(document.getElementById('stepModalPriceInput') ? document.getElementById('stepModalPriceInput').value : 0) || 0;
+    const tp = document.getElementById('stepModalChaseTpInput');
+    if (tp && px > 0 && !tp.value) tp.value = (px * 1.15).toFixed(2);
+  }
+};
+(function() {
+  const prev = window.addNewStepPrompt;
+  window.addNewStepPrompt = function(type) {
+    if (typeof prev === 'function') prev(type);
+    const cf = document.getElementById('p2ChaseFields');
+    if (cf) cf.classList.toggle('hidden', type !== 'buy');
+    const tr = document.getElementById('p2TriggerRow');
+    if (tr) tr.classList.toggle('hidden', type !== 'buy');
+    const tsel = document.getElementById('stepModalTriggerInput');
+    if (tsel) tsel.value = '缩量企稳';
+    const chk = document.getElementById('stepModalChaseCheck');
+    if (chk) chk.checked = false;
+    const tp = document.getElementById('stepModalChaseTpInput');
+    if (tp) tp.value = '';
+    window.p2ToggleChaseTpWrap(false);
+  };
+})();
+
+/* ================= 5. 现价更新 · 移动止盈 ================= */
+window.p2UpdateLivePrice = function() {
+  const st = getActiveStockData(); if (!st) return;
+  const inp = document.getElementById('p2LivePriceInput');
+  const px = parseFloat(inp ? inp.value : 0);
+  if (!px || px <= 0 || isNaN(px)) { alert('请输入有效的现价'); return; }
+  st.prevClose = Number(st.price) || px;
+  st.price = px;
+  if (st.trailOn) {
+    if (px > Number(st.trailHigh)) { st.trailHigh = px; st.trailHit = false; }
+    const line = Number(st.trailHigh) * (1 - (Number(st.trailPct) || 8) / 100);
+    if (px < line && !st.trailHit) {
+      st.trailHit = true;
+      addAppLog(`【移动止盈触发】${st.name} 现价 ¥${px.toFixed(2)} 跌破移动止盈线 ¥${line.toFixed(2)}，建议按纪律减仓`);
+      alert(`📉 移动止盈触发！\n现价 ¥${px.toFixed(2)} 已跌破止盈线 ¥${line.toFixed(2)}\n（跟踪最高 ¥${Number(st.trailHigh).toFixed(2)}，回落 ${st.trailPct}%）\n建议按纪律减仓锁定利润。`);
+    }
+  }
+  if (inp) inp.value = '';
+  saveAppState();
+  if (typeof renderCurrentView === 'function') renderCurrentView();
+  window.p2ScheduleAutoPush();
+};
+window.p2ToggleTrail = function(on) {
+  const st = getActiveStockData(); if (!st) return;
+  st.trailOn = !!on;
+  if (st.trailOn && !(Number(st.trailHigh) > 0)) st.trailHigh = Number(st.price) || 0;
+  if (!st.trailOn) st.trailHit = false;
+  saveAppState();
+  addAppLog('移动止盈已' + (st.trailOn ? `开启（跟踪最高 ¥${Number(st.trailHigh).toFixed(2)}，回落 ${st.trailPct}% 触发）` : '关闭'));
+  window.p2RenderPlanExtras(st);
+  window.p2ScheduleAutoPush();
+};
+window.p2SetTrailPct = function(v) {
+  const st = getActiveStockData(); if (!st) return;
+  let p = parseFloat(v); if (isNaN(p)) p = 8;
+  st.trailPct = Math.min(30, Math.max(1, p));
+  saveAppState();
+  window.p2RenderPlanExtras(st);
+  window.p2ScheduleAutoPush();
+};
+
+/* ================= 6. 自动同步 ================= */
+let _p2PushTimer = null;
+let _p2PushRunning = false;
+window.p2ScheduleAutoPush = function() {
+  try {
+    if (typeof AppState === 'undefined' || AppState.autoPush === false) return;
+    const token = AppState.ghToken || localStorage.getItem('dengdeqi_gh_pat');
+    if (!token || typeof window.pushToGitHub !== 'function') return;
+    if (_p2PushTimer) clearTimeout(_p2PushTimer);
+    _p2PushTimer = setTimeout(function() {
+      if (_p2PushRunning) return;
+      _p2PushRunning = true;
+      try {
+        const r = window.pushToGitHub(false);
+        if (r && typeof r.finally === 'function') r.finally(function() { _p2PushRunning = false; });
+        else _p2PushRunning = false;
+      } catch (e) { _p2PushRunning = false; }
+    }, 6000);
+  } catch (e) {}
+};
+window.p2ToggleAutoPush = function(on) {
+  AppState.autoPush = !!on;
+  saveAppState();
+  const t = document.getElementById('p2AutoPushToggle');
+  if (t) t.checked = !!on;
+  if (typeof addAppLog === 'function') addAppLog('GitHub 自动同步已' + (on ? '开启' : '关闭'));
+};
+
+/* ================= 7. 渲染联动 ================= */
+function p2BtnState(id, active, activeCls) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'px-2 py-1 rounded-lg text-[10px] font-bold border transition ' + (active ? activeCls : 'bg-surface-field text-slate-400 border-surface-border hover:text-slate-200');
+}
+window.p2RenderPlanExtras = function(st) {
+  st = st || (typeof getActiveStockData === 'function' ? getActiveStockData() : null);
+  if (!st) return;
+  ensureP2StockFields(st);
+  p2BtnState('p2StopModeFull', st.stopMode !== 'tiered', 'bg-rose-500/20 text-rose-300 border-rose-500/40');
+  p2BtnState('p2StopModeTiered', st.stopMode === 'tiered', 'bg-rose-500/20 text-rose-300 border-rose-500/40');
+  const desc = document.getElementById('p2StopModeDesc');
+  if (desc) desc.textContent = st.stopMode === 'tiered'
+    ? '分级止损：破位先减持一半（点下方按钮标记），若收盘仍低于失效线则全清认错。过滤假破位洗盘。'
+    : '一次性全清：破位后次日竞价全清认错，纪律最刚性。适合看错即走的标的。';
+  const sub = document.getElementById('planFailStopSub');
+  if (sub) sub.textContent = st.stopMode === 'tiered' ? '破位先减半·收盘确认再清' : '破位次日竞价全清认错';
+  let broken = false;
+  try { broken = !!(typeof isStockCircuitBroken === 'function' && isStockCircuitBroken(st.code).broken); } catch (e) {}
+  const act = document.getElementById('p2StopHalfAction');
+  const vText = document.getElementById('planVerdictText');
+  if (broken && st.stopMode === 'tiered' && !st.stopHalfDone) {
+    if (act) act.classList.remove('hidden');
+    if (vText) vText.innerHTML = `⚠️ 现价 ¥${Number(st.price).toFixed(2)} 已跌破硬底线 ¥${Number(st.failStop).toFixed(2)}。【分级止损】请先减持一半，点击下方按钮标记；若收盘仍低于底线则全清认错。`;
+  } else {
+    if (act) act.classList.add('hidden');
+    if (broken && st.stopMode === 'tiered' && st.stopHalfDone && vText) {
+      vText.innerHTML = `已执行减半。若收盘仍低于 ¥${Number(st.failStop).toFixed(2)}，按纪律全清认错，不死扛。`;
+    }
+  }
+  if (st.stopHalfDone && Number(st.price) >= Number(st.failStop)) {
+    st.stopHalfDone = false;
+    try { saveAppState(); } catch (e) {}
+  }
+  const tt = document.getElementById('p2TrailToggle');
+  if (tt) tt.checked = !!st.trailOn;
+  const tp = document.getElementById('p2TrailPctInput');
+  if (tp && document.activeElement !== tp) tp.value = st.trailPct;
+  const ts = document.getElementById('p2TrailStatus');
+  if (ts) {
+    if (st.trailOn && Number(st.trailHigh) > 0) {
+      const line = Number(st.trailHigh) * (1 - (Number(st.trailPct) || 8) / 100);
+      ts.innerHTML = `跟踪最高 ¥${Number(st.trailHigh).toFixed(2)} · 止盈线 ¥${line.toFixed(2)}（回落${st.trailPct}%）· 状态：${st.trailHit ? '<span class="text-rose-400 font-bold">已触发，建议减仓</span>' : '<span class="text-emerald-400">跟踪中</span>'}`;
+    } else if (st.trailOn) {
+      ts.textContent = '已启用，等待跟踪最高价…';
+    } else {
+      ts.textContent = '未启用。开启后将跟踪最高价，回落指定比例即提示减仓，锁定利润。';
+    }
+  }
+};
+window.p2RenderAnalysisExtras = function(st) {
+  st = st || (typeof getActiveStockData === 'function' ? getActiveStockData() : null);
+  if (!st) return;
+  ensureP2StockFields(st);
+  const ri = document.getElementById('p2ReservePctInput');
+  if (ri && document.activeElement !== ri) ri.value = st.reservePct;
+  const ac = document.getElementById('p2AvailCashText');
+  if (ac) ac.textContent = '¥' + Math.round(window.p2BuyBudgetAvail(st)).toLocaleString();
+  const rc = document.getElementById('p2ReserveCashText');
+  if (rc) rc.textContent = '¥' + Math.round(window.p2ReserveCash(st)).toLocaleString();
+  p2BtnState('p2PyrUp', st.pyramidMode === 'up', 'bg-brand/20 text-brand-light border-brand/40');
+  p2BtnState('p2PyrDown', st.pyramidMode === 'down', 'bg-brand/20 text-brand-light border-brand/40');
+  p2BtnState('p2PyrEqual', st.pyramidMode === 'equal', 'bg-brand/20 text-brand-light border-brand/40');
+};
+window.p2RenderExecExtras = function() {
+  const st = (typeof getActiveStockData === 'function') ? getActiveStockData() : null;
+  const el = document.getElementById('p2ExecBreakerLine');
+  if (el && st) el.textContent = `跌破 ¥${Number(st.failStop).toFixed(2)} 禁用买入`;
+};
+
+/* ================= 8. 首次引导 ================= */
+window.p2FinishOnboarding = function(mode) {
+  try {
+    if (mode === 'live') {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      AppState = JSON.parse(JSON.stringify(INITIAL_DATA));
+      AppState.stocks = {};
+      AppState.logs = [];
+      AppState.thesisNotes = [];
+      AppState.tradeLogs = [];
+      AppState.cashReserve = 0;
+    }
+    AppState.onboarded = true;
+    p2MigrateAll();
+    saveAppState();
+  } catch (e) {}
+  const m = document.getElementById('onboardModal');
+  if (m) { m.classList.add('hidden'); m.classList.remove('flex'); }
+  try {
+    if (typeof addAppLog === 'function') addAppLog(mode === 'live' ? '实盘模式启动：已清空演示数据，请在分析页输入代码添加第一只标的' : '演示模式：已载入示例数据，可先熟悉功能');
+    if (mode === 'live' && typeof switchNavTab === 'function') switchNavTab('analysis');
+    else if (typeof renderCurrentView === 'function') renderCurrentView();
+  } catch (e) {}
+};
+
+/* ================= 9. 帮助 ================= */
+window.p2ToggleHelpModal = function() {
+  const m = document.getElementById('helpModal');
+  if (!m) return;
+  if (m.classList.contains('hidden')) { m.classList.remove('hidden'); m.classList.add('flex'); }
+  else { m.classList.add('hidden'); m.classList.remove('flex'); }
+};
+function p2BuildHelp() {
+  const secs = [
+    ['🚀 快速上手（5步）', '① <b>分析页</b>：输入代码、预投资金、机动比例，写 Why Box，勾选8维研判卡（新增⑦关键价位锚点、⑧波动率约束）。<br>② 点「一键生成提示词」，粘贴给 DeepSeek / ChatGPT。<br>③ 把 AI 回复粘贴回来，点「智能解析」→「套用到执行计划」（置信<60的档自动降级）。<br>④ <b>标的页</b>：看价格纵轴图，按计划挂单伏击。<br>⑤ <b>执行页</b>：按券商交割单记账，自动算 WAC 与费用。'],
+    ['📐 三买点与金字塔模式', '默认 <b>正金字塔</b>（越跌买得越多）；保守可选 <b>倒金字塔</b>（越跌买得越少）或 <b>均等</b>。分析页切换模式后，到标的页点「重算」即按新模式分配买单金额（已扣除机动资金）。<br>标的页为<b>价格纵轴图</b>：现价是金色中轴线，上区为兑现/动量（止盈+追击），下区为价值伏击（接货档），底仓成本画虚线，一眼看清全案。'],
+    ['🛡 止损：失效线 + 单向棘轮 + 分级', '每只标的设一条 <b>绝对失效硬底线</b>，只能上调不能下移（棘轮）。破位后买入闸门自动断路。<b>分级止损</b>模式下：破位先减半（点按钮标记），收盘仍低于底线再全清，过滤假破位洗盘。'],
+    ['▲ 向上买（追涨档）', '新增买单时勾选「向上突破追入档」，可配 <b>独立止盈价</b>（默认追入价×1.15）。AI 回复里的「追1/突破」会被自动识别为追涨档，紫色显示在现价上区。追涨只在放量突破 + 事件闸门放行时用。<br>每个买入档可设<b>触发条件</b>（缩量企稳/放量突破/收盘确认），到价+条件满足才执行；买入档有效期20个交易日，到期提醒重估。'],
+    ['📈 移动止盈', '标的页「现价更新」填入最新价后开启。系统跟踪最高价，回落指定比例（如8%）即提示减仓，帮你拿住牛股又不坐过山车。'],
+    ['💰 机动资金', '预投资金中按比例（如20%）预留机动队，不一次性打满。钻石图底部会显示买单总额是否超额，超了会红色预警。'],
+    ['🔄 数据同步与备份', '数据默认存本机浏览器。配好 GitHub Token 后：手动「立即推送」/「拉取云端」，或开启 <b>自动同步</b>（变更后约6秒自动推送）。建议定期用「导出 JSON」再做一份本地备份。'],
+    ['📓 做T纪律衔接', '底仓不动、T仓滚动：15分钟 RSI(14) 到25以下分批买、75以上分批卖，60分钟趋势向上才做正T，每天最多1-2次，预期差价≥1.5%才动手。T 盈亏在执行页记账，自动累计「做T降本」。'],
+    ['⚠️ 风险提示', '本工具只做计划与纪律管理，不构成投资建议。Token 请用 GitHub Fine-grained PAT（仅 contents 读写权限），定期轮换。']
+  ];
+  const body = document.getElementById('helpModalBody');
+  if (!body) return;
+  body.innerHTML = secs.map(function(s) {
+    return '<div class="glass-card rounded-xl p-3 border border-surface-border/60"><div class="font-bold text-slate-100 mb-1.5">' + s[0] + '</div><div class="text-slate-400">' + s[1] + '</div></div>';
+  }).join('');
+}
+
+/* ================= 10. 初始化 ================= */
+p2MigrateAll();
+p2BuildHelp();
+try {
+  const t = document.getElementById('p2AutoPushToggle');
+  if (t) t.checked = AppState.autoPush !== false;
+} catch (e) {}
+try {
+  if (!localStorage.getItem(STORAGE_KEY)) {
+    const m = document.getElementById('onboardModal');
+    if (m) { m.classList.remove('hidden'); m.classList.add('flex'); }
+  }
+} catch (e) {}
+try {
+  const _uab = window.updateAnalysisBudget;
+  if (typeof _uab === 'function') {
+    window.updateAnalysisBudget = function(val) {
+      _uab(val);
+      const st = (typeof getActiveStockData === 'function') ? getActiveStockData() : null;
+      if (st && window.p2RenderAnalysisExtras) window.p2RenderAnalysisExtras(st);
+      window.p2ScheduleAutoPush();
+    };
+  }
+} catch (e) {}
+
+})();
+</script>
+</body></html>
