@@ -1,4 +1,8 @@
-<!DOCTYPE html><html class="dark" lang="zh-CN" style=""><head></head><body class="flex justify-center min-h-screen antialiased overflow-x-hidden selection:bg-brand selection:text-slate-900 bg-[#020b14]"><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg>
+<!DOCTYPE html><html class="dark" lang="zh-CN" style=""><head><style>
+  /* P3: 底部导航激活态加固（不受 Tailwind 生成时序与 sticky hover 影响） */
+  #bottomNav .nav-active, #bottomNav .nav-active .material-symbols-outlined { color: #f59e0b !important; }
+</style>
+</head><body class="flex justify-center min-h-screen antialiased overflow-x-hidden selection:bg-brand selection:text-slate-900 bg-[#020b14]"><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
   <meta content="yes" name="apple-mobile-web-app-capable">
@@ -142,7 +146,7 @@
                 <span class="text-xs font-mono text-slate-400">.00</span>
               </div>
               <div class="flex items-center gap-2 mt-1 w-full">
-                <span class="text-xs font-mono text-rose-400 font-bold tabular-nums">年化 CAGR +18.4%</span>
+                <span class="text-xs font-mono font-bold tabular-nums text-rose-400" id="portfolioCumReturn">累计 +0.0%</span>
                 <span class="text-[11px] text-slate-400">| 累计做T降本 ¥14,200</span>
                 <span class="text-[10px] text-slate-500 ml-auto pl-2 whitespace-nowrap">已连续知行 48 天</span>
               </div>
@@ -337,7 +341,7 @@
               <button class="text-[11px] font-bold text-sky-300 hover:text-sky-200 bg-sky-500/10 border border-sky-500/30 px-2.5 py-1 rounded-xl transition active:scale-95 shadow-sm" onclick="p2Redistribute()" title="按金字塔模式重算买单金额">重算</button>
             </div>
           </div>
-          <div class="p-3.5 rounded-2xl bg-surface-field/70 border border-surface-border flex items-center justify-center" id="diamondBoardLayers">
+          <div class="p-3.5 rounded-2xl bg-surface-field/70 border border-surface-border space-y-2 flex flex-col" id="diamondBoardLayers">
             <div class="text-[11px] text-slate-500 py-6">预案图谱加载中…</div>
           </div>
           <div class="space-y-2" id="pyramidStepsList"></div>
@@ -885,13 +889,13 @@
     </main>
 
     <!-- Bottom Native 5-Tab Navigation Bar -->
-    <nav class="fixed bottom-0 z-50 w-full max-w-[440px] bg-surface/95 backdrop-blur-lg border-t border-surface-border safe-bottom">
+    <nav id="bottomNav" class="fixed bottom-0 z-50 w-full max-w-[440px] bg-surface/95 backdrop-blur-lg border-t border-surface-border safe-bottom">
       <div class="grid grid-cols-5 h-16 items-center px-1">
         <button class="flex flex-col items-center justify-center transition py-1 text-slate-400" id="nav-btn-portfolio" onclick="switchNavTab('portfolio')">
           <span class="material-symbols-outlined text-[22px]">pie_chart</span>
           <span class="text-[10px] font-medium mt-0.5">组合</span>
         </button>
-        <button class="flex flex-col items-center justify-center hover:text-slate-200 transition py-1 text-brand" id="nav-btn-plan" onclick="switchNavTab('plan')">
+        <button class="flex flex-col items-center justify-center transition py-1 text-brand" id="nav-btn-plan" onclick="switchNavTab('plan')">
           <span class="material-symbols-outlined text-[22px]">account_tree</span>
           <span class="text-[10px] font-medium mt-0.5">标的</span>
         </button>
@@ -901,11 +905,11 @@
             <span class="text-[9px] font-black -mt-1">分析</span>
           </button>
         </div>
-        <button class="flex flex-col items-center justify-center hover:text-slate-200 transition py-1 text-slate-400" id="nav-btn-exec" onclick="switchNavTab('exec')">
+        <button class="flex flex-col items-center justify-center transition py-1 text-slate-400" id="nav-btn-exec" onclick="switchNavTab('exec')">
           <span class="material-symbols-outlined text-[22px]">gavel</span>
           <span class="text-[10px] font-medium mt-0.5">执行</span>
         </button>
-        <button class="flex flex-col items-center justify-center hover:text-slate-200 transition py-1 text-slate-400" id="nav-btn-drip" onclick="switchNavTab('drip')">
+        <button class="flex flex-col items-center justify-center transition py-1 text-slate-400" id="nav-btn-drip" onclick="switchNavTab('drip')">
           <span class="material-symbols-outlined text-[22px]">menu_book</span>
           <span class="text-[10px] font-medium mt-0.5">手记</span>
         </button>
@@ -1180,9 +1184,11 @@
         } else {
           if (t === tabKey) {
             btn.classList.add("text-brand");
+            btn.classList.add("nav-active");
             btn.classList.remove("text-slate-400");
           } else {
             btn.classList.remove("text-brand");
+            btn.classList.remove("nav-active");
             btn.classList.add("text-slate-400");
           }
         }
@@ -1335,33 +1341,26 @@
         return `
           <div class="glass-card rounded-2xl p-3 transition hover:border-brand/40 ${isSelected ? 'border-brand/50 bg-surface-sub/80' : 'bg-surface-card/60'}">
             <div class="flex items-center justify-between cursor-pointer" onclick="switchStock('${s.code}'); switchNavTab('plan');">
-              <div class="flex items-center gap-2.5">
+              <div class="flex items-center gap-2.5 min-w-0">
                 <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200 shrink-0">
                   ${s.name.slice(0, 2)}
                 </div>
-                <div>
+                <div class="min-w-0">
                   <div class="flex items-center gap-1.5">
                     <span class="text-xs font-bold text-slate-100">${s.name}</span>
                     <span class="text-[10px] font-mono text-slate-400">${s.code}</span>
-                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full border ${isCore ? 'bg-brand/20 text-brand-light border-brand/40' : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'}">
+                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full border shrink-0 ${isCore ? 'bg-brand/20 text-brand-light border-brand/40' : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'}">
                       ${isCore ? '🟡 核心' : '🟢 压舱'}
                     </span>
                   </div>
-                  <div class="text-[10px] text-slate-400 mt-1 flex items-center gap-1.5 flex-wrap">
-                    <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full ${isCore ? 'bg-brand' : 'bg-emerald-400'}"></span>${isCore ? '弹性进攻' : '低波防守'}</span>
-                    <span>·</span>
-                    <span>持仓 ${s.holdShares.toLocaleString()} 股 · 成本 ¥${s.holdCost.toFixed(2)}</span>
-                    <span>·</span>
-                    <span class="font-mono font-bold ${s.price >= s.holdCost ? 'text-rose-400' : 'text-emerald-400'}">现价 ¥${s.price.toFixed(2)}</span>
-                  </div>
+                  <div class="text-[10px] text-slate-500 mt-1 font-mono truncate">持仓 ${s.holdShares.toLocaleString()}股 · 成本 ¥${s.holdCost.toFixed(2)}</div>
                 </div>
               </div>
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2 shrink-0">
                 <div class="text-right">
-                  <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥${Math.round(val).toLocaleString()}</div>
-                  <div class="text-[10px] font-mono font-semibold tabular-nums mt-0.5 ${profit >= 0 ? 'text-rose-400' : 'text-emerald-400'}">
-                    ${profit >= 0 ? '+' : ''}${profitPct.toFixed(2)}%
-                  </div>
+                  <div class="text-[9px] text-slate-500 leading-none mb-0.5">现价</div>
+                  <div class="text-lg font-mono font-extrabold tabular-nums leading-none ${s.price >= s.holdCost ? 'text-rose-400' : 'text-emerald-400'}">¥${s.price.toFixed(2)}</div>
+                  <div class="text-[10px] font-mono text-slate-400 tabular-nums mt-1">市值 ¥${Math.round(val).toLocaleString()} · <span class="${profit >= 0 ? 'text-rose-400' : 'text-emerald-400'} font-semibold">${profit >= 0 ? '+' : ''}${profitPct.toFixed(2)}%</span></div>
                 </div>
                 <button type="button" onclick="toggleStockRow('${s.code}', event)" class="w-6 h-6 rounded-lg bg-surface-field border border-surface-border flex items-center justify-center text-slate-400 hover:text-brand transition">
                   <span class="material-symbols-outlined text-sm transition-transform duration-200" id="arrow-${s.code}">expand_more</span>
@@ -1381,6 +1380,17 @@
 
       const totalValEl = document.getElementById("portfolioTotalVal");
       if (totalValEl) totalValEl.textContent = Math.round(totalPortfolioVal).toLocaleString();
+      let totalPortfolioCost = 0;
+      stockKeys.forEach(key => {
+        const s = AppState.stocks[key];
+        totalPortfolioCost += (Number(s.holdShares) || 0) * (Number(s.holdCost) || 0);
+      });
+      const cumRet = totalPortfolioCost > 0 ? (totalPortfolioVal - totalPortfolioCost) / totalPortfolioCost : 0;
+      const cumEl = document.getElementById("portfolioCumReturn");
+      if (cumEl) {
+        cumEl.textContent = `累计 ${cumRet >= 0 ? '+' : ''}${(cumRet * 100).toFixed(1)}%`;
+        cumEl.className = 'text-xs font-mono font-bold tabular-nums ' + (cumRet >= 0 ? 'text-rose-400' : 'text-emerald-400');
+      }
       const countEl = document.getElementById("portfolioHoldingsCount");
       if (countEl) countEl.textContent = `(${stockKeys.length}只标的)`;
       renderNetWorthChart(); // P3: 重绘净值曲线
