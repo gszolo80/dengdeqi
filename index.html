@@ -223,7 +223,7 @@
           <div class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-2">
               <h3 class="text-xs font-bold text-slate-300 tracking-wide uppercase">核心标的仓位池</h3>
-              <span class="text-[10px] text-slate-400 font-mono" id="portfolioHoldingsCount">(4只标的)</span>
+              <span class="text-[10px] text-slate-400 font-mono" id="portfolioHoldingsCount">(2只标的)</span>
             </div>
             <button class="text-[10px] text-brand hover:text-brand-light px-2 py-0.5 rounded-lg bg-surface-field border border-surface-border flex items-center gap-0.5 transition active:scale-95" onclick="toggleAllDetails()" type="button">
               <span class="material-symbols-outlined text-[13px]" id="toggleExpandAllHoldingsIcon">unfold_more</span>
@@ -334,68 +334,12 @@
               <button class="text-[11px] font-bold text-brand hover:text-brand-light flex items-center gap-1 bg-brand/10 border border-brand/30 px-2 py-1 rounded-xl transition active:scale-95 shadow-sm" onclick="addNewStepPrompt('buy')">
                 <span class="material-symbols-outlined text-sm">add_circle</span>
               </button>
-              <button class="text-[11px] font-bold text-sky-300 hover:text-sky-200 flex items-center gap-1 bg-sky-500/10 border border-sky-500/30 px-2 py-1 rounded-xl transition active:scale-95 shadow-sm" onclick="p2Redistribute()" title="按金字塔模式重算买单金额">
-                <span class="material-symbols-outlined text-sm">balance</span>重算
-              </button>
+              <button class="text-[11px] font-bold text-sky-300 hover:text-sky-200 bg-sky-500/10 border border-sky-500/30 px-2.5 py-1 rounded-xl transition active:scale-95 shadow-sm" onclick="p2Redistribute()" title="按金字塔模式重算买单金额">重算</button>
             </div>
           </div>
-          <div class="p-3.5 rounded-2xl bg-surface-field/70 border border-surface-border space-y-2 flex flex-col items-center justify-center" id="diamondBoardLayers">
-          <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-rose-500/15 border-rose-500/30 text-rose-300 transition active:scale-[0.99]" style="width: 44%">
-            <div class="flex items-center gap-1.5 truncate">
-              <span class="font-bold text-rose-400">▲ 止盈2</span>
-              <span class="text-[11px] text-rose-300 truncate">¥34.00 · 600股</span>
-            </div>
-            <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-rose-500/20 text-rose-300 border border-rose-500/30">清仓落袋</span>
+          <div class="p-3.5 rounded-2xl bg-surface-field/70 border border-surface-border flex items-center justify-center" id="diamondBoardLayers">
+            <div class="text-[11px] text-slate-500 py-6">预案图谱加载中…</div>
           </div>
-        
-          <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-rose-500/10 border-rose-500/30 text-rose-300 transition active:scale-[0.99]" style="width: 39%">
-            <div class="flex items-center gap-1.5 truncate">
-              <span class="font-bold text-rose-400">▲ 止盈1</span>
-              <span class="text-[11px] text-rose-300 truncate">¥30.00 · 600股</span>
-            </div>
-            <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-rose-500/20 text-rose-300 border border-rose-500/30">兑现利润</span>
-          </div>
-        
-          <div class="h-9 rounded-xl border-2 border-brand/50 flex items-center justify-between px-3 text-xs font-mono bg-brand/20 text-amber-200 shadow-glow relative ring-1 ring-brand/30 transition active:scale-[0.99]" style="width: 96%">
-            <div class="flex items-center gap-1.5 truncate">
-              <span class="font-bold text-amber-300">■ 底仓锁定</span>
-              <span class="text-[11px] text-amber-100 font-bold truncate">¥27.46 · 1,700股</span>
-            </div>
-            <span class="text-[9px] px-2 py-0.5 rounded font-sans font-bold shrink-0 bg-brand text-slate-950 shadow-sm">核心基准</span>
-          </div>
-        
-          <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-emerald-500/10 border-emerald-500/30 text-emerald-300 transition active:scale-[0.99]" style="width: 43%">
-            <div class="flex items-center gap-1.5 truncate">
-              <span class="font-bold text-emerald-400">▼ 接货1</span>
-              <span class="text-[11px] text-emerald-300 truncate">¥25.60 · ¥20,000</span>
-            </div>
-            <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">挂单伏击</span>
-          </div>
-        
-          <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-emerald-500/10 border-emerald-500/30 text-emerald-300 transition active:scale-[0.99]" style="width: 43%">
-            <div class="flex items-center gap-1.5 truncate">
-              <span class="font-bold text-emerald-400">▼ 接货2</span>
-              <span class="text-[11px] text-emerald-300 truncate">¥24.30 · ¥20,000</span>
-            </div>
-            <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">挂单伏击</span>
-          </div>
-        
-          <div class="h-9 rounded-xl border flex items-center justify-between px-3 text-xs font-mono bg-emerald-500/10 border-emerald-500/30 text-emerald-300 transition active:scale-[0.99]" style="width: 64%">
-            <div class="flex items-center gap-1.5 truncate">
-              <span class="font-bold text-emerald-400">▼ 接货3</span>
-              <span class="text-[11px] text-emerald-300 truncate">¥23.20 · ¥30,000</span>
-            </div>
-            <span class="text-[9px] px-1.5 py-0.2 rounded font-sans font-bold shrink-0 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">挂单伏击</span>
-          </div>
-        
-        <div class="w-[96%] mt-2 pt-2 border-t-2 border-dashed border-rose-500/50 flex items-center justify-between gap-2 px-1 text-rose-400 font-mono text-xs">
-          <div class="flex items-center gap-1 font-bold min-w-0">
-            <span class="material-symbols-outlined text-[15px] shrink-0">error_outline</span>
-            <span class="truncate">绝对失效硬底线 ¥22.50 · 破位全清认错</span>
-          </div>
-          <span class="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30 shrink-0">单向棘轮</span>
-        </div>
-      </div>
           <div class="space-y-2" id="pyramidStepsList"></div>
         </div>
 
@@ -1403,10 +1347,12 @@
                       ${isCore ? '🟡 核心' : '🟢 压舱'}
                     </span>
                   </div>
-                  <div class="text-[10px] text-slate-400 mt-1 flex items-center gap-1.5">
+                  <div class="text-[10px] text-slate-400 mt-1 flex items-center gap-1.5 flex-wrap">
                     <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full ${isCore ? 'bg-brand' : 'bg-emerald-400'}"></span>${isCore ? '弹性进攻' : '低波防守'}</span>
                     <span>·</span>
                     <span>持仓 ${s.holdShares.toLocaleString()} 股 · 成本 ¥${s.holdCost.toFixed(2)}</span>
+                    <span>·</span>
+                    <span class="font-mono font-bold ${s.price >= s.holdCost ? 'text-rose-400' : 'text-emerald-400'}">现价 ¥${s.price.toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -1435,6 +1381,8 @@
 
       const totalValEl = document.getElementById("portfolioTotalVal");
       if (totalValEl) totalValEl.textContent = Math.round(totalPortfolioVal).toLocaleString();
+      const countEl = document.getElementById("portfolioHoldingsCount");
+      if (countEl) countEl.textContent = `(${stockKeys.length}只标的)`;
       renderNetWorthChart(); // P3: 重绘净值曲线
     }
 
@@ -2409,6 +2357,11 @@
   document.addEventListener('DOMContentLoaded', function() {
     renderStockSelectorOptions();
     initModalBackdropDismiss();
+    // P3: 启动时按保存的 tab 显示并渲染一次（修复静态占位残留旧样式）
+    try {
+      var bootTab = (typeof AppState !== 'undefined' && AppState.currentTab) || 'portfolio';
+      if (typeof switchNavTab === 'function') switchNavTab(bootTab);
+    } catch (e) {}
   });
   setTimeout(function() {
     renderStockSelectorOptions();
