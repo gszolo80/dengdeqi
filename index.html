@@ -103,9 +103,7 @@
             <span class="relative inline-flex items-center min-w-0">
               <select class="appearance-none bg-transparent font-sans text-[13px] font-bold text-slate-100 outline-none border-none p-0 pr-[21px] bg-none cursor-pointer focus:ring-0 overflow-hidden text-ellipsis whitespace-nowrap max-w-[152px]" id="headerStockSelect" onchange="switchStock(this.value)">
                 <option value="300938">信测标准 (300938)</option>
-                <option value="002555">三七互娱 (002555)</option>
-                <option value="600519">贵州茅台 (600519)</option>
-                <option value="600900">长江电力 (600900)</option>
+                <option value="001979">招商蛇口 (001979)</option>
               </select>
               <svg class="w-3.5 h-3.5 text-slate-400 pointer-events-none absolute right-0 top-1/2 -translate-y-1/2" fill="currentColor" viewBox="0 0 16 16"><path d="M8 11.2 3.2 6.4a.9.9 0 0 1 1.28-1.28L8 8.64l3.52-3.52A.9.9 0 1 1 12.8 6.4L8 11.2z"></path></svg>
             </span>
@@ -233,173 +231,7 @@
             </button>
           </div>
           <div class="space-y-2.5" id="portfolioHoldingList">
-          <div class="glass-card rounded-2xl p-3 transition hover:border-brand/40 border-brand/50 bg-surface-sub/80">
-            <div class="flex items-center justify-between cursor-pointer" onclick="switchStock('300938'); switchNavTab('plan');">
-              <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200 shrink-0">
-                  信测
-                </div>
-                <div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-xs font-bold text-slate-100">信测标准</span>
-                    <span class="text-[10px] font-mono text-slate-400">300938</span>
-                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full border bg-brand/20 text-brand-light border-brand/40">
-                      🟡 核心
-                    </span>
-                  </div>
-                  <div class="text-[10px] text-slate-400 mt-1 flex items-center gap-1.5">
-                    <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span>弹性进攻</span>
-                    <span class="">·</span>
-                    <span class="">持仓 1,700 股 · 成本 ¥27.46</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <div class="text-right">
-                  <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥45,101</div>
-                  <div class="text-[10px] font-mono font-semibold tabular-nums mt-0.5 text-emerald-400">
-                    -3.39%
-                  </div>
-                </div>
-                <button type="button" onclick="toggleStockRow('300938', event)" class="w-6 h-6 rounded-lg bg-surface-field border border-surface-border flex items-center justify-center text-slate-400 hover:text-brand transition">
-                  <span class="material-symbols-outlined text-sm transition-transform duration-200" id="arrow-300938">expand_more</span>
-                </button>
-              </div>
-            </div>
-            <div id="detail-300938" class="stock-detail-section hidden mt-3 pt-2.5 border-t border-surface-border/60 text-xs font-mono space-y-2">
-              <div class="grid grid-cols-3 gap-1.5 text-center bg-surface-card/80 p-2 rounded-xl border border-surface-border/50 text-[11px]">
-                <div><span class="text-[9px] text-slate-400 block">持股市值</span><span class="text-slate-100 font-bold">¥45,101</span></div>
-                <div><span class="text-[9px] text-slate-400 block">浮动盈亏</span><span class="text-emerald-400 font-bold">¥-1,581</span></div>
-                <div><span class="text-[9px] text-slate-400 block">硬失效底线</span><span class="text-rose-400 font-bold">¥22.50</span></div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="glass-card rounded-2xl p-3 transition hover:border-brand/40 bg-surface-card/60">
-            <div class="flex items-center justify-between cursor-pointer" onclick="switchStock('600519'); switchNavTab('plan');">
-              <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200 shrink-0">
-                  贵州
-                </div>
-                <div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-xs font-bold text-slate-100">贵州茅台</span>
-                    <span class="text-[10px] font-mono text-slate-400">600519</span>
-                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full border bg-emerald-500/20 text-emerald-300 border-emerald-500/40">
-                      🟢 压舱
-                    </span>
-                  </div>
-                  <div class="text-[10px] text-slate-400 mt-1 flex items-center gap-1.5">
-                    <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>低波防守</span>
-                    <span class="">·</span>
-                    <span class="">持仓 100 股 · 成本 ¥1420.00</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <div class="text-right">
-                  <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥145,000</div>
-                  <div class="text-[10px] font-mono font-semibold tabular-nums mt-0.5 text-rose-400">
-                    +2.11%
-                  </div>
-                </div>
-                <button type="button" onclick="toggleStockRow('600519', event)" class="w-6 h-6 rounded-lg bg-surface-field border border-surface-border flex items-center justify-center text-slate-400 hover:text-brand transition">
-                  <span class="material-symbols-outlined text-sm transition-transform duration-200" id="arrow-600519">expand_more</span>
-                </button>
-              </div>
-            </div>
-            <div id="detail-600519" class="stock-detail-section hidden mt-3 pt-2.5 border-t border-surface-border/60 text-xs font-mono space-y-2">
-              <div class="grid grid-cols-3 gap-1.5 text-center bg-surface-card/80 p-2 rounded-xl border border-surface-border/50 text-[11px]">
-                <div><span class="text-[9px] text-slate-400 block">持股市值</span><span class="text-slate-100 font-bold">¥145,000</span></div>
-                <div><span class="text-[9px] text-slate-400 block">浮动盈亏</span><span class="text-rose-400 font-bold">+¥3,000</span></div>
-                <div><span class="text-[9px] text-slate-400 block">硬失效底线</span><span class="text-rose-400 font-bold">¥1350.00</span></div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="glass-card rounded-2xl p-3 transition hover:border-brand/40 bg-surface-card/60">
-            <div class="flex items-center justify-between cursor-pointer" onclick="switchStock('600900'); switchNavTab('plan');">
-              <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200 shrink-0">
-                  长江
-                </div>
-                <div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-xs font-bold text-slate-100">长江电力</span>
-                    <span class="text-[10px] font-mono text-slate-400">600900</span>
-                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full border bg-emerald-500/20 text-emerald-300 border-emerald-500/40">
-                      🟢 压舱
-                    </span>
-                  </div>
-                  <div class="text-[10px] text-slate-400 mt-1 flex items-center gap-1.5">
-                    <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>低波防守</span>
-                    <span class="">·</span>
-                    <span class="">持仓 2,000 股 · 成本 ¥28.50</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <div class="text-right">
-                  <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥59,600</div>
-                  <div class="text-[10px] font-mono font-semibold tabular-nums mt-0.5 text-rose-400">
-                    +4.56%
-                  </div>
-                </div>
-                <button type="button" onclick="toggleStockRow('600900', event)" class="w-6 h-6 rounded-lg bg-surface-field border border-surface-border flex items-center justify-center text-slate-400 hover:text-brand transition">
-                  <span class="material-symbols-outlined text-sm transition-transform duration-200" id="arrow-600900">expand_more</span>
-                </button>
-              </div>
-            </div>
-            <div id="detail-600900" class="stock-detail-section hidden mt-3 pt-2.5 border-t border-surface-border/60 text-xs font-mono space-y-2">
-              <div class="grid grid-cols-3 gap-1.5 text-center bg-surface-card/80 p-2 rounded-xl border border-surface-border/50 text-[11px]">
-                <div><span class="text-[9px] text-slate-400 block">持股市值</span><span class="text-slate-100 font-bold">¥59,600</span></div>
-                <div><span class="text-[9px] text-slate-400 block">浮动盈亏</span><span class="text-rose-400 font-bold">+¥2,600</span></div>
-                <div><span class="text-[9px] text-slate-400 block">硬失效底线</span><span class="text-rose-400 font-bold">¥26.50</span></div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="glass-card rounded-2xl p-3 transition hover:border-brand/40 bg-surface-card/60">
-            <div class="flex items-center justify-between cursor-pointer" onclick="switchStock('002555'); switchNavTab('plan');">
-              <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-surface-field border border-surface-border flex items-center justify-center font-bold text-xs text-slate-200 shrink-0">
-                  三七
-                </div>
-                <div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-xs font-bold text-slate-100">三七互娱</span>
-                    <span class="text-[10px] font-mono text-slate-400">002555</span>
-                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded-full border bg-brand/20 text-brand-light border-brand/40">
-                      🟡 核心
-                    </span>
-                  </div>
-                  <div class="text-[10px] text-slate-400 mt-1 flex items-center gap-1.5">
-                    <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span>弹性进攻</span>
-                    <span class="">·</span>
-                    <span class="">持仓 3,200 股 · 成本 ¥17.20</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flex items-center gap-2">
-                <div class="text-right">
-                  <div class="text-xs font-mono font-bold text-slate-100 tabular-nums">¥56,640</div>
-                  <div class="text-[10px] font-mono font-semibold tabular-nums mt-0.5 text-rose-400">
-                    +2.91%
-                  </div>
-                </div>
-                <button type="button" onclick="toggleStockRow('002555', event)" class="w-6 h-6 rounded-lg bg-surface-field border border-surface-border flex items-center justify-center text-slate-400 hover:text-brand transition">
-                  <span class="material-symbols-outlined text-sm transition-transform duration-200" id="arrow-002555">expand_more</span>
-                </button>
-              </div>
-            </div>
-            <div id="detail-002555" class="stock-detail-section hidden mt-3 pt-2.5 border-t border-surface-border/60 text-xs font-mono space-y-2">
-              <div class="grid grid-cols-3 gap-1.5 text-center bg-surface-card/80 p-2 rounded-xl border border-surface-border/50 text-[11px]">
-                <div><span class="text-[9px] text-slate-400 block">持股市值</span><span class="text-slate-100 font-bold">¥56,640</span></div>
-                <div><span class="text-[9px] text-slate-400 block">浮动盈亏</span><span class="text-rose-400 font-bold">+¥1,600</span></div>
-                <div><span class="text-[9px] text-slate-400 block">硬失效底线</span><span class="text-rose-400 font-bold">¥14.50</span></div>
-              </div>
-            </div>
-          </div>
+          <div class="glass-card rounded-2xl p-6 text-center text-[11px] text-slate-500">持仓加载中…</div>
         </div>
         </div>
       </section>
@@ -1308,7 +1140,7 @@
   <!-- JavaScript Application Engine -->
   <script>
     "use strict";
-    const STORAGE_KEY = "dengdeqi_store_v3_clean";
+    const STORAGE_KEY = "dengdeqi_store_v4_live";
 
     const DEFAULT_FACTOR_CARDS = [
       { id: "tech", title: "① 技术面研判", subtitle: "均线金叉死叉、MACD背离、颈线突破、缩量回踩", enabled: true, detail: "周线大级别双底颈线支撑25.60位不破，日线MACD底部金叉底背离，缩量回踩颈线确认支撑" },
@@ -1326,52 +1158,33 @@
       currentTab: "portfolio",
       stocks: {
         "300938": {
-          code: "300938", name: "信测标准", price: 26.53, prevClose: 26.43,
-          holdShares: 1700, holdCost: 27.46, planTotal: 70000, failStop: 22.50,
-          why: "第三方检测需求刚性，近4个季度连续超预期，当前处在估值中枢下方，坚持金字塔梯级守候。",
+          code: "300938", name: "信测标准", price: 27.95, prevClose: 27.95,
+          holdShares: 3000, holdCost: 27.902, planTotal: 150000, failStop: 19.50,
+          why: "第三方检测景气上行，汽车检测放量；中长线持有，15万分批建仓摊低成本。",
           factorCards: JSON.parse(JSON.stringify(DEFAULT_FACTOR_CARDS)),
           buySteps: [
-            { price: 25.60, amount: 20000, note: "颈线回踩试探", exec: null },
-            { price: 24.30, amount: 20000, note: "密集成交区深吸", exec: null },
-            { price: 23.20, amount: 30000, note: "极度低估安全档", exec: null }
+            { price: 25.50, amount: 30600, note: "加仓1200股 [缩量企稳·置信75]", exec: null, trigger: "缩量企稳", createdAt: "2026-10-12" },
+            { price: 23.30, amount: 23300, note: "协议转让价23.13附近加仓1000股 [缩量企稳·置信70]", exec: null, trigger: "缩量企稳", createdAt: "2026-10-12" },
+            { price: 21.00, amount: 12390, note: "最后一档加仓590股 [收盘确认·置信65]", exec: null, trigger: "收盘确认", createdAt: "2026-10-12" }
           ],
-          sellSteps: [
-            { price: 30.00, shares: 600, note: "成本线回本初减" },
-            { price: 34.00, shares: 600, note: "估值修复减半" }
-          ],
+          sellSteps: [],
           events: [
-            { name: "大客户新资质实验室落地", type: "unlock", status: "waiting", note: "落地后激活突破加码批" },
-            { name: "三季报扣非净利转负", type: "kill", status: "waiting", note: "基本面证伪立即熔断" }
+            { name: "三季报业绩证伪", type: "kill", status: "waiting", note: "扣非转负或汽车检测失速即重新评估" }
           ]
         },
-        "002555": {
-          code: "002555", name: "三七互娱", price: 17.70, prevClose: 17.80,
-          holdShares: 3200, holdCost: 17.20, planTotal: 80000, failStop: 14.50,
-          why: "高分红保障，季季分红派息，DRIP滚雪球复利持有。",
+        "001979": {
+          code: "001979", name: "招商蛇口", price: 7.54, prevClose: 7.54,
+          holdShares: 6000, holdCost: 7.215, planTotal: 80000, failStop: 7.00,
+          why: "地产政策底部+蛇口整合预期；分批建仓，有效跌破7.0止损。",
           factorCards: JSON.parse(JSON.stringify(DEFAULT_FACTOR_CARDS)),
           buySteps: [
-            { price: 16.50, amount: 25000, note: "股息支撑线回踩", exec: null },
-            { price: 15.20, amount: 30000, note: "极端恐慌深吸", exec: null }
+            { price: 7.50, amount: 15000, note: "确认守住7.5加2000股 [缩量企稳·置信70]", exec: null, trigger: "缩量企稳", createdAt: "2026-10-12" },
+            { price: 7.10, amount: 14200, note: "7.0-7.2最后防守加仓 [缩量企稳·置信65]", exec: null, trigger: "缩量企稳", createdAt: "2026-10-12" }
           ],
-          sellSteps: [{ price: 20.80, shares: 1500, note: "中枢均线修复减半" }],
-          events: []
-        },
-        "600519": {
-          code: "600519", name: "贵州茅台", price: 1450.00, prevClose: 1445.00,
-          holdShares: 100, holdCost: 1420.00, planTotal: 200000, failStop: 1350.00,
-          why: "高端白酒自由现金流壁垒，长线压舱石配置。",
-          factorCards: JSON.parse(JSON.stringify(DEFAULT_FACTOR_CARDS)),
-          buySteps: [{ price: 1380.00, amount: 138000, note: "现金流支撑一手", exec: null }],
-          sellSteps: [{ price: 1680.00, shares: 50, note: "估值修复减半" }],
-          events: []
-        },
-        "600900": {
-          code: "600900", name: "长江电力", price: 29.80, prevClose: 29.75,
-          holdShares: 2000, holdCost: 28.50, planTotal: 80000, failStop: 26.50,
-          why: "水电印钞机，类永续债属性，极稳底仓防御。",
-          factorCards: JSON.parse(JSON.stringify(DEFAULT_FACTOR_CARDS)),
-          buySteps: [{ price: 28.20, amount: 28200, note: "分红前加码挂单", exec: null }],
-          sellSteps: [{ price: 32.00, shares: 1000, note: "红利阶梯减仓" }],
+          sellSteps: [
+            { price: 8.40, shares: 2000, note: "8.3-8.5减1/3" },
+            { price: 9.20, shares: 2000, note: "9-9.5继续减" }
+          ],
           events: []
         }
       },
@@ -1573,7 +1386,7 @@
         const profit = (s.price - s.holdCost) * s.holdShares;
         const profitPct = s.holdCost > 0 ? (profit / (s.holdCost * s.holdShares)) * 100 : 0;
         const isSelected = key === AppState.activeStock;
-        const isCore = key === "300938" || key === "002555";
+        const isCore = key === "300938" || key === "001979";
 
         return `
           <div class="glass-card rounded-2xl p-3 transition hover:border-brand/40 ${isSelected ? 'border-brand/50 bg-surface-sub/80' : 'bg-surface-card/60'}">
@@ -2865,7 +2678,7 @@
     stockKeys.forEach(k => {
       const s = AppState.stocks[k];
       const val = (Number(s.holdShares) || 0) * (Number(s.price) || 0);
-      if (k === '300938' || k === '002555') {
+      if (k === '300938' || k === '001979') {
         coreVal += val;
       } else {
         anchorVal += val;
