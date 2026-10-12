@@ -147,8 +147,8 @@
               </div>
               <div class="flex items-center gap-2 mt-1 w-full">
                 <span class="text-xs font-mono font-bold tabular-nums text-rose-400" id="portfolioCumReturn">累计 +0.0%</span>
-                <span class="text-[11px] text-slate-400">| 累计做T降本 ¥14,200</span>
-                <span class="text-[10px] text-slate-500 ml-auto pl-2 whitespace-nowrap">已连续知行 48 天</span>
+                
+                
               </div>
             </div>
           </div>
@@ -940,7 +940,7 @@
         <h3 class="font-bold text-base text-slate-100">欢迎使用等得起</h3>
         <p class="text-[11px] text-slate-400 mt-1">有计划 · 才等得起</p>
       </div>
-      <p class="text-xs text-slate-300 leading-relaxed">当前内置的是 <strong class="text-amber-300">演示数据</strong>（如信测标准 1700股@27.46），请选择：</p>
+      <p class="text-xs text-slate-300 leading-relaxed">已预置你的两只实盘标的（信测标准 3000股@27.90、招商蛇口 6000股@7.22），请选择：</p>
       <div class="space-y-2">
         <button onclick="p2FinishOnboarding('live')" class="w-full py-2.5 rounded-xl bg-brand text-slate-950 font-bold text-sm hover:bg-brand-light transition">🧹 清空演示，开始我的实盘记账</button>
         <button onclick="p2FinishOnboarding('demo')" class="w-full py-2.5 rounded-xl bg-surface-sub border border-surface-border text-slate-200 font-bold text-sm hover:text-white transition">👀 先看演示，熟悉功能</button>
@@ -1083,7 +1083,7 @@
         <input type="checkbox" id="p2AutoPushToggle" onchange="p2ToggleAutoPush(this.checked)" class="rounded text-brand focus:ring-0 w-4 h-4 bg-surface-card border-surface-border">
       </label>
     </div>
-  </div><div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="posStrategyModal"><div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5 shadow-2xl"><div class="flex items-center justify-between"><div class="flex items-center gap-2 text-brand"><span class="material-symbols-outlined text-2xl">donut_large</span><h3 class="font-bold text-sm text-slate-100">仓位分布与风控规则设置</h3></div><button class="text-slate-400 hover:text-slate-200 transition" onclick="closePositionStrategyModal()"><span class="material-symbols-outlined text-lg">close</span></button></div><p class="text-xs text-slate-300 leading-relaxed">动态设定全组合底仓锁定中枢与预留伏击现金储备。坚持大分母配置防失控：</p><div class="space-y-2.5"><div class="bg-surface-field/80 p-2.5 rounded-xl border border-surface-border text-xs space-y-2"><div><label class="text-[10px] text-slate-400 block mb-1">伏击备用现金总额设定 (元)</label><div class="relative flex items-center"><span class="absolute left-2 text-xs font-mono text-slate-400">¥</span><input class="w-full bg-surface border border-surface-border rounded-lg text-xs font-mono text-emerald-400 font-bold pl-5 pr-2 py-1.5 outline-none focus:border-brand" id="modalReserveCashInput" step="5000" type="number" value="50000"></div></div><div class="flex justify-between items-center text-[10px] text-slate-400 pt-1 border-t border-surface-border/50"><span class="">底仓锁死比例:</span><span class="font-mono font-bold text-slate-200" id="modalPreviewLockPct">87%</span></div></div></div><div class="grid grid-cols-2 gap-2 pt-1"><button class="py-2 rounded-xl bg-surface-sub border border-surface-border text-slate-300 font-bold text-xs hover:text-white transition" onclick="closePositionStrategyModal()">取消</button><button class="py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition shadow-glow" onclick="savePositionStrategyModal()">保存规则</button></div></div></div><div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="stepCustomModal"><div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5 shadow-2xl"><div class="flex items-center justify-between"><div class="flex items-center gap-2 text-brand"><span class="material-symbols-outlined text-2xl" id="stepModalIcon">add_circle</span><h3 class="font-bold text-sm text-slate-100" id="stepModalTitle">添加金字塔档位</h3></div><button class="text-slate-400 hover:text-slate-200 transition" onclick="closeStepCustomModal()"><span class="material-symbols-outlined text-lg">close</span></button></div><input id="stepModalTypeHidden" type="hidden" value="buy"><div class="space-y-2 text-xs"><div><label class="text-[10px] text-slate-400 block mb-1" id="stepModalPriceLabel">挂单价格 (¥)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-white p-2 outline-none focus:border-brand" id="stepModalPrice" step="0.01" type="number" value="25.00"></div><div><label class="text-[10px] text-slate-400 block mb-1" id="stepModalAmountLabel">规划金额 (¥)</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs font-mono text-amber-300 font-bold p-2 outline-none focus:border-brand" id="stepModalAmount" step="100" type="number" value="20000"></div><div><label class="text-[10px] text-slate-400 block mb-1">理由备注 / 触发节点</label><input class="w-full bg-surface-field border border-surface-border rounded-lg text-xs text-white p-2 outline-none focus:border-brand" id="stepModalNote" placeholder="如: 颈线试探 / 中枢回落" type="text" value="网格梯次部署"></div></div><div class="grid grid-cols-2 gap-2 pt-1"><button class="py-2 rounded-xl bg-surface-sub border border-surface-border text-slate-300 font-bold text-xs" onclick="closeStepCustomModal()">取消</button><button class="py-2 rounded-xl bg-brand text-slate-950 font-bold text-xs hover:bg-brand-light transition shadow-glow" onclick="confirmStepCustomModal()">确认添加</button></div></div></div><div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" id="quickStockModal"><div class="w-full max-w-sm glass-card rounded-2xl p-5 border border-brand/40 space-y-3.5 shadow-2xl"><div class="flex items-center justify-between"><div class="flex items-center gap-2 text-brand"><span class="material-symbols-outlined text-2xl">swap_horiz</span><h3 class="font-bold text-sm text-slate-100">快捷切换研判标的</h3></div><button class="text-slate-400 hover:text-slate-200 transition" onclick="closeQuickStockModal()"><span class="material-symbols-outlined text-lg">close</span></button></div><div class="space-y-2 max-h-60 overflow-y-auto" id="quickStockItemsList"></div></div></div>
+  </div>
 
   <!-- JavaScript Application Engine -->
   <script>
@@ -1475,6 +1475,23 @@
 
       renderDiamondShapeVisual(st);
       if (typeof window.p2RenderPlanExtras === 'function') window.p2RenderPlanExtras(st);
+      // P3: 压力测试行动态计算（原写死 ¥22.50）
+      const wcEl = document.getElementById("planWorstCaseText");
+      if (wcEl) {
+        const fs = Number(st.failStop) || 0;
+        const holdSh = Number(st.holdShares) || 0;
+        const holdCost = Number(st.holdCost) || 0;
+        let addCost = 0, addShares = 0;
+        (st.buySteps || []).forEach(b => {
+          const amt = Number(b.amount) || 0, px = Number(b.price) || 0;
+          if (amt > 0 && px > 0) { addCost += amt; addShares += amt / px; }
+        });
+        const totSh = holdSh + addShares, totCost = holdSh * holdCost + addCost;
+        const avg = totSh > 0 ? totCost / totSh : 0;
+        const maxLoss = Math.max(0, (avg - fs) * totSh);
+        const maxLossPct = totCost > 0 ? (maxLoss / totCost * 100) : 0;
+        wcEl.innerHTML = `若所有分批买单全部接满（共 ${Math.round(totSh).toLocaleString()} 股，均价 ¥${avg.toFixed(2)}）并最终在 <strong class="text-rose-400">¥${fs.toFixed(2)}</strong> 触发破位止损离场，全案最大亏损锁定约 <strong class="text-rose-400">¥${Math.round(maxLoss).toLocaleString()}（${maxLossPct.toFixed(1)}%）</strong>，绝不伤筋动骨。`;
+      }
     }
 
     function renderDiamondShapeVisual(st) {
@@ -1601,6 +1618,8 @@
       if (tag) tag.textContent = `${st.name} · 现价 ¥${st.price.toFixed(2)}`;
       const planIn = document.getElementById("analysisPlanTotalInput");
       if (planIn) planIn.value = st.planTotal || 70000;
+      const firstEst = document.getElementById("analysisFirstBatchEst");
+      if (firstEst) firstEst.textContent = '¥' + Math.round((Number(st.planTotal) || 70000) * 0.3).toLocaleString("zh-CN");
       const whyIn = document.getElementById("aiWhyBoxInput");
       if (whyIn) whyIn.value = st.why || "";
 
